@@ -1,4 +1,3 @@
-// EnemyAIController.cs (COMPLETO E ATUALIZADO PARA F�SICA)
 using UnityEngine;
 using System.Collections;
 
@@ -8,16 +7,20 @@ public class EnemyAIController : MonoBehaviour
     public float wanderSpeed = 2f;
     public float chaseSpeed = 4f;
 
-    [Header("Configura��o de Persegui��o")]
+    [Header("Configuracao de Perseguicao")]
     public float chaseDuration = 10f;
     private Coroutine chaseCoroutine;
 
-    [Header("Refer�ncias")]
+    [Header("Referencias")]
     public Collider2D mapBoundsCollider;
 
-    // --- VARI�VEIS INTERNAS ---
+    [Header("ID do inimigo")]
+    public string enemyID; // Será definido pelo Spawner
+
+    // --- VARIÁVEIS INTERNAS ---
     private Rigidbody2D rb;
     private Transform playerToChase;
+    private SpriteRenderer spriteRenderer;
     private Vector2 moveDirection;
     private Vector2 wanderTarget;
     private Bounds bounds;
@@ -30,9 +33,11 @@ public class EnemyAIController : MonoBehaviour
     }
     private State currentState;
 
+    #region Métodos Unity
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         currentState = State.Wandering;
         currentMoveSpeed = wanderSpeed;
 
@@ -70,15 +75,18 @@ public class EnemyAIController : MonoBehaviour
         }
     }
 
-    // L�gica de movimento (F�sica)
+    // Logica de movimento (Fìsica)
     void FixedUpdate()
     {
         // ANTES: rb.MovePosition(rb.position + moveDirection * currentMoveSpeed * Time.fixedDeltaTime);
-        // DEPOIS: Definimos a velocidade, e deixamos a f�sica cuidar do resto
+        // DEPOIS: Definimos a velocidade, e deixamos a física cuidar do resto
         rb.linearVelocity = moveDirection * currentMoveSpeed;
     }
+    #endregion
 
-    // Chamada pelo DetectionArea para INICIAR a persegui��o
+    #region Sistema de Perseguição
+
+    // Chamada pelo DetectionArea para INICIAR a perseguição
     public void StartChasing(Transform player)
     {
         if (chaseCoroutine != null)
@@ -94,7 +102,7 @@ public class EnemyAIController : MonoBehaviour
         chaseCoroutine = StartCoroutine(ChaseTimerCoroutine());
     }
 
-    // Chamada pelo timer (ou se o jogador sumir) para PARAR a persegui��o
+    // Chamada pelo timer (ou se o jogador sumir) para PARAR a perseguição
     public void StopChasing()
     {
         if (currentState == State.Chasing)
@@ -116,7 +124,7 @@ public class EnemyAIController : MonoBehaviour
         StopChasing();
     }
 
-    // L�gica para encontrar um ponto de passeio V�LIDO dentro do mapa
+    // Lógica para encontrar um ponto de passeio VÁLIDO dentro do mapa
     void PickNewWanderTarget()
     {
         int attempts = 0;
@@ -135,4 +143,33 @@ public class EnemyAIController : MonoBehaviour
         }
         while (!mapBoundsCollider.OverlapPoint(wanderTarget));
     }
+    #endregion
+
+    #region Desaparecimento pós derrota
+
+    public void DefeatOnLoad()
+    {
+        // Começa a corrotina de fade e desativa
+        StartCoroutine(DefeatFadeOut());
+    }
+
+    private IEnumerator DefeatFadeOut()
+    {
+        float fadeDuration = 1f;
+        float elapsedTime = 0f;
+        Color startColor = spriteRenderer.color;
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float newAlpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+            spriteRenderer.color = new Color(startColor.r, startColor.g, startColor.b, newAlpha);
+            yield return null;
+        }
+
+        // Garante opacidade 0 e desativa o objeto
+        spriteRenderer.color = new Color(startColor.r, startColor.g, startColor.b, 0f);
+        gameObject.SetActive(false);
+    }
+    #endregion
 }

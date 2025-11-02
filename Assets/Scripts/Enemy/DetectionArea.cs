@@ -1,4 +1,3 @@
-// DetectionArea.cs
 using UnityEngine;
 
 public class DetectionArea : MonoBehaviour

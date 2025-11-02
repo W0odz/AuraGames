@@ -1,4 +1,3 @@
-// PlayerMovement.cs (COMPLETO E ATUALIZADO PARA F�SICA)
 using UnityEngine;
 using UnityEngine.SceneManagement; // Essencial para trocar de cena
 
@@ -9,51 +8,61 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveInput;
 
-    // Awake � chamado antes do Start
+
+    #region Métodos Unity
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>(); // Pega a refer�ncia do Rigidbody
+        rb = GetComponent<Rigidbody2D>(); // Pega a referência do Rigidbody
     }
 
-// Update � chamado uma vez por frame
-void Update()
-{
-    // Pega o input do teclado (Setas ou WASD)
-    float moveX = Input.GetAxisRaw("Horizontal");
-    float moveY = Input.GetAxisRaw("Vertical");
-
-    // .normalized garante que o movimento na diagonal
-    // n�o seja mais r�pido que o normal.
-    moveInput = new Vector2(moveX, moveY).normalized;
-}
-
-// FixedUpdate � chamado em um intervalo fixo (ideal para f�sica)
-void FixedUpdate()
-{
-    // ANTES: rb.MovePosition(rb.position + moveInput * moveSpeed * Time.fixedDeltaTime);
-    // DEPOIS: Definimos a velocidade, e deixamos a f�sica cuidar do resto
-    rb.linearVelocity = moveInput * moveSpeed;
-}
-
-// Esta fun��o � chamada automaticamente pela Unity
-// quando nosso colisor S�LIDO (do jogador) entra em um colisor "Is Trigger"
-private void OnTriggerEnter2D(Collider2D other)
-{
-    // Verificamos se a coisa que tocamos tem a tag "Enemy"
-    if (other.CompareTag("Enemy"))
+    void Update()
     {
-        // Se sim, inicie a batalha!
-        // Desativa o inimigo na cena de explora��o
-        other.gameObject.SetActive(false);
+        // Pega o input do teclado (Setas ou WASD)
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
 
-        // Carrega a cena de batalha
-        StartBattle();
+        // .normalized garante que o movimento na diagonal
+        // nao seja mais rápido que o normal.
+        moveInput = new Vector2(moveX, moveY).normalized;
     }
-}
 
-private void StartBattle()
-{
-    // Coloque aqui o NOME EXATO da sua cena de batalha
-    SceneManager.LoadScene("BattleScene");
-}
+    // FixedUpdate é chamado em um intervalo fixo (ideal para f�sica)
+    void FixedUpdate()
+    {
+        // ANTES: rb.MovePosition(rb.position + moveInput * moveSpeed * Time.fixedDeltaTime);
+        // DEPOIS: Definimos a velocidade, e deixamos a f�sica cuidar do resto
+        rb.linearVelocity = moveInput * moveSpeed;
+    }
+    #endregion
+
+    // Esta função é chamada automaticamente pela Unity
+    // quando nosso colisor SÓLIDO (do jogador) entra em um colisor "Is Trigger"
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        // Verificamos se a coisa que tocamos tem a tag "Enemy"
+        if (other.CompareTag("Enemy"))
+        {
+            // Pega a IA do inimigo para saber o ID dele
+            EnemyAIController ai = other.GetComponent<EnemyAIController>();
+            if (ai != null)
+            {
+                // Salva qual inimigo estamos lutando
+                GameManager.instance.currentEnemyID = ai.enemyID;
+
+                // Salva de qual cena estamos vindo
+                GameManager.instance.lastExplorationScene = SceneManager.GetActiveScene().name;
+
+                // Inicia a batalha (agora com fade)
+                StartBattle();
+            }
+
+        }
+
+    }
+
+    private void StartBattle()
+    {
+        // Coloque aqui o NOME EXATO da sua cena de batalha
+        GameManager.instance.LoadSceneWithFade("BattleScene");
+    }
 }

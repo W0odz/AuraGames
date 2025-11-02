@@ -1,5 +1,5 @@
-// EnemySpawner.cs (ATUALIZADO)
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -10,6 +10,7 @@ public class EnemySpawner : MonoBehaviour
     // AGORA: Usamos o colisor do mapa como nosso limite
     public Collider2D mapBoundsCollider;
 
+    #region Métodos Unity
     void Start()
     {
         // Se o colisor não foi definido, não podemos continuar
@@ -21,6 +22,7 @@ public class EnemySpawner : MonoBehaviour
 
         SpawnEnemies();
     }
+    #endregion
 
     void SpawnEnemies()
     {
@@ -59,8 +61,19 @@ public class EnemySpawner : MonoBehaviour
             EnemyAIController ai = enemyGO.GetComponent<EnemyAIController>();
             if (ai != null)
             {
-                // Diz à IA qual é o colisor de limites
+                // 1. Define o ID único deste inimigo
+                string id = SceneManager.GetActiveScene().name + "_enemy_" + i;
+                ai.enemyID = id;
+
+                // 2. Define os limites do mapa
                 ai.mapBoundsCollider = mapBoundsCollider;
+
+                // 3. VERIFICA SE JÁ FOI DERROTADO
+                if (GameManager.instance.defeatedEnemyIDs.Contains(id))
+                {
+                    // Se sim, chama a função de fade-out e desativação
+                    ai.DefeatOnLoad();
+                }
             }
         }
     }

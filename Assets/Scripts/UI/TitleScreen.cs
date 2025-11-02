@@ -10,6 +10,6 @@ public class MenuPrincipal : MonoBehaviour
     public void OnPlayButton()
     {
         // Carrega a cena de exploração
-        SceneManager.LoadScene(explorationSceneName);
+        GameManager.instance.LoadSceneWithFade(explorationSceneName);
     }
 }

@@ -31,13 +31,15 @@ public class BattleSystem : MonoBehaviour
     public BattleHUD playerHUD;
     public BattleHUD enemyHUD;
 
-    // Start é chamado antes do primeiro frame
+    #region Métodos Unity
     void Start()
     {
         state = BattleState.START;
         StartCoroutine(SetupBattle());
     }
+    #endregion
 
+    #region Sistema de Batalha
     void SetActionButtons(bool isActive)
     {
         attackButton.interactable = isActive;
@@ -45,7 +47,7 @@ public class BattleSystem : MonoBehaviour
         magicButton.interactable = isActive;
     }
 
-    // Coroutine para configurar a batalha
+    // Corrotina para configurar a batalha
     IEnumerator SetupBattle()
     {
         // Instancia o jogador e o inimigo na cena
@@ -78,6 +80,8 @@ public class BattleSystem : MonoBehaviour
         SetActionButtons(true); // Habilita todos os botões
     }
 
+
+    #region Botões do jogador
     // Esta função será chamada pelo botão de ataque
     public void OnAttackButton()
     {
@@ -136,7 +140,10 @@ public class BattleSystem : MonoBehaviour
         magicMenuPanel.SetActive(false);
         SetActionButtons(true);
     }
+    #endregion
 
+    #region Corrotinas
+    #region Ações do jogador
     IEnumerator PlayerAttack()
     {
         // Desabilita o botão para evitar múltiplos cliques
@@ -157,9 +164,9 @@ public class BattleSystem : MonoBehaviour
         if (isDead)
         {
             state = BattleState.WON;
-            yield return StartCoroutine(enemyUnit.FadeOut());
-            enemyGO.SetActive(false);
-            EndBattle();
+            StartCoroutine(enemyUnit.FadeOut()); // Deixa o fade do inimigo terminar
+            yield return new WaitForSeconds(1.5f); // Espera o fade do inimigo
+            EndBattle(); // Chama o fim
         }
         else
         {
@@ -252,7 +259,7 @@ public class BattleSystem : MonoBehaviour
         state = BattleState.ENEMYTURN;
         StartCoroutine(EnemyTurn());
     }
-
+    #endregion
     IEnumerator EnemyTurn()
     {
         battleLogManager.AddLogMessage($"{enemyUnit.unitName} ataca e causa {enemyUnit.damage} de dano!");
@@ -277,16 +284,26 @@ public class BattleSystem : MonoBehaviour
             PlayerTurn();
         }
     }
+    #endregion
 
     void EndBattle()
     {
         if (state == BattleState.WON)
         {
-            battleLogManager.AddLogMessage("Você venceu a batalha!") ;
+            battleLogManager.AddLogMessage("Você venceu a batalha!");
+
+            // 1. Adiciona o inimigo à lista de derrotados
+            GameManager.instance.defeatedEnemyIDs.Add(GameManager.instance.currentEnemyID);
+
+            // 2. Carrega a cena de exploração com fade
+            GameManager.instance.LoadSceneWithFade(GameManager.instance.lastExplorationScene);
         }
         else if (state == BattleState.LOST)
         {
-            battleLogManager.AddLogMessage("Você foi derrotado.") ;
+            battleLogManager.AddLogMessage("Você foi derrotado.");
+            battleLogManager.AddLogMessage("Você foi derrotado.");
+            // (Vamos implementar o Game Over aqui na próxima etapa)
         }
     }
+    #endregion
 }
