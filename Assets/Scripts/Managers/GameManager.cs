@@ -7,7 +7,42 @@ using System.Collections.Generic; // Para usar Listas
 public class GameManager : MonoBehaviour
 {
     // --- Singleton (O Padrão "Imortal") ---
-    public static GameManager instance;
+    private static GameManager _instance;
+
+    // 2. A "propriedade" pública inteligente
+    public static GameManager instance
+    {
+        get
+        {
+            // Se o _instance ainda não foi definido...
+            if (_instance == null)
+            {
+                // 1. Tenta encontrar um na cena (caso já exista)
+                _instance = FindFirstObjectByType<GameManager>();
+
+                // 2. Se não encontrar NENHUM na cena...
+                if (_instance == null)
+                {
+                    // 3. ...Carrega o prefab da pasta "Resources"
+                    GameObject gmPrefab = Resources.Load<GameObject>("GameManager");
+
+                    if (gmPrefab != null)
+                    {
+                        GameObject gmInstance = Instantiate(gmPrefab);
+                        _instance = gmInstance.GetComponent<GameManager>();
+                    }
+                    else
+                    {
+                        // Se falhar (ex: nome errado ou pasta errada)
+                        Debug.LogError("ERRO FATAL: Prefab 'GameManager' não encontrado na pasta Resources!");
+                    }
+                }
+            }
+
+            // 4. Retorna a instância (que agora é garantido que existe)
+            return _instance;
+        }
+    }
 
     // --- Referências de Fade ---
     public Image fadeImage; // Arraste o FadeImage aqui
@@ -19,6 +54,7 @@ public class GameManager : MonoBehaviour
     public string lastExplorationScene;
 
     [Header("Player Stats & Level")]
+    public string playerName = "Herói"; // O campo para o nome
     public int playerLevel = 1;
     public int currentXP = 0;
     public int xpToNextLevel = 100;
@@ -39,9 +75,9 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         // Configura o Singleton "Imortal"
-        if (instance == null)
+        if (_instance == null)
         {
-            instance = this;
+            _instance = this;
             DontDestroyOnLoad(gameObject);
 
             // Inicia o HP e MP do jogador pela primeira vez
@@ -49,7 +85,7 @@ public class GameManager : MonoBehaviour
             currentMP = maxMP;
 
         }
-        else if (instance != this)
+        else if (_instance != this)
         {
             Destroy(gameObject);
             return;
@@ -107,6 +143,50 @@ public class GameManager : MonoBehaviour
             fadeImage.color = new Color(0, 0, 0, alpha);
             yield return null;
         }
+    }
+    #endregion
+
+    #region Concedimento de Xp
+    // Chamado pelo BattleSystem quando o jogador vence
+    public void GainXP(int xpGained)
+    {
+        currentXP += xpGained;
+
+        // Loop 'while' caso o jogador ganhe XP suficiente para
+        // subir de nível múltiplas vezes de uma vez
+        while (currentXP >= xpToNextLevel)
+        {
+            LevelUp();
+        }
+
+        // (Aqui é onde futuramente chamaremos a UI da barra de XP)
+    }
+
+    private void LevelUp()
+    {
+        // Remove o XP necessário
+        currentXP -= xpToNextLevel;
+        playerLevel++;
+
+        // Calcula o próximo XP necessário (ex: 10% a mais que o anterior)
+        xpToNextLevel = Mathf.FloorToInt(xpToNextLevel * 1.5f);
+
+        // Aumenta os Status!
+        maxHP += 10;
+        maxMP += 5;
+        strength += 2;
+        resistance += 1;
+        will += 2;
+        knowledge += 1;
+        speed += 1;
+        luck += 1;
+
+        // Cura o jogador totalmente ao subir de nível
+        currentHP = maxHP;
+        currentMP = maxMP;
+
+        Debug.Log("LEVEL UP! Nível " + playerLevel);
+        // (Aqui chamaremos a UI de "Level Up!")
     }
     #endregion
 }

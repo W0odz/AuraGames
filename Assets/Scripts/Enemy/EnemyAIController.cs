@@ -34,10 +34,14 @@ public class EnemyAIController : MonoBehaviour
     private State currentState;
 
     #region Métodos Unity
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>(); // Atribuição movida para cá
+    }
+
+    void Start()
+    {
         currentState = State.Wandering;
         currentMoveSpeed = wanderSpeed;
 
@@ -150,26 +154,8 @@ public class EnemyAIController : MonoBehaviour
     public void DefeatOnLoad()
     {
         // Começa a corrotina de fade e desativa
-        StartCoroutine(DefeatFadeOut());
-    }
-
-    private IEnumerator DefeatFadeOut()
-    {
-        float fadeDuration = 1f;
-        float elapsedTime = 0f;
-        Color startColor = spriteRenderer.color;
-
-        while (elapsedTime < fadeDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            float newAlpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
-            spriteRenderer.color = new Color(startColor.r, startColor.g, startColor.b, newAlpha);
-            yield return null;
-        }
-
-        // Garante opacidade 0 e desativa o objeto
-        spriteRenderer.color = new Color(startColor.r, startColor.g, startColor.b, 0f);
         gameObject.SetActive(false);
     }
+
     #endregion
 }

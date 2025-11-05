@@ -3,17 +3,32 @@ using UnityEngine.SceneManagement;
 
 public class EnemySpawner : MonoBehaviour
 {
+    [Header("Configuração de Spawn")]
     public GameObject enemyPrefab;
     public int numberOfEnemies = 5;
 
-    // ANTES: public Rect spawnBounds;
-    // AGORA: Usamos o colisor do mapa como nosso limite
+    [Header("Limites")]
     public Collider2D mapBoundsCollider;
 
+    [Header("Área Segura do Jogador")]
+    public float playerSafeZoneRadius = 5f; // Raio de segurança
+    private Transform playerTransform; // Referência interna ao jogador
+
     #region Métodos Unity
-    void Start()
+    void Awake()
     {
-        // Se o colisor não foi definido, não podemos continuar
+        // Encontra o jogador na cena assim que ela carrega
+        PlayerMovement player = FindFirstObjectByType<PlayerMovement>();
+        if (player != null)
+        {
+            playerTransform = player.transform;
+        }
+        else
+        {
+            Debug.LogError("O Spawner não conseguiu encontrar o Jogador na cena!");
+            return;
+        }
+
         if (mapBoundsCollider == null)
         {
             Debug.LogError("O Spawner precisa de uma referência ao Collider do Mapa (mapBoundsCollider)!");
@@ -86,5 +101,21 @@ public class EnemySpawner : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawWireCube(mapBoundsCollider.bounds.center, mapBoundsCollider.bounds.size);
         }
+        if (playerTransform != null)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(playerTransform.position, playerSafeZoneRadius);
+        }
+        else if (Application.isPlaying == false)
+        {
+            // Tenta desenhar no editor mesmo sem estar jogando
+            PlayerMovement player = FindFirstObjectByType<PlayerMovement>();
+            if (player != null)
+            {
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawWireSphere(player.transform.position, playerSafeZoneRadius);
+            }
+        }
+
     }
 }

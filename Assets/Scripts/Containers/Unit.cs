@@ -4,23 +4,69 @@ using System.Collections;
 public class Unit : MonoBehaviour
 {
     public string unitName;
-    public int damage;
+    public int playerLevel;
 
     public int maxHP;
     public int currentHP;
 
     public int maxMP;
     public int currentMP;
+
+    public int strength;
+    public int resistance;
+    public int will;
+    public int knowledge;
+    public int luck;
+
     public bool isDefending = false;
+
+    public int xpValue = 50;
 
     public SpriteRenderer spriteRenderer;
 
-    // Função para receber dano
-    public bool TakeDamage(int dmg)
+    // Usado pelo BattleSystem para configurar o JOGADOR
+    public void SetupPlayerStats(GameManager gm)
     {
+        unitName = gm.playerName;
+
+        // Puxa todos os stats do GameManager
+        playerLevel = gm.playerLevel; // Embora não usemos level na batalha ainda
+        maxHP = gm.maxHP;
+        maxMP = gm.maxMP;
+        currentHP = gm.currentHP; // Pega o HP atual!
+        currentMP = gm.currentMP;
+        strength = gm.strength;
+        resistance = gm.resistance;
+        will = gm.will;
+        knowledge = gm.knowledge;
+        luck = gm.luck;
+    }
+
+    // Função para receber dano
+    public bool TakeDamage(int dmg, bool isMagic)
+    {
+        int finalDamage = dmg;
+
+        // Aplica a defesa correta
+        if (isMagic)
+        {
+            finalDamage -= knowledge;
+        }
+        else
+        {
+            finalDamage -= resistance;
+        }
+
+        // Se estiver defendendo, reduz pela metade
         if (isDefending)
         {
             dmg /= 2;
+        }
+
+        // Garante que o dano seja pelo menos 1
+        if (finalDamage < 1)
+        {
+            finalDamage = 1;
         }
 
         currentHP -= dmg;

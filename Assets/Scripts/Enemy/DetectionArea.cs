@@ -4,7 +4,7 @@ public class DetectionArea : MonoBehaviour
 {
     private EnemyAIController aiController;
 
-    void Start()
+    void Awake()
     {
         // Pega o script de IA que está no objeto "Pai"
         aiController = GetComponentInParent<EnemyAIController>();
