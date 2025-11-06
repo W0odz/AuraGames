@@ -44,11 +44,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // --- Referências de Fade ---
+    [Header("Dados de Save")]
+    // Esta é a nossa "área de transferência" (clipboard)
+    public static GameData dataToCopy = null;
+
+    [Header("Referências de Fade")]
     public Image fadeImage; // Arraste o FadeImage aqui
     public float fadeSpeed = 1.5f;
 
-    // --- Dados Persistentes do Jogo ---
+    [Header("Dados Persistentes do Jogo")]
+    public int currentSaveSlot = 1; // O slot que está em uso
     public List<string> defeatedEnemyIDs = new List<string>();
     public string currentEnemyID;
     public string lastExplorationScene;
@@ -80,10 +85,6 @@ public class GameManager : MonoBehaviour
             _instance = this;
             DontDestroyOnLoad(gameObject);
 
-            // Inicia o HP e MP do jogador pela primeira vez
-            currentHP = maxHP;
-            currentMP = maxMP;
-
         }
         else if (_instance != this)
         {
@@ -100,10 +101,101 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    # region Funções Públicas de Transição
+    #region Funções de Save
+    public void SetCurrentSlot(int slot)
+    {
+        currentSaveSlot = slot;
+    }
 
-    // Chame isso em vez de SceneManager.LoadScene()
-    public void LoadSceneWithFade(string sceneName)
+    // Carrega os dados do arquivo para o GameManager
+    public void LoadGame(int slot)
+    {
+        GameData data = SaveSystem.LoadGame(slot);
+
+        if (data == null)
+        {
+            Debug.LogWarning("Arquivo de save não encontrado! Carregando novo jogo...");
+            CreateNewGame(); // Se não houver save, cria um novo
+            return;
+        }
+
+        // Copia os dados do arquivo para o GameManager
+        playerName = data.playerName;
+        playerLevel = data.playerLevel;
+        currentXP = data.currentXP;
+        xpToNextLevel = data.xpToNextLevel;
+        currentHP = data.currentHP;
+        currentMP = data.currentMP;
+        maxHP = data.maxHP;
+        maxMP = data.maxMP;
+        strength = data.strength;
+        speed = data.speed;
+        resistance = data.resistance;
+        will = data.will;
+        knowledge = data.knowledge;
+        luck = data.luck;
+        defeatedEnemyIDs = data.defeatedEnemyIDs;
+
+        Debug.Log("Jogo carregado do Slot " + slot);
+    }
+
+    // Cria um novo jogo (usa valores padrão)
+    public void CreateNewGame()
+    {
+        GameData data = new GameData(); // Cria um contêiner com valores padrão
+
+        // Copia os dados padrão para o GameManager
+        playerName = data.playerName;
+        playerLevel = data.playerLevel;
+        currentXP = data.currentXP;
+        xpToNextLevel = data.xpToNextLevel;
+        currentHP = data.currentHP;
+        currentMP = data.currentMP;
+        maxHP = data.maxHP;
+        maxMP = data.maxMP;
+        strength = data.strength;
+        speed = data.speed;
+        resistance = data.resistance;
+        will = data.will;
+        knowledge = data.knowledge;
+        luck = data.luck;
+        defeatedEnemyIDs = data.defeatedEnemyIDs;
+
+        Debug.Log("Novo jogo criado.");
+    }
+
+    // Salva os dados atuais do GameManager em um arquivo
+    public void SaveCurrentGame()
+    {
+        // Cria um novo contêiner
+        GameData data = new GameData();
+
+        // Copia os dados atuais do GameManager para o contêiner
+        data.playerName = playerName;
+        data.playerLevel = playerLevel;
+        data.currentXP = currentXP;
+        data.xpToNextLevel = xpToNextLevel;
+        data.currentHP = currentHP;
+        data.currentMP = currentMP;
+        data.maxHP = maxHP;
+        data.maxMP = maxMP;
+        data.strength = strength;
+        data.speed = speed;
+        data.resistance = resistance;
+        data.will = will;
+        data.knowledge = knowledge;
+        data.luck = luck;
+        data.defeatedEnemyIDs = defeatedEnemyIDs;
+
+        // Manda o SaveSystem gravar o arquivo
+        SaveSystem.SaveGame(data, currentSaveSlot);
+    }
+    #endregion
+
+#region Funções Públicas de Transição
+
+// Chame isso em vez de SceneManager.LoadScene()
+public void LoadSceneWithFade(string sceneName)
     {
         StartCoroutine(FadeToSceneCoroutine(sceneName));
     }
