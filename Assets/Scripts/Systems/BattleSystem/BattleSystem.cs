@@ -358,7 +358,7 @@ public class BattleSystem : MonoBehaviour
             if (xpDisplayPanel != null)
             {
                 xpDisplayPanel.SetActive(true);
-                xpText.text = $"Ganhou {enemyUnit.xpValue} XP!";
+                xpText.text = $"XP Ganho: {enemyUnit.xpValue}";
                 levelText.text = "Nível " + nivelAntes;
 
                 // Configura a barra de XP para o estado ANTES do ganho
