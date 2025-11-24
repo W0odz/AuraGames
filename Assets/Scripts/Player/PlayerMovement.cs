@@ -44,8 +44,23 @@ public class PlayerMovement : MonoBehaviour
         {
             // Pega a IA do inimigo para saber o ID dele
             EnemyAIController ai = other.GetComponent<EnemyAIController>();
+
+            if (ai != null && ai.isPassive)
+            {
+                return; // Sai da função imediatamente
+            }
+
             if (ai != null)
             {
+
+                //Congela tudo imediatamente
+                EnemyAIController.FreezeAllEnemies();
+
+                // Desativa o movimento do PRÓPRIO jogador também
+                // para ele não continuar andando durante o fade
+                this.enabled = false;
+                rb.linearVelocity = Vector2.zero;
+
                 // Salva qual inimigo estamos lutando
                 GameManager.instance.currentEnemyID = ai.enemyID;
 
@@ -65,9 +80,6 @@ public class PlayerMovement : MonoBehaviour
                 // Inicia a batalha (agora com fade)
                 StartBattle();
             }
-
-            // Desativa o inimigo na cena
-            other.gameObject.SetActive(false);
 
         }
 

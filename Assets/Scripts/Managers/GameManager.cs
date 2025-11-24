@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Dados Persistentes do Jogo")]
     public int currentSaveSlot = 1; // O slot que está em uso
+    public List<string> collectedItemIDs = new List<string>();
     public List<string> defeatedEnemyIDs = new List<string>();
     public string currentEnemyID;
     public string lastExplorationScene;
@@ -140,6 +141,7 @@ public class GameManager : MonoBehaviour
         knowledge = data.knowledge;
         luck = data.luck;
         defeatedEnemyIDs = data.defeatedEnemyIDs;
+        collectedItemIDs = data.collectedItemIDs;
 
         Debug.Log("Jogo carregado do Slot " + slot);
     }
@@ -165,6 +167,7 @@ public class GameManager : MonoBehaviour
         knowledge = data.knowledge;
         luck = data.luck;
         defeatedEnemyIDs = data.defeatedEnemyIDs;
+        collectedItemIDs = data.collectedItemIDs;
 
         Debug.Log("Novo jogo criado.");
     }
@@ -191,24 +194,27 @@ public class GameManager : MonoBehaviour
         data.knowledge = knowledge;
         data.luck = luck;
         data.defeatedEnemyIDs = defeatedEnemyIDs;
+        data.collectedItemIDs = collectedItemIDs;
 
         // Manda o SaveSystem gravar o arquivo
         SaveSystem.SaveGame(data, currentSaveSlot);
     }
     #endregion
 
-#region Funções Públicas de Transição
+    #region Funções Públicas de Transição
 
-// Chame isso em vez de SceneManager.LoadScene()
-public void LoadSceneWithFade(string sceneName)
+    // Chame isso em vez de SceneManager.LoadScene()
+    public void LoadSceneWithFade(string sceneName)
     {
         StartCoroutine(FadeToSceneCoroutine(sceneName));
     }
 
     private IEnumerator FadeToSceneCoroutine(string sceneName)
     {
+        bool isGoingToBattle = (sceneName == "BattleScene");
+
         // 1. Fade Out (Escurecer)
-        yield return StartCoroutine(FadeOutCoroutine());
+        yield return StartCoroutine(FadeOutCoroutine(isGoingToBattle));
 
         // 2. Carregar a Cena
         SceneManager.LoadScene(sceneName);
@@ -220,13 +226,38 @@ public void LoadSceneWithFade(string sceneName)
     }
 
     // --- Coroutines de Fade ---
-    private IEnumerator FadeOutCoroutine()
+    private IEnumerator FadeOutCoroutine(bool useZoom)
     {
         float alpha = 0;
+        fadeImage.gameObject.SetActive(true);
+
+        // Variáveis para o Zoom
+        float startSize = 5f; // Valor padrão caso não ache a câmera
+        float targetSize = 2.5f; // Zoom de 50%
+
+        if (useZoom && Camera.main != null)
+        {
+            startSize = Camera.main.orthographicSize;
+            targetSize = startSize * 0.6f; // Define o zoom final (60% do tamanho original)
+        }
+
         while (alpha < 1)
         {
             alpha += Time.deltaTime * fadeSpeed;
+
+            // Aplica a cor preta
             fadeImage.color = new Color(0, 0, 0, alpha);
+
+            // --- LÓGICA DO ZOOM ---
+            if (useZoom && Camera.main != null)
+            {
+                // Mathf.Lerp calcula o valor intermediário entre A e B baseado no tempo (alpha)
+                Camera.main.orthographicSize = Mathf.Lerp(startSize, targetSize, alpha);
+
+                // Opcional: Se você quisesse girar ou mover a câmera, faria aqui também
+            }
+            // ---------------------
+
             yield return null;
         }
     }

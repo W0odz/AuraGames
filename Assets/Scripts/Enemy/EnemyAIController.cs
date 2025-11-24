@@ -3,6 +3,8 @@ using System.Collections;
 
 public class EnemyAIController : MonoBehaviour
 {
+    public bool isPassive = false; // Se marcado, ele só passeia
+
     [Header("Velocidades")]
     public float wanderSpeed = 2f;
     public float chaseSpeed = 4f;
@@ -96,6 +98,9 @@ public class EnemyAIController : MonoBehaviour
     // Chamada pelo DetectionArea para INICIAR a perseguição
     public void StartChasing(Transform player)
     {
+
+        if (isPassive) return; // Se for passivo, ignora o jogador
+
         if (chaseCoroutine != null)
         {
             StopCoroutine(chaseCoroutine);
@@ -160,5 +165,30 @@ public class EnemyAIController : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    #endregion
+
+    #region Congelamento dos inimigos
+    public static void FreezeAllEnemies()
+    {
+        // Encontra todos os scripts de IA ativos na cena
+        EnemyAIController[] allEnemies = FindObjectsByType<EnemyAIController>(FindObjectsSortMode.None);
+
+        foreach (var enemy in allEnemies)
+        {
+            // 1. Desativa o script (para parar de calcular perseguição/passeio)
+            enemy.enabled = false;
+
+            // 2. Para a física imediatamente (para não deslizar)
+            if (enemy.rb != null)
+            {
+                enemy.rb.linearVelocity = Vector2.zero;
+                enemy.rb.bodyType = RigidbodyType2D.Kinematic; // Trava no lugar
+            }
+
+            // 3. Para a animação (opcional, se tiver Animator)
+            // Animator anim = enemy.GetComponent<Animator>();
+            // if(anim) anim.enabled = false;
+        }
+    }
     #endregion
 }

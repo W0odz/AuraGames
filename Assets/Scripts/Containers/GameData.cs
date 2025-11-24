@@ -26,7 +26,8 @@ public class GameData
 
     // Progresso do Jogo
     public List<string> defeatedEnemyIDs;
-    // (Aqui poderíamos adicionar a posição do jogador, itens, etc.)
+
+    public List<string> collectedItemIDs;
 
     // O Construtor (valores padrão para um Jogo Novo)
     public GameData()
@@ -49,5 +50,7 @@ public class GameData
         this.luck = 5;
 
         this.defeatedEnemyIDs = new List<string>();
+
+        this.collectedItemIDs = new List<string>();
     }
 }
