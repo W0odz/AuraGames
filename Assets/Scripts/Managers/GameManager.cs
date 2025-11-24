@@ -63,6 +63,8 @@ public class GameManager : MonoBehaviour
     public List<string> defeatedEnemyIDs = new List<string>();
     public string currentEnemyID;
     public string lastExplorationScene;
+    public Vector3 playerReturnPosition; // Onde o jogador estava
+    public bool isReturningFromBattle;   // Uma "bandeira" para saber se deve usar essa posição
 
     [Header("Player Stats & Level")]
     public string playerName = "Herói"; // O campo para o nome

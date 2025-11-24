@@ -58,6 +58,11 @@ public class BattleSystem : MonoBehaviour
     // Corrotina para configurar a batalha
     IEnumerator SetupBattle()
     {
+        foreach (Transform child in enemyBattleStation)
+        {
+            Destroy(child.gameObject);
+        }
+
         // Instancia o jogador e o inimigo na cena
         GameObject playerGO = Instantiate(playerPrefab, playerBattleStation.position, Quaternion.identity);
         playerUnit = playerGO.GetComponent<Unit>();
@@ -70,10 +75,15 @@ public class BattleSystem : MonoBehaviour
         // Se o GameManager tiver um inimigo definido, use ele!
         if (GameManager.instance.nextBattleEnemyPrefab != null)
         {
+            Debug.Log("BattleSystem: Recebi o inimigo " + GameManager.instance.nextBattleEnemyPrefab.name + " do GameManager.");
             prefabToSpawn = GameManager.instance.nextBattleEnemyPrefab;
         }
+        else
+        {
+            Debug.LogWarning("BattleSystem: Não recebi nenhum inimigo do GameManager! Usando o padrão: " + prefabToSpawn.name);
+        }
 
-        enemyGO = Instantiate(enemyPrefab, enemyBattleStation.position, Quaternion.identity);
+        enemyGO = Instantiate(prefabToSpawn, enemyBattleStation.position, Quaternion.identity);
         enemyUnit = enemyGO.GetComponent<Unit>();
         enemyGO.transform.parent = enemyBattleStation;
 

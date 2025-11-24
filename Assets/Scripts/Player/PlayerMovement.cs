@@ -15,6 +15,19 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>(); // Pega a referência do Rigidbody
     }
 
+    void Start()
+    {
+        // Verifica se o GameManager diz que estamos voltando de uma batalha
+        if (GameManager.instance.isReturningFromBattle)
+        {
+            // Teleporta o jogador para a posição salva
+            transform.position = GameManager.instance.playerReturnPosition;
+
+            // Desliga a "bandeira" (para não teleportar de novo se você salvar/carregar depois)
+            GameManager.instance.isReturningFromBattle = false;
+        }
+    }
+
     void Update()
     {
         // Pega o input do teclado (Setas ou WASD)
@@ -66,6 +79,10 @@ public class PlayerMovement : MonoBehaviour
 
                 // Salva de qual cena estamos vindo
                 GameManager.instance.lastExplorationScene = SceneManager.GetActiveScene().name;
+
+                // Antes de ir para a batalha, salva onde estamos
+                GameManager.instance.playerReturnPosition = transform.position;
+                GameManager.instance.isReturningFromBattle = true;
 
                 // Pega o prefab de batalha do inimigo e manda pro GameManager
                 if (ai.battlePrefab != null)

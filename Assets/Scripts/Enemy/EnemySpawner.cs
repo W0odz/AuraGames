@@ -24,7 +24,13 @@ public class EnemySpawner : MonoBehaviour
     public float playerSafeZoneRadius = 5f;
 
     private Transform playerTransform;
-    private List<GameObject> aliveEnemies = new List<GameObject>();
+
+    // MUDANÇA: Em vez de uma Lista dinâmica, usamos um Array fixo (Slots)
+    // Se enemies[0] for null, o slot 0 está vazio.
+    private GameObject[] enemies;
+
+    // Controla quais slots estão esperando para renascer para não duplicar coroutines
+    private bool[] isRespawning;
 
     void Awake()
     {
@@ -33,6 +39,10 @@ public class EnemySpawner : MonoBehaviour
         else Debug.LogError("Spawner não achou o Jogador!");
 
         if (mapBoundsCollider == null) Debug.LogError("Spawner sem Collider de Mapa!");
+
+        // Inicializa os arrays de slots
+        enemies = new GameObject[numberOfEnemies];
+        isRespawning = new bool[numberOfEnemies];
     }
 
     void Start()
@@ -76,34 +86,58 @@ public class EnemySpawner : MonoBehaviour
         isActive = false;
         if (spawnCoroutine != null) StopCoroutine(spawnCoroutine);
 
-        foreach (GameObject enemy in aliveEnemies)
+        // Destroi os inimigos visuais, mas mantemos a lógica dos slots
+        for (int i = 0; i < enemies.Length; i++)
         {
-            if (enemy != null) Destroy(enemy);
+            if (enemies[i] != null)
+            {
+                Destroy(enemies[i]);
+                enemies[i] = null;
+            }
         }
-        aliveEnemies.Clear();
+        // Nota: Não limpamos o 'isRespawning', pois o tempo continua correndo mesmo longe
     }
 
     IEnumerator SpawnLogicRoutine()
     {
-        while (aliveEnemies.Count < numberOfEnemies)
-        {
-            TrySpawnOneEnemy();
-            yield return null;
-        }
-
         while (isActive)
         {
-            yield return new WaitForSeconds(respawnTime);
-            aliveEnemies.RemoveAll(item => item == null || !item.activeInHierarchy);
-
-            if (aliveEnemies.Count < numberOfEnemies)
+            // Itera por cada "Cadeira" (Slot) disponível
+            for (int i = 0; i < numberOfEnemies; i++)
             {
-                TrySpawnOneEnemy();
+                // Se a cadeira está vazia E não está no meio de um processo de respawn
+                if (enemies[i] == null && !isRespawning[i])
+                {
+                    CheckAndSpawnSlot(i);
+                }
             }
+
+            // Verifica a cada segundo
+            yield return new WaitForSeconds(1f);
         }
     }
 
-    void TrySpawnOneEnemy()
+    void CheckAndSpawnSlot(int slotIndex)
+    {
+        // Gera um ID FIXO baseado no nome da cena, nome do spawner e NÚMERO DO SLOT
+        // Exemplo: "Floresta_SpawnZone_Goblin_Enemy_0"
+        // Esse ID será sempre o mesmo para esse slot, permitindo persistência!
+        string id = SceneManager.GetActiveScene().name + "_" + gameObject.name + "_Enemy_" + slotIndex;
+
+        // Verifica se este ID específico está na lista de mortos
+        if (GameManager.instance.defeatedEnemyIDs.Contains(id))
+        {
+            // Ele está morto! Começa o processo de Respawn
+            StartCoroutine(RespawnTimer(slotIndex, id));
+        }
+        else
+        {
+            // Ele está vivo (não está na lista)! Pode spawnar.
+            SpawnEnemyInSlot(slotIndex, id);
+        }
+    }
+
+    void SpawnEnemyInSlot(int slotIndex, string id)
     {
         Bounds bounds = mapBoundsCollider.bounds;
         Vector2 spawnPosition;
@@ -126,22 +160,19 @@ public class EnemySpawner : MonoBehaviour
 
         } while (!isInsideMap || isTooCloseToPlayer);
 
+        // Cria o inimigo
         GameObject enemyGO = Instantiate(explorationPrefab, spawnPosition, Quaternion.identity);
-        aliveEnemies.Add(enemyGO);
 
-        // --- ATUALIZAÇÃO VISUAL (Sprite + Cor + Escala) ---
+        // Coloca ele no Slot correto do Array
+        enemies[slotIndex] = enemyGO;
 
-        // 1. Copia a Escala (NOVO!)
-        // Aplica a escala do prefab de batalha no inimigo do mundo
-        if (battlePrefab != null)
-        {
-            enemyGO.transform.localScale = battlePrefab.transform.localScale;
-        }
+        // --- CONFIGURAÇÃO VISUAL ---
+        // Configura Escala
+        if (battlePrefab != null) enemyGO.transform.localScale = battlePrefab.transform.localScale;
 
-        // 2. Copia Sprite e Cor
+        // Configura Sprite e Cor
         SpriteRenderer expRend = enemyGO.GetComponent<SpriteRenderer>();
         if (expRend == null) expRend = enemyGO.GetComponentInChildren<SpriteRenderer>();
-
         SpriteRenderer batRend = battlePrefab.GetComponent<SpriteRenderer>();
         if (batRend == null) batRend = battlePrefab.GetComponentInChildren<SpriteRenderer>();
 
@@ -150,17 +181,33 @@ public class EnemySpawner : MonoBehaviour
             expRend.sprite = batRend.sprite;
             expRend.color = batRend.color;
         }
-        // --------------------------------------------------
 
+        // --- CONFIGURAÇÃO IA ---
         EnemyAIController ai = enemyGO.GetComponent<EnemyAIController>();
         if (ai != null)
         {
             ai.battlePrefab = battlePrefab;
-            string uniqueSuffix = System.DateTime.Now.Ticks.ToString() + "_" + Random.Range(0, 1000);
-            string id = SceneManager.GetActiveScene().name + "_" + gameObject.name + "_" + uniqueSuffix;
-            ai.enemyID = id;
+            ai.enemyID = id; // Usa o ID fixo do slot
             ai.mapBoundsCollider = mapBoundsCollider;
         }
+    }
+
+    // Rotina que espera o tempo passar para "reviver" um inimigo morto
+    IEnumerator RespawnTimer(int slotIndex, string id)
+    {
+        isRespawning[slotIndex] = true;
+
+        // Espera o tempo configurado
+        yield return new WaitForSeconds(respawnTime);
+
+        // Remove o ID da lista de mortos do GameManager
+        // Agora, na próxima checagem do loop principal, ele será considerado "vivo" e vai spawnar
+        if (GameManager.instance.defeatedEnemyIDs.Contains(id))
+        {
+            GameManager.instance.defeatedEnemyIDs.Remove(id);
+        }
+
+        isRespawning[slotIndex] = false;
     }
 
     private void OnDrawGizmos()
