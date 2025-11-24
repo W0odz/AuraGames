@@ -65,6 +65,14 @@ public class BattleSystem : MonoBehaviour
         playerUnit.SetupPlayerStats(GameManager.instance);
         playerGO.transform.parent = playerBattleStation;
 
+        GameObject prefabToSpawn = enemyPrefab; // Valor padrão (do inspector)
+
+        // Se o GameManager tiver um inimigo definido, use ele!
+        if (GameManager.instance.nextBattleEnemyPrefab != null)
+        {
+            prefabToSpawn = GameManager.instance.nextBattleEnemyPrefab;
+        }
+
         enemyGO = Instantiate(enemyPrefab, enemyBattleStation.position, Quaternion.identity);
         enemyUnit = enemyGO.GetComponent<Unit>();
         enemyGO.transform.parent = enemyBattleStation;

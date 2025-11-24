@@ -52,9 +52,22 @@ public class PlayerMovement : MonoBehaviour
                 // Salva de qual cena estamos vindo
                 GameManager.instance.lastExplorationScene = SceneManager.GetActiveScene().name;
 
+                // Pega o prefab de batalha do inimigo e manda pro GameManager
+                if (ai.battlePrefab != null)
+                {
+                    GameManager.instance.nextBattleEnemyPrefab = ai.battlePrefab;
+                }
+                else
+                {
+                    Debug.LogError("O inimigo de exploração não tem um Battle Prefab configurado!");
+                }
+
                 // Inicia a batalha (agora com fade)
                 StartBattle();
             }
+
+            // Desativa o inimigo na cena
+            other.gameObject.SetActive(false);
 
         }
 

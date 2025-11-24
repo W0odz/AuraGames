@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
                     {
                         GameObject gmInstance = Instantiate(gmPrefab);
                         _instance = gmInstance.GetComponent<GameManager>();
+                        _instance.currentHP = _instance.maxHP;
+                        _instance.currentMP = _instance.maxMP;
                     }
                     else
                     {
@@ -51,6 +53,9 @@ public class GameManager : MonoBehaviour
     [Header("Referências de Fade")]
     public Image fadeImage; // Arraste o FadeImage aqui
     public float fadeSpeed = 1.5f;
+
+    [Header("Transição de Batalha")]
+    public GameObject nextBattleEnemyPrefab; // O prefab que será spawnado na batalha
 
     [Header("Dados Persistentes do Jogo")]
     public int currentSaveSlot = 1; // O slot que está em uso

@@ -4,8 +4,9 @@ using UnityEngine.SceneManagement;
 public class EnemySpawner : MonoBehaviour
 {
     [Header("Configuração de Spawn")]
-    public GameObject enemyPrefab;
     public int numberOfEnemies = 5;
+    public GameObject explorationPrefab; // O boneco genérico (Verde/Azul)
+    public GameObject battlePrefab;      // O monstro real (Goblin/Esqueleto)
 
     [Header("Limites")]
     public Collider2D mapBoundsCollider;
@@ -71,11 +72,13 @@ public class EnemySpawner : MonoBehaviour
             if (attempts > 50) continue; // Pula para o próximo inimigo no 'for'
 
             // Cria o inimigo
-            GameObject enemyGO = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+            GameObject enemyGO = Instantiate(explorationPrefab, spawnPosition, Quaternion.identity);
 
             EnemyAIController ai = enemyGO.GetComponent<EnemyAIController>();
             if (ai != null)
             {
+                ai.battlePrefab = battlePrefab;
+
                 // 1. Define o ID único deste inimigo
                 string id = SceneManager.GetActiveScene().name + "_enemy_" + i;
                 ai.enemyID = id;

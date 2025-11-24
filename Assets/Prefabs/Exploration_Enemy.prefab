@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7128903590872561359}
   - component: {fileID: 3834523196645099765}
   - component: {fileID: 7961359406089232066}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DetectionArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 6699482827347619913}
   - component: {fileID: -6274137052180153990}
   - component: {fileID: 3349280894099777274}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Exploration_Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -293,3 +293,4 @@ MonoBehaviour:
   chaseSpeed: 4
   chaseDuration: 10
   mapBoundsCollider: {fileID: 0}
+  enemyID: 

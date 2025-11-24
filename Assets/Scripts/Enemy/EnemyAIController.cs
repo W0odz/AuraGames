@@ -7,6 +7,9 @@ public class EnemyAIController : MonoBehaviour
     public float wanderSpeed = 2f;
     public float chaseSpeed = 4f;
 
+    [Header("Identidade de Batalha")]
+    public GameObject battlePrefab; // Qual inimigo eu sou na batalha?
+
     [Header("Configuracao de Perseguicao")]
     public float chaseDuration = 10f;
     private Coroutine chaseCoroutine;
