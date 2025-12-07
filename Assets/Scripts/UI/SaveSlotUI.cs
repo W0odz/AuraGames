@@ -15,6 +15,9 @@ public class SaveSlotUI : MonoBehaviour
     public Button copyButton;
     public Button eraseButton;
 
+    [Header("Referências Externas")]
+    public NameInputPopup namePopup;
+
     private void Start()
     {
         RefreshUI();
@@ -71,11 +74,16 @@ public class SaveSlotUI : MonoBehaviour
         // 2. Decide a ação
         if (SaveSystem.SaveFileExists(slotID))
         {
-            // --- Carregar Jogo Existente ---
+           // 1. Carrega os dados (isso preenche 'sceneToLoad' no GameManager)
             GameManager.instance.LoadGame(slotID);
+            
+            // 2. Carrega a cena correta que estava no save
+            string cenaParaCarregar = GameManager.instance.sceneToLoad;
+            
+            // Segurança: Se por algum motivo estiver vazio, vai pra Exploration
+            if (string.IsNullOrEmpty(cenaParaCarregar)) cenaParaCarregar = "ExplorationScene";
 
-            // Carrega a cena de exploração
-            GameManager.instance.LoadSceneWithFade("ExplorationScene");
+            GameManager.instance.LoadSceneWithFade(cenaParaCarregar);
         }
         else if (GameManager.dataToCopy != null)
         {
@@ -90,11 +98,14 @@ public class SaveSlotUI : MonoBehaviour
         }
         else
         {
-            // --- Criar Jogo Novo ---
-            GameManager.instance.CreateNewGame();
-
-            // Carrega a cena de exploração
-            GameManager.instance.LoadSceneWithFade("ExplorationScene");
+            if (namePopup != null)
+            {
+                namePopup.OpenPopup(slotID);
+            }
+            else
+            {
+                Debug.LogError("ERRO: Arraste o NameInputPanel para o campo 'Name Popup' no Inspector do SaveSlotUI!");
+            }
         }
     }
 

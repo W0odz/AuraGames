@@ -2,31 +2,50 @@ using UnityEngine;
 
 public class TurnIndicator : MonoBehaviour
 {
-    private Transform target; // O alvo (jogador ou inimigo)
-    public Vector3 offset = new Vector3(0, 1.5f, 0); // Quão acima do alvo a seta deve ficar
+    [Header("Configurações")]
+    public Vector3 offset = new Vector3(0, 1.5f, 0); // Altura acima da cabeça
+    public Color playerTurnColor = Color.cyan;
+    public Color enemyTurnColor = Color.red;
+
+    private Transform target;
+    private SpriteRenderer spriteRenderer;
+
+    void Awake()
+    {
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        // Se não achar no filho, tenta no próprio objeto (fallback)
+        if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     void Update()
     {
-        // Se tivermos um alvo, siga a posição X e Y dele
+        // Segue o alvo se ele existir
         if (target != null)
         {
-            // Usamos só X e Z se for 3D, ou X e Y se for 2D. 
-            // Para sua câmera 2D, X e Y está correto.
             transform.position = target.position + offset;
         }
     }
 
-    // Função para definir o alvo
-    public void SetTarget(Transform newTarget)
+    // Função chamada pelo BattleSystem
+    public void SetTarget(Transform newTarget, bool isPlayerTurn)
     {
         target = newTarget;
-        gameObject.SetActive(true); // Mostra a seta
+
+        // Troca a cor dependendo de quem é a vez
+        if (spriteRenderer != null)
+        {
+            if (isPlayerTurn)
+                spriteRenderer.color = playerTurnColor;
+            else
+                spriteRenderer.color = enemyTurnColor;
+        }
+
+        gameObject.SetActive(true); // Mostra o indicador
     }
 
-    // Função para esconder
     public void Hide()
     {
         target = null;
-        gameObject.SetActive(false); // Esconde a seta
+        gameObject.SetActive(false); // Esconde o indicador
     }
 }

@@ -3,73 +3,62 @@ using System.Collections;
 
 public class Unit : MonoBehaviour
 {
+    [Header("Identidade")]
     public string unitName;
     public int playerLevel;
 
+    [Header("Recursos")]
     public int maxHP;
     public int currentHP;
-
     public int maxMP;
     public int currentMP;
 
+    [Header("Atributos")]
     public int strength;
     public int resistance;
     public int will;
     public int knowledge;
+    public int speed;
     public int luck;
 
+    [Header("Estado")]
     public bool isDefending = false;
-
-    public int xpValue = 50;
+    public int xpValue = 0; // XP que o inimigo dá ao morrer
 
     public SpriteRenderer spriteRenderer;
 
-    // Usado pelo BattleSystem para configurar o JOGADOR
+    // Puxa os dados do GameManager para preencher a ficha do Jogador
     public void SetupPlayerStats(GameManager gm)
     {
         unitName = gm.playerName;
+        playerLevel = gm.playerLevel;
 
-        // Puxa todos os stats do GameManager
-        playerLevel = gm.playerLevel; // Embora não usemos level na batalha ainda
         maxHP = gm.maxHP;
         maxMP = gm.maxMP;
-        currentHP = gm.currentHP; // Pega o HP atual!
+        currentHP = gm.currentHP;
         currentMP = gm.currentMP;
+
         strength = gm.strength;
         resistance = gm.resistance;
         will = gm.will;
         knowledge = gm.knowledge;
+        speed = gm.speed;
         luck = gm.luck;
+
+        xpValue = 0; // Jogador não dá XP
+
+        // Segurança: Se a vida vier zerada, cura.
+        if (currentHP <= 0)
+        {
+            currentHP = maxHP;
+            gm.currentHP = maxHP;
+        }
     }
 
-    // Função para receber dano
-    public bool TakeDamage(int dmg, bool isMagic)
+    // Recebe o dano já calculado (Ataque - Defesa) e aplica
+    public bool TakeDamage(int finalDamage)
     {
-        int finalDamage = dmg;
-
-        // Aplica a defesa correta
-        if (isMagic)
-        {
-            finalDamage -= knowledge;
-        }
-        else
-        {
-            finalDamage -= resistance;
-        }
-
-        // Se estiver defendendo, reduz pela metade
-        if (isDefending)
-        {
-            dmg /= 2;
-        }
-
-        // Garante que o dano seja pelo menos 1
-        if (finalDamage < 1)
-        {
-            finalDamage = 1;
-        }
-
-        currentHP -= dmg;
+        currentHP -= finalDamage;
 
         if (currentHP <= 0)
         {
@@ -78,9 +67,10 @@ public class Unit : MonoBehaviour
         }
         else
         {
-            return false; // Continua vivo
+            return false; // Vivo
         }
     }
+
     public void Heal(int amount)
     {
         currentHP += amount;
@@ -90,29 +80,22 @@ public class Unit : MonoBehaviour
         }
     }
 
+    // Animação de morte (Fade Out)
     public IEnumerator FadeOut()
     {
-        float fadeDuration = 1f; // Duração do fade em segundos
+        float fadeDuration = 1f;
         float elapsedTime = 0f;
         Color startColor = spriteRenderer.color;
 
         while (elapsedTime < fadeDuration)
         {
-            // Incrementa o tempo passado
             elapsedTime += Time.deltaTime;
-
-            // Calcula o novo valor de alpha (opacidade)
             float newAlpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
-
-            // Aplica a nova cor com o alpha modificado
             spriteRenderer.color = new Color(startColor.r, startColor.g, startColor.b, newAlpha);
-
-            // Espera até o próximo frame
             yield return null;
         }
 
-        // Garante que a opacidade seja 0 no final
         spriteRenderer.color = new Color(startColor.r, startColor.g, startColor.b, 0f);
+        gameObject.SetActive(false);
     }
-
 }

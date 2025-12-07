@@ -110,9 +110,10 @@ MonoBehaviour:
   maxMP: 50
   currentMP: 50
   strength: 20
-  resistance: 15
+  resistance: 5
   will: 20
-  knowledge: 15
+  knowledge: 5
+  speed: 0
   luck: 10
   isDefending: 0
   xpValue: 0

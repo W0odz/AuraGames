@@ -1,24 +1,24 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Collections; // Necessário para Coroutines
+using System.Collections;
 
-// Enum para definir os estados da batalha
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 
 public class BattleSystem : MonoBehaviour
 {
     public BattleState state;
 
+    [Header("Configuração")]
     public GameObject playerPrefab;
-    public GameObject enemyPrefab;
+    public GameObject enemyPrefab; // Prefab padrão (ex: Javali)
 
     public Transform playerBattleStation;
     public Transform enemyBattleStation;
 
+    [Header("Unidades")]
     Unit playerUnit;
     Unit enemyUnit;
-
     GameObject enemyGO;
 
     [Header("UI")]
@@ -29,64 +29,60 @@ public class BattleSystem : MonoBehaviour
     public BattleHUD playerHUD;
     public BattleHUD enemyHUD;
     public BattleLogManager battleLogManager;
+    public TurnIndicator turnIndicator;
 
-    [Header("Indicadores")]
-    public TurnIndicator turnIndicator; // Arraste o TurnIndicator aqui
+    [Header("UI de Fim de Jogo")]
+    public GameObject levelUpPanel;
+    public TextMeshProUGUI levelUpStatsText;
+    public GameObject gameOverPanel;
+    // (VictoryPanel removido pois agora é na Exploração)
 
     [Header("UI de XP")]
-    public GameObject xpDisplayPanel; // Arraste o XP_Display_Panel aqui
-    public Slider xpSlider;           // Arraste o XP_Slider aqui
-    public TextMeshProUGUI xpText;    // Arraste o XP_Text aqui
-    public TextMeshProUGUI levelText; // Arraste o Level_Text aqui
+    public GameObject xpDisplayPanel;
+    public Slider xpSlider;
+    public TextMeshProUGUI xpText;
+    public TextMeshProUGUI levelText;
 
-    #region Métodos Unity
     void Start()
     {
+        // Segurança: Garante que painéis comecem fechados
+        if (gameOverPanel != null) gameOverPanel.SetActive(false);
+        if (levelUpPanel != null) levelUpPanel.SetActive(false);
+        if (xpDisplayPanel != null) xpDisplayPanel.SetActive(false);
+
         state = BattleState.START;
         StartCoroutine(SetupBattle());
     }
-    #endregion
 
-    #region Sistema de Batalha
-    void SetActionButtons(bool isActive)
-    {
-        attackButton.interactable = isActive;
-        defendButton.interactable = isActive;
-        magicButton.interactable = isActive;
-    }
-
-    // Corrotina para configurar a batalha
     IEnumerator SetupBattle()
     {
+        // 1. Limpa a estação de batalha (remove inimigos de teste)
         foreach (Transform child in enemyBattleStation)
         {
             Destroy(child.gameObject);
         }
 
-        // Instancia o jogador e o inimigo na cena
+        // 2. Cria o Jogador
         GameObject playerGO = Instantiate(playerPrefab, playerBattleStation.position, Quaternion.identity);
         playerUnit = playerGO.GetComponent<Unit>();
-        // Puxa todos os stats do GameManager!
         playerUnit.SetupPlayerStats(GameManager.instance);
         playerGO.transform.parent = playerBattleStation;
 
-        GameObject prefabToSpawn = enemyPrefab; // Valor padrão (do inspector)
+        // 3. DECIDE QUAL INIMIGO SPAWNAR
+        GameObject prefabToSpawn = enemyPrefab; // Começa com o padrão
 
-        // Se o GameManager tiver um inimigo definido, use ele!
+        // Se o GameManager tiver um inimigo específico (o que veio da exploração)
         if (GameManager.instance.nextBattleEnemyPrefab != null)
         {
-            Debug.Log("BattleSystem: Recebi o inimigo " + GameManager.instance.nextBattleEnemyPrefab.name + " do GameManager.");
             prefabToSpawn = GameManager.instance.nextBattleEnemyPrefab;
         }
-        else
-        {
-            Debug.LogWarning("BattleSystem: Não recebi nenhum inimigo do GameManager! Usando o padrão: " + prefabToSpawn.name);
-        }
 
+        // 4. Cria o Inimigo Certo
         enemyGO = Instantiate(prefabToSpawn, enemyBattleStation.position, Quaternion.identity);
         enemyUnit = enemyGO.GetComponent<Unit>();
         enemyGO.transform.parent = enemyBattleStation;
 
+        // 5. Configura a UI
         battleLogManager.AddLogMessage("Um " + enemyUnit.unitName + " selvagem apareceu!");
 
         playerHUD.SetHUD(playerUnit);
@@ -95,7 +91,6 @@ public class BattleSystem : MonoBehaviour
 
         turnIndicator.Hide();
 
-        // Espera 2 segundos antes de começar o turno do jogador
         yield return new WaitForSeconds(2f);
 
         state = BattleState.PLAYERTURN;
@@ -105,111 +100,95 @@ public class BattleSystem : MonoBehaviour
     void PlayerTurn()
     {
         battleLogManager.AddLogMessage("É a sua vez! Escolha uma ação.");
-        attackButton.interactable = true; // Habilita o botão de ataque
-        SetActionButtons(true); // Habilita todos os botões
-
-        turnIndicator.SetTarget(playerUnit.transform);
+        SetActionButtons(true);
+        playerUnit.isDefending = false;
+        turnIndicator.SetTarget(playerUnit.transform, true);
     }
 
+    void SetActionButtons(bool isActive)
+    {
+        attackButton.interactable = isActive;
+        defendButton.interactable = isActive;
+        magicButton.interactable = isActive;
+    }
 
-    #region Botões do jogador
-    // Esta função será chamada pelo botão de ataque
+    // --- BOTÕES ---
+
     public void OnAttackButton()
     {
-        if (state != BattleState.PLAYERTURN)
-            return;
-
+        if (state != BattleState.PLAYERTURN) return;
         StartCoroutine(PlayerAttack());
     }
+
     public void OnDefendButton()
     {
-        if (state != BattleState.PLAYERTURN)
-            return;
-
+        if (state != BattleState.PLAYERTURN) return;
         StartCoroutine(PlayerDefend());
     }
 
     public void OnMagicButton()
     {
-        if (state != BattleState.PLAYERTURN)
-            return;
-
-        // Esconde os botões de ação principais e mostra o menu de magias
+        if (state != BattleState.PLAYERTURN) return;
         SetActionButtons(false);
         magicMenuPanel.SetActive(true);
     }
 
+    public void OnBackButton()
+    {
+        if (state != BattleState.PLAYERTURN) return;
+        magicMenuPanel.SetActive(false);
+        SetActionButtons(true);
+    }
+
     public void OnFireballButton()
     {
-        if (state != BattleState.PLAYERTURN)
-            return;
-
-        // Esconde o menu de magias
+        if (state != BattleState.PLAYERTURN) return;
         magicMenuPanel.SetActive(false);
-
-        // A lógica do ataque mágico agora fica aqui
         StartCoroutine(PlayerMagicAttack());
     }
 
     public void OnHealButton()
     {
-        if (state != BattleState.PLAYERTURN)
-            return;
-
-        // Esconde o menu de magias
+        if (state != BattleState.PLAYERTURN) return;
         magicMenuPanel.SetActive(false);
-
         StartCoroutine(PlayerHeal());
     }
 
-    public void OnBackButton()
-    {
-        if (state != BattleState.PLAYERTURN)
-            return;
+    // --- AÇÕES ---
 
-        // Esconde o menu de magias e mostra os botões de ação principais
-        magicMenuPanel.SetActive(false);
-        SetActionButtons(true);
-    }
-    #endregion
-
-    #region Corrotinas dos turnos
-    #region Ações do jogador
     IEnumerator PlayerAttack()
     {
-        // Desabilita o botão para evitar múltiplos cliques
-        attackButton.interactable = false;
-        SetActionButtons(false); // Desabilita todos os botões
+        SetActionButtons(false); // Trava botões
 
-        // Causa dano no inimigo
+        // Cálculo de Dano Físico
+        int rawDamage = playerUnit.strength;
         bool isCritical = false;
-        int damage = playerUnit.strength;
-        bool isDead = enemyUnit.TakeDamage(damage, false); // false = não é mágico
-
-        int critRoll = Random.Range(1, 101);
-        if (critRoll <= playerUnit.luck) // Se o resultado for menor ou igual à Sorte
+        if (Random.Range(1, 101) <= playerUnit.luck)
         {
             isCritical = true;
-            damage *= 2; // Dobra o dano
+            rawDamage *= 2;
         }
+
+        // Calcula dano real (Ataque - Defesa)
+        int defense = enemyUnit.resistance;
+        int finalDamage = rawDamage - defense;
+        if (finalDamage < 1) finalDamage = 1;
+
+        bool isDead = enemyUnit.TakeDamage(finalDamage); // Unit.cs só subtrai
 
         enemyHUD.UpdateHP(enemyUnit.currentHP);
 
-        if (isCritical)
-        {
-            battleLogManager.AddLogMessage("ACERTO CRÍTICO! " + playerUnit.unitName + " ataca e causa " + damage + " de dano!");
-        }
-        else
-        {
-            battleLogManager.AddLogMessage(playerUnit.unitName + " ataca e causa " + damage + " de dano!");
-        }
+        if (isCritical) battleLogManager.AddLogMessage($"CRÍTICO! Causou {finalDamage} de dano!");
+        else battleLogManager.AddLogMessage($"Causou {finalDamage} de dano!");
+
+        yield return new WaitForSeconds(1f);
 
         if (isDead)
         {
             state = BattleState.WON;
-            StartCoroutine(enemyUnit.FadeOut()); // Deixa o fade do inimigo terminar
-            yield return new WaitForSeconds(1.5f); // Espera o fade do inimigo
-            StartCoroutine(EndBattle()); // Chama o fim
+            StartCoroutine(enemyUnit.FadeOut());
+            yield return new WaitForSeconds(1.5f);
+            StartCoroutine(EndBattle());
         }
         else
         {
@@ -221,7 +200,6 @@ public class BattleSystem : MonoBehaviour
     IEnumerator PlayerMagicAttack()
     {
         int manaCost = 20;
-
         if (playerUnit.currentMP < manaCost)
         {
             battleLogManager.AddLogMessage("Mana insuficiente!");
@@ -233,14 +211,19 @@ public class BattleSystem : MonoBehaviour
         playerUnit.currentMP -= manaCost;
         playerHUD.UpdateMP(playerUnit.currentMP);
 
-        //Dano da magia é baseado na Vontade (Will)
-        int magicDamage = playerUnit.will + 10;
-        battleLogManager.AddLogMessage($"{playerUnit.unitName} usa uma bola de fogo!");
+        // Cálculo de Dano Mágico
+        int rawDamage = playerUnit.will;
+        int defense = enemyUnit.knowledge;
+        int finalDamage = rawDamage - defense;
+        if (finalDamage < 1) finalDamage = 1;
+
+        battleLogManager.AddLogMessage($"{playerUnit.unitName} usa Bola de Fogo!");
         yield return new WaitForSeconds(1f);
 
-        bool isDead = enemyUnit.TakeDamage(magicDamage, true); // true = é mágico
+        bool isDead = enemyUnit.TakeDamage(finalDamage);
         enemyHUD.UpdateHP(enemyUnit.currentHP);
-        battleLogManager.AddLogMessage($"O ataque causa {magicDamage} de dano!");
+
+        battleLogManager.AddLogMessage($"Bola de Fogo causou {finalDamage} de dano!");
         yield return new WaitForSeconds(1f);
 
         if (isDead)
@@ -259,15 +242,10 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerDefend()
     {
-        // Desabilita todos os botões
         SetActionButtons(false);
-
         playerUnit.isDefending = true;
-
-        battleLogManager.AddLogMessage($"{playerUnit.unitName} se prepara para defender!");
-
+        battleLogManager.AddLogMessage("Defendendo!");
         yield return new WaitForSeconds(1f);
-
         state = BattleState.ENEMYTURN;
         StartCoroutine(EnemyTurn());
     }
@@ -275,66 +253,60 @@ public class BattleSystem : MonoBehaviour
     IEnumerator PlayerHeal()
     {
         int manaCost = 15;
-
-        // 1. Verifica se tem mana suficiente
         if (playerUnit.currentMP < manaCost)
         {
             battleLogManager.AddLogMessage("Mana insuficiente!");
-            // Mostra os botões de ação novamente para o jogador escolher outra coisa
             SetActionButtons(true);
             yield break;
         }
-
-        // 2. Executa a cura
         playerUnit.currentMP -= manaCost;
         playerHUD.UpdateMP(playerUnit.currentMP);
 
-        int healAmount = playerUnit.will + 10;
-
-        playerUnit.Heal(healAmount);
+        int heal = playerUnit.will + 10;
+        playerUnit.Heal(heal);
         playerHUD.UpdateHP(playerUnit.currentHP);
 
-        battleLogManager.AddLogMessage($"{playerUnit.unitName} se cura em {healAmount} pontos de vida!");
+        battleLogManager.AddLogMessage($"Curou {heal} HP!");
         yield return new WaitForSeconds(1f);
 
-        // 3. Passa o turno para o inimigo
         state = BattleState.ENEMYTURN;
         StartCoroutine(EnemyTurn());
     }
-    #endregion
+
+    // --- TURNO DO INIMIGO ---
+
     IEnumerator EnemyTurn()
     {
-        yield return new WaitForSeconds(1f);
-        turnIndicator.SetTarget(enemyUnit.transform);
+        turnIndicator.SetTarget(enemyUnit.transform, false);
+
         battleLogManager.AddLogMessage($"{enemyUnit.unitName} ataca!");
         yield return new WaitForSeconds(1f);
 
+        // Cálculo de Dano do Inimigo
+        int rawDamage = enemyUnit.strength;
         bool isCritical = false;
-        int damage = enemyUnit.strength; // Pega a força base do inimigo
-
-        // Rola um dado de 100 lados
-        int critRoll = Random.Range(1, 101);
-        if (critRoll <= enemyUnit.luck) // Usa a Sorte do inimigo
+        if (Random.Range(1, 101) <= enemyUnit.luck)
         {
             isCritical = true;
-            damage *= 2; // Dobra o dano
+            rawDamage *= 2;
         }
-        bool isDead = playerUnit.TakeDamage(damage, false);
 
+        // Defesa do Jogador
+        int playerDef = playerUnit.resistance;
+        if (playerUnit.isDefending) playerDef *= 2; // Bônus de defesa
+
+        int finalDamage = rawDamage - playerDef;
+        if (finalDamage < 1) finalDamage = 1;
+
+        bool playerDead = playerUnit.TakeDamage(finalDamage);
         playerHUD.UpdateHP(playerUnit.currentHP);
 
-        if (isCritical)
-        {
-            battleLogManager.AddLogMessage("ACERTO CRÍTICO! " + enemyUnit.unitName + " ataca e causa " + damage + " de dano!");
-        }
-        else
-        {
-            battleLogManager.AddLogMessage("O ataque causa " + damage + " de dano!");
-        }
+        if (isCritical) battleLogManager.AddLogMessage($"CRÍTICO! Recebeu {finalDamage} de dano!");
+        else battleLogManager.AddLogMessage($"Recebeu {finalDamage} de dano.");
 
         yield return new WaitForSeconds(1f);
 
-        if (isDead)
+        if (playerDead)
         {
             state = BattleState.LOST;
             StartCoroutine(EndBattle());
@@ -345,7 +317,8 @@ public class BattleSystem : MonoBehaviour
             PlayerTurn();
         }
     }
-    #endregion
+
+    // --- FIM DA BATALHA ---
 
     IEnumerator EndBattle()
     {
@@ -353,99 +326,98 @@ public class BattleSystem : MonoBehaviour
 
         if (state == BattleState.WON)
         {
-            battleLogManager.AddLogMessage("Você venceu a batalha!");
+            battleLogManager.AddLogMessage("Vitória!");
 
-            // 1. Salva o HP/MP restantes do jogador no GameManager
+            // 1. Salva HP/MP atuais
             GameManager.instance.currentHP = playerUnit.currentHP;
             GameManager.instance.currentMP = playerUnit.currentMP;
 
-            // Pega os valores ANTES de ganhar o XP
-            int xpAntes = GameManager.instance.currentXP;
-            int xpProximoNivelAntes = GameManager.instance.xpToNextLevel;
-            int nivelAntes = GameManager.instance.playerLevel;
+            // 2. PREPARAÇÃO DOS DADOS PARA ANIMAÇÃO
+            // Pegamos os valores ANTIGOS (como o jogador estava antes de ganhar o XP)
+            // Precisamos acessar o GameManager diretamente antes de atualizá-lo
+            int xpInicial = GameManager.instance.currentXP;
+            int xpMaxInicial = GameManager.instance.xpToNextLevel;
+            int nivelInicial = GameManager.instance.playerLevel;
 
-            // 2. Dá o XP ao GameManager (que pode causar um Level Up)
-            GameManager.instance.GainXP(enemyUnit.xpValue);
+            // 3. Aplica o XP e Sobe de Nível (se necessário) no Back-end
+            int xpGanho = enemyUnit.xpValue;
+            GameManager.instance.GainXP(xpGanho);
 
-            // Pega os valores DEPOIS de ganhar o XP
-            int xpDepois = GameManager.instance.currentXP;
-            int xpProximoNivelDepois = GameManager.instance.xpToNextLevel;
-            int nivelDepois = GameManager.instance.playerLevel;
+            // 4. Pega os valores NOVOS (como ficou depois)
+            int xpFinal = GameManager.instance.currentXP;
+            int xpMaxFinal = GameManager.instance.xpToNextLevel;
+            int nivelFinal = GameManager.instance.playerLevel;
 
-            // Ativa o painel de UI
+            // 5. LÓGICA DA BARRA DE XP (VISUAL)
             if (xpDisplayPanel != null)
             {
                 xpDisplayPanel.SetActive(true);
-                xpText.text = $"XP Ganho: {enemyUnit.xpValue}";
-                levelText.text = "Nível " + nivelAntes;
+                xpText.text = $"XP Ganho: {xpGanho}";
+                levelText.text = "Nível " + nivelInicial;
 
-                // Configura a barra de XP para o estado ANTES do ganho
-                xpSlider.maxValue = xpProximoNivelAntes;
-                xpSlider.value = xpAntes;
+                // Começa a barra na posição antiga
+                xpSlider.maxValue = xpMaxInicial;
+                xpSlider.value = xpInicial;
 
-                // Anima a barra de XP
-                float tempoDecorrido = 0f;
-                float duracaoAnimacao = 1.5f;
-                int xpMeta = xpDepois;
+                float timer = 0f;
+                float duration = 1.0f; // A animação leva 1 segundo
 
-                // Se houve level up, a animação é em duas partes
-                if (nivelDepois > nivelAntes)
+                // CASO 1: HOUVE LEVEL UP
+                if (nivelFinal > nivelInicial)
                 {
-                    // Parte 1: Anima até o final da barra (level up)
-                    while (tempoDecorrido < duracaoAnimacao)
+                    // Parte A: Enche a barra até o topo
+                    while (timer < duration)
                     {
-                        tempoDecorrido += Time.deltaTime;
-                        xpSlider.value = Mathf.Lerp(xpAntes, xpProximoNivelAntes, tempoDecorrido / duracaoAnimacao);
+                        timer += Time.deltaTime;
+                        xpSlider.value = Mathf.Lerp(xpInicial, xpMaxInicial, timer / duration);
                         yield return null;
                     }
+                    xpSlider.value = xpMaxInicial;
 
-                    // Som de Level Up, efeito visual, etc.
-                    battleLogManager.AddLogMessage("LEVEL UP! Você é Nível " + nivelDepois + "!");
-                    levelText.text = "Nível " + nivelDepois;
+                    // Som/Efeito de Level Up
+                    battleLogManager.AddLogMessage($"LEVEL UP! Nível {nivelFinal}!");
+                    levelText.text = "Nível " + nivelFinal;
 
-                    // Parte 2: A barra zera e preenche com o XP que sobrou
+                    // Parte B: Reseta a barra para o novo nível
                     xpSlider.value = 0;
-                    xpSlider.maxValue = xpProximoNivelDepois;
-                    xpMeta = xpDepois; // O XP que sobrou
-                    xpAntes = 0; // Começa do zero
-                    tempoDecorrido = 0;
+                    xpSlider.maxValue = xpMaxFinal;
+
+                    // Ajusta variáveis para a próxima animação
+                    xpInicial = 0;
+                    timer = 0f;
                 }
 
-                // Anima o XP restante (ou o ganho normal se não houve level up)
-                while (tempoDecorrido < duracaoAnimacao)
+                // CASO 2: PREENCHE O RESTANTE (Ou o normal se não houve level up)
+                while (timer < duration)
                 {
-                    tempoDecorrido += Time.deltaTime;
-                    xpSlider.value = Mathf.Lerp(xpAntes, xpMeta, tempoDecorrido / duracaoAnimacao);
+                    timer += Time.deltaTime;
+                    xpSlider.value = Mathf.Lerp(xpInicial, xpFinal, timer / duration);
                     yield return null;
                 }
-                xpSlider.value = xpMeta; // Garante que chegou ao valor final
+                xpSlider.value = xpFinal; // Garante o valor exato no final
             }
 
-            // 3. Adiciona o inimigo à lista de derrotados
+            // 6. Finalização (Save e Load)
             GameManager.instance.defeatedEnemyIDs.Add(GameManager.instance.currentEnemyID);
 
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(2.5f); // Tempo para ler o painel
 
-            // 4. Verifica se a 'lastExplorationScene' está vazia (por causa do teste)
-            if (string.IsNullOrEmpty(GameManager.instance.lastExplorationScene))
+            if (GameManager.instance.isBossBattle)
             {
-                // Se estiver vazia, volta para o Menu por segurança
-                GameManager.instance.LoadSceneWithFade("TitleScreen");
+                GameManager.instance.triggerEndingOnLoad = true;
+                GameManager.instance.isBossBattle = false;
             }
-            else
-            {
-                // Se estiver preenchida, volta para a cena de exploração (o fluxo normal)
-                GameManager.instance.LoadSceneWithFade(GameManager.instance.lastExplorationScene);
-            }
+
+            string sceneToLoad = GameManager.instance.lastExplorationScene;
+            if (string.IsNullOrEmpty(sceneToLoad)) sceneToLoad = "MenuPrincipalScene";
+
+            GameManager.instance.LoadSceneWithFade(sceneToLoad);
         }
         else if (state == BattleState.LOST)
         {
-            battleLogManager.AddLogMessage("Você foi derrotado.");
-
-            // Por enquanto, vamos esperar e carregar o menu principal
+            battleLogManager.AddLogMessage("Derrota...");
             yield return new WaitForSeconds(2f);
-            GameManager.instance.LoadSceneWithFade("TitleScreen"); // Mude se o nome da sua cena for outro
+            if (gameOverPanel != null) gameOverPanel.SetActive(true);
         }
     }
-    #endregion
 }

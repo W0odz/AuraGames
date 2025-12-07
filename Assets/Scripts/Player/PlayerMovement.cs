@@ -17,15 +17,21 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        // Verifica se o GameManager diz que estamos voltando de uma batalha
+        // Prioridade 1: Voltando de Batalha (Curto Prazo)
         if (GameManager.instance.isReturningFromBattle)
         {
-            // Teleporta o jogador para a posição salva
             transform.position = GameManager.instance.playerReturnPosition;
-
-            // Desliga a "bandeira" (para não teleportar de novo se você salvar/carregar depois)
             GameManager.instance.isReturningFromBattle = false;
         }
+        // Prioridade 2: Carregando um Save (Longo Prazo) --- NOVO ---
+        else if (GameManager.instance.isLoadingSave)
+        {
+            transform.position = GameManager.instance.positionToLoad;
+
+            // Desliga a flag para não teleportar de novo se trocar de sala
+            GameManager.instance.isLoadingSave = false;
+        }
+        // Se nenhuma das duas for verdade, o jogador nasce no local padrão da cena
     }
 
     void Update()
@@ -65,6 +71,16 @@ public class PlayerMovement : MonoBehaviour
 
             if (ai != null)
             {
+
+                if (ai.isBoss)
+                {
+                    Debug.Log("PLAYER: Encontrei um CHEFE! Ativando modo Boss Battle.");
+                    GameManager.instance.isBossBattle = true;
+                }
+                else
+                {
+                    GameManager.instance.isBossBattle = false;
+                }
 
                 //Congela tudo imediatamente
                 EnemyAIController.FreezeAllEnemies();

@@ -72,6 +72,27 @@ public class GameManager : MonoBehaviour
     public int currentXP = 0;
     public int xpToNextLevel = 100;
 
+    [Header("Dados de Load")]
+    public bool isLoadingSave = false; // "Estou carregando um save?"
+    public Vector3 positionToLoad;     // "Para onde devo ir?"
+    public string sceneToLoad;         // "Qual cena carregar?"
+
+    [Header("Estados do Jogo")]
+    public bool isBossBattle = false; // Já tínhamos essa
+    [SerializeField] private bool _triggerEndingOnLoad = false; // Variável privada (aparece no inspector por causa do SerializeField)
+
+    public bool triggerEndingOnLoad
+    {
+        get { return _triggerEndingOnLoad; }
+        set
+        {
+            // O Debug vai nos dizer QUEM mudou o valor e QUANDO
+            Debug.Log($"[GM DEBUG] 'triggerEndingOnLoad' mudou de {_triggerEndingOnLoad} para {value}.\nQuem fez isso? Veja a linha abaixo no stack trace.");
+
+            _triggerEndingOnLoad = value;
+        }
+    }
+
     // Stats Base
     public int currentHP; // HP atual (para persistir entre batalhas)
     public int currentMP; // MP atual
@@ -87,6 +108,8 @@ public class GameManager : MonoBehaviour
     #region Métodos Unity
     void Awake()
     {
+        Debug.Log("GAME MANAGER NASCEU! ID: " + gameObject.GetInstanceID());
+
         // Configura o Singleton "Imortal"
         if (_instance == null)
         {
@@ -123,7 +146,7 @@ public class GameManager : MonoBehaviour
         if (data == null)
         {
             Debug.LogWarning("Arquivo de save não encontrado! Carregando novo jogo...");
-            CreateNewGame(); // Se não houver save, cria um novo
+            CreateNewGame("Herói"); // Se não houver save, cria um novo
             return;
         }
 
@@ -145,23 +168,37 @@ public class GameManager : MonoBehaviour
         defeatedEnemyIDs = data.defeatedEnemyIDs;
         collectedItemIDs = data.collectedItemIDs;
 
+        // Guarda a posição e a cena para usar quando a cena carregar
+        sceneToLoad = data.sceneName;
+        positionToLoad = new Vector3(data.posX, data.posY, data.posZ);
+        isLoadingSave = true; // Avisa o sistema que estamos carregando um save
+
         Debug.Log("Jogo carregado do Slot " + slot);
     }
 
     // Cria um novo jogo (usa valores padrão)
-    public void CreateNewGame()
+    public void CreateNewGame(string playerNameInput)
     {
         GameData data = new GameData(); // Cria um contêiner com valores padrão
+
+        if (!string.IsNullOrEmpty(playerNameInput))
+        {
+            data.playerName = playerNameInput;
+        }
+        else
+        {
+            data.playerName = "Herói";
+        }
 
         // Copia os dados padrão para o GameManager
         playerName = data.playerName;
         playerLevel = data.playerLevel;
         currentXP = data.currentXP;
         xpToNextLevel = data.xpToNextLevel;
-        currentHP = data.currentHP;
-        currentMP = data.currentMP;
         maxHP = data.maxHP;
         maxMP = data.maxMP;
+        currentHP = maxHP;
+        currentMP = maxMP;
         strength = data.strength;
         speed = data.speed;
         resistance = data.resistance;
@@ -197,6 +234,20 @@ public class GameManager : MonoBehaviour
         data.luck = luck;
         data.defeatedEnemyIDs = defeatedEnemyIDs;
         data.collectedItemIDs = collectedItemIDs;
+
+        // 1. Encontra o jogador na cena atual
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player != null)
+        {
+            // Salva a posição exata
+            data.posX = player.transform.position.x;
+            data.posY = player.transform.position.y;
+            data.posZ = player.transform.position.z;
+        }
+
+        // Salva o nome da cena atual
+        data.sceneName = SceneManager.GetActiveScene().name;
 
         // Manda o SaveSystem gravar o arquivo
         SaveSystem.SaveGame(data, currentSaveSlot);
@@ -319,4 +370,5 @@ public class GameManager : MonoBehaviour
         // (Aqui chamaremos a UI de "Level Up!")
     }
     #endregion
+
 }

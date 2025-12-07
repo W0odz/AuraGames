@@ -29,6 +29,12 @@ public class GameData
 
     public List<string> collectedItemIDs;
 
+    // Dados de posição
+    public string sceneName; // O nome da cena (Ex: "ExplorationScene")
+    public float posX;
+    public float posY;
+    public float posZ;
+
     // O Construtor (valores padrão para um Jogo Novo)
     public GameData()
     {
@@ -39,15 +45,15 @@ public class GameData
 
         this.maxHP = 100;
         this.maxMP = 50;
-        this.currentHP = 100;
+        this.currentHP = 100; // Garanta que nasce cheio
         this.currentMP = 50;
 
-        this.strength = 10;
-        this.speed = 5;
+        this.strength = 20;   // Aumente conforme necessário
+        this.speed = 0;
         this.resistance = 5;
-        this.will = 10;
+        this.will = 20;
         this.knowledge = 5;
-        this.luck = 5;
+        this.luck = 10;
 
         this.defeatedEnemyIDs = new List<string>();
 

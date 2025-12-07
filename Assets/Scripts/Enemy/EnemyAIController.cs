@@ -11,6 +11,7 @@ public class EnemyAIController : MonoBehaviour
 
     [Header("Identidade de Batalha")]
     public GameObject battlePrefab; // Qual inimigo eu sou na batalha?
+    public bool isBoss = false;
 
     [Header("Configuracao de Perseguicao")]
     public float chaseDuration = 10f;
