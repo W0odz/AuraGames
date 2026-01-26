@@ -371,4 +371,30 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    #region Equipamentos
+    private void OnEquipmentChanged(EquipmentItem newItem, EquipmentItem oldItem)
+    {
+        // 1. Remove stats of the old item
+        if (oldItem != null)
+        {
+            strength -= oldItem.attackModifier;
+            resistance -= oldItem.defenseModifier;
+            speed -= oldItem.speedModifier;
+        }
+
+        // 2. Add stats of the new item
+        if (newItem != null)
+        {
+            strength += newItem.attackModifier;
+            resistance += newItem.defenseModifier;
+            speed += newItem.speedModifier;
+        }
+
+        if (currentHP > maxHP) currentHP = maxHP;
+        if (currentMP > maxMP) currentMP = maxMP;
+
+        Debug.Log($"Stats updated! Strength: {strength}, Resistance: {resistance}");
+    }
+
+    #endregion
 }

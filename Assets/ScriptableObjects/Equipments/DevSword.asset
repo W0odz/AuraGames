@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f878d79f859a36b418d16f956d5e83c5, type: 3}
+  m_Name: DevSword
+  m_EditorClassIdentifier: Assembly-CSharp::DevSwordItem
+  id: dev_sword
+  itemName: Dev_sword
+  descryption: Uma espada somente para aqueles que descobriram a clareira secreta.
+    Concede 999 em todos os status
+  icon: {fileID: 1169618335941041066, guid: 2954046556e01f7408e5c763bbf52612, type: 3}
+  stackable: 0
+  maxStack: 1
+  godModeValue: 999
+  feedbackMessage: YOU HAVE OBTAINED THE POWER OF THE GODS!

@@ -1,0 +1,1 @@
+public enum EquipmentSlot { Weapon, Shield, Head, Chest, Legs, Accessory }

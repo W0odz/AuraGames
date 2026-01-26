@@ -1,39 +1,39 @@
 using UnityEngine;
 
-public class BarreiraMagica : MonoBehaviour
+public class BlueDoor : MonoBehaviour
 {
-    [Header("Requisitos")]
-    public string requiredItemID; // O ID do item necessário (Ex: "Gema_Templo")
+    [Header("Requirements")]
+    public KeyItem requiredKey; // Drag the Blue Gem ScriptableObject here
+    public string deniedMessage = "The door is locked. You need a Blue Gem.";
+    public string successMessage = "The Blue Gem glows, and the door opens!";
 
-    [Header("Feedback")]
-    public string lockedMessage = "Uma barreira mágica bloqueia o caminho.";
-    public string unlockedMessage = "A gema brilhou e a barreira se dissipou!";
-
-    // Usamos OnCollisionEnter porque a barreira deve ser SÓLIDA (empurrar o jogador)
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            CheckKey();
+            CheckDoor();
         }
     }
 
-    void CheckKey()
+    private void CheckDoor()
     {
-        // Verifica se o jogador tem o item no inventário do GameManager
-        if (GameManager.instance.collectedItemIDs.Contains(requiredItemID))
+        // Ask the InventoryManager if the player has the gem
+        if (InventoryManager.Instance.HasItem(requiredKey))
         {
-            // TEM A CHAVE: Abre a barreira
-            Debug.Log(unlockedMessage);
-
-            // Toca um som, efeito de partícula, etc.
-
-            Destroy(gameObject); // Remove a barreira
+            Debug.Log(successMessage);
+            OpenDoor();
         }
         else
         {
-            // NÃO TEM A CHAVE
-            Debug.Log(lockedMessage);
+            Debug.Log(deniedMessage);
+            // Here you could trigger a UI message on the screen
         }
+    }
+
+    private void OpenDoor()
+    {
+        // For now, let's just disable the door. 
+        // You can add an animation here later!
+        gameObject.SetActive(false);
     }
 }
