@@ -15,8 +15,5 @@ public class EquipmentItem : Item
         base.Use();
         // When used from the inventory, equip this item
         EquipmentManager.Instance.Equip(this);
-
-        // Remove from inventory once equipped
-        InventoryManager.Instance.RemoveItem(this);
     }
 }

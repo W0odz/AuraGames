@@ -21,24 +21,59 @@ public class EquipmentManager : MonoBehaviour
         currentEquipment = new EquipmentItem[numSlots];
     }
 
+    public bool IsItemEquipped(Item item)
+    {
+        if (item == null) return false;
+
+        // Percorre os slots de equipamento para ver se o item está lá
+        for (int i = 0; i < currentEquipment.Length; i++)
+        {
+            if (currentEquipment[i] != null && currentEquipment[i].itemName == item.itemName)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void Equip(EquipmentItem newItem)
     {
+        if (newItem == null) return;
+
         int slotIndex = (int)newItem.equipSlot;
 
-        EquipmentItem oldItem = null;
+        // LOG DE TESTE 1: Entrou na função?
+        Debug.Log($"[Manager] Tentando equipar: {newItem.itemName} no slot índice: {slotIndex}");
 
-        // If there's already an item in that slot, unequip it first
-        if (currentEquipment[slotIndex] != null)
+        EquipmentItem oldItem = currentEquipment[slotIndex];
+
+        // Se clicar no mesmo item, desequipa
+        if (oldItem == newItem)
         {
-            oldItem = currentEquipment[slotIndex];
-            InventoryManager.Instance.AddItem(oldItem); // Return to inventory
+            currentEquipment[slotIndex] = null;
+            Debug.Log("[Manager] Item igual detectado. Desequipando...");
+        }
+        else
+        {
+            // Salva o item no array
+            currentEquipment[slotIndex] = newItem;
+            Debug.Log($"[Manager] {newItem.itemName} salvo com sucesso no array de equipamentos!");
         }
 
-        // Trigger the callback for stats update
+        // LOG DE TESTE 2: O array realmente contém o item agora?
+        if (currentEquipment[slotIndex] != null)
+        {
+            Debug.Log($"[Manager] Verificação imediata: Slot {slotIndex} agora contém {currentEquipment[slotIndex].itemName}");
+        }
+
+        // INVOCA OS EVENTOS (Isso faz a UI acordar)
         onEquipmentChanged?.Invoke(newItem, oldItem);
 
-        currentEquipment[slotIndex] = newItem;
-        Debug.Log($"Equipped {newItem.itemName} in slot {newItem.equipSlot}");
+        if (InventoryManager.Instance != null)
+        {
+            Debug.Log("[Manager] Avisando UI para atualizar os indicadores...");
+            InventoryManager.Instance.onInventoryChangedCallback?.Invoke();
+        }
     }
 
     public void Unequip(int slotIndex)
@@ -46,11 +81,12 @@ public class EquipmentManager : MonoBehaviour
         if (currentEquipment[slotIndex] != null)
         {
             EquipmentItem oldItem = currentEquipment[slotIndex];
-            InventoryManager.Instance.AddItem(oldItem);
-
             currentEquipment[slotIndex] = null;
 
+            // Trigger para avisar que desequipou
             onEquipmentChanged?.Invoke(null, oldItem);
+            InventoryManager.Instance.onInventoryChangedCallback?.Invoke();
+            Debug.Log($"Unequipped {oldItem.itemName}");
         }
     }
 }

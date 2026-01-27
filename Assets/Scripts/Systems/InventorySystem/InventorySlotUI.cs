@@ -5,24 +5,20 @@ using static UnityEditor.Progress;
 public class InventorySlotUI : MonoBehaviour
 {
     public Image iconImage;
+    public GameObject equippedIndicator; // Arraste o quadradinho verde aqui
     private Item currentItem; // The item currently in this slot
 
     // Called by the InventoryUI to fill the slot with data
-    public void AddItem(Item newItem)
+    public void AddItem(Item newItem, bool isEquipped)
     {
-        if (newItem == null) return;
-
         currentItem = newItem;
+        iconImage.sprite = newItem.icon;
+        iconImage.enabled = true;
 
-        // Aqui acontece a mágica:
-        if (newItem.icon != null)
+        // Liga ou desliga o quadradinho verde
+        if (equippedIndicator != null)
         {
-            iconImage.sprite = newItem.icon;
-            iconImage.enabled = true; // Garante que a imagem apareça
-        }
-        else
-        {
-            iconImage.enabled = false; // Se o item não tiver ícone, fica invisível
+            equippedIndicator.SetActive(isEquipped);
         }
     }
 
@@ -43,6 +39,12 @@ public class InventorySlotUI : MonoBehaviour
         {
             Debug.Log($"Usando item: {currentItem.itemName}");
             currentItem.Use();
+        }
+
+        InventoryUI ui = Object.FindFirstObjectByType<InventoryUI>();
+        if (ui != null)
+        {
+            ui.RefreshUI();
         }
     }
 }

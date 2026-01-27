@@ -14,19 +14,28 @@ public class InventoryUI : MonoBehaviour
     // 1. Inscrição correta nos eventos
     private void OnEnable()
     {
+        // Escuta mudanças no inventário (pegar/soltar itens)
         if (InventoryManager.Instance != null)
-        {
-            // Apontamos para o RefreshUI (que é seguro) e não para o UpdateUI
             InventoryManager.Instance.onInventoryChangedCallback += RefreshUI;
-        }
+
+        // Escuta mudanças no equipamento (equipar/desequipar)
+        if (EquipmentManager.Instance != null)
+            EquipmentManager.Instance.onEquipmentChanged += OnEquipmentChangedRefresh;
     }
 
     private void OnDisable()
     {
         if (InventoryManager.Instance != null)
-        {
             InventoryManager.Instance.onInventoryChangedCallback -= RefreshUI;
-        }
+
+        if (EquipmentManager.Instance != null)
+            EquipmentManager.Instance.onEquipmentChanged -= OnEquipmentChangedRefresh;
+    }
+
+    // Método auxiliar para o evento de equipamento
+    void OnEquipmentChangedRefresh(EquipmentItem newItem, EquipmentItem oldItem)
+    {
+        RefreshUI();
     }
 
     private void Start()
@@ -57,6 +66,7 @@ public class InventoryUI : MonoBehaviour
     // 2. O "Gatilho" seguro para a atualização
     public void RefreshUI()
     {
+        Debug.Log("[InventoryUI] Sinal de atualização recebido! Iniciando Coroutine...");
         if (gameObject.activeInHierarchy)
         {
             StartCoroutine(UpdateRoutine());
@@ -80,16 +90,18 @@ public class InventoryUI : MonoBehaviour
         // Criar novos slots baseados na lista do Manager
         foreach (var slotEntry in InventoryManager.Instance.inventory)
         {
-            if (slotEntry != null && slotEntry.item != null && slotPrefab != null)
+            if (slotEntry.item != null)
             {
                 GameObject newSlot = Instantiate(slotPrefab, itemsParent);
+                InventorySlotUI ui = newSlot.GetComponent<InventorySlotUI>();
 
-                if (newSlot != null)
-                {
-                    newSlot.transform.localScale = Vector3.one;
-                    InventorySlotUI ui = newSlot.GetComponent<InventorySlotUI>();
-                    if (ui != null) ui.AddItem(slotEntry.item);
-                }
+                // PERGUNTA AO MANAGER: Esse item está equipado?
+                bool equipped = EquipmentManager.Instance.IsItemEquipped(slotEntry.item);
+
+                Debug.Log($"Desenhando slot para {slotEntry.item.itemName}. Equipado: {equipped}"); // ADICIONE ISSO
+
+                // Passa essa info para o AddItem do slot
+                ui.AddItem(slotEntry.item, equipped);
             }
         }
     }
