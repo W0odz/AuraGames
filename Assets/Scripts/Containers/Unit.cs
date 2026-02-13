@@ -3,17 +3,15 @@ using System.Collections;
 
 public class Unit : MonoBehaviour
 {
-    [Header("Identidade")]
+    [Header("Identidade Base")]
     public string unitName;
     public int playerLevel;
-
-    [Header("Recursos")]
     public int maxHP;
     public int currentHP;
     public int maxMP;
     public int currentMP;
 
-    [Header("Atributos")]
+    [Header("Atributos Base")]
     public int strength;
     public int resistance;
     public int will;
@@ -21,63 +19,29 @@ public class Unit : MonoBehaviour
     public int speed;
     public int luck;
 
-    [Header("Estado")]
-    public bool isDefending = false;
-    public int xpValue = 0; // XP que o inimigo dá ao morrer
+    [Header("Estado de Combate")]
+    public bool isDefending = false; 
+    public int xpValue;             
 
     public SpriteRenderer spriteRenderer;
 
-    // Puxa os dados do GameManager para preencher a ficha do Jogador
-    public void SetupPlayerStats(GameManager gm)
+    public virtual void InicializarUnidade()
     {
-        unitName = gm.playerName;
-        playerLevel = gm.playerLevel;
-
-        maxHP = gm.maxHP;
-        maxMP = gm.maxMP;
-        currentHP = gm.currentHP;
-        currentMP = gm.currentMP;
-
-        strength = gm.strength;
-        resistance = gm.resistance;
-        will = gm.will;
-        knowledge = gm.knowledge;
-        speed = gm.speed;
-        luck = gm.luck;
-
-        xpValue = 0; // Jogador não dá XP
-
-        // Segurança: Se a vida vier zerada, cura.
-        if (currentHP <= 0)
-        {
-            currentHP = maxHP;
-            gm.currentHP = maxHP;
-        }
+        currentHP = maxHP;
+        currentMP = maxMP;
     }
 
-    // Recebe o dano já calculado (Ataque - Defesa) e aplica
-    public bool TakeDamage(int finalDamage)
+    public virtual bool TakeDamage(int finalDamage)
     {
         currentHP -= finalDamage;
-
-        if (currentHP <= 0)
-        {
-            currentHP = 0;
-            return true; // Morreu
-        }
-        else
-        {
-            return false; // Vivo
-        }
+        if (currentHP <= 0) { currentHP = 0; return true; }
+        return false;
     }
 
     public void Heal(int amount)
     {
         currentHP += amount;
-        if (currentHP > maxHP)
-        {
-            currentHP = maxHP;
-        }
+        if (currentHP > maxHP) currentHP = maxHP;
     }
 
     // Animação de morte (Fade Out)

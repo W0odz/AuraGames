@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 68407075379245234}
   - component: {fileID: 4107760388593785779}
-  - component: {fileID: 6402044451903030731}
+  - component: {fileID: 3481644443754325565}
   m_Layer: 0
   m_Name: Battle_Fishman
   m_TagString: Untagged
@@ -91,7 +91,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6402044451903030731
+--- !u!114 &3481644443754325565
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,20 +100,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 6089210800779420423}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c223da3fecae984183aa215d6670a45, type: 3}
+  m_Script: {fileID: 11500000, guid: dcad75f37f974874eb9ed473633940c0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUnit
   unitName: Homem-Peixe
   playerLevel: 0
   maxHP: 150
   currentHP: 150
-  maxMP: 80
-  currentMP: 80
-  strength: 40
-  resistance: 25
-  will: 40
-  knowledge: 15
-  luck: 7
+  maxMP: 100
+  currentMP: 100
+  strength: 20
+  resistance: 20
+  will: 20
+  knowledge: 20
+  speed: 20
+  luck: 5
   isDefending: 0
   xpValue: 250
   spriteRenderer: {fileID: 4107760388593785779}
+  tabelaDeLoot:
+  - item: {fileID: 11400000, guid: 7bb09b1af1083df48ab263119f65be24, type: 2}
+    quantidade: 1
+    chanceDeDrop: 100

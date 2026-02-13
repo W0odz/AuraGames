@@ -64,8 +64,8 @@ public class BattleSystem : MonoBehaviour
 
         // 2. Cria o Jogador
         GameObject playerGO = Instantiate(playerPrefab, playerBattleStation.position, Quaternion.identity);
-        playerUnit = playerGO.GetComponent<Unit>();
-        playerUnit.SetupPlayerStats(GameManager.instance);
+        playerUnit = playerGO.GetComponent<PlayerUnit>();
+        playerUnit.InicializarUnidade();
         playerGO.transform.parent = playerBattleStation;
 
         // 3. DECIDE QUAL INIMIGO SPAWNAR
@@ -79,8 +79,9 @@ public class BattleSystem : MonoBehaviour
 
         // 4. Cria o Inimigo Certo
         enemyGO = Instantiate(prefabToSpawn, enemyBattleStation.position, Quaternion.identity);
-        enemyUnit = enemyGO.GetComponent<Unit>();
+        enemyUnit = enemyGO.GetComponent<EnemyUnit>();
         enemyGO.transform.parent = enemyBattleStation;
+        enemyUnit.InicializarUnidade();
 
         // 5. Configura a UI
         battleLogManager.AddLogMessage("Um " + enemyUnit.unitName + " selvagem apareceu!");
@@ -340,8 +341,25 @@ public class BattleSystem : MonoBehaviour
             int nivelInicial = GameManager.instance.playerLevel;
 
             // 3. Aplica o XP e Sobe de Nível (se necessário) no Back-end
-            int xpGanho = enemyUnit.xpValue;
+            EnemyUnit enemy = enemyUnit as EnemyUnit;
+
+            int xpGanho = (enemy != null) ? enemy.xpValue : 0;
             GameManager.instance.GainXP(xpGanho);
+
+            // 3.1. Lógica de drop de Itens
+            if (enemy != null && enemy.tabelaDeLoot != null)
+            {
+                foreach (Loot drop in enemy.tabelaDeLoot)
+                {
+                    float sorteio = Random.Range(0f, 100f);
+
+                    if (sorteio <= drop.chanceDeDrop)
+                    {
+                        InventoryManager.Instance.AdicionarItem(drop.item, drop.quantidade);
+                        battleLogManager.AddLogMessage($"Item obtido: {drop.quantidade}x {drop.item.nomeItem}");
+                    }
+                }
+            }
 
             // 4. Pega os valores NOVOS (como ficou depois)
             int xpFinal = GameManager.instance.currentXP;

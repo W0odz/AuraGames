@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 68407075379245234}
   - component: {fileID: 4107760388593785779}
-  - component: {fileID: 6402044451903030731}
+  - component: {fileID: -4299631889324339392}
   m_Layer: 0
   m_Name: Battle_Boar
   m_TagString: Untagged
@@ -91,7 +91,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6402044451903030731
+--- !u!114 &-4299631889324339392
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,20 +100,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 6089210800779420423}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c223da3fecae984183aa215d6670a45, type: 3}
+  m_Script: {fileID: 11500000, guid: dcad75f37f974874eb9ed473633940c0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUnit
   unitName: Javali
   playerLevel: 0
   maxHP: 50
   currentHP: 50
-  maxMP: 30
-  currentMP: 30
+  maxMP: 0
+  currentMP: 0
   strength: 10
-  resistance: 5
+  resistance: 10
   will: 10
-  knowledge: 0
+  knowledge: 10
+  speed: 10
   luck: 2
   isDefending: 0
   xpValue: 50
   spriteRenderer: {fileID: 4107760388593785779}
+  tabelaDeLoot:
+  - item: {fileID: 11400000, guid: c369d20cfa970134a9cd672b6d4924a0, type: 2}
+    quantidade: 1
+    chanceDeDrop: 40

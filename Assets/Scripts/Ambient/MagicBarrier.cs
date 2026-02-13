@@ -1,39 +1,37 @@
 using UnityEngine;
 
-public class BlueDoor : MonoBehaviour
+public class BarreiraMagica : MonoBehaviour
 {
-    [Header("Requirements")]
-    public KeyItem requiredKey; // Drag the Blue Gem ScriptableObject here
-    public string deniedMessage = "The door is locked. You need a Blue Gem.";
-    public string successMessage = "The Blue Gem glows, and the door opens!";
+    public string nomeDoItemNecessario = "Gema Azul";
 
+    // Chamado quando o jogador interage ou encosta na barreira
+    public void TentarAbrir()
+    {
+        // Pergunta ao Manager se o item está lá
+        if (InventoryManager.Instance.TemItem(nomeDoItemNecessario))
+        {
+            AbrirCaminho();
+        }
+        else
+        {
+            Debug.Log("Você precisa da Gema Azul para passar!");
+            // Aqui você pode disparar um texto na tela para o jogador
+        }
+    }
+
+    void AbrirCaminho()
+    {
+        Debug.Log("Barreira dissipada!");
+        // Você pode destruir o objeto ou tocar uma animação
+        Destroy(gameObject);
+    }
+
+    // Exemplo se for por colisão
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            CheckDoor();
+            TentarAbrir();
         }
-    }
-
-    private void CheckDoor()
-    {
-        // Ask the InventoryManager if the player has the gem
-        if (InventoryManager.Instance.HasItem(requiredKey))
-        {
-            Debug.Log(successMessage);
-            OpenDoor();
-        }
-        else
-        {
-            Debug.Log(deniedMessage);
-            // Here you could trigger a UI message on the screen
-        }
-    }
-
-    private void OpenDoor()
-    {
-        // For now, let's just disable the door. 
-        // You can add an animation here later!
-        gameObject.SetActive(false);
     }
 }

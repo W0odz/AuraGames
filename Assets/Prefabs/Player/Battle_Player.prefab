@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8935998749981931871}
   - component: {fileID: 5219169801067019752}
-  - component: {fileID: 8876817683389222814}
+  - component: {fileID: 8831406028994321376}
   m_Layer: 0
   m_Name: Battle_Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -91,7 +91,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8876817683389222814
+--- !u!114 &8831406028994321376
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,21 +100,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 530645805824626972}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c223da3fecae984183aa215d6670a45, type: 3}
+  m_Script: {fileID: 11500000, guid: 4afa424e2b97185459f1c815c1f4e624, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  unitName: Recruta
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerUnit
+  unitName: 
   playerLevel: 0
-  maxHP: 100
-  currentHP: 100
-  maxMP: 50
-  currentMP: 50
-  strength: 20
-  resistance: 5
-  will: 20
-  knowledge: 5
+  maxHP: 0
+  currentHP: 0
+  maxMP: 0
+  currentMP: 0
+  strength: 0
+  resistance: 0
+  will: 0
+  knowledge: 0
   speed: 0
-  luck: 10
+  luck: 0
   isDefending: 0
   xpValue: 0
-  spriteRenderer: {fileID: 5219169801067019752}
+  spriteRenderer: {fileID: 0}

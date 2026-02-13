@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 68407075379245234}
   - component: {fileID: 4107760388593785779}
-  - component: {fileID: 6402044451903030731}
+  - component: {fileID: -915613975759970899}
   m_Layer: 0
   m_Name: Battle_Goblin
   m_TagString: Untagged
@@ -91,7 +91,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6402044451903030731
+--- !u!114 &-915613975759970899
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,20 +100,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 6089210800779420423}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c223da3fecae984183aa215d6670a45, type: 3}
+  m_Script: {fileID: 11500000, guid: dcad75f37f974874eb9ed473633940c0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  unitName: Goblin
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyUnit
+  unitName: 
   playerLevel: 0
-  maxHP: 100
-  currentHP: 100
-  maxMP: 50
-  currentMP: 50
-  strength: 20
-  resistance: 15
-  will: 20
+  maxHP: 0
+  currentHP: 0
+  maxMP: 0
+  currentMP: 0
+  strength: 0
+  resistance: 0
+  will: 0
   knowledge: 0
-  luck: 5
+  speed: 0
+  luck: 0
   isDefending: 0
-  xpValue: 150
-  spriteRenderer: {fileID: 4107760388593785779}
+  xpValue: 0
+  spriteRenderer: {fileID: 0}

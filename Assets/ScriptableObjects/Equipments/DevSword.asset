@@ -9,15 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f878d79f859a36b418d16f956d5e83c5, type: 3}
+  m_Script: {fileID: 11500000, guid: b687ecf3ad2975e478273490f6b835ef, type: 3}
   m_Name: DevSword
   m_EditorClassIdentifier: Assembly-CSharp::DevSwordItem
-  id: dev_sword
-  itemName: Dev_sword
-  descryption: Uma espada somente para aqueles que descobriram a clareira secreta.
-    Concede 999 em todos os status
-  icon: {fileID: 1169618335941041066, guid: 2954046556e01f7408e5c763bbf52612, type: 3}
-  stackable: 0
-  maxStack: 1
-  godModeValue: 999
-  feedbackMessage: YOU HAVE OBTAINED THE POWER OF THE GODS!
+  nomeItem: DevSword
+  descricao: Espada secreta
+  iconeItem: {fileID: 1169618335941041066, guid: 2954046556e01f7408e5c763bbf52612, type: 3}
+  valorOuro: 0
+  tipoItem: 1
+  slotOndeEquipa: 1
+  bonusStrength: 999
+  bonusResistance: 999
+  bonusWill: 999
+  bonusKnowledge: 999
+  bonusSpeed: 999
+  bonusLuck: 999
+  bonusMaxHP: 999
+  bonusMaxMP: 999
