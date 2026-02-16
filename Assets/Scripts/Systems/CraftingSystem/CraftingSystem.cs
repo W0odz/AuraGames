@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CraftingSystem : MonoBehaviour
 {
-    public void TentarCraftar(CraftingRecipe receita)
+    public void TentarCraftar(RecipeData receita)
     {
         // 1. Verificar se tem todos os ingredientes
         foreach (var ing in receita.ingredientes)

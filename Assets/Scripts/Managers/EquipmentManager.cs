@@ -1,82 +1,61 @@
 using UnityEngine;
 
+// Definição única para evitar o erro CS0101
+public enum SlotEquipamento { Weapon, Helmet, Chestplate, Gloves, Legs }
+
 public class EquipmentManager : MonoBehaviour
 {
     public static EquipmentManager Instance;
 
-    // Array que representa os slots do corpo (0: Arma, 1: Armadura, etc)
-    public DadosItem[] equipamentosAtuais;
+    // Array para os 5 equipamentos frontais da imagem
+    public DadosItem[] currentEquipment = new DadosItem[5];
 
     public delegate void OnEquipmentChanged();
     public OnEquipmentChanged onEquipmentChanged;
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            transform.SetParent(null);
-            DontDestroyOnLoad(gameObject); // Isso mantém os itens equipados entre as cenas
-
-            // Inicializa o array com o tamanho do enum de slots que criamos
-            int numSlots = System.Enum.GetNames(typeof(SlotEquipamento)).Length;
-            equipamentosAtuais = new DadosItem[numSlots];
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-        
+        if (Instance == null) Instance = this;
     }
 
-    public void Equipar(DadosItem novoItem)
+    public void Equip(DadosItem novoItem)
     {
-        if (novoItem == null)
-        {
-            Debug.LogWarning("Tentativa de equipar um item nulo abortada.");
-            return;
-        }
-
+        // 1. Descobrir o índice baseado no enum do item
         int slotIndex = (int)novoItem.slotOndeEquipa;
 
-        // Se já houver algo lá, você pode implementar lógica de devolver ao inventário aqui
-        equipamentosAtuais[slotIndex] = novoItem;
-
-        Debug.Log($"Equipou {novoItem.nomeItem} no slot {novoItem.slotOndeEquipa}");
-
-        // Avisa a UI para atualizar
-        onEquipmentChanged?.Invoke();
-        InventoryManager.Instance.onUpdateUI?.Invoke();
-
-        if (PlayerUnit.Instance != null)
+        // 2. Se já houver um item equipado nesse slot, devolve ele para a mochila
+        if (currentEquipment[slotIndex] != null)
         {
-            PlayerUnit.Instance.InicializarUnidade();
+            InventoryManager.Instance.AdicionarItem(currentEquipment[slotIndex], 1);
         }
 
+        // 3. Coloca o novo item no slot correto
+        currentEquipment[slotIndex] = novoItem;
+
+        // 4. REMOVE da lista do inventário (Mochila)
+        InventoryManager.Instance.RemoverItem(novoItem, 1);
+
+        // 5. Atualiza tudo (UI e Atributos)
+        onEquipmentChanged?.Invoke();
+        InventoryUIManager.Instance.UpdateAll();
     }
 
-    public void Desequipar(int slotIndex)
+    public void Unequip(int slotIndex)
     {
-        // 1. Remove o item do array (define como null)
-        equipamentosAtuais[slotIndex] = null;
-
-        // 2. Atualiza os status do jogador (remove o bônus de 1099 HP)
-        if (PlayerUnit.Instance != null)
+        if (currentEquipment[slotIndex] != null)
         {
-            PlayerUnit.Instance.InicializarUnidade();
-        }
+            // 1. Pega o item que está saindo
+            DadosItem itemSaindo = currentEquipment[slotIndex];
 
-        // 3. Notifica a UI para apagar o ícone e o nome
-        onEquipmentChanged?.Invoke();
-        Debug.Log($"Slot {slotIndex} desequipado com sucesso!");
-    }
+            // 2. Adiciona ele de volta à mochila
+            InventoryManager.Instance.AdicionarItem(itemSaindo, 1);
 
-    public bool IsEquipado(DadosItem item)
-    {
-        for (int i = 0; i < equipamentosAtuais.Length; i++)
-        {
-            if (equipamentosAtuais[i] == item) return true;
+            // 3. Limpa o slot de equipamento
+            currentEquipment[slotIndex] = null;
+
+            // 4. Atualiza as interfaces
+            onEquipmentChanged?.Invoke();
+            InventoryUIManager.Instance.UpdateAll();
         }
-        return false;
     }
 }

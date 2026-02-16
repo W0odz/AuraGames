@@ -14,8 +14,6 @@ public class Unit : MonoBehaviour
     [Header("Atributos Base")]
     public int strength;
     public int resistance;
-    public int will;
-    public int knowledge;
     public int speed;
     public int luck;
 

@@ -37,9 +37,12 @@ public class PauseManager : MonoBehaviour
 
     public void PauseGame()
     {
-        isPaused = true;
-        pausePanel.SetActive(true);
-        Time.timeScale = 0f;
+        if (!InventoryUIManager.Instance.isOpen)
+        {
+            isPaused = true;
+            pausePanel.SetActive(true);
+            Time.timeScale = 0f;
+        }
     }
 
     public void ResumeGame()

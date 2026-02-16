@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static InventoryManager;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -49,6 +50,24 @@ public class InventoryManager : MonoBehaviour
             if (slotExistente.quantidade <= 0) listaItens.Remove(slotExistente);
         }
         onUpdateUI?.Invoke();
+    }
+
+    public int GetItemCount(DadosItem itemProcurado)
+    {
+        int total = 0;
+
+        // SUBSTITUA 'nomeDaSuaLista' pelo nome real que está no seu script
+        foreach (var slot in listaItens)
+        {
+            // Se a sua lista for de 'ItemSlot', use: slot.item
+            // Se for uma lista direta de 'DadosItem', use: slot == itemProcurado
+            if (slot.item == itemProcurado)
+            {
+                total += slot.quantidade;
+            }
+        }
+
+        return total;
     }
 
     public bool TemItem(string nomeDoItem)

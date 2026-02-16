@@ -1,54 +1,37 @@
+using UnityEngine;
+
 public class PlayerUnit : Unit
 {
     public static PlayerUnit Instance;
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null) Instance = this;
     }
 
-    public void SetupPlayerStats(GameManager gm)
-    {
-        // 1. Puxa do GameManager 
-        unitName = gm.playerName;
-        playerLevel = gm.playerLevel;
-        maxHP = gm.maxHP;
-        maxMP = gm.maxMP;
-        currentHP = gm.currentHP;
-        currentMP = gm.currentMP;
-        strength = gm.strength;
-        resistance = gm.resistance;
-        will = gm.will;
-        knowledge = gm.knowledge;
-        speed = gm.speed;
-        luck = gm.luck;
-    }
-
+    // Adicione 'override' aqui para resolver o aviso CS0114
     public override void InicializarUnidade()
     {
-        // 1. Puxa os dados base do GameManager
-        if (GameManager.instance != null)
-        {
-            SetupPlayerStats(GameManager.instance);
-        }
+        // 1. Opcional: Chama a lógica original da classe Unit (reset de HP/MP)
+        base.InicializarUnidade();
 
-        // 2. Soma Equipamentos
+        // 2. Soma os bônus dos equipamentos do novo layout
         if (EquipmentManager.Instance != null)
         {
-            foreach (var item in EquipmentManager.Instance.equipamentosAtuais)
+            foreach (var item in EquipmentManager.Instance.currentEquipment)
             {
-                if (item == null) continue;
-                strength += item.bonusStrength;
-                resistance += item.bonusResistance;
-                will += item.bonusWill;
-                knowledge += item.bonusKnowledge;
-                speed += item.bonusSpeed;
-                luck += item.bonusLuck;
-                maxHP += item.bonusMaxHP;
-                maxMP += item.bonusMaxMP;
+                if (item != null)
+                {
+                    // Usa os nomes em inglês do seu script DadosItem
+                    maxHP += item.bonusMaxHP;
+                    maxMP += item.bonusMaxMP;
+                    strength += item.bonusStrength;
+                    resistance += item.bonusResistance;
+                }
             }
         }
 
-        base.InicializarUnidade();
+        // 3. Garante que o HP não passe do novo limite
+        if (currentHP > maxHP) currentHP = maxHP;
     }
 }

@@ -17,7 +17,7 @@ MonoBehaviour:
   iconeItem: {fileID: 1169618335941041066, guid: 2954046556e01f7408e5c763bbf52612, type: 3}
   valorOuro: 0
   tipoItem: 1
-  slotOndeEquipa: 1
+  slotOndeEquipa: 0
   bonusStrength: 999
   bonusResistance: 999
   bonusWill: 999

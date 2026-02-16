@@ -141,19 +141,6 @@ public class BattleSystem : MonoBehaviour
         SetActionButtons(true);
     }
 
-    public void OnFireballButton()
-    {
-        if (state != BattleState.PLAYERTURN) return;
-        magicMenuPanel.SetActive(false);
-        StartCoroutine(PlayerMagicAttack());
-    }
-
-    public void OnHealButton()
-    {
-        if (state != BattleState.PLAYERTURN) return;
-        magicMenuPanel.SetActive(false);
-        StartCoroutine(PlayerHeal());
-    }
 
     // --- AÇÕES ---
 
@@ -198,48 +185,7 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    IEnumerator PlayerMagicAttack()
-    {
-        int manaCost = 20;
-        if (playerUnit.currentMP < manaCost)
-        {
-            battleLogManager.AddLogMessage("Mana insuficiente!");
-            SetActionButtons(true);
-            yield break;
-        }
-
-        SetActionButtons(false);
-        playerUnit.currentMP -= manaCost;
-        playerHUD.UpdateMP(playerUnit.currentMP);
-
-        // Cálculo de Dano Mágico
-        int rawDamage = playerUnit.will;
-        int defense = enemyUnit.knowledge;
-        int finalDamage = rawDamage - defense;
-        if (finalDamage < 1) finalDamage = 1;
-
-        battleLogManager.AddLogMessage($"{playerUnit.unitName} usa Bola de Fogo!");
-        yield return new WaitForSeconds(1f);
-
-        bool isDead = enemyUnit.TakeDamage(finalDamage);
-        enemyHUD.UpdateHP(enemyUnit.currentHP);
-
-        battleLogManager.AddLogMessage($"Bola de Fogo causou {finalDamage} de dano!");
-        yield return new WaitForSeconds(1f);
-
-        if (isDead)
-        {
-            state = BattleState.WON;
-            StartCoroutine(enemyUnit.FadeOut());
-            yield return new WaitForSeconds(1.5f);
-            StartCoroutine(EndBattle());
-        }
-        else
-        {
-            state = BattleState.ENEMYTURN;
-            StartCoroutine(EnemyTurn());
-        }
-    }
+ 
 
     IEnumerator PlayerDefend()
     {
@@ -251,28 +197,7 @@ public class BattleSystem : MonoBehaviour
         StartCoroutine(EnemyTurn());
     }
 
-    IEnumerator PlayerHeal()
-    {
-        int manaCost = 15;
-        if (playerUnit.currentMP < manaCost)
-        {
-            battleLogManager.AddLogMessage("Mana insuficiente!");
-            SetActionButtons(true);
-            yield break;
-        }
-        playerUnit.currentMP -= manaCost;
-        playerHUD.UpdateMP(playerUnit.currentMP);
-
-        int heal = playerUnit.will + 10;
-        playerUnit.Heal(heal);
-        playerHUD.UpdateHP(playerUnit.currentHP);
-
-        battleLogManager.AddLogMessage($"Curou {heal} HP!");
-        yield return new WaitForSeconds(1f);
-
-        state = BattleState.ENEMYTURN;
-        StartCoroutine(EnemyTurn());
-    }
+    
 
     // --- TURNO DO INIMIGO ---
 
