@@ -289,8 +289,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b65c78b902eac644ae9b3bd159bc622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAIController
+  isPassive: 0
   wanderSpeed: 2
   chaseSpeed: 4
+  battlePrefab: {fileID: 0}
+  isBoss: 0
   chaseDuration: 10
   mapBoundsCollider: {fileID: 0}
   enemyID: 

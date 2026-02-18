@@ -38,6 +38,11 @@ public class InventoryManager : MonoBehaviour
         if (slotExistente != null) slotExistente.quantidade += quantidade;
         else listaItens.Add(new Slot(item, quantidade));
 
+        if (CollectionLogManager.Instance != null)
+        {
+            CollectionLogManager.Instance.AddLog(item, quantidade);
+        }
+
         onUpdateUI?.Invoke();
     }
 
@@ -59,8 +64,6 @@ public class InventoryManager : MonoBehaviour
         // SUBSTITUA 'nomeDaSuaLista' pelo nome real que está no seu script
         foreach (var slot in listaItens)
         {
-            // Se a sua lista for de 'ItemSlot', use: slot.item
-            // Se for uma lista direta de 'DadosItem', use: slot == itemProcurado
             if (slot.item == itemProcurado)
             {
                 total += slot.quantidade;

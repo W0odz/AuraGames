@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7dd9b1f521a42445b6a820d4b6a1a00, type: 3}
+  m_Name: CalcasDeAldeao
+  m_EditorClassIdentifier: Assembly-CSharp::DadosItem
+  nomeItem: "Cal\xE7as de Alde\xE3o"
+  descricao: 'Uma roupa comum utilizada pelos habitantes da vila
+
+'
+  iconeItem: {fileID: 0}
+  valorOuro: 0
+  tipoItem: 1
+  slotOndeEquipa: 4
+  efeitosDoItem: []
+  bonusStrength: 0
+  bonusResistance: 2
+  bonusMaxHP: 5
+  bonusMaxMP: 0

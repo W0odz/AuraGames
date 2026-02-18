@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53d8f93d43235584cb43b83088126fc6, type: 3}
-  m_Name: Recipe_EnsopadoDeCarne
+  m_Name: Recipe_EspetinhoDeFrutas
   m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipe
-  ingredientes:
-  - item: {fileID: 11400000, guid: c369d20cfa970134a9cd672b6d4924a0, type: 2}
-    quantidade: 1
-  - item: {fileID: 11400000, guid: 305adf03410c4c849aca551209678751, type: 2}
-    quantidade: 1
-  itemResultado: {fileID: 11400000, guid: f7dc99c6aacb28743b5fd9d221f17446, type: 2}
+  itemResultado: {fileID: 11400000, guid: 43b79e255f9e65b40856dcaebb2e284d, type: 2}
   quantidadeResultado: 1
+  ingredientes:
+  - item: {fileID: 11400000, guid: ba289d3eb8162cf4ca08e541a8cdbd3e, type: 2}
+    quantidade: 1
+  - item: {fileID: 11400000, guid: e49a43ba42faace41b47e271a91fe42f, type: 2}
+    quantidade: 4

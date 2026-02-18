@@ -55,9 +55,14 @@ public class InventoryUIManager : MonoBehaviour
     {
         isOpen = false;
         if (inventoryRoot != null) inventoryRoot.SetActive(false);
+        if (CraftingUIManager.Instance != null)
+        {
+            CraftingUIManager.Instance.ResetCraftingUI();
+        }
+    
 
         if (TooltipManager.Instance != null) TooltipManager.Instance.Hide();
-        Time.timeScale = 1f; // Pausa o jogo
+        Time.timeScale = 1f; // Retoma o jogo
     }
 
     private void OnEnable()
@@ -80,7 +85,7 @@ public class InventoryUIManager : MonoBehaviour
         UpdateFooterStats();
     }
 
-    private void UpdateGrid()
+    public void UpdateGrid()
     {
         if (gridContent == null || InventoryManager.Instance == null) return;
 

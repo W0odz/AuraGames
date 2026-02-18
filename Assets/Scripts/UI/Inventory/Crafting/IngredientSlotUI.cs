@@ -20,7 +20,15 @@ public class IngredientSlotUI : MonoBehaviour
             amountText.text = $"{quantidadeNaMochila} / {quantidadeNecessaria}";
 
             // Muda a cor para vermelho se não tiver o suficiente
-            amountText.color = (quantidadeNaMochila >= quantidadeNecessaria) ? Color.white : Color.red;
+            if (quantidadeNaMochila < quantidadeNecessaria)
+            {
+                amountText.color = Color.red;
+            }
+            else
+            {
+                amountText.color = Color.green;
+            }
+            ;
         }
     }
 }

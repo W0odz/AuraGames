@@ -1,7 +1,6 @@
 using UnityEngine;
 
-// Definição única para evitar o erro CS0101
-public enum SlotEquipamento { Weapon, Helmet, Chestplate, Gloves, Legs }
+public enum SlotEquipamento { Weapon, Helmet, Chestplate, Gloves, Legs, Nenhum }
 
 public class EquipmentManager : MonoBehaviour
 {
@@ -56,6 +55,24 @@ public class EquipmentManager : MonoBehaviour
             // 4. Atualiza as interfaces
             onEquipmentChanged?.Invoke();
             InventoryUIManager.Instance.UpdateAll();
+        }
+    }
+
+    public void IniciarAtaque()
+    {
+        // Pega o item que está no slot de Arma (índice 0)
+        DadosItem itemEquipado = currentEquipment[0];
+
+        // Tenta transformar o item genérico em uma Arma
+        if (itemEquipado is DadosArma arma)
+        {
+            // Agora você tem acesso aos dados específicos!
+            Debug.Log("Iniciando minigame de: " + arma.tipoDeDano);
+
+            if (arma.tipoDeDano == TipoAtaque.Perfurante)
+                AttackManager.Instance.piercing.Iniciar(arma);
+            else
+                AttackManager.Instance.slashing.Iniciar(arma);
         }
     }
 }

@@ -10,7 +10,7 @@ public class CraftingUIManager : MonoBehaviour
     [Header("Paineis de Exibicao (Topo)")]
     public GameObject resultAndIngredientsGroup; // O grupo que contém o topo e o meio
     public Image resultIcon;
-    public TextMeshProUGUI resultName;       
+    public TextMeshProUGUI resultName;
     public TextMeshProUGUI resultDescription;
 
     [Header("Ingredientes (Meio)")]
@@ -75,20 +75,26 @@ public class CraftingUIManager : MonoBehaviour
     // Chamado quando o jogador clica em uma receita na lista inferior
     public void SelectRecipe(RecipeData recipe)
     {
-        Debug.Log($"CraftingManager recebeu a receita: {recipe.itemResultado.nomeItem}");
+        if (recipe == null) return;
 
         selectedRecipe = recipe;
 
+        // 1. ATRIBUIÇÃO DOS DADOS DO RESULTADO
+        // Usamos os dados do 'itemResultado' que está dentro da receita
+        if (recipe.itemResultado != null)
+        {
+            resultName.text = recipe.itemResultado.nomeItem;
+            resultDescription.text = recipe.itemResultado.descricao;
+            resultIcon.sprite = recipe.itemResultado.iconeItem;
+        }
+
+        // 2. ATIVA O PAINEL (Caso ele comece escondido)
         if (resultAndIngredientsGroup != null)
         {
             resultAndIngredientsGroup.SetActive(true);
-            Debug.Log("Painel de detalhes ativado com sucesso.");
-        }
-        else
-        {
-            Debug.LogError("Erro: O campo 'Result And Ingredient Panel' está VAZIO no Inspector!");
         }
 
+        // 3. ATUALIZA OS INGREDIENTES (Função que criamos antes)
         UpdateIngredientList();
     }
 
@@ -120,30 +126,41 @@ public class CraftingUIManager : MonoBehaviour
 
     public void CraftItem()
     {
+        // 1. Segurança: Verifica se há uma receita selecionada
         if (selectedRecipe == null) return;
 
-        // 1. Verifica se o jogador tem todos os ingredientes necessários
-        foreach (var ing in selectedRecipe.ingredientes)
+        // 2. Verifica se o jogador REALMENTE tem os itens (Double check)
+        if (!CanCraft(selectedRecipe))
         {
-            if (!HasIngredients(ing.item, ing.quantidade))
-            {
-                Debug.Log("Faltam materiais para: " + selectedRecipe.itemResultado.nomeItem);
-                return;
-            }
+            Debug.Log("Você não tem materiais suficientes!");
+            return;
         }
 
-        // 2. Remove os itens consumidos da mochila
+        // 3. CONSOME os ingredientes do inventário
         foreach (var ing in selectedRecipe.ingredientes)
         {
             InventoryManager.Instance.RemoverItem(ing.item, ing.quantidade);
         }
 
-        // 3. Adiciona o item pronto ao inventário
-        InventoryManager.Instance.AdicionarItem(selectedRecipe.itemResultado, selectedRecipe.quantidadeResultado);
+        // 4. ADICIONA o item criado (ex: o Ensopado)
+        InventoryManager.Instance.AdicionarItem(selectedRecipe.itemResultado, 1);
 
-        // 4. Atualiza as interfaces (Mochila e o próprio painel de Crafting)
-        InventoryUIManager.Instance.UpdateAll();
-        SelectRecipe(selectedRecipe);
+        // 5. ATUALIZA as UIs para o jogador ver a mudança na hora
+        UpdateIngredientList(); // Atualiza os números (ex: de 12/3 para 9/3)
+        InventoryUIManager.Instance.UpdateGrid(); // Atualiza o grid da mochila
+
+        Debug.Log($"{selectedRecipe.itemResultado.nomeItem} criado com sucesso!");
+    }
+
+    // Função auxiliar para checar se o craft é possível
+    private bool CanCraft(RecipeData recipe)
+    {
+        foreach (var ing in recipe.ingredientes)
+        {
+            if (InventoryManager.Instance.GetItemCount(ing.item) < ing.quantidade)
+                return false;
+        }
+        return true;
     }
 
     private bool HasIngredients(DadosItem item, int qty)
@@ -153,5 +170,23 @@ public class CraftingUIManager : MonoBehaviour
             if (slot.item == item && slot.quantidade >= qty) return true;
         }
         return false;
+    }
+
+    public void ResetCraftingUI()
+    {
+        // 1. Reseta a variável da receita atual
+        selectedRecipe = null;
+
+        // 2. Esconde o painel de detalhes e resultados
+        if (resultAndIngredientsGroup != null)
+        {
+            resultAndIngredientsGroup.SetActive(false);
+        }
+
+        // 3. Limpa visualmente os ingredientes do meio
+        foreach (Transform child in ingredientsContainer)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }

@@ -10,19 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7dd9b1f521a42445b6a820d4b6a1a00, type: 3}
-  m_Name: EnsopadoDeCarne
+  m_Name: ArcoDoCacador
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
-  nomeItem: Ensopado de Carne
-  descricao: Recupera 50 de vida
-  iconeItem: {fileID: -3731384113988734907, guid: 35089c0dae1b8134d933aeef7704d9d8, type: 3}
+  nomeItem: "Arco do Ca\xE7ador"
+  descricao: Arco deixado pelo seu pai para que continue o seu legado
+  iconeItem: {fileID: 0}
   valorOuro: 0
-  tipoItem: 0
+  tipoItem: 1
   slotOndeEquipa: 0
-  bonusStrength: 0
+  efeitosDoItem: []
+  bonusStrength: 10
   bonusResistance: 0
-  bonusWill: 0
-  bonusKnowledge: 0
-  bonusSpeed: 0
-  bonusLuck: 0
   bonusMaxHP: 0
   bonusMaxMP: 0

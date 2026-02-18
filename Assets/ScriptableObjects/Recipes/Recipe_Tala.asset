@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53d8f93d43235584cb43b83088126fc6, type: 3}
+  m_Name: Recipe_Tala
+  m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipe
+  itemResultado: {fileID: 11400000, guid: a63fc4172f4804e4db440341669c6ea3, type: 2}
+  quantidadeResultado: 1
+  ingredientes:
+  - item: {fileID: 11400000, guid: ba289d3eb8162cf4ca08e541a8cdbd3e, type: 2}
+    quantidade: 2
+  - item: {fileID: 11400000, guid: 305adf03410c4c849aca551209678751, type: 2}
+    quantidade: 3
+  - item: {fileID: 11400000, guid: 7bb09b1af1083df48ab263119f65be24, type: 2}
+    quantidade: 2

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 989254865412476731}
   - component: {fileID: 2343346095757553459}
   - component: {fileID: 2224337464052428500}
-  - component: {fileID: 4424928755594174133}
+  - component: {fileID: 4128517516584313889}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   moveSpeed: 14
---- !u!114 &4424928755594174133
+--- !u!114 &4128517516584313889
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,9 +180,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5114076709285204727}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c223da3fecae984183aa215d6670a45, type: 3}
+  m_Script: {fileID: 11500000, guid: 4afa424e2b97185459f1c815c1f4e624, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Unit
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerUnit
   unitName: 
   playerLevel: 0
   maxHP: 0
@@ -191,8 +191,6 @@ MonoBehaviour:
   currentMP: 0
   strength: 0
   resistance: 0
-  will: 0
-  knowledge: 0
   speed: 0
   luck: 0
   isDefending: 0

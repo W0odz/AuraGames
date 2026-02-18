@@ -6,24 +6,44 @@ using UnityEngine.EventSystems;
 public class ItemSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Image iconImage;
+    public TextMeshProUGUI amountText;
     private DadosItem linkedItem;
 
     // Configura o item e a quantidade no slot
     public void Setup(DadosItem item, int qty)
     {
         linkedItem = item;
+
         if (item != null)
         {
-            iconImage.sprite = item.iconeItem; //
+            iconImage.sprite = item.iconeItem;
             iconImage.enabled = true;
+
+            if (amountText != null)
+            {
+                if (qty > 1)
+                {
+                    amountText.text = qty.ToString();
+                    amountText.enabled = true;
+
+                    // --- LÓGICA DE AJUSTE DE TAMANHO ---
+                    amountText.enableAutoSizing = true; // Ativa o redimensionamento automático
+                    amountText.fontSizeMin = 12;        // Tamanho mínimo (para não ficar ilegível)
+                    amountText.fontSizeMax = 24;        // Tamanho máximo (o padrão do seu slot)
+                }
+                else
+                {
+                    amountText.enabled = false;
+                }
+            }
         }
         else
         {
             iconImage.enabled = false;
+            if (amountText != null) amountText.enabled = false;
         }
     }
 
-    // ESTA É A FUNÇÃO QUE RESOLVE O ERRO CS1061
     public DadosItem GetItem()
     {
         return linkedItem;

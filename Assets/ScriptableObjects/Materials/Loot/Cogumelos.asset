@@ -14,15 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
   nomeItem: Cogumelos
   descricao: "Comest\xEDveis e comumente usados na culin\xE1ria local"
-  iconeItem: {fileID: 0}
+  iconeItem: {fileID: 5547731681054417561, guid: 3d91b04bf61dd19488f8068d1680ff4f, type: 3}
   valorOuro: 0
   tipoItem: 2
   slotOndeEquipa: 0
   bonusStrength: 0
   bonusResistance: 0
-  bonusWill: 0
-  bonusKnowledge: 0
-  bonusSpeed: 0
-  bonusLuck: 0
   bonusMaxHP: 0
   bonusMaxMP: 0

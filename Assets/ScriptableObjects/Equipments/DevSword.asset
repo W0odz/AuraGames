@@ -18,11 +18,10 @@ MonoBehaviour:
   valorOuro: 0
   tipoItem: 1
   slotOndeEquipa: 0
+  efeitosDoItem: []
   bonusStrength: 999
   bonusResistance: 999
-  bonusWill: 999
-  bonusKnowledge: 999
-  bonusSpeed: 999
-  bonusLuck: 999
   bonusMaxHP: 999
   bonusMaxMP: 999
+  tipoDano: 1
+  consumoDeTinta: 50

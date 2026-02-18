@@ -14,15 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
   nomeItem: Pedra
   descricao: Apenas uma pedra
-  iconeItem: {fileID: 0}
+  iconeItem: {fileID: -1337783805659669050, guid: 5765c1a84d759934cb0ffb3503692175, type: 3}
   valorOuro: 0
   tipoItem: 2
   slotOndeEquipa: 0
   bonusStrength: 0
   bonusResistance: 0
-  bonusWill: 0
-  bonusKnowledge: 0
-  bonusSpeed: 0
-  bonusLuck: 0
   bonusMaxHP: 0
   bonusMaxMP: 0
