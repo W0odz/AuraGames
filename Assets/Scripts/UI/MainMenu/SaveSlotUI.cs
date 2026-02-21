@@ -69,21 +69,21 @@ public class SaveSlotUI : MonoBehaviour
     public void OnLoadClicked()
     {
         // 1. Define o slot atual no GameManager
-        GameManager.instance.SetCurrentSlot(slotID);
+        GameManager.Instance.SetCurrentSlot(slotID);
 
         // 2. Decide a ação
         if (SaveSystem.SaveFileExists(slotID))
         {
            // 1. Carrega os dados (isso preenche 'sceneToLoad' no GameManager)
-            GameManager.instance.LoadGame(slotID);
+            GameManager.Instance.LoadGame(slotID);
             
             // 2. Carrega a cena correta que estava no save
-            string cenaParaCarregar = GameManager.instance.sceneToLoad;
+            string cenaParaCarregar = GameManager.Instance.sceneToLoad;
             
             // Segurança: Se por algum motivo estiver vazio, vai pra Exploration
             if (string.IsNullOrEmpty(cenaParaCarregar)) cenaParaCarregar = "ExplorationScene";
 
-            GameManager.instance.LoadSceneWithFade(cenaParaCarregar);
+            GameManager.Instance.LoadSceneWithFade(cenaParaCarregar);
         }
         else if (GameManager.dataToCopy != null)
         {

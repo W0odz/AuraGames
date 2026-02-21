@@ -16,7 +16,7 @@ public class SecretMessage : MonoBehaviour
     void CheckCondition()
     {
         // Verifica se o jogador TEM a espada
-        bool hasSword = GameManager.instance.collectedItemIDs.Contains(forbiddenItemID);
+        bool hasSword = GameManager.Instance.collectedItemIDs.Contains(forbiddenItemID);
 
         foreach (GameObject obj in textsToControl)
         {

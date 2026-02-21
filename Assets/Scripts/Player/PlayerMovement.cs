@@ -18,18 +18,18 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         // Prioridade 1: Voltando de Batalha (Curto Prazo)
-        if (GameManager.instance.isReturningFromBattle)
+        if (GameManager.Instance.isReturningFromBattle)
         {
-            transform.position = GameManager.instance.playerReturnPosition;
-            GameManager.instance.isReturningFromBattle = false;
+            transform.position = GameManager.Instance.playerReturnPosition;
+            GameManager.Instance.isReturningFromBattle = false;
         }
         // Prioridade 2: Carregando um Save (Longo Prazo) --- NOVO ---
-        else if (GameManager.instance.isLoadingSave)
+        else if (GameManager.Instance.isLoadingSave)
         {
-            transform.position = GameManager.instance.positionToLoad;
+            transform.position = GameManager.Instance.positionToLoad;
 
             // Desliga a flag para não teleportar de novo se trocar de sala
-            GameManager.instance.isLoadingSave = false;
+            GameManager.Instance.isLoadingSave = false;
         }
         // Se nenhuma das duas for verdade, o jogador nasce no local padrão da cena
     }
@@ -75,11 +75,11 @@ public class PlayerMovement : MonoBehaviour
                 if (ai.isBoss)
                 {
                     Debug.Log("PLAYER: Encontrei um CHEFE! Ativando modo Boss Battle.");
-                    GameManager.instance.isBossBattle = true;
+                    GameManager.Instance.isBossBattle = true;
                 }
                 else
                 {
-                    GameManager.instance.isBossBattle = false;
+                    GameManager.Instance.isBossBattle = false;
                 }
 
                 //Congela tudo imediatamente
@@ -91,19 +91,19 @@ public class PlayerMovement : MonoBehaviour
                 rb.linearVelocity = Vector2.zero;
 
                 // Salva qual inimigo estamos lutando
-                GameManager.instance.currentEnemyID = ai.enemyID;
+                GameManager.Instance.currentEnemyID = ai.enemyID;
 
                 // Salva de qual cena estamos vindo
-                GameManager.instance.lastExplorationScene = SceneManager.GetActiveScene().name;
+                GameManager.Instance.lastExplorationScene = SceneManager.GetActiveScene().name;
 
                 // Antes de ir para a batalha, salva onde estamos
-                GameManager.instance.playerReturnPosition = transform.position;
-                GameManager.instance.isReturningFromBattle = true;
+                GameManager.Instance.playerReturnPosition = transform.position;
+                GameManager.Instance.isReturningFromBattle = true;
 
                 // Pega o prefab de batalha do inimigo e manda pro GameManager
                 if (ai.battlePrefab != null)
                 {
-                    GameManager.instance.nextBattleEnemyPrefab = ai.battlePrefab;
+                    GameManager.Instance.nextBattleEnemyPrefab = ai.battlePrefab;
                 }
                 else
                 {
@@ -121,6 +121,6 @@ public class PlayerMovement : MonoBehaviour
     private void StartBattle()
     {
         // Coloque aqui o NOME EXATO da sua cena de batalha
-        GameManager.instance.LoadSceneWithFade("BattleScene");
+        GameManager.Instance.LoadSceneWithFade("BattleScene");
     }
 }

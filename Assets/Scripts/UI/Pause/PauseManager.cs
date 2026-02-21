@@ -57,7 +57,7 @@ public class PauseManager : MonoBehaviour
 
     public void OnSaveButton()
     {
-        GameManager.instance.SaveCurrentGame();
+        GameManager.Instance.SaveCurrentGame();
         if (saveButtonText != null) saveButtonText.text = "Salvo!";
     }
 
@@ -76,18 +76,18 @@ public class PauseManager : MonoBehaviour
     public void OnSaveAndQuitButton()
     {
         // 1. Salva
-        GameManager.instance.SaveCurrentGame();
+        GameManager.Instance.SaveCurrentGame();
 
         // 2. Descongela e Sai
         Time.timeScale = 1f;
-        GameManager.instance.LoadSceneWithFade("TitleScreen");
+        GameManager.Instance.LoadSceneWithFade("TitleScreen");
     }
 
     public void OnQuitNoSaveButton()
     {
         // 1. Apenas Descongela e Sai
         Time.timeScale = 1f;
-        GameManager.instance.LoadSceneWithFade("TitleScreen");
+        GameManager.Instance.LoadSceneWithFade("TitleScreen");
     }
 
     public void OnCancelQuitButton()

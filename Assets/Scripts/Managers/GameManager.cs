@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
 
     // 2. A "propriedade" pública inteligente
-    public static GameManager instance
+    public static GameManager Instance
     {
         get
         {

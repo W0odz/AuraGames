@@ -26,13 +26,13 @@ public class NameInputPopup : MonoBehaviour
         string chosenName = nameInputField.text;
 
         // 1. Define o slot
-        GameManager.instance.SetCurrentSlot(slotToCreate);
+        GameManager.Instance.SetCurrentSlot(slotToCreate);
 
         // 2. Cria o jogo com o nome escolhido
-        GameManager.instance.CreateNewGame(chosenName);
+        GameManager.Instance.CreateNewGame(chosenName);
 
         // 3. Carrega a cena
-        GameManager.instance.LoadSceneWithFade("ExplorationScene");
+        GameManager.Instance.LoadSceneWithFade("ExplorationScene");
 
         // Fecha o popup (opcional, já que vamos mudar de cena)
         gameObject.SetActive(false);

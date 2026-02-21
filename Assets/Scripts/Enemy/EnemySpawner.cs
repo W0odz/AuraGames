@@ -125,7 +125,7 @@ public class EnemySpawner : MonoBehaviour
         string id = SceneManager.GetActiveScene().name + "_" + gameObject.name + "_Enemy_" + slotIndex;
 
         // Verifica se este ID específico está na lista de mortos
-        if (GameManager.instance.defeatedEnemyIDs.Contains(id))
+        if (GameManager.Instance.defeatedEnemyIDs.Contains(id))
         {
             // Ele está morto! Começa o processo de Respawn
             StartCoroutine(RespawnTimer(slotIndex, id));
@@ -202,9 +202,9 @@ public class EnemySpawner : MonoBehaviour
 
         // Remove o ID da lista de mortos do GameManager
         // Agora, na próxima checagem do loop principal, ele será considerado "vivo" e vai spawnar
-        if (GameManager.instance.defeatedEnemyIDs.Contains(id))
+        if (GameManager.Instance.defeatedEnemyIDs.Contains(id))
         {
-            GameManager.instance.defeatedEnemyIDs.Remove(id);
+            GameManager.Instance.defeatedEnemyIDs.Remove(id);
         }
 
         isRespawning[slotIndex] = false;

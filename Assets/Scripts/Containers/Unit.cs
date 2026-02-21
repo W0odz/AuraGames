@@ -5,6 +5,7 @@ public class Unit : MonoBehaviour
 {
     [Header("Identidade Base")]
     public string unitName;
+    public Sprite unitPortrait;
     public int playerLevel;
     public int maxHP;
     public int currentHP;

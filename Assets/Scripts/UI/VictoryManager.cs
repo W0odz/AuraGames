@@ -12,7 +12,7 @@ public class VictoryManager : MonoBehaviour
         if (victoryPanel != null) victoryPanel.SetActive(false);
 
         // Verifica se o GameManager mandou ativar a vitória
-        if (GameManager.instance.triggerEndingOnLoad)
+        if (GameManager.Instance.triggerEndingOnLoad)
         {
             StartCoroutine(ShowVictoryRoutine());
         }
@@ -33,8 +33,8 @@ public class VictoryManager : MonoBehaviour
             // ------------------------------------
         }
 
-        GameManager.instance.triggerEndingOnLoad = false;
-        GameManager.instance.SaveCurrentGame();
+        GameManager.Instance.triggerEndingOnLoad = false;
+        GameManager.Instance.SaveCurrentGame();
     }
 
     // Função para o Botão "Voltar ao Menu"
@@ -45,6 +45,6 @@ public class VictoryManager : MonoBehaviour
         Time.timeScale = 1f;
         // ----------------------------------------------
 
-        GameManager.instance.LoadSceneWithFade("TitleScreen");
+        GameManager.Instance.LoadSceneWithFade("TitleScreen");
     }
 }
