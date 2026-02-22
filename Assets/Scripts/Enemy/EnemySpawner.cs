@@ -21,7 +21,14 @@ public class EnemySpawner : MonoBehaviour
     public Collider2D mapBoundsCollider;
 
     [Header("Área Segura do Jogador")]
+    [Tooltip("Raio mínimo para NÃO spawnar inimigos perto do player (normal).")]
     public float playerSafeZoneRadius = 5f;
+
+    [Tooltip("Raio usado logo após voltar de batalha (durante a grace period).")]
+    public float playerSafeZoneRadiusDuringGrace = 9f;
+
+    [Tooltip("Quantas tentativas de achar um ponto válido de spawn antes de desistir.")]
+    public int maxSpawnAttempts = 50;
 
     private Transform playerTransform;
 
@@ -47,7 +54,25 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(StartSpawnerNextFrame());
+    }
+
+    IEnumerator StartSpawnerNextFrame()
+    {
+        yield return null; // espera 1 frame pro PlayerMovement.Start() reposicionar
         StartCoroutine(DistanceCheckRoutine());
+    }
+
+    float GetCurrentSafeRadius()
+    {
+        // IMPORTANTE:
+        // Esse método depende de você ter implementado no GameManager:
+        // bool IsInCombatGracePeriod()
+        // (ou troque para IsInReturnGracePeriod, conforme você decidir padronizar)
+        if (GameManager.Instance != null && GameManager.Instance.IsInCombatGracePeriod())
+            return Mathf.Max(playerSafeZoneRadius, playerSafeZoneRadiusDuringGrace);
+
+        return playerSafeZoneRadius;
     }
 
     IEnumerator DistanceCheckRoutine()
@@ -68,7 +93,14 @@ public class EnemySpawner : MonoBehaviour
                 }
                 else if (isActive && distance > disableDistance)
                 {
-                    DeactivateSpawner();
+                    if (GameManager.Instance != null && GameManager.Instance.IsInCombatGracePeriod())
+                    {
+                        // mantém ativo até acabar o grace
+                    }
+                    else
+                    {
+                        DeactivateSpawner();
+                    }
                 }
             }
             yield return checkInterval;
@@ -86,7 +118,11 @@ public class EnemySpawner : MonoBehaviour
         isActive = false;
         if (spawnCoroutine != null) StopCoroutine(spawnCoroutine);
 
-        // Destroi os inimigos visuais, mas mantemos a lógica dos slots
+        // Durante o CombatGrace, NÃO destrua inimigos (evita sumiço ao voltar da batalha)
+        if (GameManager.Instance != null && GameManager.Instance.IsInCombatGracePeriod())
+            return;
+
+        // comportamento normal (performance)
         for (int i = 0; i < enemies.Length; i++)
         {
             if (enemies[i] != null)
@@ -95,82 +131,88 @@ public class EnemySpawner : MonoBehaviour
                 enemies[i] = null;
             }
         }
-        // Nota: Não limpamos o 'isRespawning', pois o tempo continua correndo mesmo longe
     }
 
     IEnumerator SpawnLogicRoutine()
     {
         while (isActive)
         {
-            // Itera por cada "Cadeira" (Slot) disponível
+            if (GameManager.Instance != null && GameManager.Instance.IsInCombatGracePeriod())
+            {
+                yield return new WaitForSeconds(0.25f);
+                continue;
+            }
+
             for (int i = 0; i < numberOfEnemies; i++)
             {
-                // Se a cadeira está vazia E não está no meio de um processo de respawn
                 if (enemies[i] == null && !isRespawning[i])
                 {
                     CheckAndSpawnSlot(i);
                 }
             }
 
-            // Verifica a cada segundo
             yield return new WaitForSeconds(1f);
         }
     }
 
     void CheckAndSpawnSlot(int slotIndex)
     {
-        // Gera um ID FIXO baseado no nome da cena, nome do spawner e NÚMERO DO SLOT
-        // Exemplo: "Floresta_SpawnZone_Goblin_Enemy_0"
-        // Esse ID será sempre o mesmo para esse slot, permitindo persistência!
         string id = SceneManager.GetActiveScene().name + "_" + gameObject.name + "_Enemy_" + slotIndex;
 
-        // Verifica se este ID específico está na lista de mortos
         if (GameManager.Instance.defeatedEnemyIDs.Contains(id))
         {
-            // Ele está morto! Começa o processo de Respawn
             StartCoroutine(RespawnTimer(slotIndex, id));
         }
         else
         {
-            // Ele está vivo (não está na lista)! Pode spawnar.
             SpawnEnemyInSlot(slotIndex, id);
         }
     }
 
-    void SpawnEnemyInSlot(int slotIndex, string id)
+    bool TryFindValidSpawnPosition(out Vector2 spawnPosition)
     {
-        Bounds bounds = mapBoundsCollider.bounds;
-        Vector2 spawnPosition;
-        int attempts = 0;
-        bool isInsideMap;
-        bool isTooCloseToPlayer;
+        spawnPosition = default;
 
-        do
+        if (mapBoundsCollider == null)
+            return false;
+
+        Bounds bounds = mapBoundsCollider.bounds;
+        float safeRadius = GetCurrentSafeRadius();
+
+        for (int attempts = 0; attempts < maxSpawnAttempts; attempts++)
         {
             float spawnX = Random.Range(bounds.min.x, bounds.max.x);
             float spawnY = Random.Range(bounds.min.y, bounds.max.y);
-            spawnPosition = new Vector2(spawnX, spawnY);
+            Vector2 candidate = new Vector2(spawnX, spawnY);
 
-            isInsideMap = mapBoundsCollider.OverlapPoint(spawnPosition);
-            float distToPlayer = (playerTransform != null) ? Vector2.Distance(spawnPosition, playerTransform.position) : 999f;
-            isTooCloseToPlayer = distToPlayer < playerSafeZoneRadius;
+            bool isInsideMap = mapBoundsCollider.OverlapPoint(candidate);
 
-            attempts++;
-            if (attempts > 50) return;
+            float distToPlayer = (playerTransform != null)
+                ? Vector2.Distance(candidate, playerTransform.position)
+                : 999f;
 
-        } while (!isInsideMap || isTooCloseToPlayer);
+            bool isTooCloseToPlayer = distToPlayer < safeRadius;
 
-        // Cria o inimigo
+            if (isInsideMap && !isTooCloseToPlayer)
+            {
+                spawnPosition = candidate;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    void SpawnEnemyInSlot(int slotIndex, string id)
+    {
+        if (!TryFindValidSpawnPosition(out Vector2 spawnPosition))
+            return;
+
         GameObject enemyGO = Instantiate(explorationPrefab, spawnPosition, Quaternion.identity);
-
-        // Coloca ele no Slot correto do Array
         enemies[slotIndex] = enemyGO;
 
-        // --- CONFIGURAÇÃO VISUAL ---
-        // Configura Escala
         if (battlePrefab != null) enemyGO.transform.localScale = battlePrefab.transform.localScale;
 
-        // Configura Sprite e Cor
         SpriteRenderer expRend = enemyGO.GetComponent<SpriteRenderer>();
         if (expRend == null) expRend = enemyGO.GetComponentInChildren<SpriteRenderer>();
         SpriteRenderer batRend = battlePrefab.GetComponent<SpriteRenderer>();
@@ -182,26 +224,21 @@ public class EnemySpawner : MonoBehaviour
             expRend.color = batRend.color;
         }
 
-        // --- CONFIGURAÇÃO IA ---
         EnemyAIController ai = enemyGO.GetComponent<EnemyAIController>();
         if (ai != null)
         {
             ai.battlePrefab = battlePrefab;
-            ai.enemyID = id; // Usa o ID fixo do slot
+            ai.enemyID = id;
             ai.mapBoundsCollider = mapBoundsCollider;
         }
     }
 
-    // Rotina que espera o tempo passar para "reviver" um inimigo morto
     IEnumerator RespawnTimer(int slotIndex, string id)
     {
         isRespawning[slotIndex] = true;
 
-        // Espera o tempo configurado
         yield return new WaitForSeconds(respawnTime);
 
-        // Remove o ID da lista de mortos do GameManager
-        // Agora, na próxima checagem do loop principal, ele será considerado "vivo" e vai spawnar
         if (GameManager.Instance.defeatedEnemyIDs.Contains(id))
         {
             GameManager.Instance.defeatedEnemyIDs.Remove(id);
@@ -235,6 +272,9 @@ public class EnemySpawner : MonoBehaviour
 
             Gizmos.DrawLine(playerTransform.position, closestPoint);
             Gizmos.DrawWireSphere(closestPoint, 0.5f);
+
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(playerTransform.position, playerSafeZoneRadius);
         }
     }
 }

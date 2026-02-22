@@ -9,6 +9,7 @@ public class AttackManager : MonoBehaviour
     public SlashingMinigame slashing;
     public PiercingMinigame piercing;
 
+
     [Header("Dados da Luta")]
     public DadosArma armaAtual;
 

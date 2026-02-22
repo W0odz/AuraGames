@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerUnit
   unitName: 
-  playerLevel: 0
+  unitPortrait: {fileID: 0}
   maxHP: 0
   currentHP: 0
   maxMP: 0
@@ -194,5 +194,7 @@ MonoBehaviour:
   speed: 0
   luck: 0
   isDefending: 0
-  xpValue: 0
   spriteRenderer: {fileID: 0}
+  playerLevel: 1
+  currentXP: 0
+  xpToNextLevel: 100

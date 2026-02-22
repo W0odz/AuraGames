@@ -23,12 +23,15 @@ public class BattleHUD : MonoBehaviour
     private float valorAlvoHP;
 
     [Header("MP - Suave")]
-    public TextMeshProUGUI mpText; 
-    public Slider mpSlider;       
+    public TextMeshProUGUI mpText;
+    public Slider mpSlider;
     private float valorAlvoMP;
 
     [Header("Configurações Visuais")]
     public float velocidadeSuavizacao = 5f;
+
+    // NOVO: trava para impedir o auto-hide enquanto a batalha está encerrando
+    private bool bloquearAutoHide = false;
 
     private void Awake()
     {
@@ -43,11 +46,16 @@ public class BattleHUD : MonoBehaviour
         if (hpSlider.value != valorAlvoHP)
         {
             // Move suavemente entre os valores REAIS (ex: de 80 para 50)
-            hpSlider.value = Mathf.MoveTowards(hpSlider.value, valorAlvoHP, velocidadeSuavizacao * Time.deltaTime * hpSlider.maxValue);
+            hpSlider.value = Mathf.MoveTowards(
+                hpSlider.value,
+                valorAlvoHP,
+                velocidadeSuavizacao * Time.deltaTime * hpSlider.maxValue
+            );
             AtualizarTextoHP((int)hpSlider.value, (int)hpSlider.maxValue);
         }
 
-        if (ehInimigo && cronometroVisibilidade > 0)
+        // MODIFICADO: não executar auto-hide se estiver bloqueado
+        if (ehInimigo && !bloquearAutoHide && cronometroVisibilidade > 0)
         {
             cronometroVisibilidade -= Time.deltaTime;
             if (cronometroVisibilidade <= 0) StartCoroutine(FadeHUD(0f)); // Desaparece no fim
@@ -75,16 +83,17 @@ public class BattleHUD : MonoBehaviour
         }
 
         if (ehInimigo && canvasGroup != null) canvasGroup.alpha = 0;
-
     }
 
     public void UpdateHP(int currentHp)
     {
         valorAlvoHP = currentHp; // O Update cuidará da animação suave
 
-        if (ehInimigo)
+        if (ehInimigo && !bloquearAutoHide)
         {
             cronometroVisibilidade = tempoVisivel;
+
+            // Mantém comportamento antigo, mas agora não atrapalha o encerramento (bloquearAutoHide)
             StopAllCoroutines();
             StartCoroutine(FadeHUD(1f)); // Aparece ao tomar dano
         }
@@ -114,6 +123,24 @@ public class BattleHUD : MonoBehaviour
             canvasGroup.alpha = Mathf.MoveTowards(canvasGroup.alpha, targetAlpha, Time.deltaTime * 2f);
             yield return null;
         }
+    }
+
+    // NOVO: método para garantir "sumir e esperar terminar"
+    public IEnumerator FadeOutAndWait()
+    {
+        bloquearAutoHide = true;
+        cronometroVisibilidade = 0f;
+
+        // Para qualquer fade "aparecendo" que esteja rolando
+        StopAllCoroutines();
+
+        // Se não tiver CanvasGroup, não tem o que esperar
+        if (canvasGroup == null) yield break;
+
+        // Se já estiver invisível, não espera
+        if (Mathf.Approximately(canvasGroup.alpha, 0f)) yield break;
+
+        yield return StartCoroutine(FadeHUD(0f));
     }
 
     public void MostrarMenuPrincipal()

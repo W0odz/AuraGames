@@ -62,6 +62,11 @@ public class EnemyAIController : MonoBehaviour
     {
         if (mapBoundsCollider == null) return;
 
+        if (GameManager.Instance != null && GameManager.Instance.IsInCombatGracePeriod())
+        {
+            StopChasing();
+        }
+
         switch (currentState)
         {
             case State.Wandering:
@@ -99,6 +104,9 @@ public class EnemyAIController : MonoBehaviour
     // Chamada pelo DetectionArea para INICIAR a perseguição
     public void StartChasing(Transform player)
     {
+        // Proteção: ao voltar da batalha, não iniciar perseguição por alguns segundos
+        if (GameManager.Instance != null && GameManager.Instance.IsInCombatGracePeriod())
+            return;
 
         if (isPassive) return; // Se for passivo, ignora o jogador
 

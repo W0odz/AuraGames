@@ -81,6 +81,20 @@ public class GameManager : MonoBehaviour
     public bool isBossBattle = false; // Já tínhamos essa
     [SerializeField] private bool _triggerEndingOnLoad = false; // Variável privada (aparece no inspector por causa do SerializeField)
 
+    [Header("Combat Protection")]
+    public float combatGraceDuration = 3f;
+    public float combatGraceUntil = 0f;
+
+    public bool IsInCombatGracePeriod()
+    {
+        return Time.unscaledTime < combatGraceUntil;
+    }
+
+    public void StartCombatGracePeriod()
+    {
+        combatGraceUntil = Time.unscaledTime + combatGraceDuration;
+    }
+
     public bool triggerEndingOnLoad
     {
         get { return _triggerEndingOnLoad; }

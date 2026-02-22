@@ -6,7 +6,6 @@ public class Unit : MonoBehaviour
     [Header("Identidade Base")]
     public string unitName;
     public Sprite unitPortrait;
-    public int playerLevel;
     public int maxHP;
     public int currentHP;
     public int maxMP;
@@ -19,8 +18,7 @@ public class Unit : MonoBehaviour
     public int luck;
 
     [Header("Estado de Combate")]
-    public bool isDefending = false; 
-    public int xpValue;             
+    public bool isDefending = false;           
 
     public SpriteRenderer spriteRenderer;
 

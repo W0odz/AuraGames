@@ -58,6 +58,9 @@ public class PlayerMovement : MonoBehaviour
     // quando nosso colisor SÓLIDO (do jogador) entra em um colisor "Is Trigger"
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (GameManager.Instance != null && GameManager.Instance.IsInCombatGracePeriod())
+            return;
+
         // Verificamos se a coisa que tocamos tem a tag "Enemy"
         if (other.CompareTag("Enemy"))
         {

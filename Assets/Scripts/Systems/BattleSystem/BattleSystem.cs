@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Necessário para trocar de cena
 using System.Collections;
 using TMPro;
 
@@ -11,8 +10,8 @@ public class BattleSystem : MonoBehaviour
 
     [Header("Telas de Vitória")]
     public GameObject xpPanel;
-    public UnityEngine.UI.Slider xpSlider; // O Slider que você criou na imagem
-    public TextMeshProUGUI levelText;      // O texto "Nível X"
+    public UnityEngine.UI.Slider xpSlider;
+    public TextMeshProUGUI levelText;
 
     public string nomeCenaMapa = "ExplorationScene";
 
@@ -22,29 +21,19 @@ public class BattleSystem : MonoBehaviour
     public EnemyUnit enemyUnit;
 
     [Header("Dados do Jogador")]
-    public PlayerUnit playerUnit;
+    public PlayerUnit playerUnit; // setado em runtime via PlayerUnit.Instance
 
     [Header("Interface (HUD)")]
     public BattleHUD playerHUD;
     public BattleHUD enemyHUD;
     public TextMeshProUGUI dialogueText;
 
-    [Header("Transição (Fade da Tela)")]
-    public UnityEngine.UI.Image telaDeFade;
-
     [Header("HUD do Inimigo (Fade rápido)")]
-    [Tooltip("Coloque aqui o CanvasGroup do HUD do inimigo (barra de vida etc.).")]
     public CanvasGroup enemyHudCanvasGroup;
 
     [Header("Durações")]
-    [Tooltip("Duração do fade do inimigo (corpo + ponto fraco + filhos).")]
     public float duracaoFadeInimigo = 0.6f;
-
-    [Tooltip("Duração do fade do HUD do inimigo (mais rápido que o inimigo).")]
     public float duracaoFadeHudInimigo = 0.25f;
-
-    [Tooltip("Duração do fade-out da tela antes de trocar de cena.")]
-    public float duracaoFadeTela = 0.5f;
 
     [Header("Pausas entre etapas")]
     public float pausaAntesDeSumirInimigo = 0.4f;
@@ -62,39 +51,52 @@ public class BattleSystem : MonoBehaviour
     {
         state = BattleState.START;
         StartCoroutine(SetupBattle());
-
-        // Deixa o fade de tela pronto (ativo e transparente) para evitar "não apareceu"
-        if (telaDeFade != null)
-        {
-            telaDeFade.gameObject.SetActive(true);
-            var c = telaDeFade.color;
-            c.a = 0f;
-            telaDeFade.color = c;
-        }
     }
 
     IEnumerator SetupBattle()
     {
+        // Sempre usa o PlayerUnit persistente
+        if (PlayerUnit.Instance == null)
+        {
+            Debug.LogError("[BattleSystem] PlayerUnit.Instance é NULL. Garanta que existe um PlayerUnit persistente antes da BattleScene carregar.");
+            yield break;
+        }
+
+        playerUnit = PlayerUnit.Instance;
+
+        // Spawna inimigo
         GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
         enemyGO.transform.localPosition = Vector3.zero;
         enemyUnit = enemyGO.GetComponent<EnemyUnit>();
 
-        if (GameManager.Instance != null && playerUnit != null)
+        if (enemyUnit == null)
+        {
+            Debug.LogError("[BattleSystem] enemyPrefab não tem componente EnemyUnit.");
+            yield break;
+        }
+
+        // Sincroniza stats persistentes do GM -> PlayerUnit (se você estiver usando GM como “fonte de verdade”)
+        if (GameManager.Instance != null)
         {
             playerUnit.unitName = "Caçador";
             playerUnit.maxHP = GameManager.Instance.maxHP;
             playerUnit.currentHP = GameManager.Instance.currentHP;
             playerUnit.strength = GameManager.Instance.strength;
-        }
-        else
-        {
-            Debug.LogWarning("GameManager não encontrado! Usando valores do Inspector para teste.");
+
+            // Se você também quer sincronizar progressão do GM:
+            playerUnit.playerLevel = GameManager.Instance.playerLevel;
+            playerUnit.currentXP = GameManager.Instance.currentXP;
+            playerUnit.xpToNextLevel = GameManager.Instance.xpToNextLevel;
         }
 
-        dialogueText.text = "Um " + enemyUnit.unitName + " bloqueia seu caminho...";
+        if (dialogueText != null)
+            dialogueText.text = "Um " + enemyUnit.unitName + " bloqueia seu caminho...";
 
         if (playerHUD != null) playerHUD.SetHUD(playerUnit);
+        else Debug.LogError("[BattleSystem] playerHUD não está atribuído no Inspector.");
+
         if (enemyHUD != null) enemyHUD.SetHUD(enemyUnit);
+        else Debug.LogError("[BattleSystem] enemyHUD não está atribuído no Inspector.");
 
         yield return new WaitForSeconds(2f);
 
@@ -115,10 +117,6 @@ public class BattleSystem : MonoBehaviour
             AttackManager.Instance.armaAtual = (DadosArma)EquipmentManager.Instance.currentEquipment[0];
             Debug.Log("Sucesso: AttackManager recebeu a arma " + AttackManager.Instance.armaAtual.name);
         }
-        else
-        {
-            Debug.LogError("Falha Crítica: AttackManager ou EquipmentManager não encontrados na cena!");
-        }
 
         state = BattleState.PLAYERTURN;
         PlayerTurn();
@@ -126,19 +124,18 @@ public class BattleSystem : MonoBehaviour
 
     void PlayerTurn()
     {
-        dialogueText.text = "O que " + playerUnit.unitName + " fará?";
+        if (dialogueText != null)
+            dialogueText.text = "O que " + playerUnit.unitName + " fará?";
+
         BattleHUD.Instance.MostrarMenuPrincipal();
     }
 
     public void OnAttackButton()
     {
-        Debug.Log("PASSO 1: Botão Atacar clicado. Mudando estado para BUSY.");
-
         if (state != BattleState.PLAYERTURN) return;
 
         state = BattleState.BUSY;
 
-        Debug.Log("Onde vai acertar?");
         if (dialogueText != null) dialogueText.text = "Onde vai acertar?";
     }
 
@@ -153,7 +150,8 @@ public class BattleSystem : MonoBehaviour
         bool isDead = enemyUnit.TakeDamage(danoFinal);
         enemyHUD.UpdateHP(enemyUnit.currentHP);
 
-        dialogueText.text = "Ataque realizado!";
+        if (dialogueText != null)
+            dialogueText.text = "Ataque realizado!";
 
         yield return new WaitForSeconds(2f);
 
@@ -174,7 +172,10 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
 
         state = BattleState.ENEMYTURN;
-        dialogueText.text = enemyUnit.unitName + " contra-ataca!";
+
+        if (dialogueText != null)
+            dialogueText.text = enemyUnit.unitName + " contra-ataca!";
+
         yield return new WaitForSeconds(1f);
 
         bool isDead = playerUnit.TakeDamage(enemyUnit.strength);
@@ -197,39 +198,39 @@ public class BattleSystem : MonoBehaviour
     public IEnumerator EndBattle()
     {
         state = BattleState.WON;
-        dialogueText.text = "O " + enemyUnit.unitName + " foi derrotado!";
+
+        if (dialogueText != null)
+            dialogueText.text = "O " + enemyUnit.unitName + " foi derrotado!";
 
         if (playerHUD != null && playerHUD.commandsPanel != null)
             playerHUD.commandsPanel.SetActive(false);
 
-        // 1) inimigo
         yield return new WaitForSeconds(pausaAntesDeSumirInimigo);
 
-        // Fade do HUD do inimigo MAIS RÁPIDO (barra some primeiro)
-        yield return StartCoroutine(FadeCanvasGroup(enemyHudCanvasGroup, 1f, 0f, duracaoFadeHudInimigo));
+        // barra do inimigo some primeiro
+        if (enemyHUD != null)
+            yield return StartCoroutine(enemyHUD.FadeOutAndWait());
+        else
+            yield return StartCoroutine(FadeCanvasGroup(enemyHudCanvasGroup, 1f, 0f, duracaoFadeHudInimigo));
 
-        // Fade do inimigo (corpo + weakpoint + filhos)
+        // depois o inimigo some
         yield return StartCoroutine(FadeOutEnemyTudo(duracaoFadeInimigo));
 
         yield return new WaitForSeconds(pausaAposFadeInimigo);
 
-        // 2) XP (espera terminar!)
+        // XP
         int xpGanho = enemyUnit.expReward;
         yield return StartCoroutine(AnimarXP(xpGanho));
 
         yield return new WaitForSeconds(pausaAposXP);
 
-        // 3) transição
-        yield return StartCoroutine(FadeTela(0f, 1f, duracaoFadeTela));
-
-        Debug.Log("Retornando para a cena: " + nomeCenaMapa);
-        SceneManager.LoadScene(nomeCenaMapa);
+        if (GameManager.Instance != null) GameManager.Instance.LoadSceneWithFade(nomeCenaMapa);
+        else Debug.LogError("GameManager.Instance é null. Não foi possível fazer LoadSceneWithFade.");
     }
 
     IEnumerator FadeOutEnemyTudo(float duracao)
     {
-        if (enemyUnit == null)
-            yield break;
+        if (enemyUnit == null) yield break;
 
         var spriteRenderers = enemyUnit.GetComponentsInChildren<SpriteRenderer>(true);
         var images = enemyUnit.GetComponentsInChildren<UnityEngine.UI.Image>(true);
@@ -285,35 +286,13 @@ public class BattleSystem : MonoBehaviour
         cg.alpha = para;
     }
 
-    IEnumerator FadeTela(float de, float para, float duracao)
-    {
-        if (telaDeFade == null) yield break;
-
-        telaDeFade.gameObject.SetActive(true);
-
-        Color cor = telaDeFade.color;
-        cor.a = de;
-        telaDeFade.color = cor;
-
-        float t = 0f;
-        while (t < duracao)
-        {
-            t += Time.unscaledDeltaTime; // mais robusto (se usar timeScale=0 em algum momento)
-            cor.a = Mathf.Lerp(de, para, t / duracao);
-            telaDeFade.color = cor;
-            yield return null;
-        }
-
-        cor.a = para;
-        telaDeFade.color = cor;
-    }
-
     public IEnumerator AnimarXP(int xpGanho)
     {
         xpPanel.SetActive(true);
-        levelText.text = "Nível " + playerUnit.unitLevel;
 
-        xpSlider.maxValue = playerUnit.maxXP;
+        levelText.text = "Nível " + playerUnit.playerLevel;
+
+        xpSlider.maxValue = playerUnit.xpToNextLevel;
         xpSlider.value = playerUnit.currentXP;
 
         float xpVisual = playerUnit.currentXP;
@@ -327,15 +306,15 @@ public class BattleSystem : MonoBehaviour
 
             if (xpSlider.value >= xpSlider.maxValue)
             {
-                playerUnit.unitLevel++;
+                playerUnit.playerLevel++;
                 levelText.text = "Subiu de nível!";
 
                 xpAlvo -= xpSlider.maxValue;
                 xpVisual = 0;
                 xpSlider.value = 0;
 
-                playerUnit.maxXP = Mathf.RoundToInt(playerUnit.maxXP * 1.5f);
-                xpSlider.maxValue = playerUnit.maxXP;
+                playerUnit.xpToNextLevel = Mathf.RoundToInt(playerUnit.xpToNextLevel * 1.5f);
+                xpSlider.maxValue = playerUnit.xpToNextLevel;
 
                 yield return new WaitForSeconds(0.8f);
             }
@@ -345,7 +324,12 @@ public class BattleSystem : MonoBehaviour
 
         playerUnit.currentXP = Mathf.RoundToInt(xpVisual);
 
-        // Se quiser manter a tela de XP visível um tempinho extra, aumente aqui:
-        // yield return new WaitForSeconds(0.8f);
+        // Se você quer persistir isso no GameManager também, aqui é o ponto:
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.playerLevel = playerUnit.playerLevel;
+            GameManager.Instance.currentXP = playerUnit.currentXP;
+            GameManager.Instance.xpToNextLevel = playerUnit.xpToNextLevel;
+        }
     }
 }
