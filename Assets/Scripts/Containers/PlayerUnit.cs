@@ -4,6 +4,11 @@ public class PlayerUnit : Unit
 {
     public static PlayerUnit Instance;
 
+    [Header("Progressão do Jogador")]
+    public int unitLevel = 1;
+    public int currentXP = 0;
+    public int maxXP = 100;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;

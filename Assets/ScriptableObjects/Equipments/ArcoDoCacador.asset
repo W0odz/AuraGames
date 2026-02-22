@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7dd9b1f521a42445b6a820d4b6a1a00, type: 3}
+  m_Script: {fileID: 11500000, guid: 9896ec5fe7b417f4a9b9a2a4d70b7998, type: 3}
   m_Name: ArcoDoCacador
-  m_EditorClassIdentifier: Assembly-CSharp::DadosItem
+  m_EditorClassIdentifier: Assembly-CSharp::DadosArma
   nomeItem: "Arco do Ca\xE7ador"
-  descricao: Arco deixado pelo seu pai para que continue o seu legado
-  iconeItem: {fileID: 0}
+  descricao: "Um arco de ca\xE7a usado pelo seu pai"
+  iconeItem: {fileID: 3913567757785527020, guid: abca5558e5fa996448f30ca477987ca4, type: 3}
   valorOuro: 0
   tipoItem: 1
   slotOndeEquipa: 0
@@ -23,3 +23,6 @@ MonoBehaviour:
   bonusResistance: 0
   bonusMaxHP: 0
   bonusMaxMP: 0
+  tipoDeDano: 0
+  velocidadeDoAro: 1.5
+  limiteDeTinta: 100

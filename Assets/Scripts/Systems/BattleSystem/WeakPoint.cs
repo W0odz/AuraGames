@@ -2,26 +2,50 @@ using UnityEngine;
 
 public class WeakPoint : MonoBehaviour
 {
-    [Header("Configurações do Ponto")]
-    public float multiplicadorDano = 1.5f;
+    private SpriteRenderer sr;
 
-    //[Header("Feedback Visual")]
-    //public GameObject efeitoAcerto;
+    [Header("Configurações Estratégicas")]
+    public bool foiDescoberto = false;
+    public int usosMaximos = 3; // Quantas vezes o jogador pode usar este ponto
+    private int usosRestantes;
 
-    // Função para calcular o dano, independente da arma
-    public float CalcularDanoRecebido(float danoBaseDaArma)
+    void Start()
     {
-        float danoFinal = danoBaseDaArma * multiplicadorDano;
+        sr = GetComponent<SpriteRenderer>();
+        usosRestantes = usosMaximos;
 
-        //ExecutarFeedback();
-
-        Debug.Log($"Ponto Fraco Atingido! Dano: {danoFinal}");
-        return danoFinal;
+        // Começa a batalha 100% invisível
+        if (sr != null) sr.enabled = false;
     }
 
-    //private void ExecutarFeedback()
-    //{
-    //    if (efeitoAcerto != null)
-    //        Instantiate(efeitoAcerto, transform.position, Quaternion.identity);
-    //}
+    void Update()
+    {
+        // NOVA REGRA DE VISIBILIDADE:
+        // Fica visível o tempo todo (independente do turno) SE foi descoberto E ainda tiver usos.
+        if (sr != null)
+        {
+            sr.enabled = (foiDescoberto && usosRestantes > 0);
+        }
+    }
+
+    // Agora retorna 'true' se o acerto for válido, e 'false' se os usos já tiverem acabado
+    public bool ReceberClique()
+    {
+        if (usosRestantes > 0)
+        {
+            if (!foiDescoberto)
+            {
+                Debug.Log("Ponto Fraco DESCOBERTO! Revelando na tela.");
+                foiDescoberto = true;
+            }
+
+            usosRestantes--; // Consome um uso
+            Debug.Log("Acertou! Usos restantes do ponto fraco: " + usosRestantes);
+
+            return true; // Retorna sucesso para aplicar o multiplicador de dano
+        }
+
+        Debug.Log("Este ponto fraco já foi totalmente destruído/esgotado.");
+        return false; // Retorna falha para o jogador dar apenas o dano normal
+    }
 }

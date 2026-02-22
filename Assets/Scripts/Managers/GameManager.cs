@@ -104,6 +104,7 @@ public class GameManager : MonoBehaviour
     public int will = 10;       // Vontade (Ataque Mágico)
     public int knowledge = 5;   // Conhecimento (Defesa Mágica)
     public int luck = 5;        // Sorte (Taxa de Crítico)
+    public DadosArma armaEquipada;
 
     #region Métodos Unity
     void Awake()
@@ -369,9 +370,5 @@ public class GameManager : MonoBehaviour
         Debug.Log("LEVEL UP! Nível " + playerLevel);
         // (Aqui chamaremos a UI de "Level Up!")
     }
-    #endregion
-
-    #region Equipamentos
-
     #endregion
 }

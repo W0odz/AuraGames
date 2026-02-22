@@ -38,8 +38,26 @@ public class BattleHUD : MonoBehaviour
         if (ehInimigo && canvasGroup != null) canvasGroup.alpha = 0;
     }
 
+    void Update()
+    {
+        if (hpSlider.value != valorAlvoHP)
+        {
+            // Move suavemente entre os valores REAIS (ex: de 80 para 50)
+            hpSlider.value = Mathf.MoveTowards(hpSlider.value, valorAlvoHP, velocidadeSuavizacao * Time.deltaTime * hpSlider.maxValue);
+            AtualizarTextoHP((int)hpSlider.value, (int)hpSlider.maxValue);
+        }
+
+        if (ehInimigo && cronometroVisibilidade > 0)
+        {
+            cronometroVisibilidade -= Time.deltaTime;
+            if (cronometroVisibilidade <= 0) StartCoroutine(FadeHUD(0f)); // Desaparece no fim
+        }
+    }
+
     public void SetHUD(Unit unit)
     {
+        gameObject.SetActive(true);
+
         if (portraitImage != null && unit.unitPortrait != null)
             portraitImage.sprite = unit.unitPortrait;
 
@@ -55,47 +73,26 @@ public class BattleHUD : MonoBehaviour
             valorAlvoMP = unit.currentMP;
             AtualizarTextoMP(unit.currentMP, unit.maxMP);
         }
+
+        if (ehInimigo && canvasGroup != null) canvasGroup.alpha = 0;
+
     }
 
-    // Atualiza o alvo da vida, não o valor direto
     public void UpdateHP(int currentHp)
     {
-        valorAlvoHP = currentHp;
+        valorAlvoHP = currentHp; // O Update cuidará da animação suave
 
-        // Se for inimigo, "acorda" o HUD ao tomar dano
         if (ehInimigo)
         {
             cronometroVisibilidade = tempoVisivel;
             StopAllCoroutines();
-            StartCoroutine(FadeHUD(1f)); // Aparece
+            StartCoroutine(FadeHUD(1f)); // Aparece ao tomar dano
         }
     }
 
     public void UpdateMP(int currentMp)
     {
         valorAlvoMP = currentMp;
-    }
-
-    void Update()
-    {
-        // Movimento suave da barra (Lerp/MoveTowards)
-        if (hpSlider.value != valorAlvoHP)
-        {
-            hpSlider.value = Mathf.MoveTowards(hpSlider.value, valorAlvoHP, velocidadeSuavizacao * Time.deltaTime * hpSlider.maxValue);
-            AtualizarTextoHP((int)hpSlider.value, (int)hpSlider.maxValue);
-        }
-
-        if (mpSlider != null && mpSlider.value != valorAlvoMP)
-        {
-            mpSlider.value = Mathf.MoveTowards(mpSlider.value, valorAlvoMP, velocidadeSuavizacao * Time.deltaTime * mpSlider.maxValue);
-            AtualizarTextoMP((int)mpSlider.value, (int)mpSlider.maxValue);
-        }
-
-        if (ehInimigo && cronometroVisibilidade > 0)
-        {
-            cronometroVisibilidade -= Time.deltaTime;
-            if (cronometroVisibilidade <= 0) StartCoroutine(FadeHUD(0f));
-        }
     }
 
     void AtualizarTextoHP(int atual, int max)

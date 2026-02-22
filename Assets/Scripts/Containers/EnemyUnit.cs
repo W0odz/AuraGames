@@ -5,6 +5,7 @@ public class EnemyUnit : Unit
 {
     [Header("Tabela de Recompensas")]
     public List<Loot> tabelaDeLoot;
+    public int expReward;
 
     public override void InicializarUnidade()
     {

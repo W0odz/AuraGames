@@ -3,27 +3,35 @@ using UnityEngine;
 public class SlashingMinigame : MonoBehaviour
 {
     public LineRenderer lineRenderer;
-    public LayerMask layerPontosFracos;
     private Vector2 startPoint;
     private float maxRadius;
     private bool isAiming = false;
+    private bool isActive = false;
+
+    void Awake()
+    {
+        gameObject.SetActive(false);
+    }
 
     public void Iniciar(DadosArma arma)
     {
-        // Aqui usamos o valor da arma como o raio do limite invisível
         maxRadius = arma.limiteDeTinta > 0 ? arma.limiteDeTinta : 3f;
         lineRenderer.positionCount = 2;
         lineRenderer.enabled = false;
+
+        isActive = true;
         gameObject.SetActive(true);
     }
 
     void Update()
     {
-        // CORREÇÃO: Usamos GetMouseButton(0) em vez de GetButton(0)
+        if (!isActive) return;
+
         if (Input.GetMouseButtonDown(0))
         {
             startPoint = GetMouseWorldPos();
             lineRenderer.SetPosition(0, startPoint);
+            lineRenderer.SetPosition(1, startPoint); // Evita glitch visual no primeiro frame
             lineRenderer.enabled = true;
             isAiming = true;
         }
@@ -34,7 +42,7 @@ public class SlashingMinigame : MonoBehaviour
             Vector2 direction = (currentMousePos - startPoint).normalized;
             float distance = Vector2.Distance(startPoint, currentMousePos);
 
-            // TRAVA DO RAIO INVISÍVEL
+            // Trava do raio limite
             float clampedDist = Mathf.Min(distance, maxRadius);
             Vector2 endPoint = startPoint + (direction * clampedDist);
 
@@ -52,15 +60,27 @@ public class SlashingMinigame : MonoBehaviour
         isAiming = false;
         Vector2 endPoint = lineRenderer.GetPosition(1);
 
-        // Verifica se a linha atravessou a Layer de Pontos Fracos
-        RaycastHit2D hit = Physics2D.Linecast(startPoint, endPoint, layerPontosFracos);
+        // Calcula a distancia que o jogador arrastou o mouse
+        float distanciaCortada = Vector2.Distance(startPoint, endPoint);
 
-        float mult = (hit.collider != null) ? 2.0f : 0.8f;
+        // Define a precisão comparando o quanto ele cortou com o máximo permitido
+        float precisao = distanciaCortada / maxRadius;
+
+        // Se ele desenhou uma linha que tem pelo menos metade do tamanho máximo, é um sucesso
+        bool sucesso = precisao > 0.5f;
 
         lineRenderer.enabled = false;
-        gameObject.SetActive(false);
-        AttackManager.Instance.FinalizarAtaque(mult);
+        Finalizar(sucesso);
     }
 
     private Vector2 GetMouseWorldPos() => Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+    void Finalizar(bool sucesso)
+    {
+        isActive = false;
+        gameObject.SetActive(false);
+
+        // Devolve o resultado para o gestor terminar o calculo de desvio e dano
+        AttackManager.Instance.FinalizarAtaque(sucesso);
+    }
 }

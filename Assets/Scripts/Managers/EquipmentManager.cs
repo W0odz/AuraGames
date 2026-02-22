@@ -69,10 +69,11 @@ public class EquipmentManager : MonoBehaviour
             // Agora você tem acesso aos dados específicos!
             Debug.Log("Iniciando minigame de: " + arma.tipoDeDano);
 
+            // Trocamos o currentEquipment[0] por 1.0f (que é o multiplicador de dano normal)
             if (arma.tipoDeDano == TipoAtaque.Perfurante)
-                AttackManager.Instance.piercing.Iniciar(arma);
+                AttackManager.Instance.IniciarSequenciaDeAtaque(1.0f, new Vector2(Screen.width / 2f, Screen.height / 2f));
             else
-                AttackManager.Instance.slashing.Iniciar(arma);
+                AttackManager.Instance.IniciarSequenciaDeAtaque(1.0f, new Vector2(Screen.width / 2f, Screen.height / 2f));
         }
     }
 }
