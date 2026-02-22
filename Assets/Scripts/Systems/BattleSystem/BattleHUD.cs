@@ -20,6 +20,10 @@ public class BattleHUD : MonoBehaviour
     [Header("HP - Suave")]
     public TextMeshProUGUI hpText;
     public Slider hpSlider;
+
+    // NOVO: arraste aqui o Image do "Fill" do slider de HP (Fill Area/Fill)
+    public Image hpFillImage;
+
     private float valorAlvoHP;
 
     [Header("MP - Suave")]
@@ -30,8 +34,10 @@ public class BattleHUD : MonoBehaviour
     [Header("Configurações Visuais")]
     public float velocidadeSuavizacao = 5f;
 
-    // NOVO: trava para impedir o auto-hide enquanto a batalha está encerrando
     private bool bloquearAutoHide = false;
+
+    // NOVO: um epsilon pra evitar problemas de float (e evitar piscar perto do 0)
+    private const float HP_EPSILON = 0.001f;
 
     private void Awake()
     {
@@ -43,9 +49,8 @@ public class BattleHUD : MonoBehaviour
 
     void Update()
     {
-        if (hpSlider.value != valorAlvoHP)
+        if (hpSlider != null && hpSlider.value != valorAlvoHP)
         {
-            // Move suavemente entre os valores REAIS (ex: de 80 para 50)
             hpSlider.value = Mathf.MoveTowards(
                 hpSlider.value,
                 valorAlvoHP,
@@ -54,12 +59,22 @@ public class BattleHUD : MonoBehaviour
             AtualizarTextoHP((int)hpSlider.value, (int)hpSlider.maxValue);
         }
 
-        // MODIFICADO: não executar auto-hide se estiver bloqueado
+        // NOVO: some com o preenchimento quando HP chegar em ~0
+        AtualizarVisibilidadeFillHP();
+
         if (ehInimigo && !bloquearAutoHide && cronometroVisibilidade > 0)
         {
             cronometroVisibilidade -= Time.deltaTime;
             if (cronometroVisibilidade <= 0) StartCoroutine(FadeHUD(0f)); // Desaparece no fim
         }
+    }
+
+    private void AtualizarVisibilidadeFillHP()
+    {
+        if (hpFillImage == null || hpSlider == null) return;
+
+        // enabled=false evita aquele "restinho" visual do Sliced quando value é 0
+        hpFillImage.enabled = hpSlider.value > HP_EPSILON;
     }
 
     public void SetHUD(Unit unit)
@@ -69,10 +84,16 @@ public class BattleHUD : MonoBehaviour
         if (portraitImage != null && unit.unitPortrait != null)
             portraitImage.sprite = unit.unitPortrait;
 
-        hpSlider.maxValue = unit.maxHP;
-        hpSlider.value = unit.currentHP;
-        valorAlvoHP = unit.currentHP; // Inicializa o alvo
-        AtualizarTextoHP(unit.currentHP, unit.maxHP);
+        if (hpSlider != null)
+        {
+            hpSlider.maxValue = unit.maxHP;
+            hpSlider.value = unit.currentHP;
+            valorAlvoHP = unit.currentHP; // Inicializa o alvo
+            AtualizarTextoHP(unit.currentHP, unit.maxHP);
+        }
+
+        // NOVO: garante o estado correto já na inicialização
+        AtualizarVisibilidadeFillHP();
 
         if (mpSlider != null)
         {
@@ -87,13 +108,12 @@ public class BattleHUD : MonoBehaviour
 
     public void UpdateHP(int currentHp)
     {
-        valorAlvoHP = currentHp; // O Update cuidará da animação suave
+        valorAlvoHP = currentHp;
 
         if (ehInimigo && !bloquearAutoHide)
         {
             cronometroVisibilidade = tempoVisivel;
 
-            // Mantém comportamento antigo, mas agora não atrapalha o encerramento (bloquearAutoHide)
             StopAllCoroutines();
             StartCoroutine(FadeHUD(1f)); // Aparece ao tomar dano
         }
@@ -125,19 +145,14 @@ public class BattleHUD : MonoBehaviour
         }
     }
 
-    // NOVO: método para garantir "sumir e esperar terminar"
     public IEnumerator FadeOutAndWait()
     {
         bloquearAutoHide = true;
         cronometroVisibilidade = 0f;
 
-        // Para qualquer fade "aparecendo" que esteja rolando
         StopAllCoroutines();
 
-        // Se não tiver CanvasGroup, não tem o que esperar
         if (canvasGroup == null) yield break;
-
-        // Se já estiver invisível, não espera
         if (Mathf.Approximately(canvasGroup.alpha, 0f)) yield break;
 
         yield return StartCoroutine(FadeHUD(0f));

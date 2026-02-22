@@ -30,7 +30,12 @@ public class EnemySpawner : MonoBehaviour
     [Tooltip("Quantas tentativas de achar um ponto válido de spawn antes de desistir.")]
     public int maxSpawnAttempts = 50;
 
+    [Header("Persistência (Prototype)")]
+    [Tooltip("Se true, tenta respawnar inimigos nas últimas posições salvas no GameManager.enemyPositions.")]
+    public bool useSavedPositions = true;
+
     private Transform playerTransform;
+
 
     // MUDANÇA: Em vez de uma Lista dinâmica, usamos um Array fixo (Slots)
     // Se enemies[0] for null, o slot 0 está vazio.
@@ -60,6 +65,13 @@ public class EnemySpawner : MonoBehaviour
     IEnumerator StartSpawnerNextFrame()
     {
         yield return null; // espera 1 frame pro PlayerMovement.Start() reposicionar
+        if (playerTransform != null && mapBoundsCollider != null)
+        {
+            Vector2 closest = mapBoundsCollider.ClosestPoint(playerTransform.position);
+            float dist = Vector2.Distance(closest, playerTransform.position);
+            if (dist <= activationDistance)
+                ActivateSpawner();
+        }
         StartCoroutine(DistanceCheckRoutine());
     }
 
@@ -110,7 +122,11 @@ public class EnemySpawner : MonoBehaviour
     void ActivateSpawner()
     {
         isActive = true;
-        spawnCoroutine = StartCoroutine(SpawnLogicRoutine());
+
+        // Reativa os inimigos que já existem (evita instanciar de novo)
+        FillMissingEnemiesImmediately();
+
+         spawnCoroutine = StartCoroutine(SpawnLogicRoutine());
     }
 
     void DeactivateSpawner()
@@ -122,13 +138,12 @@ public class EnemySpawner : MonoBehaviour
         if (GameManager.Instance != null && GameManager.Instance.IsInCombatGracePeriod())
             return;
 
-        // comportamento normal (performance)
+        // Em vez de Destroy, apenas desativa para não dar "pop" depois
         for (int i = 0; i < enemies.Length; i++)
         {
             if (enemies[i] != null)
             {
-                Destroy(enemies[i]);
-                enemies[i] = null;
+                enemies[i].SetActive(false);
             }
         }
     }
@@ -145,7 +160,16 @@ public class EnemySpawner : MonoBehaviour
 
             for (int i = 0; i < numberOfEnemies; i++)
             {
-                if (enemies[i] == null && !isRespawning[i])
+                // Se existe mas está desativado, reativa (não spawna)
+                if (enemies[i] != null)
+                {
+                    if (!enemies[i].activeSelf)
+                        enemies[i].SetActive(true);
+
+                    continue;
+                }
+
+                if (!isRespawning[i])
                 {
                     CheckAndSpawnSlot(i);
                 }
@@ -203,10 +227,33 @@ public class EnemySpawner : MonoBehaviour
         return false;
     }
 
+    bool TryGetSavedPosition(string enemyId, out Vector2 pos)
+    {
+        pos = default;
+
+        if (!useSavedPositions) return false;
+        if (GameManager.Instance == null) return false;
+        if (GameManager.Instance.enemyPositions == null) return false;
+
+        if (GameManager.Instance.enemyPositions.TryGetValue(enemyId, out Vector3 saved))
+        {
+            pos = saved;
+            return true;
+        }
+
+        return false;
+    }
+
     void SpawnEnemyInSlot(int slotIndex, string id)
     {
-        if (!TryFindValidSpawnPosition(out Vector2 spawnPosition))
-            return;
+        Vector2 spawnPosition;
+
+        // NOVO: se tiver posição salva, usa ela. Senão, escolhe aleatória válida.
+        if (!TryGetSavedPosition(id, out spawnPosition))
+        {
+            if (!TryFindValidSpawnPosition(out spawnPosition))
+                return;
+        }
 
         GameObject enemyGO = Instantiate(explorationPrefab, spawnPosition, Quaternion.identity);
         enemies[slotIndex] = enemyGO;
@@ -232,6 +279,7 @@ public class EnemySpawner : MonoBehaviour
             ai.mapBoundsCollider = mapBoundsCollider;
         }
     }
+
 
     IEnumerator RespawnTimer(int slotIndex, string id)
     {
@@ -277,4 +325,17 @@ public class EnemySpawner : MonoBehaviour
             Gizmos.DrawWireSphere(playerTransform.position, playerSafeZoneRadius);
         }
     }
+
+    void FillMissingEnemiesImmediately()
+    {
+        // Não cria durante grace (se você quer segurar respawns)
+        // MAS no seu caso você quer os sobreviventes já lá.
+        // Então: só bloqueia se você quiser.
+        for (int i = 0; i < numberOfEnemies; i++)
+        {
+            if (enemies[i] == null && !isRespawning[i])
+                CheckAndSpawnSlot(i);
+        }
+    }
+
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7493871304969380730}
   - component: {fileID: -4299631889324339392}
   - component: {fileID: 5063425681963335978}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Base_Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUnit
   unitName: Javali
   unitPortrait: {fileID: 0}
-  playerLevel: 0
   maxHP: 50
   currentHP: 50
   maxMP: 0
@@ -155,7 +154,6 @@ MonoBehaviour:
   speed: 10
   luck: 2
   isDefending: 0
-  xpValue: 50
   spriteRenderer: {fileID: 4107760388593785779}
   tabelaDeLoot:
   - item: {fileID: 11400000, guid: c369d20cfa970134a9cd672b6d4924a0, type: 2}
@@ -174,9 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a794a2659b3c345bc7452ab03824e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterTarget
-  layerFraquezas:
-    serializedVersion: 2
-    m_Bits: 256
+  raioDeAcerto: 0.3
 --- !u!1 &7118619373777434269
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,4 +280,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d7289f73b35baf43aa31428660ed18d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeakPoint
-  hitsParaDesativar: 3
+  foiDescoberto: 0
+  usosMaximos: 3

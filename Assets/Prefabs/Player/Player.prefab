@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 989254865412476731}
   - component: {fileID: 2343346095757553459}
   - component: {fileID: 2224337464052428500}
-  - component: {fileID: 4128517516584313889}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -171,30 +170,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   moveSpeed: 14
---- !u!114 &4128517516584313889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5114076709285204727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4afa424e2b97185459f1c815c1f4e624, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerUnit
-  unitName: 
-  unitPortrait: {fileID: 0}
-  maxHP: 0
-  currentHP: 0
-  maxMP: 0
-  currentMP: 0
-  strength: 0
-  resistance: 0
-  speed: 0
-  luck: 0
-  isDefending: 0
-  spriteRenderer: {fileID: 0}
-  playerLevel: 1
-  currentXP: 0
-  xpToNextLevel: 100

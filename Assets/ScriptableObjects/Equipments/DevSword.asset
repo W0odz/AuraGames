@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b687ecf3ad2975e478273490f6b835ef, type: 3}
+  m_Script: {fileID: 11500000, guid: 9896ec5fe7b417f4a9b9a2a4d70b7998, type: 3}
   m_Name: DevSword
-  m_EditorClassIdentifier: Assembly-CSharp::DevSwordItem
+  m_EditorClassIdentifier: Assembly-CSharp::DadosArma
   nomeItem: DevSword
   descricao: Espada secreta
   iconeItem: {fileID: 1169618335941041066, guid: 2954046556e01f7408e5c763bbf52612, type: 3}
@@ -21,7 +21,8 @@ MonoBehaviour:
   efeitosDoItem: []
   bonusStrength: 999
   bonusResistance: 999
-  bonusMaxHP: 999
-  bonusMaxMP: 999
-  tipoDano: 1
-  consumoDeTinta: 50
+  bonusMaxHP: 0
+  bonusMaxMP: 0
+  tipoDeDano: 1
+  velocidadeDoAro: 1.5
+  limiteDeTinta: 100

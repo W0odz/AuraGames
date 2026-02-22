@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveInput;
 
+    [SerializeField] private float enemySafeRadiusOnReturn = 2.5f;
+
 
     #region Métodos Unity
     void Awake()
@@ -22,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.position = GameManager.Instance.playerReturnPosition;
             GameManager.Instance.isReturningFromBattle = false;
+            RepelNearbyEnemies();
         }
         // Prioridade 2: Carregando um Save (Longo Prazo) --- NOVO ---
         else if (GameManager.Instance.isLoadingSave)
@@ -52,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
         // DEPOIS: Definimos a velocidade, e deixamos a f�sica cuidar do resto
         rb.linearVelocity = moveInput * moveSpeed;
     }
-    #endregion
+
 
     // Esta função é chamada automaticamente pela Unity
     // quando nosso colisor SÓLIDO (do jogador) entra em um colisor "Is Trigger"
@@ -114,16 +117,72 @@ public class PlayerMovement : MonoBehaviour
                 }
 
                 // Inicia a batalha (agora com fade)
+                CacheEnemyPositionsBeforeBattle();
                 StartBattle();
             }
 
         }
 
     }
+    #endregion
+
+
 
     private void StartBattle()
     {
         // Coloque aqui o NOME EXATO da sua cena de batalha
         GameManager.Instance.LoadSceneWithFade("BattleScene");
+    }
+
+    private void CacheEnemyPositionsBeforeBattle()
+    {
+        if (GameManager.Instance == null) return;
+
+        EnemyAIController[] enemies = FindObjectsByType<EnemyAIController>(FindObjectsSortMode.None);
+        foreach (var e in enemies)
+        {
+            if (e == null || !e.gameObject.activeInHierarchy) continue;
+            if (string.IsNullOrEmpty(e.enemyID)) continue;
+
+            GameManager.Instance.enemyPositions[e.enemyID] = e.transform.position;
+        }
+    }
+
+    private void RepelNearbyEnemies()
+    {
+        Vector2 playerPos = transform.position;
+
+        EnemyAIController[] enemies = FindObjectsByType<EnemyAIController>(FindObjectsSortMode.None);
+        foreach (var ai in enemies)
+        {
+            if (ai == null || !ai.gameObject.activeInHierarchy) continue;
+
+            // Se o inimigo estiver perto demais, empurra
+            Vector2 enemyPos = ai.transform.position;
+            float dist = Vector2.Distance(playerPos, enemyPos);
+
+            if (dist >= enemySafeRadiusOnReturn) continue;
+
+            Vector2 dir = (enemyPos - playerPos);
+            if (dir.sqrMagnitude < 0.0001f)
+                dir = Random.insideUnitCircle.normalized;
+
+            Vector2 newPos = playerPos + dir.normalized * enemySafeRadiusOnReturn;
+
+            // Move sem “teleport bug” de física
+            Rigidbody2D rb = ai.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.position = newPos;
+                rb.linearVelocity = Vector2.zero;
+            }
+            else
+            {
+                ai.transform.position = newPos;
+            }
+
+            // Garante que ele não continue “agarrado” no player
+            ai.StopChasing();
+        }
     }
 }

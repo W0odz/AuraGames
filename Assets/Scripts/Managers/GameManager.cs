@@ -85,6 +85,13 @@ public class GameManager : MonoBehaviour
     public float combatGraceDuration = 3f;
     public float combatGraceUntil = 0f;
 
+    [Header("Enemy Return Safety")]
+    public bool repelEnemiesOnReturn = false;
+    public float enemySafeRadiusOnReturn = 3.0f;
+
+    [Header("Enemy Persistence (Prototype)")]
+    public Dictionary<string, Vector3> enemyPositions = new Dictionary<string, Vector3>();
+
     public bool IsInCombatGracePeriod()
     {
         return Time.unscaledTime < combatGraceUntil;
@@ -286,11 +293,49 @@ public class GameManager : MonoBehaviour
 
         // 2. Carregar a Cena
         SceneManager.LoadScene(sceneName);
+        if (repelEnemiesOnReturn)
+        {
+            RepelEnemiesNearPosition(playerReturnPosition, enemySafeRadiusOnReturn);
+            repelEnemiesOnReturn = false;
+        }
 
         // 3. Fade In (Clarear)
         // Damos um pequeno delay para a cena carregar
         yield return new WaitForSeconds(0.1f);
         yield return StartCoroutine(FadeInCoroutine());
+    }
+
+    private void RepelEnemiesNearPosition(Vector2 center, float radius)
+    {
+        EnemyAIController[] enemies = FindObjectsByType<EnemyAIController>(FindObjectsSortMode.None);
+
+        foreach (var ai in enemies)
+        {
+            if (ai == null || !ai.gameObject.activeInHierarchy) continue;
+
+            Vector2 enemyPos = ai.transform.position;
+            float dist = Vector2.Distance(center, enemyPos);
+            if (dist >= radius) continue;
+
+            Vector2 dir = (enemyPos - center);
+            if (dir.sqrMagnitude < 0.0001f)
+                dir = Random.insideUnitCircle.normalized;
+
+            Vector2 newPos = center + dir.normalized * radius;
+
+            var rb = ai.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.position = newPos;
+                rb.linearVelocity = Vector2.zero;
+            }
+            else
+            {
+                ai.transform.position = newPos;
+            }
+
+            ai.StopChasing();
+        }
     }
 
     // --- Coroutines de Fade ---

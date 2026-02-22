@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9814fb2c2244194eb445b55069852fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemColetavel
-  itemParaDar: {fileID: 11400000, guid: 44c4706cb29ba97418f34bcf7bfd16fe, type: 2}
+  itemParaDar: {fileID: 11400000, guid: bb5f168e63613814c8788a666f23c74b, type: 2}
   quantidade: 1
 --- !u!70 &4328872518361828133
 CapsuleCollider2D:

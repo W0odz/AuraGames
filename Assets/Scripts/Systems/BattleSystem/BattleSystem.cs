@@ -63,6 +63,7 @@ public class BattleSystem : MonoBehaviour
         }
 
         playerUnit = PlayerUnit.Instance;
+        playerUnit.InicializarUnidade();
 
         // Spawna inimigo
         GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
@@ -73,20 +74,6 @@ public class BattleSystem : MonoBehaviour
         {
             Debug.LogError("[BattleSystem] enemyPrefab não tem componente EnemyUnit.");
             yield break;
-        }
-
-        // Sincroniza stats persistentes do GM -> PlayerUnit (se você estiver usando GM como “fonte de verdade”)
-        if (GameManager.Instance != null)
-        {
-            playerUnit.unitName = "Caçador";
-            playerUnit.maxHP = GameManager.Instance.maxHP;
-            playerUnit.currentHP = GameManager.Instance.currentHP;
-            playerUnit.strength = GameManager.Instance.strength;
-
-            // Se você também quer sincronizar progressão do GM:
-            playerUnit.playerLevel = GameManager.Instance.playerLevel;
-            playerUnit.currentXP = GameManager.Instance.currentXP;
-            playerUnit.xpToNextLevel = GameManager.Instance.xpToNextLevel;
         }
 
         if (dialogueText != null)
@@ -226,6 +213,14 @@ public class BattleSystem : MonoBehaviour
 
         if (GameManager.Instance != null) GameManager.Instance.LoadSceneWithFade(nomeCenaMapa);
         else Debug.LogError("GameManager.Instance é null. Não foi possível fazer LoadSceneWithFade.");
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.defeatedEnemyIDs.Add(GameManager.Instance.currentEnemyID);
+            GameManager.Instance.isReturningFromBattle = true; // garante a flag
+            GameManager.Instance.StartCombatGracePeriod();
+            GameManager.Instance.LoadSceneWithFade(nomeCenaMapa);
+        }
     }
 
     IEnumerator FadeOutEnemyTudo(float duracao)
@@ -325,11 +320,5 @@ public class BattleSystem : MonoBehaviour
         playerUnit.currentXP = Mathf.RoundToInt(xpVisual);
 
         // Se você quer persistir isso no GameManager também, aqui é o ponto:
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.playerLevel = playerUnit.playerLevel;
-            GameManager.Instance.currentXP = playerUnit.currentXP;
-            GameManager.Instance.xpToNextLevel = playerUnit.xpToNextLevel;
-        }
     }
 }
