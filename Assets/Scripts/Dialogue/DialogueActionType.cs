@@ -1,0 +1,1 @@
+public enum DialogueActionType { None, StartQuest, CompleteQuest, TurnInQuest }

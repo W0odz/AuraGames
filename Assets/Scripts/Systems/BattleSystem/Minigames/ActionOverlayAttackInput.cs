@@ -31,7 +31,6 @@ public class ActionOverlayAttackInput : MonoBehaviour, IPointerDownHandler
         if (AttackManager.Instance.armaAtual.tipoDeDano != TipoAtaque.Cortante) return;
 
         Vector2 mousePosWorld = Camera.main.ScreenToWorldPoint(eventData.position);
-
         AttackManager.Instance.IniciarSequenciaDeAtaque(bonusBase, mousePosWorld);
     }
 }

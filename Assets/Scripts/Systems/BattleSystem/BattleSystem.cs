@@ -226,7 +226,7 @@ public class BattleSystem : MonoBehaviour
         if (def != null && def.debuff != DebuffType.None)
         {
             // IMPORTANTE: convertendo duração (float) para turnos do jogador
-            int turns = Mathf.Max(1, Mathf.CeilToInt(def.debuffTurns));
+            int turns = Mathf.Max(1, def.debuffTurns);
             playerUnit.ApplyDebuff(def.debuff, turns, def.debuffStacks);
         }
 
