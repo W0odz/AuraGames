@@ -1075,6 +1075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea8cf9a2f3a9fc14bab535f4f1698742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackManager
+  actionOverlayInput: {fileID: 805075803}
   slashing: {fileID: 2023223862}
   piercing: {fileID: 1670771346}
   armaAtual: {fileID: 0}

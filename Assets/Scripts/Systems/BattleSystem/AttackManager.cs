@@ -4,6 +4,9 @@ public class AttackManager : MonoBehaviour
 {
     public static AttackManager Instance;
 
+    [Header("UI")]
+    public ActionOverlayAttackInput actionOverlayInput;
+
     [Header("Referências de Minigames")]
     public SlashingMinigame slashing;
     public PiercingMinigame piercing;
@@ -39,12 +42,31 @@ public class AttackManager : MonoBehaviour
         if (Instance == null) Instance = this;
     }
 
+    void ResetMinigamesAndOverlay()
+    {
+        // Desliga input overlay por segurança (só liga quando for Cortante)
+        if (actionOverlayInput != null)
+            actionOverlayInput.SetEnabled(false);
+
+        // Garante que nenhum minigame ficou "travado ativo"
+        if (piercing != null) piercing.gameObject.SetActive(false);
+        if (slashing != null) slashing.gameObject.SetActive(false);
+    }
+
     public void IniciarSequenciaDeAtaque(float bonus, Vector2 coordenadaClique)
     {
-
         Debug.Log($"[AttackManager] armaAtual={(armaAtual != null ? armaAtual.name : "NULL")} tipo={(armaAtual != null ? armaAtual.tipoDeDano.ToString() : "NULL")}");
-        if (piercing != null && piercing.gameObject.activeInHierarchy) return;
-        if (slashing != null && slashing.gameObject.activeInHierarchy) return;
+
+        if (BattleSystem.Instance == null) return;
+
+        // Só permite iniciar quando estamos esperando o clique do alvo
+        if (BattleSystem.Instance.state != BattleState.TARGETING) return;
+
+        // Assim que iniciar, muda para BUSY para travar reinícios por clique
+        BattleSystem.Instance.state = BattleState.BUSY;
+
+        // NOVO: sempre reseta antes de iniciar (evita o bug de "só no primeiro ataque")
+        ResetMinigamesAndOverlay();
 
         multiplicadorPontoFraco = bonus;
         posicaoDoClique = coordenadaClique;
@@ -56,6 +78,9 @@ public class AttackManager : MonoBehaviour
             case TipoAtaque.Cortante:
                 if (slashing != null)
                 {
+                    if (actionOverlayInput != null)
+                        actionOverlayInput.SetEnabled(true);
+
                     slashing.gameObject.SetActive(true);
                     slashing.Iniciar(armaAtual);
 
@@ -66,6 +91,7 @@ public class AttackManager : MonoBehaviour
 
             case TipoAtaque.Perfurante:
             default:
+                // overlay fica desligado
                 if (piercing != null)
                 {
                     piercing.gameObject.SetActive(true);
@@ -77,6 +103,10 @@ public class AttackManager : MonoBehaviour
 
     public void FinalizarAtaque(bool qteSucesso)
     {
+        // sempre desliga overlay ao finalizar
+        if (actionOverlayInput != null)
+            actionOverlayInput.SetEnabled(false);
+
         Vector2 pontoFinalDeAcerto = posicaoDoClique;
 
         if (!qteSucesso)
@@ -88,20 +118,28 @@ public class AttackManager : MonoBehaviour
         AplicarDano(acertouCorpo, multiplicadorPontoFraco);
 
         if (piercing != null) piercing.gameObject.SetActive(false);
+
+        // segurança extra
+        if (slashing != null) slashing.gameObject.SetActive(false);
     }
 
     public void FinalizarAtaqueSlashing(bool sucesso, int weakPointsHit, float precisao, Vector2 slashStart, Vector2 slashEnd)
     {
-        // Sempre checa se o segmento cruza o corpo do monstro
+        // sempre desliga overlay ao finalizar
+        if (actionOverlayInput != null)
+            actionOverlayInput.SetEnabled(false);
+
         bool acertouCorpo = SlashSegmentHitsEnemyBody(slashStart, slashEnd);
 
-        // Mantém bônus por weakpoints (continua funcionando)
         float multWeakpoints = CalcularMultiplicadorSlashing(weakPointsHit);
         float multiplicadorFinal = multiplicadorPontoFraco * multWeakpoints;
 
         AplicarDano(acertouCorpo, multiplicadorFinal);
 
         if (slashing != null) slashing.gameObject.SetActive(false);
+
+        // segurança extra
+        if (piercing != null) piercing.gameObject.SetActive(false);
     }
 
     bool SlashSegmentHitsEnemyBody(Vector2 a, Vector2 b)
@@ -115,7 +153,6 @@ public class AttackManager : MonoBehaviour
             return hit.collider != null;
         }
 
-        // fallback
         Collider2D colisorMonstro = BattleSystem.Instance.enemyUnit.GetComponentInParent<Collider2D>();
         if (colisorMonstro == null) return true;
 

@@ -2,6 +2,8 @@ public enum BodyPartType
 {
     Head,
     Torso,
-    Arms,
-    Legs
+    LeftArm,
+    RightArm,
+    LeftLeg,
+    RightLeg
 }

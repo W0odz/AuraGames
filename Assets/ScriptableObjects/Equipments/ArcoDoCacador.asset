@@ -19,7 +19,7 @@ MonoBehaviour:
   tipoItem: 1
   slotOndeEquipa: 0
   efeitosDoItem: []
-  bonusStrength: 999
+  bonusStrength: 10
   bonusResistance: 0
   bonusMaxHP: 0
   bonusMaxMP: 0

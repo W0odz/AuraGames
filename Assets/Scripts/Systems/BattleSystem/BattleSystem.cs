@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using TMPro;
 
-public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST, BUSY }
+public enum BattleState { START, PLAYERTURN, ENEMYTURN, TARGETING, WON, LOST, BUSY }
 
 public class BattleSystem : MonoBehaviour
 {
@@ -32,8 +32,8 @@ public class BattleSystem : MonoBehaviour
     public CanvasGroup enemyHudCanvasGroup;
 
     [Header("Durações")]
-    public float duracaoFadeInimigo = 0.6f;
-    public float duracaoFadeHudInimigo = 0.5f;
+    public float duracaoFadeInimigo = 1f;
+    public float duracaoFadeHudInimigo = 0.6f;
 
     [Header("Pausas entre etapas")]
     public float pausaAntesDeSumirInimigo = 1.5f;
@@ -55,7 +55,6 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator SetupBattle()
     {
-        // Sempre usa o PlayerUnit persistente
         if (PlayerUnit.Instance == null)
         {
             Debug.LogError("[BattleSystem] PlayerUnit.Instance é NULL. Garanta que existe um PlayerUnit persistente antes da BattleScene carregar.");
@@ -65,7 +64,6 @@ public class BattleSystem : MonoBehaviour
         playerUnit = PlayerUnit.Instance;
         playerUnit.InicializarUnidade();
 
-        // Spawna inimigo
         GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
         enemyGO.transform.localPosition = Vector3.zero;
         enemyUnit = enemyGO.GetComponent<EnemyUnit>();
@@ -85,7 +83,7 @@ public class BattleSystem : MonoBehaviour
         if (enemyHUD != null) enemyHUD.SetHUD(enemyUnit);
         else Debug.LogError("[BattleSystem] enemyHUD não está atribuído no Inspector.");
 
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2f);
 
         if (AttackManager.Instance == null)
         {
@@ -111,17 +109,45 @@ public class BattleSystem : MonoBehaviour
 
     void PlayerTurn()
     {
+        // DEFINIÇÃO DE TURNO:
+        // Um turno é "quando o jogador recebe controle" (entrada em PlayerTurn()).
+        // Então debuffs sempre tickam aqui e somente aqui.
+        playerUnit.TickDebuffsOnPlayerTurnStart();
+
+        if (playerUnit.HasDebuff(DebuffType.Stun))
+        {
+            if (dialogueText != null)
+                dialogueText.text = $"{playerUnit.unitName} está atordoado e perde o turno!";
+
+            StartCoroutine(SkipPlayerTurn());
+            return;
+        }
+
         if (dialogueText != null)
             dialogueText.text = "O que " + playerUnit.unitName + " fará?";
 
         BattleHUD.Instance.MostrarMenuPrincipal();
     }
 
+    IEnumerator SkipPlayerTurn()
+    {
+        yield return new WaitForSeconds(1.5f);
+        state = BattleState.ENEMYTURN;
+        StartCoroutine(EnemyTurn());
+    }
+
     public void OnAttackButton()
     {
+        Debug.Log("[BattleSystem] OnAttackButton state=" + state);
         if (state != BattleState.PLAYERTURN) return;
 
-        state = BattleState.BUSY;
+        state = BattleState.TARGETING;
+        bool isCortante = AttackManager.Instance != null &&
+                  AttackManager.Instance.armaAtual != null &&
+                  AttackManager.Instance.armaAtual.tipoDeDano == TipoAtaque.Cortante;
+
+        if (AttackManager.Instance != null && AttackManager.Instance.actionOverlayInput != null)
+            AttackManager.Instance.actionOverlayInput.SetEnabled(isCortante);
 
         if (dialogueText != null) dialogueText.text = "Onde vai acertar?";
     }
@@ -133,14 +159,17 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerAttackSequence(float multiplicador)
     {
-        int danoFinal = Mathf.RoundToInt(playerUnit.strength * multiplicador);
+        // Weakness afeta dano do player
+        float multDebuff = playerUnit.GetDamageMultiplierFromDebuffs();
+        int danoFinal = Mathf.RoundToInt(playerUnit.strength * multiplicador * multDebuff);
+
         bool isDead = enemyUnit.TakeDamage(danoFinal);
         enemyHUD.UpdateHP(enemyUnit.currentHP);
 
         if (dialogueText != null)
             dialogueText.text = "Ataque realizado!";
 
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3f);
 
         if (isDead)
         {
@@ -156,20 +185,22 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
-        bool isDead;
-        yield return new WaitForSeconds(4f);
+        bool isDead = false;
+
+        yield return new WaitForSeconds(3f);
 
         state = BattleState.ENEMYTURN;
 
         if (dialogueText != null)
             dialogueText.text = enemyUnit.unitName + " contra-ataca!";
 
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3f);
 
-        int enemyAcc = enemyUnit.accuracy; 
-        int playerAgi = playerUnit.agility;
+        // Esquiva (EvasionDown já está embutido em GetEffectiveAgility)
+        int enemyAcc = enemyUnit.accuracy;
+        int playerAgiEfetiva = playerUnit.GetEffectiveAgility();
 
-        float hitChance = HitChance.CalculateHitChance(enemyAcc, playerAgi);
+        float hitChance = HitChance.CalculateHitChance(enemyAcc, playerAgiEfetiva);
         bool hit = Random.value <= hitChance;
 
         if (!hit)
@@ -177,19 +208,36 @@ public class BattleSystem : MonoBehaviour
             if (dialogueText != null)
                 dialogueText.text = $"{enemyUnit.unitName} atacou, mas você desviou!";
 
-            // pequeno delay e volta pro turno do player
             yield return new WaitForSeconds(2f);
             state = BattleState.PLAYERTURN;
             PlayerTurn();
             yield break;
         }
-        else
+
+        // Parte do corpo + debuff
+        BodyPartType part = ChooseEnemyTargetPart();
+
+        PlayerBodyParts bodyParts = playerUnit.GetComponent<PlayerBodyParts>();
+        BodyPartDefinition def = bodyParts != null ? bodyParts.Get(part) : null;
+
+        isDead = playerUnit.TakeDamage(enemyUnit.strength);
+        playerHUD.UpdateHP(playerUnit.currentHP);
+
+        if (def != null && def.debuff != DebuffType.None)
         {
-            isDead = playerUnit.TakeDamage(enemyUnit.strength);
-            playerHUD.UpdateHP(playerUnit.currentHP);
+            // IMPORTANTE: convertendo duração (float) para turnos do jogador
+            int turns = Mathf.Max(1, Mathf.CeilToInt(def.debuffTurns));
+            playerUnit.ApplyDebuff(def.debuff, turns, def.debuffStacks);
         }
 
-        
+        if (dialogueText != null)
+        {
+            if (def != null && def.debuff != DebuffType.None)
+                dialogueText.text = $"{enemyUnit.unitName} acertou {PartToPtBr(part)}! ({def.debuff})";
+            else
+                dialogueText.text = $"{enemyUnit.unitName} acertou {PartToPtBr(part)}!";
+        }
+
         yield return new WaitForSeconds(2f);
 
         if (isDead)
@@ -201,6 +249,34 @@ public class BattleSystem : MonoBehaviour
         {
             state = BattleState.PLAYERTURN;
             PlayerTurn();
+        }
+    }
+
+    private BodyPartType ChooseEnemyTargetPart()
+    {
+        float r = Random.value;
+
+        if (r < 0.10f) return BodyPartType.Head;
+        if (r < 0.50f) return BodyPartType.Torso;
+
+        if (r < 0.65f) return BodyPartType.LeftArm;
+        if (r < 0.80f) return BodyPartType.RightArm;
+
+        if (r < 0.90f) return BodyPartType.LeftLeg;
+        return BodyPartType.RightLeg;
+    }
+
+    private string PartToPtBr(BodyPartType part)
+    {
+        switch (part)
+        {
+            case BodyPartType.Head: return "a cabeça";
+            case BodyPartType.Torso: return "o torso";
+            case BodyPartType.LeftArm: return "o braço esquerdo";
+            case BodyPartType.RightArm: return "o braço direito";
+            case BodyPartType.LeftLeg: return "a perna esquerda";
+            case BodyPartType.RightLeg: return "a perna direita";
+            default: return part.ToString();
         }
     }
 
@@ -216,18 +292,15 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(pausaAntesDeSumirInimigo);
 
-        // barra do inimigo some primeiro
         if (enemyHUD != null)
             yield return StartCoroutine(enemyHUD.FadeOutAndWait());
         else
             yield return StartCoroutine(FadeCanvasGroup(enemyHudCanvasGroup, 1f, 0f, duracaoFadeHudInimigo));
 
-        // depois o inimigo some
         yield return StartCoroutine(FadeOutEnemyTudo(duracaoFadeInimigo));
 
         yield return new WaitForSeconds(pausaAposFadeInimigo);
 
-        // XP
         int xpGanho = enemyUnit.expReward;
         yield return StartCoroutine(AnimarXP(xpGanho));
 
@@ -239,7 +312,7 @@ public class BattleSystem : MonoBehaviour
         if (GameManager.Instance != null)
         {
             GameManager.Instance.defeatedEnemyIDs.Add(GameManager.Instance.currentEnemyID);
-            GameManager.Instance.isReturningFromBattle = true; // garante a flag
+            GameManager.Instance.isReturningFromBattle = true;
             GameManager.Instance.StartCombatGracePeriod();
             GameManager.Instance.LoadSceneWithFade(nomeCenaMapa);
         }
@@ -340,7 +413,5 @@ public class BattleSystem : MonoBehaviour
         }
 
         playerUnit.currentXP = Mathf.RoundToInt(xpVisual);
-
-        // Se você quer persistir isso no GameManager também, aqui é o ponto:
     }
 }
