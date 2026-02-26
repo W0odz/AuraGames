@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SlashingMinigame : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class SlashingMinigame : MonoBehaviour
     [Header("Referências")]
     public LineRenderer lineRenderer;
 
+    [Header("Timer (UI)")]
+    public Slider timeSlider;
+
     [Header("Detecção (weakpoints sem Collider2D)")]
     public float slashThickness = 0.35f;
 
@@ -29,7 +33,7 @@ public class SlashingMinigame : MonoBehaviour
     [Header("Limite do desenho")]
     public LimiteModo limiteModo = LimiteModo.Ambos;
     public float maxRadiusOverride = 0f;
-    public float maxDrawTime = 0.9f;
+    public float maxDrawTime = 5f;
     public bool autoFinalizeOnTimeout = true;
 
     private Vector2 startPoint;
@@ -42,6 +46,39 @@ public class SlashingMinigame : MonoBehaviour
     void Awake()
     {
         gameObject.SetActive(false);
+    }
+
+    bool UsaTempo()
+    {
+        return (limiteModo == LimiteModo.Tempo || limiteModo == LimiteModo.Ambos) && maxDrawTime > 0f;
+    }
+
+    void SetTimerVisible(bool visible)
+    {
+        if (timeSlider != null)
+            timeSlider.gameObject.SetActive(visible);
+    }
+
+    void SetTimeSliderValue01(float v)
+    {
+        if (timeSlider == null) return;
+
+        v = Mathf.Clamp01(v);
+        timeSlider.minValue = 0f;
+        timeSlider.maxValue = 1f;
+        timeSlider.value = v;
+
+        // some com o Fill quando chegar a 0
+        if (timeSlider.fillRect != null)
+            timeSlider.fillRect.gameObject.SetActive(v > 0.0001f);
+    }
+
+    void UpdateTimerUI()
+    {
+        if (timeSlider == null) return;
+        if (maxDrawTime <= 0f) return;
+
+        SetTimeSliderValue01(1f - Mathf.Clamp01(aimingTimer / maxDrawTime));
     }
 
     public void Iniciar(DadosArma arma)
@@ -57,11 +94,37 @@ public class SlashingMinigame : MonoBehaviour
             lineRenderer.useWorldSpace = true;
         }
 
-        isAiming = false;
-        isActive = true;
+        // IMPORTANTE: timer começa aqui (quando o minigame inicia)
         aimingTimer = 0f;
 
+        isAiming = false;
+        isActive = true;
+
+        bool usaTempo = UsaTempo();
+        SetTimerVisible(usaTempo);
+        SetTimeSliderValue01(1f);
+
         gameObject.SetActive(true);
+    }
+
+    // Permite iniciar o corte no mesmo clique que iniciou o ataque (sem precisar clicar 2x)
+    // Não reseta timer: ele já está correndo desde o Iniciar()
+    public void BeginSlashFromWorldPoint(Vector2 worldStart)
+    {
+        if (!isActive) return;
+        if (worldCamera == null) worldCamera = Camera.main;
+
+        startPoint = worldStart;
+        endPoint = startPoint;
+
+        if (lineRenderer != null)
+        {
+            lineRenderer.SetPosition(0, startPoint);
+            lineRenderer.SetPosition(1, startPoint);
+            lineRenderer.enabled = true;
+        }
+
+        isAiming = true;
     }
 
     void Update()
@@ -69,13 +132,36 @@ public class SlashingMinigame : MonoBehaviour
         if (!isActive) return;
         if (worldCamera == null) return;
 
-        if (Input.GetMouseButtonDown(0))
+        bool usaTempo = UsaTempo();
+
+        // Timer sempre corre a partir do início do minigame
+        if (usaTempo)
+        {
+            aimingTimer += Time.deltaTime;
+            UpdateTimerUI();
+
+            if (aimingTimer >= maxDrawTime)
+            {
+                if (autoFinalizeOnTimeout)
+                {
+                    ValidarCorte();
+                    return;
+                }
+                else
+                {
+                    // trava o input se você quiser (aqui só impede de avançar)
+                    return;
+                }
+            }
+        }
+
+        // Fallback: iniciar mirando por mouse down (caso você não use BeginSlashFromWorldPoint)
+        if (!isAiming && Input.GetMouseButtonDown(0))
         {
             if (!IsMouseInsideActionOverlay()) return;
 
             startPoint = GetMouseWorldPos();
             endPoint = startPoint;
-            aimingTimer = 0f;
 
             if (lineRenderer != null)
             {
@@ -87,23 +173,9 @@ public class SlashingMinigame : MonoBehaviour
             isAiming = true;
         }
 
+        // Atualizar linha enquanto segura
         if (isAiming && Input.GetMouseButton(0))
         {
-            aimingTimer += Time.deltaTime;
-
-            if ((limiteModo == LimiteModo.Tempo || limiteModo == LimiteModo.Ambos) && maxDrawTime > 0f)
-            {
-                if (aimingTimer >= maxDrawTime)
-                {
-                    if (autoFinalizeOnTimeout)
-                    {
-                        ValidarCorte();
-                        return;
-                    }
-                    return;
-                }
-            }
-
             Vector2 currentMousePos = GetMouseWorldPos();
             endPoint = CalcularEndPointLimitado(currentMousePos);
 
@@ -161,6 +233,7 @@ public class SlashingMinigame : MonoBehaviour
         if (lineRenderer != null) lineRenderer.enabled = false;
 
         isActive = false;
+        SetTimerVisible(false);
         gameObject.SetActive(false);
 
         AttackManager.Instance.FinalizarAtaqueSlashing(sucesso, weakPointsHit, precisao, startPoint, endPoint);

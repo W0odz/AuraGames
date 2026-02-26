@@ -9,6 +9,9 @@ public class PlayerUnit : Unit
     public int currentXP = 0;
     public int xpToNextLevel = 100;
 
+    [Header("Atributos")]
+    public int agility = 10;
+
     private void Awake()
     {
         // singleton + persistência + anti-duplicata
@@ -33,9 +36,8 @@ public class PlayerUnit : Unit
                 if (item != null)
                 {
                     maxHP += item.bonusMaxHP;
-                    maxMP += item.bonusMaxMP;
                     strength += item.bonusStrength;
-                    resistance += item.bonusResistance;
+                    resistance = item.bonusResistance;
                 }
             }
         }

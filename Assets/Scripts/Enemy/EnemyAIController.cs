@@ -20,6 +20,10 @@ public class EnemyAIController : MonoBehaviour
     [Header("Referencias")]
     public Collider2D mapBoundsCollider;
 
+    [Header("Detecção / Aggro (opcional)")]
+    [Tooltip("Triggers/Colliders2D usados para detectar o player (ex: DetectionArea). Durante o grace period eles serão desativados (pausa a detecção), mas o inimigo continuará passeando.")]
+    public Collider2D[] aggroDetectors;
+
     [Header("ID do inimigo")]
     public string enemyID; // Será definido pelo Spawner
 
@@ -32,6 +36,8 @@ public class EnemyAIController : MonoBehaviour
     private Bounds bounds;
     private float currentMoveSpeed;
 
+    private bool isAggroSuppressed;
+
     private enum State
     {
         Wandering,
@@ -43,7 +49,7 @@ public class EnemyAIController : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>(); // Atribuição movida para cá
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Start()
@@ -62,7 +68,15 @@ public class EnemyAIController : MonoBehaviour
     {
         if (mapBoundsCollider == null) return;
 
-        if (GameManager.Instance != null && GameManager.Instance.IsInCombatGracePeriod())
+        // Pausa a DETECÇÃO durante o grace period, sem congelar movimento.
+        bool shouldSuppress = (GameManager.Instance != null && GameManager.Instance.IsInCombatGracePeriod());
+        if (shouldSuppress != isAggroSuppressed)
+        {
+            SetAggroSuppressed(shouldSuppress);
+        }
+
+        // Se por algum motivo ainda estiver perseguindo enquanto suprimido, força parar.
+        if (isAggroSuppressed && currentState == State.Chasing)
         {
             StopChasing();
         }
@@ -90,12 +104,32 @@ public class EnemyAIController : MonoBehaviour
         }
     }
 
-    // Logica de movimento (Fìsica)
     void FixedUpdate()
     {
-        // ANTES: rb.MovePosition(rb.position + moveDirection * currentMoveSpeed * Time.fixedDeltaTime);
-        // DEPOIS: Definimos a velocidade, e deixamos a física cuidar do resto
+        if (rb == null) return;
         rb.linearVelocity = moveDirection * currentMoveSpeed;
+    }
+    #endregion
+
+    #region Grace period / supressão de aggro
+    void SetAggroSuppressed(bool suppressed)
+    {
+        isAggroSuppressed = suppressed;
+
+        // Pausa detecção: desliga colliders de "aggro range" se estiverem configurados.
+        if (aggroDetectors != null)
+        {
+            foreach (var col in aggroDetectors)
+            {
+                if (col != null) col.enabled = !suppressed;
+            }
+        }
+
+        // Se entrou em grace period e estava perseguindo, para perseguição mas continua wander.
+        if (suppressed)
+        {
+            StopChasing();
+        }
     }
     #endregion
 
@@ -104,11 +138,15 @@ public class EnemyAIController : MonoBehaviour
     // Chamada pelo DetectionArea para INICIAR a perseguição
     public void StartChasing(Transform player)
     {
-        // Proteção: ao voltar da batalha, não iniciar perseguição por alguns segundos
+        // Durante o grace period: não iniciar perseguição/agro
         if (GameManager.Instance != null && GameManager.Instance.IsInCombatGracePeriod())
             return;
 
-        if (isPassive) return; // Se for passivo, ignora o jogador
+        // Proteção extra caso alguém chame StartChasing mesmo com detectors desligados
+        if (isAggroSuppressed)
+            return;
+
+        if (isPassive) return;
 
         if (chaseCoroutine != null)
         {
@@ -117,13 +155,11 @@ public class EnemyAIController : MonoBehaviour
 
         playerToChase = player;
         currentState = State.Chasing;
-
         currentMoveSpeed = chaseSpeed;
 
         chaseCoroutine = StartCoroutine(ChaseTimerCoroutine());
     }
 
-    // Chamada pelo timer (ou se o jogador sumir) para PARAR a perseguição
     public void StopChasing()
     {
         if (currentState == State.Chasing)
@@ -138,14 +174,12 @@ public class EnemyAIController : MonoBehaviour
         }
     }
 
-    // O timer de 10 segundos
     private IEnumerator ChaseTimerCoroutine()
     {
         yield return new WaitForSeconds(chaseDuration);
         StopChasing();
     }
 
-    // Lógica para encontrar um ponto de passeio VÁLIDO dentro do mapa
     void PickNewWanderTarget()
     {
         int attempts = 0;
@@ -167,36 +201,26 @@ public class EnemyAIController : MonoBehaviour
     #endregion
 
     #region Desaparecimento pós derrota
-
     public void DefeatOnLoad()
     {
-        // Começa a corrotina de fade e desativa
         gameObject.SetActive(false);
     }
-
     #endregion
 
     #region Congelamento dos inimigos
     public static void FreezeAllEnemies()
     {
-        // Encontra todos os scripts de IA ativos na cena
         EnemyAIController[] allEnemies = FindObjectsByType<EnemyAIController>(FindObjectsSortMode.None);
 
         foreach (var enemy in allEnemies)
         {
-            // 1. Desativa o script (para parar de calcular perseguição/passeio)
             enemy.enabled = false;
 
-            // 2. Para a física imediatamente (para não deslizar)
             if (enemy.rb != null)
             {
                 enemy.rb.linearVelocity = Vector2.zero;
-                enemy.rb.bodyType = RigidbodyType2D.Kinematic; // Trava no lugar
+                enemy.rb.bodyType = RigidbodyType2D.Kinematic;
             }
-
-            // 3. Para a animação (opcional, se tiver Animator)
-            // Animator anim = enemy.GetComponent<Animator>();
-            // if(anim) anim.enabled = false;
         }
     }
     #endregion

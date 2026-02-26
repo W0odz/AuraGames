@@ -41,6 +41,8 @@ public class AttackManager : MonoBehaviour
 
     public void IniciarSequenciaDeAtaque(float bonus, Vector2 coordenadaClique)
     {
+
+        Debug.Log($"[AttackManager] armaAtual={(armaAtual != null ? armaAtual.name : "NULL")} tipo={(armaAtual != null ? armaAtual.tipoDeDano.ToString() : "NULL")}");
         if (piercing != null && piercing.gameObject.activeInHierarchy) return;
         if (slashing != null && slashing.gameObject.activeInHierarchy) return;
 
@@ -56,6 +58,9 @@ public class AttackManager : MonoBehaviour
                 {
                     slashing.gameObject.SetActive(true);
                     slashing.Iniciar(armaAtual);
+
+                    // começa o corte no mesmo clique que iniciou o ataque
+                    slashing.BeginSlashFromWorldPoint(coordenadaClique);
                 }
                 break;
 
@@ -87,11 +92,10 @@ public class AttackManager : MonoBehaviour
 
     public void FinalizarAtaqueSlashing(bool sucesso, int weakPointsHit, float precisao, Vector2 slashStart, Vector2 slashEnd)
     {
-        bool acertouCorpo = false;
+        // Sempre checa se o segmento cruza o corpo do monstro
+        bool acertouCorpo = SlashSegmentHitsEnemyBody(slashStart, slashEnd);
 
-        if (sucesso)
-            acertouCorpo = SlashSegmentHitsEnemyBody(slashStart, slashEnd);
-
+        // Mantém bônus por weakpoints (continua funcionando)
         float multWeakpoints = CalcularMultiplicadorSlashing(weakPointsHit);
         float multiplicadorFinal = multiplicadorPontoFraco * multWeakpoints;
 

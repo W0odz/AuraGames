@@ -33,12 +33,12 @@ public class BattleSystem : MonoBehaviour
 
     [Header("Durações")]
     public float duracaoFadeInimigo = 0.6f;
-    public float duracaoFadeHudInimigo = 0.25f;
+    public float duracaoFadeHudInimigo = 0.5f;
 
     [Header("Pausas entre etapas")]
-    public float pausaAntesDeSumirInimigo = 0.4f;
-    public float pausaAposFadeInimigo = 0.35f;
-    public float pausaAposXP = 0.9f;
+    public float pausaAntesDeSumirInimigo = 1.5f;
+    public float pausaAposFadeInimigo = 1.5f;
+    public float pausaAposXP = 1.5f;
 
     public BattleState state;
 
@@ -85,7 +85,7 @@ public class BattleSystem : MonoBehaviour
         if (enemyHUD != null) enemyHUD.SetHUD(enemyUnit);
         else Debug.LogError("[BattleSystem] enemyHUD não está atribuído no Inspector.");
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
 
         if (AttackManager.Instance == null)
         {
@@ -140,7 +140,7 @@ public class BattleSystem : MonoBehaviour
         if (dialogueText != null)
             dialogueText.text = "Ataque realizado!";
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
 
         if (isDead)
         {
@@ -156,19 +156,41 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
-        yield return new WaitForSeconds(1.5f);
+        bool isDead;
+        yield return new WaitForSeconds(4f);
 
         state = BattleState.ENEMYTURN;
 
         if (dialogueText != null)
             dialogueText.text = enemyUnit.unitName + " contra-ataca!";
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(4f);
 
-        bool isDead = playerUnit.TakeDamage(enemyUnit.strength);
-        playerHUD.UpdateHP(playerUnit.currentHP);
+        int enemyAcc = enemyUnit.accuracy; 
+        int playerAgi = playerUnit.agility;
 
-        yield return new WaitForSeconds(1f);
+        float hitChance = HitChance.CalculateHitChance(enemyAcc, playerAgi);
+        bool hit = Random.value <= hitChance;
+
+        if (!hit)
+        {
+            if (dialogueText != null)
+                dialogueText.text = $"{enemyUnit.unitName} atacou, mas você desviou!";
+
+            // pequeno delay e volta pro turno do player
+            yield return new WaitForSeconds(2f);
+            state = BattleState.PLAYERTURN;
+            PlayerTurn();
+            yield break;
+        }
+        else
+        {
+            isDead = playerUnit.TakeDamage(enemyUnit.strength);
+            playerHUD.UpdateHP(playerUnit.currentHP);
+        }
+
+        
+        yield return new WaitForSeconds(2f);
 
         if (isDead)
         {
@@ -311,7 +333,7 @@ public class BattleSystem : MonoBehaviour
                 playerUnit.xpToNextLevel = Mathf.RoundToInt(playerUnit.xpToNextLevel * 1.5f);
                 xpSlider.maxValue = playerUnit.xpToNextLevel;
 
-                yield return new WaitForSeconds(0.8f);
+                yield return new WaitForSeconds(1f);
             }
 
             yield return null;
