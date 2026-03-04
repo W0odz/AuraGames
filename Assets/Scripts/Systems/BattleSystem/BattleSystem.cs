@@ -8,14 +8,14 @@ public class BattleSystem : MonoBehaviour
 {
     public static BattleSystem Instance;
 
-    [Header("Telas de Vitória")]
+    [Header("Telas de VitÃ³ria")]
     public GameObject xpPanel;
     public UnityEngine.UI.Slider xpSlider;
     public TextMeshProUGUI levelText;
 
     public string nomeCenaMapa = "ExplorationScene";
 
-    [Header("Configurações do Inimigo")]
+    [Header("ConfiguraÃ§Ãµes do Inimigo")]
     public GameObject enemyPrefab;
     public Transform enemyBattleStation;
     public EnemyUnit enemyUnit;
@@ -28,10 +28,10 @@ public class BattleSystem : MonoBehaviour
     public BattleHUD enemyHUD;
     public TextMeshProUGUI dialogueText;
 
-    [Header("HUD do Inimigo (Fade rápido)")]
+    [Header("HUD do Inimigo (Fade rÃ¡pido)")]
     public CanvasGroup enemyHudCanvasGroup;
 
-    [Header("Durações")]
+    [Header("DuraÃ§Ãµes")]
     public float duracaoFadeInimigo = 1f;
     public float duracaoFadeHudInimigo = 0.6f;
 
@@ -57,7 +57,7 @@ public class BattleSystem : MonoBehaviour
     {
         if (PlayerUnit.Instance == null)
         {
-            Debug.LogError("[BattleSystem] PlayerUnit.Instance é NULL. Garanta que existe um PlayerUnit persistente antes da BattleScene carregar.");
+            Debug.LogError("[BattleSystem] PlayerUnit.Instance Ã© NULL. Garanta que existe um PlayerUnit persistente antes da BattleScene carregar.");
             yield break;
         }
 
@@ -70,7 +70,7 @@ public class BattleSystem : MonoBehaviour
 
         if (enemyUnit == null)
         {
-            Debug.LogError("[BattleSystem] enemyPrefab não tem componente EnemyUnit.");
+            Debug.LogError("[BattleSystem] enemyPrefab nÃ£o tem componente EnemyUnit.");
             yield break;
         }
 
@@ -78,22 +78,22 @@ public class BattleSystem : MonoBehaviour
             dialogueText.text = "Um " + enemyUnit.unitName + " bloqueia seu caminho...";
 
         if (playerHUD != null) playerHUD.SetHUD(playerUnit);
-        else Debug.LogError("[BattleSystem] playerHUD não está atribuído no Inspector.");
+        else Debug.LogError("[BattleSystem] playerHUD nÃ£o estÃ¡ atribuÃ­do no Inspector.");
 
         if (enemyHUD != null) enemyHUD.SetHUD(enemyUnit);
-        else Debug.LogError("[BattleSystem] enemyHUD não está atribuído no Inspector.");
+        else Debug.LogError("[BattleSystem] enemyHUD nÃ£o estÃ¡ atribuÃ­do no Inspector.");
 
         yield return new WaitForSeconds(2f);
 
         if (AttackManager.Instance == null)
         {
-            Debug.LogError("ERRO: O objeto AttackManager não foi encontrado na cena!");
+            Debug.LogError("ERRO: O objeto AttackManager nÃ£o foi encontrado na cena!");
             yield break;
         }
 
         if (EquipmentManager.Instance == null)
         {
-            Debug.LogError("ERRO: O EquipmentManager não foi encontrado na cena!");
+            Debug.LogError("ERRO: O EquipmentManager nÃ£o foi encontrado na cena!");
             yield break;
         }
 
@@ -109,22 +109,22 @@ public class BattleSystem : MonoBehaviour
 
     void PlayerTurn()
     {
-        // DEFINIÇÃO DE TURNO:
-        // Um turno é "quando o jogador recebe controle" (entrada em PlayerTurn()).
-        // Então debuffs sempre tickam aqui e somente aqui.
+        // DEFINIÃ‡ÃƒO DE TURNO:
+        // Um turno Ã© "quando o jogador recebe controle" (entrada em PlayerTurn()).
+        // EntÃ£o debuffs sempre tickam aqui e somente aqui.
         playerUnit.TickDebuffsOnPlayerTurnStart();
 
         if (playerUnit.HasDebuff(DebuffType.Stun))
         {
             if (dialogueText != null)
-                dialogueText.text = $"{playerUnit.unitName} está atordoado e perde o turno!";
+                dialogueText.text = $"{playerUnit.unitName} estÃ¡ atordoado e perde o turno!";
 
             StartCoroutine(SkipPlayerTurn());
             return;
         }
 
         if (dialogueText != null)
-            dialogueText.text = "O que " + playerUnit.unitName + " fará?";
+            dialogueText.text = "O que " + playerUnit.unitName + " farÃ¡?";
 
         BattleHUD.Instance.MostrarMenuPrincipal();
     }
@@ -196,7 +196,7 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
 
-        // Esquiva (EvasionDown já está embutido em GetEffectiveAgility)
+        // Esquiva (EvasionDown jÃ¡ estÃ¡ embutido em GetEffectiveAgility)
         int enemyAcc = enemyUnit.accuracy;
         int playerAgiEfetiva = playerUnit.GetEffectiveAgility();
 
@@ -206,7 +206,7 @@ public class BattleSystem : MonoBehaviour
         if (!hit)
         {
             if (dialogueText != null)
-                dialogueText.text = $"{enemyUnit.unitName} atacou, mas você desviou!";
+                dialogueText.text = $"{enemyUnit.unitName} atacou, mas vocÃª desviou!";
 
             yield return new WaitForSeconds(2f);
             state = BattleState.PLAYERTURN;
@@ -225,7 +225,7 @@ public class BattleSystem : MonoBehaviour
 
         if (def != null && def.debuff != DebuffType.None)
         {
-            // IMPORTANTE: convertendo duração (float) para turnos do jogador
+            // IMPORTANTE: convertendo duraÃ§Ã£o (float) para turnos do jogador
             int turns = Mathf.Max(1, def.debuffTurns);
             playerUnit.ApplyDebuff(def.debuff, turns, def.debuffStacks);
         }
@@ -242,14 +242,18 @@ public class BattleSystem : MonoBehaviour
 
         if (isDead)
         {
-            if (PlayerUnit.Instance != null && PlayerUnit.Instance.temForcaDeVontade)
-            {
-                yield return StartCoroutine(VerificarForcaDeVontade());
-            }
-            else
-            {
-                StartCoroutine("GameOver");
-            }
+            // TODO: Descomentar VerificarForcaDeVontade quando ForcaDeVontadeUI estiver pronto
+            // if (PlayerUnit.Instance != null && PlayerUnit.Instance.temForcaDeVontade)
+            // {
+            //     yield return StartCoroutine(VerificarForcaDeVontade());
+            // }
+            // else
+            // {
+            //     StartCoroutine("GameOver");
+            // }
+
+            // TemporÃ¡rio: vai direto pro GameOver
+            StartCoroutine("GameOver");
         }
         else
         {
@@ -258,40 +262,37 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    private IEnumerator VerificarForcaDeVontade()
-    {
-        // Pausa o jogo e exibe o painel de escolha
-        bool jogadorEscolheu = false;
-        bool usarForca = false;
-
-        ForcaDeVontadeUI.Instance.Mostrar((resposta) =>
-        {
-            usarForca = resposta;
-            jogadorEscolheu = true;
-        });
-
-        // Aguarda a decisão (timeScale = 0 durante o painel)
-        yield return new WaitUntil(() => jogadorEscolheu);
-
-        if (usarForca)
-        {
-            PlayerUnit.Instance.ConsumirForcaDeVontade();
-
-            // Volta com 1 de HP
-            playerUnit.currentHP = 1;
-            playerHUD.UpdateHP(1);
-
-            if (dialogueText != null)
-                dialogueText.text = "Você sobreviveu pela sua Força de Vontade!";
-
-            yield return new WaitForSeconds(1.5f);
-            StartCoroutine("PlayerTurn");
-        }
-        else
-        {
-            StartCoroutine("GameOver");
-        }
-    }
+    // TODO: Descomentar quando ForcaDeVontadeUI.cs estiver criado na cena
+    // private IEnumerator VerificarForcaDeVontade()
+    // {
+    //     bool jogadorEscolheu = false;
+    //     bool usarForca = false;
+    // 
+    //     ForcaDeVontadeUI.Instance.Mostrar((resposta) =>
+    //     {
+    //         usarForca = resposta;
+    //         jogadorEscolheu = true;
+    //     });
+    // 
+    //     yield return new WaitUntil(() => jogadorEscolheu);
+    // 
+    //     if (usarForca)
+    //     {
+    //         PlayerUnit.Instance.ConsumirForcaDeVontade();
+    //         playerUnit.currentHP = 1;
+    //         playerHUD.UpdateHP(1);
+    // 
+    //         if (dialogueText != null)
+    //             dialogueText.text = "VocÃª sobreviveu pela sua ForÃ§a de Vontade!";
+    // 
+    //         yield return new WaitForSeconds(1.5f);
+    //         StartCoroutine("PlayerTurn");
+    //     }
+    //     else
+    //     {
+    //         StartCoroutine("GameOver");
+    //     }
+    // }
 
     private BodyPartType ChooseEnemyTargetPart()
     {
@@ -311,10 +312,10 @@ public class BattleSystem : MonoBehaviour
     {
         switch (part)
         {
-            case BodyPartType.Head: return "a cabeça";
+            case BodyPartType.Head: return "a cabeÃ§a";
             case BodyPartType.Torso: return "o torso";
-            case BodyPartType.LeftArm: return "o braço esquerdo";
-            case BodyPartType.RightArm: return "o braço direito";
+            case BodyPartType.LeftArm: return "o braÃ§o esquerdo";
+            case BodyPartType.RightArm: return "o braÃ§o direito";
             case BodyPartType.LeftLeg: return "a perna esquerda";
             case BodyPartType.RightLeg: return "a perna direita";
             default: return part.ToString();
@@ -348,7 +349,7 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(pausaAposXP);
 
         if (GameManager.Instance != null) GameManager.Instance.LoadSceneWithFade(nomeCenaMapa);
-        else Debug.LogError("GameManager.Instance é null. Não foi possível fazer LoadSceneWithFade.");
+        else Debug.LogError("GameManager.Instance Ã© null. NÃ£o foi possÃ­vel fazer LoadSceneWithFade.");
 
         if (GameManager.Instance != null)
         {
@@ -421,7 +422,7 @@ public class BattleSystem : MonoBehaviour
     {
         xpPanel.SetActive(true);
 
-        levelText.text = "Nível " + playerUnit.playerLevel;
+        levelText.text = "NÃ­vel " + playerUnit.playerLevel;
 
         xpSlider.maxValue = playerUnit.xpToNextLevel;
         xpSlider.value = playerUnit.currentXP;
@@ -438,7 +439,7 @@ public class BattleSystem : MonoBehaviour
             if (xpSlider.value >= xpSlider.maxValue)
             {
                 playerUnit.playerLevel++;
-                levelText.text = "Subiu de nível!";
+                levelText.text = "Subiu de nÃ­vel!";
 
                 xpAlvo -= xpSlider.maxValue;
                 xpVisual = 0;
