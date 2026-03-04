@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor.Overlays;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,64 +23,59 @@ public class UsarFogueiraEffect : ItemEffect
         }
 
         // 1. Salvar o jogo
-        Salvar(player);
+        // TODO: Descomentar quando SaveData.cs e SlotSaveData estiverem criados
+        // Salvar(player);
 
         // 2. Restaurar a Força de Vontade
         player.RestaurarForcaDeVontade();
 
-        Debug.Log("[Fogueira] Jogo salvo e Força de Vontade restaurada!");
+        Debug.Log("[Fogueira] Força de Vontade restaurada! (Save desativado temporariamente)");
     }
 
     // ─────────────────────────────────────────────
-    //  SAVE
+    //  SAVE — descomentar após criar SaveData.cs
     // ─────────────────────────────────────────────
 
-    void Salvar(PlayerUnit player)
-    {
-        var save = new SaveData();
-
-        // Posição e cena atuais
-        save.sceneName = SceneManager.GetActiveScene().name;
-        save.posX = player.transform.position.x;
-        save.posY = player.transform.position.y;
-
-        // Stats do jogador
-        save.currentHP = player.currentHP;
-        save.maxHP = player.maxHP;
-        save.currentMP = player.currentMP;
-        save.maxMP = player.maxMP;
-        save.currentXP = player.currentXP;
-        save.playerLevel = player.playerLevel;
-
-        // Força de Vontade (salva como TRUE porque acabou de restaurar)
-        save.temForcaDeVontade = true;
-
-        // Inventário — salva por nome (SO não é serializável por referência)
-        save.inventario = new List<SlotSaveData>();
-        if (InventoryManager.Instance != null)
-        {
-            foreach (var slot in InventoryManager.Instance.listaItens)
-            {
-                if (slot.item != null)
-                    save.inventario.Add(new SlotSaveData
-                    {
-                        nomeItem = slot.item.nomeItem,
-                        quantidade = slot.quantidade
-                    });
-            }
-        }
-
-        // Inimigos derrotados
-        save.inimigosDerrrotados = GameManager.Instance != null
-            ? GameManager.Instance.GetDefeatedEnemyIDs()
-            : new List<string>();
-
-        // Escreve em disco
-        string json = JsonUtility.ToJson(save, prettyPrint: true);
-        File.WriteAllText(SavePath, json);
-        Debug.Log($"[SaveSystem] Salvo em: {SavePath}");
-    }
-
-    static string SavePath =>
-        Path.Combine(Application.persistentDataPath, "save.json");
+    // void Salvar(PlayerUnit player)
+    // {
+    //     var save = new SaveData();
+    //
+    //     save.sceneName   = SceneManager.GetActiveScene().name;
+    //     save.posX        = player.transform.position.x;
+    //     save.posY        = player.transform.position.y;
+    //
+    //     save.currentHP   = player.currentHP;
+    //     save.maxHP       = player.maxHP;
+    //     save.currentMP   = player.currentMP;
+    //     save.maxMP       = player.maxMP;
+    //     save.currentXP   = player.currentXP;
+    //     save.playerLevel = player.playerLevel;
+    //
+    //     save.temForcaDeVontade = true;
+    //
+    //     save.inventario = new List<SlotSaveData>();
+    //     if (InventoryManager.Instance != null)
+    //     {
+    //         foreach (var slot in InventoryManager.Instance.listaItens)
+    //         {
+    //             if (slot.item != null)
+    //                 save.inventario.Add(new SlotSaveData
+    //                 {
+    //                     nomeItem   = slot.item.nomeItem,
+    //                     quantidade = slot.quantidade
+    //                 });
+    //         }
+    //     }
+    //
+    //     save.inimigosDerrrotados = GameManager.Instance != null
+    //         ? GameManager.Instance.GetDefeatedEnemyIDs()
+    //         : new List<string>();
+    //
+    //     string json = JsonUtility.ToJson(save, prettyPrint: true);
+    //     File.WriteAllText(SavePath, json);
+    //     Debug.Log($"[SaveSystem] Salvo em: {SavePath}");
+    // }
+    //
+    // static string SavePath =>
+    //     Path.Combine(Application.persistentDataPath, "save.json");
 }
