@@ -13,7 +13,28 @@ MonoBehaviour:
   m_Name: Dialogo_Desgarrado
   m_EditorClassIdentifier: Assembly-CSharp::DialogueAsset
   nodes:
-  - text: blablabla
+  - text: "Desconfie do clar\xE3o repentino que vem da sombra."
     speakerSide: 1
     speakerName: Desgarrado
-    portrait: {fileID: 0}
+    portrait: {fileID: 1152047965712221352, guid: 7d5e095b02fa99347b65448d84e1876b, type: 3}
+  - text: Como? O que isso significa?
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: "Encapuzados. Encapuzados levam alde\xF5es para a floresta."
+    speakerSide: 1
+    speakerName: Desgarrado
+    portrait: {fileID: 1152047965712221352, guid: 7d5e095b02fa99347b65448d84e1876b, type: 3}
+  - text: "N\xE3o entendo por que n\xE3o levam a n\xF3s, os que s\xE3o descart\xE1veis."
+    speakerSide: 1
+    speakerName: Desgarrado
+    portrait: {fileID: 1152047965712221352, guid: 7d5e095b02fa99347b65448d84e1876b, type: 3}
+  - text: "\u2026Talvez isso n\xE3o importe para quem quer que esteja por tr\xE1s
+      disso."
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: "Cuidado menino, \xE0s vezes o que buscamos se torna nossa ru\xEDna."
+    speakerSide: 1
+    speakerName: Desgarrado
+    portrait: {fileID: 1152047965712221352, guid: 7d5e095b02fa99347b65448d84e1876b, type: 3}

@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 998d816f9ecd779408036895027b9b91, type: 3}
+  m_Name: Dialogo_Sacerdote
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueAsset
+  nodes:
+  - text: Bom dia, Sacerdote.
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: Que o Fulgor te queime e ilumine, filho.
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+  - text: "Com sua for\xE7a inabal\xE1vel."
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: Diga, o que espera de mim?
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+  - text: Tenho pensado muito nos desaparecimentos das pessoas por todo o vilarejo,
+      senhor.
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: "Ah claro, e pra piorar tudo o Ca\xE7ador sumiu a menos de uma semana,
+      n\xE3o \xE9? Imagino que esteja preocupado com seu pai."
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+  - text: "\xC9 s\xF3 que eu n\xE3o tenho visto seus ajudantes por a\xED, eu poderia
+      ajudar tamb\xE9m se\u2014"
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: "N\xE3o entendi, filho, n\xE3o confia em mim? Eu j\xE1 deixei algo a desejar
+      a voc\xEAs? Eu prometo que vou investigar e punir os respons\xE1veis, n\xE3o
+      se preocupe."
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+  - text: "J\xE1 voc\xEA, foque somente em se preparar para a sua nomea\xE7\xE3o
+      caso o pior aconte\xE7a, as pessoas precisam de alimento e voc\xEA ser\xE1
+      o novo Ca\xE7ador."
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+  - text: "Desculpe, Sacerdote, eu entendo, mas n\xE3o admito desistir t\xE3o cedo,
+      meu pai \xE9 tudo pra mim."
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: "Filho, seus vizinhos precisam comer, n\xE3o podemos deixar que esse mist\xE9rio
+      impe\xE7a a vila de funcionar, se eu achar seu pai prometo que resolvo tudo.
+      O Fulgor n\xE3o aprova o ego\xEDsmo."
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+  - text: "Agora v\xE1 se preparar, preciso terminar de arrumar as oferendas e voc\xEA
+      precisa focar na sua fun\xE7\xE3o, volte para o serm\xE3o mais tarde."
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+  - text: Eu volto, obrigado Sacerdote.
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
