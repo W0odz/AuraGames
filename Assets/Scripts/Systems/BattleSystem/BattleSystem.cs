@@ -242,13 +242,54 @@ public class BattleSystem : MonoBehaviour
 
         if (isDead)
         {
-            state = BattleState.LOST;
-            StartCoroutine(EndBattle());
+            if (PlayerUnit.Instance != null && PlayerUnit.Instance.temForcaDeVontade)
+            {
+                yield return StartCoroutine(VerificarForcaDeVontade());
+            }
+            else
+            {
+                StartCoroutine("GameOver");
+            }
         }
         else
         {
             state = BattleState.PLAYERTURN;
             PlayerTurn();
+        }
+    }
+
+    private IEnumerator VerificarForcaDeVontade()
+    {
+        // Pausa o jogo e exibe o painel de escolha
+        bool jogadorEscolheu = false;
+        bool usarForca = false;
+
+        ForcaDeVontadeUI.Instance.Mostrar((resposta) =>
+        {
+            usarForca = resposta;
+            jogadorEscolheu = true;
+        });
+
+        // Aguarda a decisão (timeScale = 0 durante o painel)
+        yield return new WaitUntil(() => jogadorEscolheu);
+
+        if (usarForca)
+        {
+            PlayerUnit.Instance.ConsumirForcaDeVontade();
+
+            // Volta com 1 de HP
+            playerUnit.currentHP = 1;
+            playerHUD.UpdateHP(1);
+
+            if (dialogueText != null)
+                dialogueText.text = "Você sobreviveu pela sua Força de Vontade!";
+
+            yield return new WaitForSeconds(1.5f);
+            StartCoroutine("PlayerTurn");
+        }
+        else
+        {
+            StartCoroutine("GameOver");
         }
     }
 

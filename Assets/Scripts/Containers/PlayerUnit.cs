@@ -13,6 +13,10 @@ public class PlayerUnit : Unit
     [Header("Atributos")]
     public int agility = 10;
 
+    [Header("Força de Vontade")]
+    public bool temForcaDeVontade = false;
+
+
     [Header("Debuffs (protótipo)")]
     [SerializeField] private List<DebuffInstance> debuffs = new();
 
@@ -57,6 +61,21 @@ public class PlayerUnit : Unit
         }
 
         if (currentHP > maxHP) currentHP = maxHP;
+    }
+
+    public void RestaurarForcaDeVontade()
+    {
+        temForcaDeVontade = true;
+        Debug.Log("[PlayerUnit] Força de Vontade restaurada!");
+    }
+
+
+    public bool ConsumirForcaDeVontade()
+    {
+        if (!temForcaDeVontade) return false;
+        temForcaDeVontade = false;
+        Debug.Log("[PlayerUnit] Força de Vontade consumida!");
+        return true;
     }
 
     #region Debuffs

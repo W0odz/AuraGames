@@ -4,7 +4,7 @@ using TMPro;
 
 public class DialogueRunner : MonoBehaviour
 {
-    public Canvas dialogueCanvas;
+    public GameObject dialoguePanel;
     public Image leftPortrait;
     public Image rightPortrait;
     public TMP_Text dialogueText;
@@ -18,18 +18,53 @@ public class DialogueRunner : MonoBehaviour
     public DialogueAsset currentAsset;
     private int currentIndex = 0;
 
+    private bool recentlyOpened = false;
+
+    public static DialogueRunner Instance { get; private set; }
+
+    private void Awake()
+    {
+        // Garante que só exista um runner
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        Instance = this;
+        // (Opcional: DontDestroyOnLoad(gameObject); se quiser persistência entre cenas)
+    }
+
     void Update()
     {
-        if (!dialogueCanvas.gameObject.activeSelf) return;
+        if (!IsDialogueActive)
+            return;
+
+        // Bloqueio — espera o E ser solto antes de aceitar outro avanço
+        if (recentlyOpened)
+        {
+            // Só libera quando o E está solto após abrir
+            if (!Input.GetKey(KeyCode.E))
+                recentlyOpened = false;
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.E))
+        {
             AdvanceDialogue();
+        }
+    }
+
+    public bool IsDialogueActive
+    {
+        get { return currentAsset != null && dialoguePanel != null && dialoguePanel.gameObject.activeSelf; }
     }
 
     public void StartDialogue(DialogueAsset asset)
     {
         currentAsset = asset;
         currentIndex = 0;
-        dialogueCanvas.gameObject.SetActive(true);
+        dialoguePanel.gameObject.SetActive(true);
+        recentlyOpened = true;
         ShowNode();
     }
 
@@ -73,6 +108,6 @@ public class DialogueRunner : MonoBehaviour
 
     public void EndDialogue()
     {
-        dialogueCanvas.gameObject.SetActive(false);
+        dialoguePanel.gameObject.SetActive(false);
     }
 }
