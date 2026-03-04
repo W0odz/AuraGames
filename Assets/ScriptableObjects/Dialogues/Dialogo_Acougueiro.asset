@@ -31,13 +31,20 @@ MonoBehaviour:
     speakerSide: 0
     speakerName: 
     portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
-  - text: "T\xE1 pensando no seu pai, n\xE9? Eu tamb\xE9m s\xF3 penso nele."
+  - text: "T\xE1 pensando no seu pai, n\xE9?"
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: " Eu tamb\xE9m s\xF3 penso nele."
     speakerSide: 1
     speakerName: "A\xE7ougueiro"
     portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
   - text: "Olha, carinha, n\xE3o pensa muito sobre isso, eu sei que c\xEA t\xE1 preocupado,
-      eu tamb\xE9m t\xF4, muito, mas a gente\u2014 o Sacerdote vai pensar em algo,
-      ele deve dar um jeito."
+      eu tamb\xE9m t\xF4, muito, mas a gente\u2014"
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: o Sacerdote vai pensar em algo, ele deve dar um jeito.
     speakerSide: 1
     speakerName: "A\xE7ougueiro"
     portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
@@ -46,8 +53,12 @@ MonoBehaviour:
     speakerSide: 0
     speakerName: 
     portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
-  - text: "Eles devem t\xE1 buscando por l\xE1, eu acho. S\xF3 n\xE3o d\xE1 pra saber
-      se eles t\xE3o indo l\xE1 s\xF3 pra acender aquelas tochas deles, n\xE9? Huhaha!"
+  - text: "Eles devem t\xE1 buscando por l\xE1, eu acho."
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: "S\xF3 n\xE3o d\xE1 pra saber se eles t\xE3o indo l\xE1 s\xF3 pra acender
+      aquelas tochas deles, n\xE9? Huhaha!"
     speakerSide: 1
     speakerName: "A\xE7ougueiro"
     portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}

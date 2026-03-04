@@ -35,7 +35,11 @@ MonoBehaviour:
     speakerName: 
     portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
   - text: "Ah claro, e pra piorar tudo o Ca\xE7ador sumiu a menos de uma semana,
-      n\xE3o \xE9? Imagino que esteja preocupado com seu pai."
+      n\xE3o \xE9?"
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+  - text: Imagino que esteja preocupado com seu pai.
     speakerSide: 1
     speakerName: Sacerdote
     portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
@@ -45,8 +49,11 @@ MonoBehaviour:
     speakerName: 
     portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
   - text: "N\xE3o entendi, filho, n\xE3o confia em mim? Eu j\xE1 deixei algo a desejar
-      a voc\xEAs? Eu prometo que vou investigar e punir os respons\xE1veis, n\xE3o
-      se preocupe."
+      a voc\xEAs?"
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+  - text: "Eu prometo que vou investigar e punir os respons\xE1veis, n\xE3o se preocupe."
     speakerSide: 1
     speakerName: Sacerdote
     portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
@@ -62,8 +69,11 @@ MonoBehaviour:
     speakerName: 
     portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
   - text: "Filho, seus vizinhos precisam comer, n\xE3o podemos deixar que esse mist\xE9rio
-      impe\xE7a a vila de funcionar, se eu achar seu pai prometo que resolvo tudo.
-      O Fulgor n\xE3o aprova o ego\xEDsmo."
+      impe\xE7a a vila de funcionar, se eu achar seu pai prometo que resolvo tudo."
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+  - text: "O Fulgor n\xE3o aprova o ego\xEDsmo."
     speakerSide: 1
     speakerName: Sacerdote
     portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
