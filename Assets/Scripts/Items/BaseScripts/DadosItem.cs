@@ -22,6 +22,9 @@ public class DadosItem : ScriptableObject
     public int bonusMaxHP;
     public int bonusMaxMP;
 
+    [Header("Restrições de Uso")]
+    public bool apenasForaDeBatalha = false;
+
     public void Use(GameObject player)
     {
         if (efeitosDoItem == null || efeitosDoItem.Count == 0) return;

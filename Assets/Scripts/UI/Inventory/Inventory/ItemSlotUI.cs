@@ -72,13 +72,21 @@ public class ItemSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         if (linkedItem == null) return;
 
-        // Verifica se o item é do tipo Equipamento
         if (linkedItem.tipoItem == TipoItem.Equipamento)
         {
             Debug.Log("Tentando equipar: " + linkedItem.nomeItem);
             EquipmentManager.Instance.Equip(linkedItem);
 
-            // Esconde o tooltip ao equipar para não travar na tela
+            if (TooltipManager.Instance != null) TooltipManager.Instance.Hide();
+        }
+        else if (linkedItem.tipoItem == TipoItem.Consumivel)
+        {
+            Debug.Log("Usando consumível: " + linkedItem.nomeItem);
+
+            linkedItem.Use(PlayerUnit.Instance.gameObject);
+            InventoryManager.Instance.RemoverItem(linkedItem, 1);
+            InventoryUIManager.Instance.UpdateAll();
+
             if (TooltipManager.Instance != null) TooltipManager.Instance.Hide();
         }
     }
