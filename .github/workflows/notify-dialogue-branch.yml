@@ -1,0 +1,22 @@
+name: Notificar branch de diálogo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Abrir issue de notificação
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🔔 A main foi atualizada — sincronize sua branch!',
+              body: `## Oi @umalansa! 👋\n\nA branch **main** recebeu novidades. Para manter sua branch **umalansa** atualizada, siga os passos abaixo no **GitHub Desktop**:\n\n---\n\n### Passo a passo no GitHub Desktop\n\n**1. Garanta que você está na sua branch**\n- No topo do GitHub Desktop, o seletor de branch deve mostrar \`umalansa\`\n- Se não estiver, clique nele e selecione \`umalansa\`\n\n**2. Busque as novidades da main**\n- Clique em **Fetch origin** (barra superior direita)\n- Aguarde terminar\n\n**3. Faça o merge da main na sua branch**\n- No menu superior vá em: **Branch → Merge into current branch...**\n- Na janela que abrir, selecione \`main\`\n- Clique em **Create a merge commit**\n\n**4. Suba para o GitHub**\n- Clique em **Push origin**\n- Pronto! ✅\n\n---\n\n> ⚠️ Se aparecer algum **conflito**, não resolva sozinho — avisa o @W0odz antes de continuar.\n\n_Esta issue foi gerada automaticamente pelo GitHub Actions._`,
+              assignees: ['umalansa'],
+            });
