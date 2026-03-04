@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 998d816f9ecd779408036895027b9b91, type: 3}
+  m_Name: Dialogo_Acougueiro
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueAsset
+  nodes:
+  - text: ...Oi tio.
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: "Opa! Tu sabe que a loja n\xE3o abre assim t\xE3o cedo n\xE9, o qu\xEA
+      que c\xEA quer?"
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+  - text: "\u2026\xCA, garoto, que cara \xE9 essa?"
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+  - text: "N\xE3o dormi bem tio, pensando na minha nomea\xE7\xE3o, nos desaparecimentos
+      e\u2014"
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: "T\xE1 pensando no seu pai, n\xE9? Eu tamb\xE9m s\xF3 penso nele."
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: "Olha, carinha, n\xE3o pensa muito sobre isso, eu sei que c\xEA t\xE1 preocupado,
+      eu tamb\xE9m t\xF4, muito, mas a gente\u2014 o Sacerdote vai pensar em algo,
+      ele deve dar um jeito."
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: "Mas j\xE1 tem umas semanas desde que o M\xFAsico sumiu e eu mal vejo os
+      Cultistas se movimentando, s\xF3 de vez em quando eles v\xE3o pra floresta. "
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: "Eles devem t\xE1 buscando por l\xE1, eu acho. S\xF3 n\xE3o d\xE1 pra saber
+      se eles t\xE3o indo l\xE1 s\xF3 pra acender aquelas tochas deles, n\xE9? Huhaha!"
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: "\u2026Seu pai \xE9 bem religioso, voc\xEA tamb\xE9m. Talvez n\xE3o seja
+      uma m\xE1 ideia confiar nisso em tempos dif\xEDceis. "
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: "Eu sei que pode parecer besteira ouvir isso vindo da minha boca, que n\xE3o
+      frequenta os serm\xF5es a tempos, mas seu pai sempre fez tudo mais certo que
+      eu."
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: "Vou ver o que o Sacerdote t\xE1 fazendo sobre isso tudo."
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: "N\xE3o tenta fazer nada sozinho hein moleque, eu te criei tamb\xE9m, te
+      conhe\xE7o."
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: "T\xE1, pode deixar."
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
