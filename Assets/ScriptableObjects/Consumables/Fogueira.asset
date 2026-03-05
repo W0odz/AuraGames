@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: Fogueira
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
   nomeItem: Fogueira
-  descricao: 
-  iconeItem: {fileID: 0}
+  descricao: "Talvez seja uma boa hora pra recobrar suas for\xE7as"
+  iconeItem: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
   valorOuro: 0
   tipoItem: 0
   slotOndeEquipa: 5
-  efeitosDoItem: []
+  efeitosDoItem:
+  - {fileID: 11400000, guid: 9b0d65287ae9362449a0fbae1c77b055, type: 2}
   bonusStrength: 0
   bonusResistance: 0
   bonusMaxHP: 0
   bonusMaxMP: 0
+  apenasForaDeBatalha: 1

@@ -18,13 +18,16 @@ public class InventoryManager : MonoBehaviour
     public delegate void OnUpdateUI();
     public OnUpdateUI onUpdateUI;
 
+    // Flag que persiste durante toda a sessão do save
+    private bool primeiraArmaEquipada = false;
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
             transform.SetParent(null);
-            DontDestroyOnLoad(gameObject); // Isso mantém os itens equipados entre as cenas
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -39,11 +42,38 @@ public class InventoryManager : MonoBehaviour
         else listaItens.Add(new Slot(item, quantidade));
 
         if (CollectionLogManager.Instance != null)
-        {
             CollectionLogManager.Instance.AddLog(item, quantidade);
-        }
+
+        // Auto-equipa a primeira arma coletada no save
+        TentarAutoEquiparArma(item);
 
         onUpdateUI?.Invoke();
+    }
+
+    private void TentarAutoEquiparArma(DadosItem item)
+    {
+        // Já equipou uma arma antes nesse save? Ignora
+        if (primeiraArmaEquipada) return;
+
+        // O item é uma arma?
+        if (item is DadosArma && item.slotOndeEquipa == SlotEquipamento.Weapon)
+        {
+            // Slot de arma (índice 0) está vazio?
+            if (EquipmentManager.Instance != null &&
+                EquipmentManager.Instance.currentEquipment[0] == null)
+            {
+                primeiraArmaEquipada = true;
+                EquipmentManager.Instance.Equip(item);
+                Debug.Log($"[InventoryManager] Primeira arma auto-equipada: {item.nomeItem}");
+            }
+        }
+    }
+
+    // Chamado pelo sistema de Save ao carregar um save existente
+    // para evitar que a arma seja auto-equipada novamente
+    public void MarcarPrimeiraArmaJaEquipada()
+    {
+        primeiraArmaEquipada = true;
     }
 
     public void RemoverItem(DadosItem item, int quantidade)
@@ -60,29 +90,21 @@ public class InventoryManager : MonoBehaviour
     public int GetItemCount(DadosItem itemProcurado)
     {
         int total = 0;
-
-        // SUBSTITUA 'nomeDaSuaLista' pelo nome real que está no seu script
         foreach (var slot in listaItens)
         {
             if (slot.item == itemProcurado)
-            {
                 total += slot.quantidade;
-            }
         }
-
         return total;
     }
 
     public bool TemItem(string nomeDoItem)
     {
-        // Percorre a lista de itens que você já tem no script
         foreach (var slot in listaItens)
         {
             if (slot.item != null && slot.item.nomeItem == nomeDoItem)
-            {
-                return true; // Encontrou a gema!
-            }
+                return true;
         }
-        return false; // Não está na mochila
+        return false;
     }
 }

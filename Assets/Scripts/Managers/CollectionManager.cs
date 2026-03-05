@@ -1,10 +1,14 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CollectionLogManager : MonoBehaviour
 {
     public static CollectionLogManager Instance;
-    public GameObject logPrefab; // O prefab com o script acima
-    public Transform logContainer; // Um objeto com Vertical Layout Group
+    public GameObject logPrefab;
+    public Transform logContainer;
+
+    // Guarda os itens que já apareceram no log ao menos uma vez
+    private HashSet<DadosItem> itensRegistrados = new HashSet<DadosItem>();
 
     private void Awake()
     {
@@ -13,21 +17,22 @@ public class CollectionLogManager : MonoBehaviour
 
     public void AddLog(DadosItem item, int qtd)
     {
-        // 1. Percorre todos os logs que já estão na tela e diminui a opacidade deles
+        // Se o item já foi registrado antes, ignora — desequipar não conta
+        if (itensRegistrados.Contains(item)) return;
+
+        itensRegistrados.Add(item);
+
+        // Diminui opacidade dos logs anteriores
         foreach (Transform child in logContainer)
         {
             CollectionLogEntry entryAntiga = child.GetComponent<CollectionLogEntry>();
             if (entryAntiga != null)
-            {
-                // Define a opacidade dos antigos (ex: 40%)
                 entryAntiga.DiminuirOpacidade(0.4f);
-            }
         }
 
-        // 2. Instancia o novo log (que nascerá com Alpha 1 via Setup)
+        // Instancia o novo log
         GameObject newEntry = Instantiate(logPrefab, logContainer);
         newEntry.GetComponent<CollectionLogEntry>().Setup(item, qtd);
-
         newEntry.transform.SetAsLastSibling();
     }
 }

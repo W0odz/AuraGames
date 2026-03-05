@@ -14,7 +14,7 @@ public class PlayerUnit : Unit
     public int agility = 10;
 
     [Header("Força de Vontade")]
-    public bool temForcaDeVontade = false;
+    public bool temForcaDeVontade = true;
 
 
     [Header("Debuffs (protótipo)")]
@@ -43,7 +43,10 @@ public class PlayerUnit : Unit
 
     public override void InicializarUnidade()
     {
-        base.InicializarUnidade();
+        // Salva o HP atual antes de inicializar (persiste entre batalhas)
+        int hpAnterior = currentHP;
+
+        base.InicializarUnidade(); // Isso faz currentHP = maxHP, então salvamos antes
 
         if (EquipmentManager.Instance != null)
         {
@@ -53,14 +56,16 @@ public class PlayerUnit : Unit
                 {
                     maxHP += item.bonusMaxHP;
                     strength += item.bonusStrength;
-
-                    // DECISÃO DO PROJETO: resistência vem exclusivamente do status da arma/equipamento
                     resistance = item.bonusResistance;
                 }
             }
         }
 
-        if (currentHP > maxHP) currentHP = maxHP;
+        // Se tinha HP salvo de uma batalha anterior, restaura ele (sem ultrapassar o maxHP)
+        if (hpAnterior > 0 && hpAnterior < maxHP)
+            currentHP = hpAnterior;
+        else if (currentHP > maxHP)
+            currentHP = maxHP;
     }
 
     public void RestaurarForcaDeVontade()

@@ -225,7 +225,6 @@ public class BattleSystem : MonoBehaviour
 
         if (def != null && def.debuff != DebuffType.None)
         {
-            // IMPORTANTE: convertendo duração (float) para turnos do jogador
             int turns = Mathf.Max(1, def.debuffTurns);
             playerUnit.ApplyDebuff(def.debuff, turns, def.debuffStacks);
         }
@@ -242,18 +241,14 @@ public class BattleSystem : MonoBehaviour
 
         if (isDead)
         {
-            // TODO: Descomentar VerificarForcaDeVontade quando ForcaDeVontadeUI estiver pronto
-            // if (PlayerUnit.Instance != null && PlayerUnit.Instance.temForcaDeVontade)
-            // {
-            //     yield return StartCoroutine(VerificarForcaDeVontade());
-            // }
-            // else
-            // {
-            //     StartCoroutine("GameOver");
-            // }
-
-            // Temporário: vai direto pro GameOver
-            StartCoroutine("GameOver");
+            if (PlayerUnit.Instance != null && PlayerUnit.Instance.temForcaDeVontade)
+            {
+                yield return StartCoroutine(VerificarForcaDeVontade());
+            }
+            else
+            {
+                StartCoroutine(GameOver());
+            }
         }
         else
         {
@@ -262,37 +257,37 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    // TODO: Descomentar quando ForcaDeVontadeUI.cs estiver criado na cena
-    // private IEnumerator VerificarForcaDeVontade()
-    // {
-    //     bool jogadorEscolheu = false;
-    //     bool usarForca = false;
-    // 
-    //     ForcaDeVontadeUI.Instance.Mostrar((resposta) =>
-    //     {
-    //         usarForca = resposta;
-    //         jogadorEscolheu = true;
-    //     });
-    // 
-    //     yield return new WaitUntil(() => jogadorEscolheu);
-    // 
-    //     if (usarForca)
-    //     {
-    //         PlayerUnit.Instance.ConsumirForcaDeVontade();
-    //         playerUnit.currentHP = 1;
-    //         playerHUD.UpdateHP(1);
-    // 
-    //         if (dialogueText != null)
-    //             dialogueText.text = "Você sobreviveu pela sua Força de Vontade!";
-    // 
-    //         yield return new WaitForSeconds(1.5f);
-    //         StartCoroutine("PlayerTurn");
-    //     }
-    //     else
-    //     {
-    //         StartCoroutine("GameOver");
-    //     }
-    // }
+    private IEnumerator VerificarForcaDeVontade()
+    {
+        bool jogadorEscolheu = false;
+        bool usarForca = false;
+
+        ForcaDeVontadeUI.Instance.Mostrar((resposta) =>
+        {
+            usarForca = resposta;
+            jogadorEscolheu = true;
+        });
+
+        yield return new WaitUntil(() => jogadorEscolheu);
+
+        if (usarForca)
+        {
+            PlayerUnit.Instance.ConsumirForcaDeVontade();
+            playerUnit.currentHP = 1;
+            playerHUD.UpdateHP(1);
+
+            if (dialogueText != null)
+                dialogueText.text = "Você resistiu ao golpe fatal!";
+
+            yield return new WaitForSeconds(1.5f);
+            state = BattleState.PLAYERTURN;
+            PlayerTurn();
+        }
+        else
+        {
+            StartCoroutine(GameOver());
+        }
+    }
 
     private BodyPartType ChooseEnemyTargetPart()
     {
@@ -455,5 +450,70 @@ public class BattleSystem : MonoBehaviour
         }
 
         playerUnit.currentXP = Mathf.RoundToInt(xpVisual);
+    }
+    public void OnFugirButton()
+    {
+        if (state != BattleState.PLAYERTURN) return;
+        StartCoroutine(TentarFugir());
+    }
+
+    private IEnumerator TentarFugir()
+    {
+        state = BattleState.BUSY;
+
+        // 20% de chance de falhar
+        bool falhou = Random.value < 0.2f;
+
+        if (falhou)
+        {
+            if (dialogueText != null)
+                dialogueText.text = "Não foi possível fugir!";
+
+            yield return new WaitForSeconds(2f);
+
+            // Fuga falhou = turno passa pro inimigo
+            state = BattleState.ENEMYTURN;
+            StartCoroutine(EnemyTurn());
+        }
+        else
+        {
+            if (dialogueText != null)
+                dialogueText.text = "Você fugiu da batalha!";
+
+            yield return new WaitForSeconds(1.5f);
+
+            // Volta pra cena de exploração sem XP e sem matar o inimigo
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.isReturningFromBattle = true;
+                GameManager.Instance.StartCombatGracePeriod();
+                GameManager.Instance.LoadSceneWithFade(nomeCenaMapa);
+            }
+        }
+    }
+    public void PassarTurnoAposItem()
+    {
+        if (state != BattleState.PLAYERTURN) return;
+
+        if (dialogueText != null)
+            dialogueText.text = playerUnit.unitName + " usou um item!";
+
+        state = BattleState.ENEMYTURN;
+        StartCoroutine(EnemyTurn());
+    }
+
+    private IEnumerator GameOver()
+    {
+        state = BattleState.LOST;
+
+        if (playerHUD != null && playerHUD.commandsPanel != null)
+            playerHUD.commandsPanel.SetActive(false);
+
+        yield return new WaitForSeconds(1.5f);
+
+        if (GameOverPanelUI.Instance != null)
+            GameOverPanelUI.Instance.Mostrar();
+        else
+            Debug.LogError("[BattleSystem] GameOverPanelUI.Instance não encontrado na cena!");
     }
 }
