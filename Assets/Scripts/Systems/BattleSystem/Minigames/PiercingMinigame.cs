@@ -84,7 +84,9 @@ public class PiercingMinigame : MonoBehaviour
         transform.position = Camera.main.WorldToScreenPoint(posicaoDoClique);
 
         currentScale = startingScale;
-        speed = (duracaoQte <= 0f) ? 0f : (startingScale / duracaoQte);
+        float speedBase = (duracaoQte <= 0f) ? 0f : (startingScale / duracaoQte);
+        speed = speedBase * (arma != null ? arma.velocidadeDoAro : 1f);
+
 
         if (ringUI != null)
             ringUI.localScale = new Vector3(currentScale, currentScale, 1f);
