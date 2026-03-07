@@ -15,14 +15,15 @@ MonoBehaviour:
   nomeItem: "Arco do Ca\xE7ador"
   descricao: "Um arco de ca\xE7a usado pelo seu pai"
   iconeItem: {fileID: 3913567757785527020, guid: abca5558e5fa996448f30ca477987ca4, type: 3}
-  valorOuro: 0
   tipoItem: 1
   slotOndeEquipa: 0
   efeitosDoItem: []
+  valorEscambo: 1
   bonusStrength: 10
   bonusResistance: 0
   bonusMaxHP: 0
   bonusMaxMP: 0
+  apenasForaDeBatalha: 0
   tipoDeDano: 0
   velocidadeDoAro: 1.5
   limiteDeTinta: 100

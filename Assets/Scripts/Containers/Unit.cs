@@ -30,7 +30,8 @@ public class Unit : MonoBehaviour
 
     public virtual bool TakeDamage(int finalDamage)
     {
-        currentHP -= finalDamage;
+        int danoLiquido = Mathf.Max(1, finalDamage - resistance);
+        currentHP -= danoLiquido;
         if (currentHP <= 0) { currentHP = 0; return true; }
         return false;
     }
