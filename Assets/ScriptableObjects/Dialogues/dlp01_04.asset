@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 998d816f9ecd779408036895027b9b91, type: 3}
+  m_Name: dlp01_04
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueAsset
+  nodes:
+  - text: "Ei, se acalma garoto, respira comigo\u2026 pra dentro e pra fora, pra
+      dentro e pra fora\u2026"
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: "Caralho?! Que merda nojenta \xE9 essa?!"
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: "Isso eu n\xE3o sei\u2026 esse foi o mais forte."
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: "O Sacerdote sabe disso? Como voc\xEAs falaram isso pra ele?"
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: "A gente\u2026 n\xE3o vai fazer isso."
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: "Como assim n\xE3o vamos?"
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: ...
+    speakerSide: 1
+    speakerName: Costureiro
+    portrait: {fileID: 4271663865507447742, guid: bab1b369da905a04dbec28cee39ad1b2, type: 3}
+  - text: ...
+    speakerSide: 1
+    speakerName: Herbalista
+    portrait: {fileID: 4755373664117421245, guid: 4910e18beb064bd45acdcb6ab1e947db, type: 3}
+  - text: "Eu n\xE3o pretendia te contar, pra n\xE3o te colocar em perigo."
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: "Mas como voc\xEA vai investigar de qualquer jeito\u2026 l\xE1 vai."
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: " Tem algumas semanas que a gente formou um grupo pra procurar os desaparecidos
+      ou achar pistas de quem est\xE1 fazendo isso, mas n\xE3o tem dado muito certo."
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: "E o Sacerdote n\xE3o pode ajudar?"
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: "N\xE3o. O Sacerdote n\xE3o \xE9 confi\xE1vel, ele n\xE3o pode saber de
+      nada."
+    speakerSide: 1
+    speakerName: Costureiro
+    portrait: {fileID: 4271663865507447742, guid: bab1b369da905a04dbec28cee39ad1b2, type: 3}
+  - text: "Na verdade, ele nem sequer permite que os alde\xF5es se metam nisso."
+    speakerSide: 1
+    speakerName: Costureiro
+    portrait: {fileID: 4271663865507447742, guid: bab1b369da905a04dbec28cee39ad1b2, type: 3}
+  - text: "Essas casinhas na floresta, tem outras por a\xED."
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: "Geralmente tem monstros perto\u2026 e eles falam coisas\u2026"
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: "algo sobre ser \u201Ctrazido de volta\u201D ou \u201Cme deixa voltar\u201D."
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: Bizarro.
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: " Ent\xE3o\u2026 o que a gente faz?"
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: "Vamos at\xE9 nosso cantinho, fica na taverna, \xE9 escondido o suficiente
+      e ningu\xE9m suspeita da nossa presen\xE7a l\xE1.\r\n"
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: "Voc\xEA\u2026 tem certeza?"
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: "J\xE1 cansei de encher minha cara ali, meu rosto \xE9 conhecido! Huhaha!"
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: "Voc\xEA vai conhecer nossa l\xEDder, \xE9 exatamente quem voc\xEA t\xE1
+      pensando!"
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
