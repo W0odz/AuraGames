@@ -20,6 +20,7 @@ public class NpcInteractable : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.inputBloqueado) return;
         if (playerNearby && Input.GetKeyDown(KeyCode.E) && !DialogueRunner.Instance.IsDialogueActive)
             OnInteract();
     }

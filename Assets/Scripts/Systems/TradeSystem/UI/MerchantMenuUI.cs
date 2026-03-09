@@ -75,7 +75,7 @@ public class MerchantMenuUI : MonoBehaviour
         textoFala.text = merchant.falaSaudacao;
         botaoConfirmar.interactable = false;
 
-        if (bloqueadorInput != null) bloqueadorInput.SetActive(true);
+        GameManager.Instance.inputBloqueado = true;
         painel.SetActive(true);
         Time.timeScale = 0f;
     }
@@ -83,6 +83,7 @@ public class MerchantMenuUI : MonoBehaviour
     public void Fechar()
     {
         if (bloqueadorInput != null) bloqueadorInput.SetActive(false);
+        GameManager.Instance.inputBloqueado = false;
         painel.SetActive(false);
         Time.timeScale = 1f;
     }

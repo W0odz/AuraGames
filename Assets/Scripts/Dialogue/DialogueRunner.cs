@@ -50,6 +50,7 @@ public class DialogueRunner : MonoBehaviour
 
     public void StartDialogue(DialogueAsset asset, Action onEnd = null)
     {
+        GameManager.Instance.inputBloqueado = true;   // ← BLOQUEIA input
         _onEnd = onEnd;
         currentAsset = asset;
         currentIndex = 0;
@@ -61,6 +62,7 @@ public class DialogueRunner : MonoBehaviour
         AplicarPortraitFixo(rightPortrait, asset.portraitDireita);
 
         ShowNode();
+        Time.timeScale = 0f;
     }
 
     void AplicarPortraitFixo(Image img, Sprite sprite)
@@ -144,8 +146,12 @@ public class DialogueRunner : MonoBehaviour
         dialoguePanel.SetActive(false);
         currentAsset = null;
 
+        GameManager.Instance.inputBloqueado = false; // ← DESBLOQUEIA input
+
+
         var cb = _onEnd;
         _onEnd = null;
         cb?.Invoke();
+        Time.timeScale = 1f;
     }
 }
