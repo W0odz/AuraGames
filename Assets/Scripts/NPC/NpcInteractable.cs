@@ -26,13 +26,19 @@ public class NpcInteractable : MonoBehaviour
 
     public void OnInteract()
     {
-        DialogueRunner.Instance.StartDialogue(dialogueAsset);
-
         if (isMerchant)
         {
             NpcMerchant merchant = GetComponent<NpcMerchant>();
-            if (merchant != null)
-                merchant.OpenMerchantMenu();
+            // Inicia o diálogo e só abre o menu quando ele terminar
+            DialogueRunner.Instance.StartDialogue(dialogueAsset, () =>
+            {
+                if (merchant != null)
+                    merchant.OpenMerchantMenu();
+            });
+        }
+        else
+        {
+            DialogueRunner.Instance.StartDialogue(dialogueAsset);
         }
     }
 }
