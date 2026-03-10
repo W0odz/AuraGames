@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class DialogueRunner : MonoBehaviour
 {
@@ -9,63 +10,74 @@ public class DialogueRunner : MonoBehaviour
     public Image rightPortrait;
     public TMP_Text dialogueText;
 
-    // Nome do personagem (um para esquerda, um para direita)
     public GameObject leftNameBox;
     public TMP_Text leftNameText;
     public GameObject rightNameBox;
     public TMP_Text rightNameText;
 
+    [Header("Cor de destaque / escurecimento")]
+    public float alphaEscurecido = 0.4f;  // ← ajusta no Inspector
+
     public DialogueAsset currentAsset;
     private int currentIndex = 0;
-
     private bool recentlyOpened = false;
+    private Action _onEnd;
 
     public static DialogueRunner Instance { get; private set; }
 
     private void Awake()
     {
-        // Garante que só exista um runner
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this.gameObject);
-            return;
-        }
+        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
-        // (Opcional: DontDestroyOnLoad(gameObject); se quiser persistência entre cenas)
     }
 
     void Update()
     {
-        if (!IsDialogueActive)
-            return;
+        if (!IsDialogueActive) return;
 
-        // Bloqueio — espera o E ser solto antes de aceitar outro avanço
         if (recentlyOpened)
         {
-            // Só libera quando o E está solto após abrir
-            if (!Input.GetKey(KeyCode.E))
-                recentlyOpened = false;
+            if (!Input.GetKey(KeyCode.E)) recentlyOpened = false;
             return;
         }
 
         if (Input.GetKeyDown(KeyCode.E))
-        {
             AdvanceDialogue();
-        }
     }
 
     public bool IsDialogueActive
-    {
-        get { return currentAsset != null && dialoguePanel != null && dialoguePanel.gameObject.activeSelf; }
-    }
+        => currentAsset != null && dialoguePanel != null && dialoguePanel.activeSelf;
 
-    public void StartDialogue(DialogueAsset asset)
+    public void StartDialogue(DialogueAsset asset, Action onEnd = null)
     {
+        GameManager.Instance.inputBloqueado = true;   // ← BLOQUEIA input
+        _onEnd = onEnd;
         currentAsset = asset;
         currentIndex = 0;
-        dialoguePanel.gameObject.SetActive(true);
+        dialoguePanel.SetActive(true);
         recentlyOpened = true;
+
+        // Aplica retratos fixos do asset (null = oculto)
+        AplicarPortraitFixo(leftPortrait, asset.portraitEsquerda);
+        AplicarPortraitFixo(rightPortrait, asset.portraitDireita);
+
         ShowNode();
+        Time.timeScale = 0f;
+    }
+
+    void AplicarPortraitFixo(Image img, Sprite sprite)
+    {
+        if (sprite == null)
+        {
+            // Não desativa — deixa o ShowNode decidir baseado no node
+            img.gameObject.SetActive(false); // começa oculto
+        }
+        else
+        {
+            img.sprite = sprite;
+            img.gameObject.SetActive(true);
+            SetBrilho(img, true);
+        }
     }
 
     void ShowNode()
@@ -73,26 +85,49 @@ public class DialogueRunner : MonoBehaviour
         var node = currentAsset.nodes[currentIndex];
         dialogueText.text = node.text;
 
-        if (node.speakerSide == DialogueSide.Left)
+        bool ladoEsquerda = node.speakerSide == DialogueSide.Left;
+
+        if (ladoEsquerda)
         {
-            leftPortrait.sprite = node.portrait;
-            leftPortrait.gameObject.SetActive(true);
-            rightPortrait.gameObject.SetActive(false);
+            // Ativa e atualiza o portrait esquerdo se o node tiver sprite
+            if (node.portrait != null)
+            {
+                leftPortrait.sprite = node.portrait;
+                leftPortrait.gameObject.SetActive(true);
+            }
 
             leftNameBox.SetActive(true);
             leftNameText.text = node.speakerName;
             rightNameBox.SetActive(false);
         }
-        else // Right
+        else
         {
-            rightPortrait.sprite = node.portrait;
-            rightPortrait.gameObject.SetActive(true);
-            leftPortrait.gameObject.SetActive(false);
+            // Ativa e atualiza o portrait direito se o node tiver sprite
+            if (node.portrait != null)
+            {
+                rightPortrait.sprite = node.portrait;
+                rightPortrait.gameObject.SetActive(true);
+            }
 
             rightNameBox.SetActive(true);
             rightNameText.text = node.speakerName;
             leftNameBox.SetActive(false);
         }
+
+        // Escurece quem não está falando
+        if (leftPortrait.gameObject.activeSelf)
+            SetBrilho(leftPortrait, ladoEsquerda);
+
+        if (rightPortrait.gameObject.activeSelf)
+            SetBrilho(rightPortrait, !ladoEsquerda);
+    }
+
+    void SetBrilho(Image img, bool ativo)
+    {
+        var c = img.color;
+        float alvo = ativo ? 1f : alphaEscurecido;
+        c.r = alvo; c.g = alvo; c.b = alvo; c.a = 1f;
+        img.color = c;
     }
 
     void AdvanceDialogue()
@@ -108,6 +143,15 @@ public class DialogueRunner : MonoBehaviour
 
     public void EndDialogue()
     {
-        dialoguePanel.gameObject.SetActive(false);
+        dialoguePanel.SetActive(false);
+        currentAsset = null;
+
+        GameManager.Instance.inputBloqueado = false; // ← DESBLOQUEIA input
+
+
+        var cb = _onEnd;
+        _onEnd = null;
+        cb?.Invoke();
+        Time.timeScale = 1f;
     }
 }

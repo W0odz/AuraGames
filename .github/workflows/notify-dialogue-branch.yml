@@ -32,3 +32,15 @@ jobs:
               body: `## Oi @kironc-beep! 👋\n\nA branch **main** recebeu novidades. Para manter sua branch **kironc-beep** atualizada, siga os passos abaixo no **GitHub Desktop**:\n\n---\n\n### Passo a passo no GitHub Desktop\n\n**1. Garanta que você está na sua branch**\n- No topo do GitHub Desktop, o seletor de branch deve mostrar \`kironc-beep\`\n- Se não estiver, clique nele e selecione \`kironc-beep\`\n\n**2. Busque as novidades da main**\n- Clique em **Fetch origin** (barra superior direita)\n- Aguarde terminar\n\n**3. Faça o merge da main na sua branch**\n- No menu superior vá em: **Branch → Merge into current branch...**\n- Na janela que abrir, selecione \`main\`\n- Clique em **Create a merge commit**\n\n**4. Suba para o GitHub**\n- Clique em **Push origin**\n- Pronto! ✅\n\n---\n\n> ⚠️ Se aparecer algum **conflito**, não resolva sozinho — avisa o @W0odz antes de continuar.\n\n_Esta issue foi gerada automaticamente pelo GitHub Actions._`,
               assignees: ['kironc-beep'],
             });
+
+      - name: Notificar GaelVidal392
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🔔 A main foi atualizada — sincronize sua branch!',
+              body: `## Oi @GaelVidal392! 👋\n\nA branch **main** recebeu novidades. Para manter sua branch **GaelVidal392** atualizada, siga os passos abaixo no **GitHub Desktop**:\n\n---\n\n### Passo a passo no GitHub Desktop\n\n**1. Garanta que você está na sua branch**\n- No topo do GitHub Desktop, o seletor de branch deve mostrar \`GaelVidal392\`\n- Se não estiver, clique nele e selecione \`GaelVidal392\`\n\n**2. Busque as novidades da main**\n- Clique em **Fetch origin** (barra superior direita)\n- Aguarde terminar\n\n**3. Faça o merge da main na sua branch**\n- No menu superior vá em: **Branch → Merge into current branch...**\n- Na janela que abrir, selecione \`main\`\n- Clique em **Create a merge commit**\n\n**4. Suba para o GitHub**\n- Clique em **Push origin**\n- Pronto! ✅\n\n---\n\n> ⚠️ Se aparecer algum **conflito**, não resolva sozinho — avisa o @W0odz antes de continuar.\n\n_Esta issue foi gerada automaticamente pelo GitHub Actions._`,
+              assignees: ['GaelVidal392'],
+            });

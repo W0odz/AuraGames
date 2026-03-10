@@ -12,6 +12,7 @@ public class PauseManager : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.inputBloqueado) return;
         // Tecla ESC
         if (Input.GetKeyDown(KeyCode.Escape))
         {

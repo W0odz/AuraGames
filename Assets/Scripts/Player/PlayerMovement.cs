@@ -39,6 +39,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.inputBloqueado)
+        {
+            rb.linearVelocity = Vector2.zero; // para o jogador
+            return;
+        }
         // Pega o input do teclado (Setas ou WASD)
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
