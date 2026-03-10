@@ -92,6 +92,9 @@ public class GameManager : MonoBehaviour
     [Header("Enemy Persistence (Prototype)")]
     public Dictionary<string, Vector3> enemyPositions = new Dictionary<string, Vector3>();
 
+    // Adiciona junto com as outras flags públicas
+    public bool inputBloqueado = false;
+
     public bool IsInCombatGracePeriod()
     {
         return Time.unscaledTime < combatGraceUntil;

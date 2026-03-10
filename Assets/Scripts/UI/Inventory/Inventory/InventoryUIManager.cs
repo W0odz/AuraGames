@@ -33,9 +33,9 @@ public class InventoryUIManager : MonoBehaviour
         CloseInventory();
     }
 
-    private void Update()
+    void Update()
     {
-        // Alterado de KeyCode.I para KeyCode.Tab conforme solicitado
+        if (GameManager.Instance.inputBloqueado) return;
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (isOpen) CloseInventory();

@@ -11,10 +11,12 @@ public class DadosItem : ScriptableObject
 
     [TextArea] public string descricao;
     public Sprite iconeItem;
-    public int valorOuro;
     public TipoItem tipoItem;
     public SlotEquipamento slotOndeEquipa;
     public List<ItemEffect> efeitosDoItem;
+
+    [Header("Economia (Escambo)")]
+    public int valorEscambo = 1;
 
     [Header("Bônus de Atributos")]
     public int bonusStrength;
