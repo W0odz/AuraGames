@@ -18,63 +18,63 @@ MonoBehaviour:
   - text: "Mandou bem, moleque! Sabia que voc\xEA ia surpreender."
     speakerSide: 1
     speakerName: "A\xE7ougueiro"
-    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+    portrait: {fileID: 322978210323480407, guid: 4f4212e6a98b64d4c992fa4a772d9593, type: 3}
   - text: "Quem sabe ele \xE9 o tal do \u201Cescolhido\", n\xE9 loiro?"
     speakerSide: 1
     speakerName: Costureiro
-    portrait: {fileID: 4271663865507447742, guid: bab1b369da905a04dbec28cee39ad1b2, type: 3}
+    portrait: {fileID: 3788498874315927691, guid: 7b96cea6e554bb34c89f656dcf0e3211, type: 3}
   - text: "\u2026J\xE1 falei que n\xE3o acredito mais nisso."
     speakerSide: 1
     speakerName: Herbalista
-    portrait: {fileID: 4755373664117421245, guid: 4910e18beb064bd45acdcb6ab1e947db, type: 3}
+    portrait: {fileID: 475354748142868185, guid: d6055f48fc8e3024cb89376388d4ae88, type: 3}
   - text: "Foi muito bom, parab\xE9ns."
     speakerSide: 1
     speakerName: Herbalista
-    portrait: {fileID: 4755373664117421245, guid: 4910e18beb064bd45acdcb6ab1e947db, type: 3}
+    portrait: {fileID: 7290825780368180307, guid: 286619ef55f02e3438a773d4a9f25c55, type: 3}
   - text: "Ok, ok, j\xE1 chega."
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+    portrait: {fileID: -2999815174450519269, guid: 9c3bd70cb784dfd4c8aaf2e8e07f08b5, type: 3}
   - text: "Parab\xE9ns, ca\xE7adorzinho, j\xE1 estou at\xE9 pensando em algo pra
       voc\xEA."
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+    portrait: {fileID: 2791210452372573440, guid: a3335bb26b57e78438a4529e9e10e1a2, type: 3}
   - text: Como pode ver, ainda estamos nos ajeitando aqui na base.
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+    portrait: {fileID: -2999815174450519269, guid: 9c3bd70cb784dfd4c8aaf2e8e07f08b5, type: 3}
   - text: "Mas j\xE1 que voc\xEA quer tanto investigar, tenho uma tarefa pro \u201Cprod\xEDgio\u201D."
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+    portrait: {fileID: 2791210452372573440, guid: a3335bb26b57e78438a4529e9e10e1a2, type: 3}
   - text: Estou pronto pra qualquer coisa.
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+    portrait: {fileID: 2501241743405731456, guid: cb18f4aa16182e0449c5add5c7e4728e, type: 3}
   - text: "Acredito que n\xE3o tenha mais nenhum grande perigo naquele peda\xE7o
       da floresta j\xE1 que matamos aquele monstro."
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+    portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
   - text: "Ent\xE3o sua miss\xE3o \xE9 a seguinte:"
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+    portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
   - text: "Volte para a mata e investigue aqueles casebres, al\xE9m daquele que voc\xEA
       encontrou, acredito ter visto outro."
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+    portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
   - text: Caso encontre algo relevante, volte pra me contar.
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+    portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
   - text: Entendido?
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+    portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
   - text: Sim, deixa comigo.
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+    portrait: {fileID: -2499865093323967227, guid: e2f5fa213065c3a499ebfc9317f46ac3, type: 3}

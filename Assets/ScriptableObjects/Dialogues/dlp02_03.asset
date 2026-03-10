@@ -18,87 +18,87 @@ MonoBehaviour:
   - text: Carpinteira! Herbalista!
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+    portrait: {fileID: 1124621305479010813, guid: 42296a7febd715845b70f55cee6b4b31, type: 3}
   - text: O que aconteceu com ele?!
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+    portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
   - text: "Encontrei ele assim num t\xFAnel que achei em um dos casebres."
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+    portrait: {fileID: -8774304836102649413, guid: 42c019abed3c7b44a8180c97944bf800, type: 3}
   - text: Herbalista!
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+    portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
   - text: "V\xE1 agora cuidar desses ferimentos!"
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+    portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
   - text: Costureiro, me ajude aqui!
     speakerSide: 1
     speakerName: Herbalista
-    portrait: {fileID: 4755373664117421245, guid: 4910e18beb064bd45acdcb6ab1e947db, type: 3}
+    portrait: {fileID: 475354748142868185, guid: d6055f48fc8e3024cb89376388d4ae88, type: 3}
   - text: "Que t\xFAnel \xE9 esse?"
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+    portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
   - text: "O que voc\xEA achou?"
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+    portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
   - text: "Acho que meu pai matou um dos cultistas\u2026 n\xE3o sei porqu\xEA.\r\n"
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+    portrait: {fileID: -8774304836102649413, guid: 42c019abed3c7b44a8180c97944bf800, type: 3}
   - text: "Mas ele tinha uma chave, que abria um al\xE7ap\xE3o."
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+    portrait: {fileID: -8774304836102649413, guid: 42c019abed3c7b44a8180c97944bf800, type: 3}
   - text: "S\xF3 que quando eu abri, tinha um t\xFAnel embaixo da terra e o Fazendeiro
       tava l\xE1 desmaiado."
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+    portrait: {fileID: -8774304836102649413, guid: 42c019abed3c7b44a8180c97944bf800, type: 3}
   - text: "Esse t\xFAnel leva pra onde?"
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+    portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
   - text: "N\xE3o sei! Precisamos voltar l\xE1!"
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+    portrait: {fileID: 4058102605782207891, guid: cc953b912b3629e4580d243c75555a88, type: 3}
   - text: "Eu, voc\xEA e meu tio!"
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+    portrait: {fileID: 4058102605782207891, guid: cc953b912b3629e4580d243c75555a88, type: 3}
   - text: "N\xE3o \xE9 assim, garoto."
     speakerSide: 1
     speakerName: "A\xE7ougueiro"
-    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+    portrait: {fileID: 9122415793681804593, guid: 9f66c3dcf19948a4eaa1e1e3133622e7, type: 3}
   - text: "N\xE3o podemos simplesmente sair daqui e entrar num t\xFAnel sem saber
       o que tem nele."
     speakerSide: 1
     speakerName: "A\xE7ougueiro"
-    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+    portrait: {fileID: 9122415793681804593, guid: 9f66c3dcf19948a4eaa1e1e3133622e7, type: 3}
   - text: "Seu tio tem raz\xE3o, \xE9 muito arriscado."
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+    portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
   - text: "Vamos estudar a \xE1rea para tentar entender onde leva esse t\xFAnel e
       ent\xE3o nos preparar para agir."
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+    portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
   - text: "N\xE3o podemos agir por impulso, entendido?"
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+    portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
   - text: "Sim, \xE9 melhor assim mesmo\u2026"
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+    portrait: {fileID: 5141988116160616292, guid: 5b0bd42f0124ad445a7fa44139787621, type: 3}
   - text: "Amanh\xE3 cedo n\xF3s trabalharemos nisso, v\xE1 para casa."
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+    portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}

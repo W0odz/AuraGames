@@ -12,29 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 998d816f9ecd779408036895027b9b91, type: 3}
   m_Name: dlo01_01
   m_EditorClassIdentifier: Assembly-CSharp::DialogueAsset
+  portraitEsquerda: {fileID: 0}
+  portraitDireita: {fileID: 0}
   nodes:
   - text: "Desconfie do clar\xE3o repentino que vem da sombra."
     speakerSide: 1
     speakerName: Desgarrado
-    portrait: {fileID: 1152047965712221352, guid: 7d5e095b02fa99347b65448d84e1876b, type: 3}
+    portrait: {fileID: 7621309701199039665, guid: de19a32c17e114b40945367604c2ebb4, type: 3}
   - text: Como? O que isso significa?
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+    portrait: {fileID: -8774304836102649413, guid: 42c019abed3c7b44a8180c97944bf800, type: 3}
   - text: "Encapuzados. Encapuzados levam alde\xF5es para a floresta."
     speakerSide: 1
     speakerName: Desgarrado
-    portrait: {fileID: 1152047965712221352, guid: 7d5e095b02fa99347b65448d84e1876b, type: 3}
+    portrait: {fileID: 7621309701199039665, guid: de19a32c17e114b40945367604c2ebb4, type: 3}
   - text: "N\xE3o entendo por que n\xE3o levam a n\xF3s, os que s\xE3o descart\xE1veis."
     speakerSide: 1
     speakerName: Desgarrado
-    portrait: {fileID: 1152047965712221352, guid: 7d5e095b02fa99347b65448d84e1876b, type: 3}
+    portrait: {fileID: 7621309701199039665, guid: de19a32c17e114b40945367604c2ebb4, type: 3}
   - text: "\u2026Talvez isso n\xE3o importe para quem quer que esteja por tr\xE1s
       disso."
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+    portrait: {fileID: -8774304836102649413, guid: 42c019abed3c7b44a8180c97944bf800, type: 3}
   - text: "Cuidado menino, \xE0s vezes o que buscamos se torna nossa ru\xEDna."
     speakerSide: 1
     speakerName: Desgarrado
-    portrait: {fileID: 1152047965712221352, guid: 7d5e095b02fa99347b65448d84e1876b, type: 3}
+    portrait: {fileID: 7621309701199039665, guid: de19a32c17e114b40945367604c2ebb4, type: 3}

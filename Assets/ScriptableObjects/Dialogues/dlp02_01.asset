@@ -12,81 +12,81 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 998d816f9ecd779408036895027b9b91, type: 3}
   m_Name: dlp02_01
   m_EditorClassIdentifier: Assembly-CSharp::DialogueAsset
-  portraitEsquerda: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
-  portraitDireita: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+  portraitEsquerda: {fileID: 0}
+  portraitDireita: {fileID: 0}
   nodes:
   - text: "O filho do Ca\xE7ador."
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 0}
+    portrait: {fileID: 2791210452372573440, guid: a3335bb26b57e78438a4529e9e10e1a2, type: 3}
   - text: "Eu mesmo, e na hora que o meu tio falou sobre uma l\xEDder, j\xE1 imaginei
       que seria voc\xEA, Carpinteira."
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: 0}
+    portrait: {fileID: -8774304836102649413, guid: 42c019abed3c7b44a8180c97944bf800, type: 3}
   - text: Me pergunto o que eu fiz pra ter essa fama.
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 0}
+    portrait: {fileID: 2791210452372573440, guid: a3335bb26b57e78438a4529e9e10e1a2, type: 3}
   - text: "Enfim, voc\xEA aparentemente lidou bem com o monstro, n\xE3o \xE9? E agora
       quer se juntar a n\xF3s?"
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 0}
+    portrait: {fileID: 2791210452372573440, guid: a3335bb26b57e78438a4529e9e10e1a2, type: 3}
   - text: Eu admiro a sua coragem viu rapazinho, a gente vai precisar disso.
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 0}
+    portrait: {fileID: -2999815174450519269, guid: 9c3bd70cb784dfd4c8aaf2e8e07f08b5, type: 3}
   - text: "Eu n\xE3o tenho muita escolha se quiser encontrar meu pai."
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: 0}
+    portrait: {fileID: -8774304836102649413, guid: 42c019abed3c7b44a8180c97944bf800, type: 3}
   - text: "Voc\xEA achou o chap\xE9u dele perto daquela constru\xE7\xE3o, n\xE3o
       foi?"
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 0}
+    portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
   - text: "Passa ele pra c\xE1."
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 0}
+    portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
   - text: Eu te entendo, menino.
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 0}
+    portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
   - text: "\xC9 por minha fam\xEDlia que eu tamb\xE9m estou aqui me colocando em
       risco, a gente vai dar um jeito de entender tudo que t\xE1 rolando."
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 0}
+    portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
   - text: "N\xF3s vamos investigar isso, mas antes voc\xEA precisa aprender a lutar
       como a gente, vai demorar um tempo mas em breve voc\xEA vai poder lutar do
       nosso lado."
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 0}
+    portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
   - text: "Eu j\xE1 estou pronto."
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: 0}
+    portrait: {fileID: 2501241743405731456, guid: cb18f4aa16182e0449c5add5c7e4728e, type: 3}
   - text: "A gente primeiro vai ver do que voc\xEA \xE9 capaz e a\xED eu decido se
       pode ou n\xE3o ir com a gente."
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 0}
+    portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
   - text: Pronto e acabou.
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 0}
+    portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
   - text: "\u2026Sim, senhora."
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: 0}
+    portrait: {fileID: 5141988116160616292, guid: 5b0bd42f0124ad445a7fa44139787621, type: 3}
   - text: "Para, n\xE3o precisa me chamar assim."
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 0}
+    portrait: {fileID: -2999815174450519269, guid: 9c3bd70cb784dfd4c8aaf2e8e07f08b5, type: 3}
   - text: Agora vai pra sala do boneco, vamos te mostrar umas coisinhas.
     speakerSide: 1
     speakerName: Carpinteira
-    portrait: {fileID: 0}
+    portrait: {fileID: 2791210452372573440, guid: a3335bb26b57e78438a4529e9e10e1a2, type: 3}

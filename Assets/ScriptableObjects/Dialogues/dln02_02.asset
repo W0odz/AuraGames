@@ -15,8 +15,7 @@ MonoBehaviour:
   portraitEsquerda: {fileID: 0}
   portraitDireita: {fileID: 0}
   nodes:
-  - text: "Caralho, ele t\xE1 vivo ainda\u2026 n\xE3o tem jeito, vou ter que levar
-      ele correndo pra base."
+  - text: "Eu que n\xE3o vou ficar esperando sentado."
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+    portrait: {fileID: 4058102605782207891, guid: cc953b912b3629e4580d243c75555a88, type: 3}

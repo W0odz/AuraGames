@@ -26,7 +26,7 @@ MonoBehaviour:
   - text: ...
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+    portrait: {fileID: 1124621305479010813, guid: 42296a7febd715845b70f55cee6b4b31, type: 3}
   - text: "Mas voc\xEA tinha que ignorar meus avisos, n\xE3o \xE9?"
     speakerSide: 1
     speakerName: 
@@ -42,16 +42,16 @@ MonoBehaviour:
   - text: "Voc\xEA matou seu pai."
     speakerSide: 1
     speakerName: 
-    portrait: {fileID: 0}
+    portrait: {fileID: -728201726900358339, guid: 9333e8228835860428c2d3d35ad0b16b, type: 3}
   - text: ...
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+    portrait: {fileID: 1124621305479010813, guid: 42296a7febd715845b70f55cee6b4b31, type: 3}
   - text: "Foi voc\xEA quem matou seu pai, n\xE3o eu."
     speakerSide: 1
     speakerName: 
-    portrait: {fileID: 0}
+    portrait: {fileID: -728201726900358339, guid: 9333e8228835860428c2d3d35ad0b16b, type: 3}
   - text: "Quanta resili\xEAncia, voc\xEA \xE9 mesmo especial\u2026"
     speakerSide: 1
     speakerName: 
-    portrait: {fileID: 0}
+    portrait: {fileID: -728201726900358339, guid: 9333e8228835860428c2d3d35ad0b16b, type: 3}

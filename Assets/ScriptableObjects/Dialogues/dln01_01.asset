@@ -18,21 +18,21 @@ MonoBehaviour:
   - text: "N\xE3o peguei no sono outra vez... j\xE1 \xE9 de manh\xE3."
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+    portrait: {fileID: 5141988116160616292, guid: 5b0bd42f0124ad445a7fa44139787621, type: 3}
   - text: Ele sumiu tem... 3 dias?
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+    portrait: {fileID: 5141988116160616292, guid: 5b0bd42f0124ad445a7fa44139787621, type: 3}
   - text: "J\xE1 s\xE3o 3 dias que eu n\xE3o durmo..."
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+    portrait: {fileID: 5141988116160616292, guid: 5b0bd42f0124ad445a7fa44139787621, type: 3}
   - text: "N\xE3o d\xE1 pra continuar assim."
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+    portrait: {fileID: -8774304836102649413, guid: 42c019abed3c7b44a8180c97944bf800, type: 3}
   - text: "Pra come\xE7ar, eu tenho que falar com ele de novo, n\xE3o d\xE1 pra ficar
       evitando essa conversa."
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+    portrait: {fileID: -8774304836102649413, guid: 42c019abed3c7b44a8180c97944bf800, type: 3}
