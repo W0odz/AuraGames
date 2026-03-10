@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 998d816f9ecd779408036895027b9b91, type: 3}
+  m_Name: dlo02_01
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueAsset
+  portraitEsquerda: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  portraitDireita: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+  nodes:
+  - text: Que o Fulgor te queime e ilumine, filho.
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: 0}
+  - text: "Com sua for\xE7a inabal\xE1vel."
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: 0}
+  - text: "J\xE1 est\xE1 planejando sua nomea\xE7\xE3o?"
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: 0}
+  - text: "Ah\u2026 claro, sim, eu estava fazendo isso agora mesmo..."
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: 0}
+  - text: "Que bom ouvir isso, sabe, o Ca\xE7ador tem uma fun\xE7\xE3o primordial
+      para o vilarejo."
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: 0}
+  - text: "N\xE3o s\xF3 pela comida mas muito material importante para outras fun\xE7\xF5es
+      aqui vem da ca\xE7a dos animais."
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: 0}
+  - text: "Se eu tivesse que dizer, certamente seria uma fun\xE7\xE3o digna do Escolhido."
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: 0}
+  - text: "Mas claro, estou apenas te explicando o quanto voc\xEA \xE9 importante
+      para todos, filho."
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: 0}
+  - text: "Sim, Sacerdote, eu prometo que amanh\xE3 eu te mostro o que tenho para
+      a nomea\xE7\xE3o."
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: 0}
+  - text: "Melhor ainda! Faremos sua nomea\xE7\xE3o como Ca\xE7ador amanh\xE3 aqui
+      nesta pra\xE7a."
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: 0}
+  - text: "N\xE3o se preocupe, \xE9 tempor\xE1rio, quando acharmos seu pai tudo ser\xE1
+      como antes, confie em n\xF3s."
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: 0}
+  - text: "\u2026Certo, posso fazer isso."
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: 0}
+  - text: "Obrigado pelo seu esfor\xE7o e compreens\xE3o."
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: 0}
+  - text: "O Fulgor aprecia seu altru\xEDsmo."
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: 0}

@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 998d816f9ecd779408036895027b9b91, type: 3}
+  m_Name: dlp02_03
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueAsset
+  portraitEsquerda: {fileID: 0}
+  portraitDireita: {fileID: 0}
+  nodes:
+  - text: Carpinteira! Herbalista!
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: O que aconteceu com ele?!
+    speakerSide: 1
+    speakerName: Carpinteira
+    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+  - text: "Encontrei ele assim num t\xFAnel que achei em um dos casebres."
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: Herbalista!
+    speakerSide: 1
+    speakerName: Carpinteira
+    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+  - text: "V\xE1 agora cuidar desses ferimentos!"
+    speakerSide: 1
+    speakerName: Carpinteira
+    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+  - text: Costureiro, me ajude aqui!
+    speakerSide: 1
+    speakerName: Herbalista
+    portrait: {fileID: 4755373664117421245, guid: 4910e18beb064bd45acdcb6ab1e947db, type: 3}
+  - text: "Que t\xFAnel \xE9 esse?"
+    speakerSide: 1
+    speakerName: Carpinteira
+    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+  - text: "O que voc\xEA achou?"
+    speakerSide: 1
+    speakerName: Carpinteira
+    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+  - text: "Acho que meu pai matou um dos cultistas\u2026 n\xE3o sei porqu\xEA.\r\n"
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: "Mas ele tinha uma chave, que abria um al\xE7ap\xE3o."
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: "S\xF3 que quando eu abri, tinha um t\xFAnel embaixo da terra e o Fazendeiro
+      tava l\xE1 desmaiado."
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: "Esse t\xFAnel leva pra onde?"
+    speakerSide: 1
+    speakerName: Carpinteira
+    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+  - text: "N\xE3o sei! Precisamos voltar l\xE1!"
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: "Eu, voc\xEA e meu tio!"
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: "N\xE3o \xE9 assim, garoto."
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: "N\xE3o podemos simplesmente sair daqui e entrar num t\xFAnel sem saber
+      o que tem nele."
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
+  - text: "Seu tio tem raz\xE3o, \xE9 muito arriscado."
+    speakerSide: 1
+    speakerName: Carpinteira
+    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+  - text: "Vamos estudar a \xE1rea para tentar entender onde leva esse t\xFAnel e
+      ent\xE3o nos preparar para agir."
+    speakerSide: 1
+    speakerName: Carpinteira
+    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+  - text: "N\xE3o podemos agir por impulso, entendido?"
+    speakerSide: 1
+    speakerName: Carpinteira
+    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
+  - text: "Sim, \xE9 melhor assim mesmo\u2026"
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: "Amanh\xE3 cedo n\xF3s trabalharemos nisso, v\xE1 para casa."
+    speakerSide: 1
+    speakerName: Carpinteira
+    portrait: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}

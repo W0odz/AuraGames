@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 998d816f9ecd779408036895027b9b91, type: 3}
+  m_Name: dlp03_01
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueAsset
+  portraitEsquerda: {fileID: 0}
+  portraitDireita: {fileID: 0}
+  nodes:
+  - text: "Tarde demais\u2026"
+    speakerSide: 1
+    speakerName: 
+    portrait: {fileID: 0}
+  - text: "Era para voc\xEA ser o meu \u201CEscolhido\u201D..."
+    speakerSide: 1
+    speakerName: 
+    portrait: {fileID: 0}
+  - text: ...
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: "Mas voc\xEA tinha que ignorar meus avisos, n\xE3o \xE9?"
+    speakerSide: 1
+    speakerName: 
+    portrait: {fileID: 0}
+  - text: "Foi para a floresta, encontrou os t\xFAneis, e continuou se metendo\u2026"
+    speakerSide: 1
+    speakerName: 
+    portrait: {fileID: 0}
+  - text: E olha o que conseguiu.
+    speakerSide: 1
+    speakerName: 
+    portrait: {fileID: 0}
+  - text: "Voc\xEA matou seu pai."
+    speakerSide: 1
+    speakerName: 
+    portrait: {fileID: 0}
+  - text: ...
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8487161343576945413, guid: 0aee62466e043724cbc9e8e41eec8b88, type: 3}
+  - text: "Foi voc\xEA quem matou seu pai, n\xE3o eu."
+    speakerSide: 1
+    speakerName: 
+    portrait: {fileID: 0}
+  - text: "Quanta resili\xEAncia, voc\xEA \xE9 mesmo especial\u2026"
+    speakerSide: 1
+    speakerName: 
+    portrait: {fileID: 0}
