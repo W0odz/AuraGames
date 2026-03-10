@@ -25,5 +25,5 @@ MonoBehaviour:
   bonusMaxMP: 0
   apenasForaDeBatalha: 0
   tipoDeDano: 0
-  velocidadeDoAro: 1.5
+  velocidadeDoAro: 2
   limiteDeTinta: 100
