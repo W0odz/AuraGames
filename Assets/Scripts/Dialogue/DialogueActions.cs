@@ -16,6 +16,9 @@ public static class DialogueActions
             case DialogueActionType.TurnInQuest:
                 manager.TurnInQuest(questId);
                 break;
+            case DialogueActionType.DeliverItems:
+                manager.TurnInQuest(questId);
+                break;
         }
     }
 }
