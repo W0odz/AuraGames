@@ -22,24 +22,24 @@ public class NpcMerchant : MonoBehaviour
 
     [Header("Falas")]
     public string falaSaudacao = "O que você tem pra trocar?";
-    public string falaMuitoBoa = "Opa... isso é um ótimo negócio pra mim!";
-    public string falaBoa = "Hmm... isso me parece justo.";
-    public string falaQuase = "Ainda está pouco... talvez se melhorar a oferta.";
-    public string falaRuim = "Não, não, isso não vale nem perto do que você quer.";
-    public string falaSemItens = "Você não tem nada pra me oferecer.";
+    public string falaMuitoAcima = "Opa... isso é um ótimo negócio pra mim!";
+    public string falaAcima = "Hmm... isso me parece justo.";
+    public string falaIdeal = "...";
+    public string falaAbaixo = "Ainda está pouco... talvez se melhorar a oferta.";
+    public string falaMuitoAbaixo = "Não, não, isso não vale nem perto do que você quer.";
     public string falaSucesso = "Negócio feito!";
 
     public string AvaliarComFala(int valorOferecido, int valorDesejado)
     {
-        if (valorOferecido <= 0) return falaSemItens;
 
         var av = EscamboSystem.Avaliar(valorOferecido, valorDesejado, tolerancia);
         return av switch
         {
-            EscamboSystem.AvaliacaoTroca.MuitoBoa => falaMuitoBoa,
-            EscamboSystem.AvaliacaoTroca.Boa => falaBoa,
-            EscamboSystem.AvaliacaoTroca.Quase => falaQuase,
-            _ => falaRuim
+            EscamboSystem.AvaliacaoTroca.MuitoAcima => falaMuitoAcima,
+            EscamboSystem.AvaliacaoTroca.Acima => falaAcima,
+            EscamboSystem.AvaliacaoTroca.Ideal => falaIdeal,
+            EscamboSystem.AvaliacaoTroca.Abaixo => falaAbaixo,
+            _ => falaMuitoAbaixo
         };
     }
 
