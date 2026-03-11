@@ -321,6 +321,10 @@ public class BattleSystem : MonoBehaviour
     {
         state = BattleState.WON;
 
+        // Notifica o QuestManager sobre a morte do inimigo
+        if (QuestManager.Instance != null && enemyUnit != null)
+            QuestManager.Instance.NotificarMorteInimigo(GameManager.Instance?.currentEnemyID ?? enemyUnit.unitName);
+
         if (dialogueText != null)
             dialogueText.text = "O " + enemyUnit.unitName + " foi derrotado!";
 
