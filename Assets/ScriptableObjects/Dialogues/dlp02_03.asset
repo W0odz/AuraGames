@@ -18,7 +18,7 @@ MonoBehaviour:
   - text: Carpinteira! Herbalista!
     speakerSide: 0
     speakerName: 
-    portrait: {fileID: 1124621305479010813, guid: 42296a7febd715845b70f55cee6b4b31, type: 3}
+    portrait: {fileID: -4293909199066766194, guid: a84e9df47cf59a74088a3d669648b720, type: 3}
   - text: O que aconteceu com ele?!
     speakerSide: 1
     speakerName: Carpinteira

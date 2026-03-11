@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 998d816f9ecd779408036895027b9b91, type: 3}
+  m_Name: dlo02_03
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueAsset
+  portraitEsquerda: {fileID: 0}
+  portraitDireita: {fileID: -1163734962314161550, guid: e74a03ddbfbbfc3448ac1f09f17f74b5, type: 3}
+  nodes:
+  - text: "O filho do Ca\xE7ador!"
+    speakerSide: 1
+    speakerName: Jardineiro
+    portrait: {fileID: 0}
+  - text: Bom dia, Jardineiro!
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -2499865093323967227, guid: e2f5fa213065c3a499ebfc9317f46ac3, type: 3}
+  - text: "Olha, eu n\xE3o quero parecer rebelde nem nada."
+    speakerSide: 1
+    speakerName: Jardineiro
+    portrait: {fileID: 0}
+  - text: "Mas olha eu n\xE3o consigo entender por que os Cultistas tem que ficar
+      olhando tudo que acontece aqui."
+    speakerSide: 1
+    speakerName: Jardineiro
+    portrait: {fileID: 0}
+  - text: Como assim?
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8774304836102649413, guid: 42c019abed3c7b44a8180c97944bf800, type: 3}
+  - text: Digo, o que tem demais em um coroa aguando a grama?
+    speakerSide: 1
+    speakerName: Jardineiro
+    portrait: {fileID: 0}
+  - text: "Olha, rapaz, qualquer dia eu vou pegar e dar o regador na m\xE3o de um,
+      j\xE1 que ele ficou t\xE3o interessado."
+    speakerSide: 1
+    speakerName: Jardineiro
+    portrait: {fileID: 0}
+  - text: "E sempre calad\xF5es n\xE9? Haha!"
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -2499865093323967227, guid: e2f5fa213065c3a499ebfc9317f46ac3, type: 3}
+  - text: "Olha menino, s\xF3 voc\xEA entende!"
+    speakerSide: 1
+    speakerName: Jardineiro
+    portrait: {fileID: 0}
