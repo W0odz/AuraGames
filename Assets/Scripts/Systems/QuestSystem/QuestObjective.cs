@@ -11,7 +11,7 @@ public class QuestObjective
     public int quantidadeNecessaria;
 
     // Para KillEnemy
-    public string enemyId; // Bate com GameManager.currentEnemyID ou EnemyUnit.unitName
+    public string enemyId; // Bate com EnemyAIController.enemyID
 
     // Para TalkToNpc
     public string npcName; // Bate com gameObject.name do NPC
@@ -30,7 +30,7 @@ public class QuestObjective
     public bool EstaCompleto()
     {
         if (tipo == QuestObjectiveType.Timer)
-            return timerAtual >= timerNecessario && timerNecessario > 0f;
+            return timerNecessario > 0f && timerAtual >= timerNecessario;
 
         int needed = quantidadeNecessaria > 0 ? quantidadeNecessaria : 1;
         return progressoAtual >= needed;
