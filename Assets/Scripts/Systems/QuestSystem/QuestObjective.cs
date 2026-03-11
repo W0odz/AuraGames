@@ -16,11 +16,22 @@ public class QuestObjective
     // Para TalkToNpc
     public string npcName; // Bate com gameObject.name do NPC
 
+    // Para EnterBattle
+    [Tooltip("ID do inimigo cujo combate precisa ser iniciado. Bate com GameManager.currentEnemyID.")]
+    public string battleEnemyId;
+
+    // Para Timer (duração em segundos)
+    public float timerNecessario;
+
     // Progresso em runtime (não serializado no SO, controlado pelo QuestManager)
     [System.NonSerialized] public int progressoAtual;
+    [System.NonSerialized] public float timerAtual;
 
     public bool EstaCompleto()
     {
+        if (tipo == QuestObjectiveType.Timer)
+            return timerNecessario > 0f && timerAtual >= timerNecessario;
+
         int needed = quantidadeNecessaria > 0 ? quantidadeNecessaria : 1;
         return progressoAtual >= needed;
     }
