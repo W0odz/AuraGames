@@ -38,8 +38,9 @@ public class NpcInteractable : MonoBehaviour
         {
             NpcMerchant merchant = GetComponent<NpcMerchant>();
 
-            if (!jaInteragiu && dialogoUnico != null)
+            if (!jaInteragiu)
             {
+                if (dialogoUnico == null) dialogoUnico = dialogoPadrao;
                 // Exibe diálogo único
                 DialogueRunner.Instance.StartDialogue(dialogoUnico, () =>
                 {
@@ -59,8 +60,9 @@ public class NpcInteractable : MonoBehaviour
         }
         else
         {
-            if (!jaInteragiu && dialogoUnico != null)
+            if (!jaInteragiu)
             {
+                if (dialogoUnico == null) dialogoUnico = dialogoPadrao;
                 DialogueRunner.Instance.StartDialogue(dialogoUnico);
                 jaInteragiu = true;
             }
