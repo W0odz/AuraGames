@@ -212,7 +212,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 296c6df9650ccba449574c32fe6b9437, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcInteractable
-  dialogueAsset: {fileID: 11400000, guid: f4f16eeb4b2adf8418d659536f082c1b, type: 2}
+  dialogoPadrao: {fileID: 11400000, guid: f4f16eeb4b2adf8418d659536f082c1b, type: 2}
+  dialogoUnico: {fileID: 0}
   isMerchant: 1
 --- !u!114 &139855477514319430
 MonoBehaviour:
@@ -226,6 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bfb85366caf8094e80e9f1a305faf6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcMerchant
+  fundoMenu: {fileID: 0}
   tolerancia: 0.15
   estoque:
   - item: {fileID: 11400000, guid: c369d20cfa970134a9cd672b6d4924a0, type: 2}
@@ -235,9 +237,9 @@ MonoBehaviour:
   - item: {fileID: 11400000, guid: 7bb09b1af1083df48ab263119f65be24, type: 2}
     quantidade: 1
   falaSaudacao: "O que voc\xEA tem pra trocar?"
-  falaMuitoBoa: "Opa... isso \xE9 um \xF3timo neg\xF3cio pra mim!"
-  falaBoa: Hmm... isso me parece justo.
-  falaQuase: "Ainda est\xE1 pouco... talvez se melhorar a oferta."
-  falaRuim: "N\xE3o, n\xE3o, isso n\xE3o vale nem perto do que voc\xEA quer."
-  falaSemItens: "Voc\xEA n\xE3o tem nada pra me oferecer."
+  falaMuitoAcima: "Opa... isso \xE9 um \xF3timo neg\xF3cio pra mim!"
+  falaAcima: Hmm... isso me parece justo.
+  falaIdeal: ...
+  falaAbaixo: "Ainda est\xE1 pouco... talvez se melhorar a oferta."
+  falaMuitoAbaixo: "N\xE3o, n\xE3o, isso n\xE3o vale nem perto do que voc\xEA quer."
   falaSucesso: "Neg\xF3cio feito!"

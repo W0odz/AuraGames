@@ -1,1 +1,1 @@
-public enum DialogueActionType { None, StartQuest, CompleteQuest, TurnInQuest }
+public enum DialogueActionType { None, StartQuest, CompleteQuest, TurnInQuest, DeliverItems }

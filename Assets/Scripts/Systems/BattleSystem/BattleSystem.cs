@@ -74,6 +74,13 @@ public class BattleSystem : MonoBehaviour
             yield break;
         }
 
+        // Notifica o QuestManager que um combate com este inimigo foi iniciado
+        if (QuestManager.Instance != null)
+        {
+            string enemyId = GameManager.Instance?.currentEnemyID ?? enemyUnit.unitName;
+            QuestManager.Instance.NotificarInicioCombate(enemyId);
+        }
+
         if (dialogueText != null)
             dialogueText.text = "Um " + enemyUnit.unitName + " bloqueia seu caminho...";
 
@@ -321,6 +328,10 @@ public class BattleSystem : MonoBehaviour
     {
         state = BattleState.WON;
 
+        // Notifica o QuestManager sobre a morte do inimigo
+        if (QuestManager.Instance != null && enemyUnit != null)
+            QuestManager.Instance.NotificarMorteInimigo(GameManager.Instance?.currentEnemyID ?? enemyUnit.unitName);
+
         if (dialogueText != null)
             dialogueText.text = "O " + enemyUnit.unitName + " foi derrotado!";
 
@@ -451,6 +462,7 @@ public class BattleSystem : MonoBehaviour
 
         playerUnit.currentXP = Mathf.RoundToInt(xpVisual);
     }
+
     public void OnFugirButton()
     {
         if (state != BattleState.PLAYERTURN) return;
@@ -491,6 +503,7 @@ public class BattleSystem : MonoBehaviour
             }
         }
     }
+
     public void PassarTurnoAposItem()
     {
         if (state != BattleState.PLAYERTURN) return;

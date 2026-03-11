@@ -3,24 +3,37 @@ using UnityEngine;
 
 public static class EscamboSystem
 {
-    public enum AvaliacaoTroca { MuitoBoa, Boa, Quase, Ruim }
+    public enum AvaliacaoTroca { MuitoAcima, Acima, Ideal, Abaixo, MuitoAbaixo }
 
     public static AvaliacaoTroca Avaliar(int valorOferecido, int valorDesejado, float tolerancia)
     {
-        if (valorDesejado <= 0 || valorOferecido <= 0) return AvaliacaoTroca.Ruim;
+        if (valorDesejado <= 0 || valorOferecido <= 0) return AvaliacaoTroca.MuitoAbaixo;
 
         float ratio = (float)valorOferecido / valorDesejado;
 
-        if (ratio >= 1.0f) return AvaliacaoTroca.MuitoBoa;
-        if (ratio >= 1f - tolerancia) return AvaliacaoTroca.Boa;
-        if (ratio >= 1f - tolerancia * 2f) return AvaliacaoTroca.Quase;
-        return AvaliacaoTroca.Ruim;
+        if (Mathf.Abs(ratio - 1f) < Mathf.Epsilon) // Ideal absoluto
+            return AvaliacaoTroca.Ideal;
+
+        if (ratio > 1f)
+        {
+            if (ratio - 1f <= tolerancia)
+                return AvaliacaoTroca.Acima;
+            else
+                return AvaliacaoTroca.MuitoAcima;
+        }
+        else
+        {
+            if (1f - ratio <= tolerancia)
+                return AvaliacaoTroca.Abaixo;
+            else
+                return AvaliacaoTroca.MuitoAbaixo;
+        }
     }
 
     public static bool TrocaEhAceitavel(int valorOferecido, int valorDesejado, float tolerancia)
     {
         var av = Avaliar(valorOferecido, valorDesejado, tolerancia);
-        return av == AvaliacaoTroca.Boa || av == AvaliacaoTroca.MuitoBoa;
+        return av == AvaliacaoTroca.Ideal || av == AvaliacaoTroca.Acima || av == AvaliacaoTroca.Abaixo;
     }
 
     public static bool ExecutarTroca(

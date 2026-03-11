@@ -1,0 +1,767 @@
+fileFormatVersion: 2
+guid: a84e9df47cf59a74088a3d669648b720
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4293909199066766194
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_0"
+  - first:
+      213: -589914305451525070
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_1"
+  - first:
+      213: 6441208329404485087
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_2"
+  - first:
+      213: -3998465555514167273
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_3"
+  - first:
+      213: -9147707570812180686
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_4"
+  - first:
+      213: 567790136599834305
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_5"
+  - first:
+      213: 4287843312549622172
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_6"
+  - first:
+      213: -6921734017257518981
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_7"
+  - first:
+      213: 8426829595808691789
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_8"
+  - first:
+      213: -2146015110408780547
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_9"
+  - first:
+      213: -3774539045854204080
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_10"
+  - first:
+      213: 655545367233659147
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_11"
+  - first:
+      213: -1284553807854887761
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_12"
+  - first:
+      213: 2271324096569902258
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_13"
+  - first:
+      213: 4216505056574463863
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_14"
+  - first:
+      213: 4621846991508227184
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_15"
+  - first:
+      213: 2365376284115981607
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_16"
+  - first:
+      213: 756190353599618770
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_17"
+  - first:
+      213: -5262345991114025731
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_18"
+  - first:
+      213: 9056235492495377904
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_19"
+  - first:
+      213: -8019361068818771367
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_20"
+  - first:
+      213: 6566746816463232139
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_21"
+  - first:
+      213: -7855459689512731493
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_22"
+  - first:
+      213: 5528818553172967861
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_23"
+  - first:
+      213: -1024461635458661789
+    second: "Jogo Gnose Dialogo - Prod\xEDgio Medo_24"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_0"
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 0
+        width: 482
+        height: 673
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e84e7d36558f864c0800000000000000
+      internalID: -4293909199066766194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_1"
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 630
+        width: 38
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23cf3af801430d7f0800000000000000
+      internalID: -589914305451525070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_2"
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 647
+        width: 12
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdd017e39d4c36950800000000000000
+      internalID: 6441208329404485087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_3"
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 648
+        width: 11
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71071f413c89288c0800000000000000
+      internalID: -3998465555514167273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_4"
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 655
+        width: 31
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 237a6945e60dc0180800000000000000
+      internalID: -9147707570812180686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_5"
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 658
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1cee007fe1231e700800000000000000
+      internalID: 567790136599834305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_6"
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 662
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c91fd0956ca718b30800000000000000
+      internalID: 4287843312549622172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_7"
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 659
+        width: 6
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b78c0af859f01ff90800000000000000
+      internalID: -6921734017257518981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_8"
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 659
+        width: 10
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d46fce0cedc12f470800000000000000
+      internalID: 8426829595808691789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_9"
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 643
+        width: 30
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df4c67d80a2d732e0800000000000000
+      internalID: -2146015110408780547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_10"
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 528
+        width: 43
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05fa4057cb42e9bc0800000000000000
+      internalID: -3774539045854204080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_11"
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 475
+        width: 46
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b018d1cc907f81900800000000000000
+      internalID: 655545367233659147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_12"
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 406
+        width: 51
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fac1feb1e195c2ee0800000000000000
+      internalID: -1284553807854887761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_13"
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 246
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b485d95b3d558f10800000000000000
+      internalID: 2271324096569902258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_14"
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 202
+        width: 46
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77f52ca4209048a30800000000000000
+      internalID: 4216505056574463863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_15"
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 139
+        width: 41
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0744e07e959142040800000000000000
+      internalID: 4621846991508227184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_16"
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 123
+        width: 16
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 725ddd6b23183d020800000000000000
+      internalID: 2365376284115981607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_17"
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 129
+        width: 12
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ded1e0ce178e7a00800000000000000
+      internalID: 756190353599618770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_18"
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 74
+        width: 37
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df49272c33468f6b0800000000000000
+      internalID: -5262345991114025731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_19"
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 63
+        width: 45
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f5c87cc2363ead70800000000000000
+      internalID: 9056235492495377904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_20"
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 55
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 952d577a89185b090800000000000000
+      internalID: -8019361068818771367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_21"
+      rect:
+        serializedVersion: 2
+        x: 535
+        y: 49
+        width: 14
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8cd73dff65c12b50800000000000000
+      internalID: 6566746816463232139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_22"
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 39
+        width: 21
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9c713b480dcbf290800000000000000
+      internalID: -7855459689512731493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_23"
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 0
+        width: 39
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b1c6716e2f4abc40800000000000000
+      internalID: 5528818553172967861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Dialogo - Prod\xEDgio Medo_24"
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 0
+        width: 22
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3628874029168c1f0800000000000000
+      internalID: -1024461635458661789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_0": -4293909199066766194
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_1": -589914305451525070
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_10": -3774539045854204080
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_11": 655545367233659147
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_12": -1284553807854887761
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_13": 2271324096569902258
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_14": 4216505056574463863
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_15": 4621846991508227184
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_16": 2365376284115981607
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_17": 756190353599618770
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_18": -5262345991114025731
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_19": 9056235492495377904
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_2": 6441208329404485087
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_20": -8019361068818771367
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_21": 6566746816463232139
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_22": -7855459689512731493
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_23": 5528818553172967861
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_24": -1024461635458661789
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_3": -3998465555514167273
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_4": -9147707570812180686
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_5": 567790136599834305
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_6": 4287843312549622172
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_7": -6921734017257518981
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_8": 8426829595808691789
+      "Jogo Gnose Dialogo - Prod\xEDgio Medo_9": -2146015110408780547
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
