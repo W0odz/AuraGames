@@ -34,6 +34,10 @@ public class NpcInteractable : MonoBehaviour
 
     public void OnInteract()
     {
+        // Notifica o QuestManager sobre a conversa com esse NPC
+        if (QuestManager.Instance != null)
+            QuestManager.Instance.NotificarConversa(gameObject.name);
+
         if (isMerchant)
         {
             NpcMerchant merchant = GetComponent<NpcMerchant>();

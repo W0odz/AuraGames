@@ -160,4 +160,18 @@ public class PlayerUnit : Unit
         return mult;
     }
     #endregion
+
+    /// <summary>Adiciona XP ao jogador e processa level up automaticamente.</summary>
+    public void AdicionarXP(int quantidade)
+    {
+        currentXP += quantidade;
+        while (currentXP >= xpToNextLevel)
+        {
+            currentXP -= xpToNextLevel;
+            playerLevel++;
+            xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * 1.5f);
+            Debug.Log($"[PlayerUnit] Level Up! Novo nível: {playerLevel}");
+        }
+        Debug.Log($"[PlayerUnit] +{quantidade} XP ganho pela quest. XP atual: {currentXP}/{xpToNextLevel}");
+    }
 }

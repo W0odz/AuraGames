@@ -48,6 +48,10 @@ public class InventoryManager : MonoBehaviour
         TentarAutoEquiparArma(item);
 
         onUpdateUI?.Invoke();
+
+        // Notifica o QuestManager sobre a coleta
+        if (QuestManager.Instance != null)
+            QuestManager.Instance.NotificarColetaItem(item, quantidade);
     }
 
     private void TentarAutoEquiparArma(DadosItem item)

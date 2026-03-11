@@ -1,16 +1,27 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Game/QuestDefinition")]
+public enum QuestType { MainQuest, SideQuest, Daily }
+
+[CreateAssetMenu(fileName = "Nova Quest", menuName = "Quests/QuestDefinition")]
 public class QuestDefinition : ScriptableObject
 {
+    [Header("Identificação")]
     public string questId;
     public string questName;
-    public string description;
+    [TextArea] public string description;
+    public QuestType questType;
 
-    public QuestObjectiveType type;
-    public DadosItem itemToCollect; // Para objetivo de coleta/entrega
-    public int itemAmount;
-    // Outros campos: inimigo, NPC alvo, etc.
-    public DadosItem rewardItem;
-    public int rewardAmount;
+    [Header("NPC")]
+    public string npcDadorNome;   // gameObject.name do NPC que dá a quest
+    public string npcEntregaNome; // gameObject.name do NPC de entrega (pode ser igual)
+
+    [Header("Pré-requisitos")]
+    public List<QuestDefinition> questsNecessarias; // Quests que devem estar TurnedIn antes
+
+    [Header("Objetivos")]
+    public List<QuestObjective> objetivos;
+
+    [Header("Recompensa")]
+    public int recompensaXP = 50;
 }
