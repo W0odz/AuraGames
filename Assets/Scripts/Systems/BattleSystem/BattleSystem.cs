@@ -529,3 +529,4 @@ public class BattleSystem : MonoBehaviour
         else
             Debug.LogError("[BattleSystem] GameOverPanelUI.Instance não encontrado na cena!");
     }
+}
