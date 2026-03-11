@@ -74,6 +74,13 @@ public class BattleSystem : MonoBehaviour
             yield break;
         }
 
+        // Notifica o QuestManager que um combate com este inimigo foi iniciado
+        if (QuestManager.Instance != null)
+        {
+            string enemyId = GameManager.Instance?.currentEnemyID ?? enemyUnit.unitName;
+            QuestManager.Instance.NotificarInicioCombate(enemyId);
+        }
+
         if (dialogueText != null)
             dialogueText.text = "Um " + enemyUnit.unitName + " bloqueia seu caminho...";
 
@@ -455,6 +462,7 @@ public class BattleSystem : MonoBehaviour
 
         playerUnit.currentXP = Mathf.RoundToInt(xpVisual);
     }
+
     public void OnFugirButton()
     {
         if (state != BattleState.PLAYERTURN) return;
@@ -495,6 +503,7 @@ public class BattleSystem : MonoBehaviour
             }
         }
     }
+
     public void PassarTurnoAposItem()
     {
         if (state != BattleState.PLAYERTURN) return;
@@ -520,4 +529,3 @@ public class BattleSystem : MonoBehaviour
         else
             Debug.LogError("[BattleSystem] GameOverPanelUI.Instance não encontrado na cena!");
     }
-}
