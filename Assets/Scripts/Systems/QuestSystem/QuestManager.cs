@@ -23,6 +23,30 @@ public class QuestManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Update()
+    {
+        // Avança timers e verifica objetivos EnterBattle não têm tick — apenas Timer precisa de Update
+        foreach (var kvp in new Dictionary<string, QuestState>(questStates))
+        {
+            if (kvp.Value != QuestState.Active) continue;
+            if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
+            if (def.objetivos == null) continue;
+
+            bool algumMudou = false;
+            foreach (var obj in def.objetivos)
+            {
+                if (obj.tipo != QuestObjectiveType.Timer) continue;
+                if (obj.EstaCompleto()) continue;
+
+                obj.timerAtual += Time.deltaTime;
+                algumMudou = true;
+            }
+
+            if (algumMudou)
+                VerificarConclusao(kvp.Key, def);
+        }
+    }
+
     /// <summary>Inicia uma quest pelo ScriptableObject. Verifica pré-requisitos.</summary>
     public void StartQuest(QuestDefinition def)
     {
@@ -52,7 +76,10 @@ public class QuestManager : MonoBehaviour
         if (def.objetivos != null)
         {
             foreach (var obj in def.objetivos)
+            {
                 obj.progressoAtual = 0;
+                obj.timerAtual = 0f;
+            }
         }
 
         onQuestIniciada?.Invoke(def);
@@ -140,6 +167,34 @@ public class QuestManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Chamado pelo BattleSystem no início do SetupBattle.
+    /// Completa objetivos do tipo EnterBattle cujo battleEnemyId bate com o inimigo atual.
+    /// </summary>
+    public void NotificarInicioCombate(string enemyId)
+    {
+        foreach (var kvp in questStates)
+        {
+            if (kvp.Value != QuestState.Active) continue;
+            if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
+            if (def.objetivos == null) continue;
+
+            bool algumMudou = false;
+            foreach (var obj in def.objetivos)
+            {
+                if (obj.tipo != QuestObjectiveType.EnterBattle) continue;
+                if (obj.battleEnemyId != enemyId) continue;
+                if (obj.EstaCompleto()) continue;
+
+                obj.progressoAtual = 1;
+                algumMudou = true;
+            }
+
+            if (algumMudou)
+                VerificarConclusao(kvp.Key, def);
+        }
+    }
+
     private void VerificarConclusao(string questId, QuestDefinition def)
     {
         if (def.objetivos == null || def.objetivos.Count == 0) return;
@@ -210,4 +265,4 @@ public class QuestManager : MonoBehaviour
 }
 
 public enum QuestState { NotStarted, Active, Completed, TurnedIn }
-public enum QuestObjectiveType { CollectItem, DeliverItem, KillEnemy, TalkToNpc }
+public enum QuestObjectiveType { CollectItem, DeliverItem, KillEnemy, TalkToNpc, Timer, EnterBattle }
