@@ -11,7 +11,8 @@ public class QuestObjective
     public int quantidadeNecessaria;
 
     // Para KillEnemy
-    public string enemyId; // Bate com EnemyAIController.enemyID
+    [Tooltip("Arraste aqui o prefab do inimigo de EXPLORAÇÃO (EnemyAIController). O ID será lido automaticamente.")]
+    public GameObject enemyPrefab; // Referência direta ao prefab de exploração
 
     // Para TalkToNpc
     public string npcName; // Bate com gameObject.name do NPC
