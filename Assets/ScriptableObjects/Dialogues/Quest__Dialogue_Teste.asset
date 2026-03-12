@@ -20,16 +20,26 @@ MonoBehaviour:
     speakerName: 
     portrait: {fileID: 0}
     acaoDeQuest: 0
-    questId: 
+    questDef: {fileID: 0}
+    estadoQuest: 1
   - text: Mata uns 3 Javali e pega uns 3 cogumelo ai mano
     speakerSide: 1
     speakerName: Desgarrado
     portrait: {fileID: 0}
     acaoDeQuest: 1
-    questId: teste_quest
-  - text: "Ja\xE9"
-    speakerSide: 0
-    speakerName: 
+    questDef: {fileID: 11400000, guid: 6ab3b9f3c292a844ea0886a6113b8e1b, type: 2}
+    estadoQuest: 1
+  - text: "J\xE1 fez oq eu pedi?"
+    speakerSide: 1
+    speakerName: Desgarrado
     portrait: {fileID: 0}
     acaoDeQuest: 0
-    questId: 
+    questDef: {fileID: 11400000, guid: 6ab3b9f3c292a844ea0886a6113b8e1b, type: 2}
+    estadoQuest: 2
+  - text: Valeu ai mano
+    speakerSide: 1
+    speakerName: Desgarrado
+    portrait: {fileID: 0}
+    acaoDeQuest: 3
+    questDef: {fileID: 11400000, guid: 6ab3b9f3c292a844ea0886a6113b8e1b, type: 2}
+    estadoQuest: 3

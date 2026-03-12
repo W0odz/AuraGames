@@ -20,7 +20,7 @@ MonoBehaviour:
   npcEntregaNome: Desgarrado
   questsNecessarias: []
   objetivos:
-  - descricao: 
+  - descricao: Mate 3 Javalis
     tipo: 2
     itemAlvo: {fileID: 0}
     quantidadeNecessaria: 3
@@ -28,10 +28,18 @@ MonoBehaviour:
     npcName: 
     battleEnemyId: 
     timerNecessario: 0
-  - descricao: 
+  - descricao: Colete 3 Cogumelos
     tipo: 0
     itemAlvo: {fileID: 11400000, guid: 77b4beb0be32be04a9e183978af9ea58, type: 2}
     quantidadeNecessaria: 3
+    enemyId: 
+    npcName: 
+    battleEnemyId: 
+    timerNecessario: 0
+  - descricao: 
+    tipo: 3
+    itemAlvo: {fileID: 0}
+    quantidadeNecessaria: 0
     enemyId: 
     npcName: 
     battleEnemyId: 

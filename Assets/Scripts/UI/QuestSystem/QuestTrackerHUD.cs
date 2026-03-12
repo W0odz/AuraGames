@@ -12,9 +12,6 @@ public class QuestTrackerHUD : MonoBehaviour
     public TextMeshProUGUI textoNomeQuest;
     public TextMeshProUGUI textoObjetivo;
 
-    [Header("Posição")]
-    public bool cantoSuperiorEsquerdo = false;
-
     [Header("Configuração")]
     public float intervaloPolling = 0.25f;
     public float duracaoFade = 0.3f;
@@ -34,23 +31,26 @@ public class QuestTrackerHUD : MonoBehaviour
             return;
         }
 
-        AjustarPosicao();
-
         if (painel != null)
             painel.SetActive(false);
     }
 
-    private void OnEnable()
+    private void Start()
     {
         if (QuestManager.Instance != null)
         {
             QuestManager.Instance.onQuestIniciada += OnQuestIniciada;
             QuestManager.Instance.onQuestCompleta += OnQuestCompleta;
             QuestManager.Instance.onQuestEntregue += OnQuestEntregue;
+
+            // Restaura o HUD se já há quest ativa ao carregar/voltar de cena
+            var ativas = QuestManager.Instance.GetAllActive();
+            if (ativas != null && ativas.Count > 0)
+                MostrarQuest(ativas[0]);
         }
         else
         {
-            Debug.LogWarning("[QuestTrackerHUD] QuestManager.Instance não encontrado no OnEnable.");
+            Debug.LogWarning("[QuestTrackerHUD] QuestManager.Instance não encontrado no Start.");
         }
     }
 
@@ -65,29 +65,6 @@ public class QuestTrackerHUD : MonoBehaviour
             QuestManager.Instance.onQuestIniciada -= OnQuestIniciada;
             QuestManager.Instance.onQuestCompleta -= OnQuestCompleta;
             QuestManager.Instance.onQuestEntregue -= OnQuestEntregue;
-        }
-    }
-
-    private void AjustarPosicao()
-    {
-        if (painel == null) return;
-
-        RectTransform rt = painel.GetComponent<RectTransform>();
-        if (rt == null) return;
-
-        if (cantoSuperiorEsquerdo)
-        {
-            rt.anchorMin = new Vector2(0f, 1f);
-            rt.anchorMax = new Vector2(0f, 1f);
-            rt.pivot = new Vector2(0f, 1f);
-            rt.anchoredPosition = new Vector2(20f, -20f);
-        }
-        else
-        {
-            rt.anchorMin = new Vector2(1f, 1f);
-            rt.anchorMax = new Vector2(1f, 1f);
-            rt.pivot = new Vector2(1f, 1f);
-            rt.anchoredPosition = new Vector2(-20f, -20f);
         }
     }
 
@@ -189,7 +166,6 @@ public class QuestTrackerHUD : MonoBehaviour
 
             if (obj.EstaCompleto())
             {
-                // Objetivo acabou de ser concluído — animar transição para o próximo
                 QuestObjective proximo = ObterProximoObjetivo(questAtual, obj);
                 if (proximo != null)
                     IniciarAnimacaoTransicao(obj, proximo);
@@ -206,7 +182,7 @@ public class QuestTrackerHUD : MonoBehaviour
             if (textoObjetivo != null)
                 textoObjetivo.text = FormatarObjetivo(obj);
 
-            yield return new WaitForSeconds(intervaloPolling);
+            yield return new WaitForSecondsRealtime(intervaloPolling); // ← corrigido
         }
     }
 
@@ -243,8 +219,8 @@ public class QuestTrackerHUD : MonoBehaviour
         // 1. Mostrar riscado
         textoObjetivo.text = $"<s>{objetivoConcluido.descricao}</s>";
 
-        // 2. Aguardar pausa
-        yield return new WaitForSeconds(pausaRiscado);
+        // 2. Aguardar pausa (unscaled — não para com timeScale = 0)
+        yield return new WaitForSecondsRealtime(pausaRiscado); // ← corrigido
 
         // 3. Fade out
         yield return StartCoroutine(FadeTextoObjetivo(1f, 0f));
@@ -270,7 +246,7 @@ public class QuestTrackerHUD : MonoBehaviour
 
         while (elapsed < duracaoFade)
         {
-            elapsed += Time.deltaTime;
+            elapsed += Time.unscaledDeltaTime; // ← corrigido
             c.a = Mathf.Lerp(de, para, elapsed / duracaoFade);
             textoObjetivo.color = c;
             yield return null;

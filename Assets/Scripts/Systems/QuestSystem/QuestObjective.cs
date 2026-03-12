@@ -24,8 +24,8 @@ public class QuestObjective
     public float timerNecessario;
 
     // Progresso em runtime (não serializado no SO, controlado pelo QuestManager)
-    [System.NonSerialized] public int progressoAtual;
-    [System.NonSerialized] public float timerAtual;
+    public int progressoAtual;
+    public float timerAtual;
 
     public bool EstaCompleto()
     {

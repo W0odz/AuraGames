@@ -16,13 +16,14 @@ public class DialogueRunner : MonoBehaviour
     public TMP_Text rightNameText;
 
     [Header("Cor de destaque / escurecimento")]
-    public float alphaEscurecido = 0.4f;  // ← ajusta no Inspector
+    public float alphaEscurecido = 0.4f;
 
     public DialogueAsset currentAsset;
     private int currentIndex = 0;
     private bool recentlyOpened = false;
     private Action _onEnd;
-    private QuestDefinition questDoDialogo; // quest vinculada ao NPC atual, pode ser null
+    private QuestDefinition questDoDialogo;
+    private bool _fecharNoProximoInput = false; // ← NOVO
 
     public static DialogueRunner Instance { get; private set; }
 
@@ -57,20 +58,20 @@ public class DialogueRunner : MonoBehaviour
 
     public void StartDialogue(DialogueAsset asset, Action onEnd = null)
     {
-        questDoDialogo = null; // reset — sem filtro de estado
+        questDoDialogo = null;
         IniciarDialogoInterno(asset, onEnd);
     }
 
     void IniciarDialogoInterno(DialogueAsset asset, Action onEnd)
     {
-        GameManager.Instance.inputBloqueado = true;   // ← BLOQUEIA input
+        GameManager.Instance.inputBloqueado = true;
         _onEnd = onEnd;
         currentAsset = asset;
         currentIndex = 0;
+        _fecharNoProximoInput = false; // ← NOVO: reset ao iniciar
         dialoguePanel.SetActive(true);
         recentlyOpened = true;
 
-        // Aplica retratos fixos do asset (null = oculto)
         AplicarPortraitFixo(leftPortrait, asset.portraitEsquerda);
         AplicarPortraitFixo(rightPortrait, asset.portraitDireita);
 
@@ -81,10 +82,7 @@ public class DialogueRunner : MonoBehaviour
     void AplicarPortraitFixo(Image img, Sprite sprite)
     {
         if (sprite == null)
-        {
-            // Não desativa — deixa o ShowNode decidir baseado no node
-            img.gameObject.SetActive(false); // começa oculto
-        }
+            img.gameObject.SetActive(false);
         else
         {
             img.sprite = sprite;
@@ -102,32 +100,27 @@ public class DialogueRunner : MonoBehaviour
 
         if (ladoEsquerda)
         {
-            // Ativa e atualiza o portrait esquerdo se o node tiver sprite
             if (node.portrait != null)
             {
                 leftPortrait.sprite = node.portrait;
                 leftPortrait.gameObject.SetActive(true);
             }
-
             leftNameBox.SetActive(true);
             leftNameText.text = node.speakerName;
             rightNameBox.SetActive(false);
         }
         else
         {
-            // Ativa e atualiza o portrait direito se o node tiver sprite
             if (node.portrait != null)
             {
                 rightPortrait.sprite = node.portrait;
                 rightPortrait.gameObject.SetActive(true);
             }
-
             rightNameBox.SetActive(true);
             rightNameText.text = node.speakerName;
             leftNameBox.SetActive(false);
         }
 
-        // Escurece quem não está falando
         if (leftPortrait.gameObject.activeSelf)
             SetBrilho(leftPortrait, ladoEsquerda);
 
@@ -145,10 +138,26 @@ public class DialogueRunner : MonoBehaviour
 
     void AdvanceDialogue()
     {
-        // Executa a ação de quest do nó atual ANTES de avançar
+        // ← NOVO: se StartQuest foi executado no input anterior, fecha agora
+        if (_fecharNoProximoInput)
+        {
+            _fecharNoProximoInput = false;
+            EndDialogue();
+            return;
+        }
+
         var currentNode = currentAsset.nodes[currentIndex];
         if (currentNode.acaoDeQuest != DialogueActionType.None)
+        {
             DialogueActions.Execute(currentNode.acaoDeQuest, currentNode.questDef);
+
+            // ← NOVO: agenda fechamento no próximo input após StartQuest
+            if (currentNode.acaoDeQuest == DialogueActionType.StartQuest)
+            {
+                _fecharNoProximoInput = true;
+                return;
+            }
+        }
 
         currentIndex++;
         AvancarParaProximoNoVisivel();
@@ -170,7 +179,6 @@ public class DialogueRunner : MonoBehaviour
 
     bool NoEstaVisivel(DialogueNode node)
     {
-        // Se não há quest vinculada ao NPC ou filtro é Sempre → sempre visível
         if (questDoDialogo == null || node.estadoQuest == QuestStateFilter.Sempre)
             return true;
 
@@ -196,11 +204,11 @@ public class DialogueRunner : MonoBehaviour
 
     public void EndDialogue()
     {
+        _fecharNoProximoInput = false; // ← NOVO: reset ao fechar
         dialoguePanel.SetActive(false);
         currentAsset = null;
 
-        GameManager.Instance.inputBloqueado = false; // ← DESBLOQUEIA input
-
+        GameManager.Instance.inputBloqueado = false;
 
         var cb = _onEnd;
         _onEnd = null;
