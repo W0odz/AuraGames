@@ -115,7 +115,10 @@ public class QuestManager : MonoBehaviour
 
     public void NotificarMorteInimigo(string enemyId)
     {
-        Debug.Log($"[QuestManager] NotificarMorteInimigo chamado com ID: '{enemyId}'"); // ← debug
+        Debug.Log($"[QuestManager] NotificarMorteInimigo chamado com ID: '{enemyId}'");
+
+        var battlePrefabAtual = GameManager.Instance?.currentExplorationEnemyBattlePrefab;
+
         foreach (var kvp in questStates)
         {
             if (kvp.Value != QuestState.Active) continue;
@@ -131,14 +134,24 @@ public class QuestManager : MonoBehaviour
                     Debug.LogWarning($"[QuestManager] Objetivo KillEnemy sem enemyPrefab atribuído na quest '{def.questName}'");
                     continue;
                 }
-
-                var ai = obj.enemyPrefab.GetComponent<EnemyAIController>();
-                Debug.Log($"[QuestManager] Comparando prefab enemyID='{ai?.enemyID}' com '{enemyId}'"); // ← debug
-                if (ai == null || ai.enemyID != enemyId) continue;
                 if (obj.EstaCompleto()) continue;
 
+                var aiObjetivo = obj.enemyPrefab.GetComponent<EnemyAIController>();
+                if (aiObjetivo == null) continue;
+
+                // Compara pelo battlePrefab — independente de string ID ou nome de objeto
+                bool bate = false;
+                if (battlePrefabAtual != null && aiObjetivo.battlePrefab != null)
+                    bate = aiObjetivo.battlePrefab == battlePrefabAtual;
+                else
+                    // fallback para string ID caso battlePrefab não esteja configurado
+                    bate = !string.IsNullOrEmpty(aiObjetivo.enemyID) && aiObjetivo.enemyID == enemyId;
+
+                Debug.Log($"[QuestManager] Comparando battlePrefab do prefab='{aiObjetivo.battlePrefab?.name}' com atual='{battlePrefabAtual?.name}' — bate={bate}");
+                if (!bate) continue;
+
                 obj.progressoAtual = Mathf.Min(obj.progressoAtual + 1, obj.quantidadeNecessaria);
-                Debug.Log($"[QuestManager] Progresso atualizado: {obj.progressoAtual}/{obj.quantidadeNecessaria}"); // ← debug
+                Debug.Log($"[QuestManager] Progresso KillEnemy atualizado: {obj.progressoAtual}/{obj.quantidadeNecessaria}");
                 algumMudou = true;
             }
 
@@ -173,6 +186,8 @@ public class QuestManager : MonoBehaviour
 
     public void NotificarInicioCombate(string enemyId)
     {
+        var battlePrefabAtual = GameManager.Instance?.currentExplorationEnemyBattlePrefab;
+
         foreach (var kvp in questStates)
         {
             if (kvp.Value != QuestState.Active) continue;
@@ -186,8 +201,16 @@ public class QuestManager : MonoBehaviour
                 if (obj.EstaCompleto()) continue;
                 if (obj.battleEnemyPrefab == null) continue;
 
-                var ai = obj.battleEnemyPrefab.GetComponent<EnemyAIController>();
-                if (ai == null || ai.enemyID != enemyId) continue;
+                var aiObjetivo = obj.battleEnemyPrefab.GetComponent<EnemyAIController>();
+                if (aiObjetivo == null) continue;
+
+                bool bate = false;
+                if (battlePrefabAtual != null && aiObjetivo.battlePrefab != null)
+                    bate = aiObjetivo.battlePrefab == battlePrefabAtual;
+                else
+                    bate = !string.IsNullOrEmpty(aiObjetivo.enemyID) && aiObjetivo.enemyID == enemyId;
+
+                if (!bate) continue;
 
                 obj.progressoAtual = 1;
                 algumMudou = true;
