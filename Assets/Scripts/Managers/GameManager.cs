@@ -305,7 +305,7 @@ public class GameManager : MonoBehaviour
 
         // 3. Fade In (Clarear)
         // Damos um pequeno delay para a cena carregar
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSecondsRealtime(0.1f);
         yield return StartCoroutine(FadeInCoroutine());
     }
 
@@ -360,7 +360,7 @@ public class GameManager : MonoBehaviour
 
         while (alpha < 1)
         {
-            alpha += Time.deltaTime * fadeSpeed;
+            alpha += Time.unscaledDeltaTime * fadeSpeed;
 
             // Aplica a cor preta
             fadeImage.color = new Color(0, 0, 0, alpha);
@@ -384,7 +384,7 @@ public class GameManager : MonoBehaviour
         float alpha = 1;
         while (alpha > 0)
         {
-            alpha -= Time.deltaTime * fadeSpeed;
+            alpha -= Time.unscaledDeltaTime * fadeSpeed;
             fadeImage.color = new Color(0, 0, 0, alpha);
             yield return null;
         }

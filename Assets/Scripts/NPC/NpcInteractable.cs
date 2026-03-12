@@ -17,6 +17,10 @@ public class NpcInteractable : MonoBehaviour
     public bool isMerchant = false;
     private bool playerNearby = false;
 
+    // Tempo unscaled da última interação — evita reabrir o diálogo no mesmo frame que fechou
+    private float ultimaInteracaoTime = -999f;
+    private const float cooldownInteracao = 0.05f; // ← era 0.2f
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player")) playerNearby = true;
@@ -29,9 +33,17 @@ public class NpcInteractable : MonoBehaviour
 
     void Update()
     {
+        Debug.Log($"[NPC] inputBloqueado={GameManager.Instance.inputBloqueado}, playerNearby={playerNearby}, dialogueActive={DialogueRunner.Instance.IsDialogueActive}");
         if (GameManager.Instance.inputBloqueado) return;
-        if (playerNearby && Input.GetKeyDown(KeyCode.E) && !DialogueRunner.Instance.IsDialogueActive)
-            OnInteract();
+        if (!playerNearby) return;
+        if (DialogueRunner.Instance.IsDialogueActive) return;
+        if (!Input.GetKeyDown(KeyCode.E)) return;
+
+        // Cooldown: ignora se acabou de fechar o diálogo neste mesmo frame / instante
+        if (Time.unscaledTime - ultimaInteracaoTime < cooldownInteracao) return;
+
+        ultimaInteracaoTime = Time.unscaledTime;
+        OnInteract();
     }
 
     public void OnInteract()

@@ -292,9 +292,9 @@ MonoBehaviour:
   isPassive: 0
   wanderSpeed: 2
   chaseSpeed: 4
-  battlePrefab: {fileID: 0}
+  battlePrefab: {fileID: 6089210800779420423, guid: 711663b74ec70b04d84c1a74c9e0553c, type: 3}
   isBoss: 0
   chaseDuration: 10
   mapBoundsCollider: {fileID: 0}
   aggroDetectors: []
-  enemyID: enemy_test
+  enemyID: 

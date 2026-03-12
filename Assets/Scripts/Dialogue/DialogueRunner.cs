@@ -1,7 +1,8 @@
+using System;
+using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System;
 
 public class DialogueRunner : MonoBehaviour
 {
@@ -21,16 +22,18 @@ public class DialogueRunner : MonoBehaviour
     public DialogueAsset currentAsset;
     private int currentIndex = 0;
     private bool recentlyOpened = false;
+    private float recentlyOpenedTime = 0f;       // ← tempo unscaled em que abriu
+    private const float recentlyOpenedDelay = 0.15f; // ← delay mínimo antes de aceitar input
     private Action _onEnd;
     private QuestDefinition questDoDialogo;
-    private bool _fecharNoProximoInput = false; // ← NOVO
+    private bool _eSeguroAnterior = false;
 
     public static DialogueRunner Instance { get; private set; }
 
     private void Awake()
     {
-        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
+        Debug.Log($"[DR] Awake — instância ID: {gameObject.GetInstanceID()}");
     }
 
     void Update()
@@ -39,12 +42,23 @@ public class DialogueRunner : MonoBehaviour
 
         if (recentlyOpened)
         {
-            if (!Input.GetKey(KeyCode.E)) recentlyOpened = false;
+            if (Time.unscaledTime - recentlyOpenedTime >= recentlyOpenedDelay)
+                recentlyOpened = false;
             return;
         }
+        Debug.Log($"[DR] aguardando E — instância ID: {gameObject.GetInstanceID()}");
 
-        if (Input.GetKeyDown(KeyCode.E))
+        // GetKeyDown pode falhar com timeScale=0 em algumas versões do Unity
+        // Usar GetKey com controle manual de estado é mais confiável
+        if (Input.GetKey(KeyCode.E) && !_eSeguroAnterior)
+        {
+            _eSeguroAnterior = true;
             AdvanceDialogue();
+        }
+        else if (!Input.GetKey(KeyCode.E))
+        {
+            _eSeguroAnterior = false;
+        }
     }
 
     public bool IsDialogueActive
@@ -68,9 +82,10 @@ public class DialogueRunner : MonoBehaviour
         _onEnd = onEnd;
         currentAsset = asset;
         currentIndex = 0;
-        _fecharNoProximoInput = false; // ← NOVO: reset ao iniciar
+        _eSeguroAnterior = true; // ← começa como true para ignorar o E que abriu o diálogo
         dialoguePanel.SetActive(true);
         recentlyOpened = true;
+        recentlyOpenedTime = Time.unscaledTime;
 
         AplicarPortraitFixo(leftPortrait, asset.portraitEsquerda);
         AplicarPortraitFixo(rightPortrait, asset.portraitDireita);
@@ -138,23 +153,18 @@ public class DialogueRunner : MonoBehaviour
 
     void AdvanceDialogue()
     {
-        // ← NOVO: se StartQuest foi executado no input anterior, fecha agora
-        if (_fecharNoProximoInput)
-        {
-            _fecharNoProximoInput = false;
-            EndDialogue();
-            return;
-        }
-
         var currentNode = currentAsset.nodes[currentIndex];
+
+        // Executa a ação de quest do nó atual
         if (currentNode.acaoDeQuest != DialogueActionType.None)
         {
             DialogueActions.Execute(currentNode.acaoDeQuest, currentNode.questDef);
 
-            // ← NOVO: agenda fechamento no próximo input após StartQuest
+            // Após StartQuest, fecha o diálogo imediatamente
+            // O nó Active só deve aparecer na PRÓXIMA interação
             if (currentNode.acaoDeQuest == DialogueActionType.StartQuest)
             {
-                _fecharNoProximoInput = true;
+                EndDialogue();
                 return;
             }
         }
@@ -165,8 +175,12 @@ public class DialogueRunner : MonoBehaviour
 
     void AvancarParaProximoNoVisivel()
     {
+
         while (currentIndex < currentAsset.nodes.Length)
         {
+            var node = currentAsset.nodes[currentIndex];
+            bool visivel = NoEstaVisivel(node);
+
             if (NoEstaVisivel(currentAsset.nodes[currentIndex]))
             {
                 ShowNode();
@@ -204,7 +218,7 @@ public class DialogueRunner : MonoBehaviour
 
     public void EndDialogue()
     {
-        _fecharNoProximoInput = false; // ← NOVO: reset ao fechar
+        _eSeguroAnterior = false; // ← reset ao fechar
         dialoguePanel.SetActive(false);
         currentAsset = null;
 
