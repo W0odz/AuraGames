@@ -3,7 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public class QuestObjective
 {
-    public string descricao; // Texto exibido na UI: "Matar 3 Lobos"
+    public string descricao;
     public QuestObjectiveType tipo;
 
     // Para CollectItem / DeliverItem
@@ -11,20 +11,20 @@ public class QuestObjective
     public int quantidadeNecessaria;
 
     // Para KillEnemy
-    [Tooltip("Arraste aqui o prefab do inimigo de EXPLORAÇÃO (EnemyAIController). O ID será lido automaticamente.")]
-    public GameObject enemyPrefab; // Referência direta ao prefab de exploração
+    [Tooltip("Arraste aqui o prefab do inimigo de EXPLORAÇÃO (pasta Assets).")]
+    public GameObject enemyPrefab; // ← GameObject aceito no ScriptableObject
 
     // Para TalkToNpc
-    public string npcName; // Bate com gameObject.name do NPC
+    public string npcName;
 
     // Para EnterBattle
-    [Tooltip("ID do inimigo cujo combate precisa ser iniciado. Bate com GameManager.currentEnemyID.")]
-    public string battleEnemyId;
+    [Tooltip("Arraste aqui o prefab do inimigo de EXPLORAÇÃO (pasta Assets).")]
+    public GameObject battleEnemyPrefab; // ← idem
 
-    // Para Timer (duração em segundos)
+    // Para Timer
     public float timerNecessario;
 
-    // Progresso em runtime (não serializado no SO, controlado pelo QuestManager)
+    // Progresso em runtime
     public int progressoAtual;
     public float timerAtual;
 

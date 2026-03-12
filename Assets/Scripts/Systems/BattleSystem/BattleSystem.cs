@@ -21,7 +21,7 @@ public class BattleSystem : MonoBehaviour
     public EnemyUnit enemyUnit;
 
     [Header("Dados do Jogador")]
-    public PlayerUnit playerUnit; // setado em runtime via PlayerUnit.Instance
+    public PlayerUnit playerUnit;
 
     [Header("Interface (HUD)")]
     public BattleHUD playerHUD;
@@ -57,7 +57,7 @@ public class BattleSystem : MonoBehaviour
     {
         if (PlayerUnit.Instance == null)
         {
-            Debug.LogError("[BattleSystem] PlayerUnit.Instance é NULL. Garanta que existe um PlayerUnit persistente antes da BattleScene carregar.");
+            Debug.LogError("[BattleSystem] PlayerUnit.Instance é NULL.");
             yield break;
         }
 
@@ -74,7 +74,6 @@ public class BattleSystem : MonoBehaviour
             yield break;
         }
 
-        // Notifica o QuestManager que um combate com este inimigo foi iniciado
         if (QuestManager.Instance != null)
         {
             string enemyId = GameManager.Instance?.currentEnemyID ?? enemyUnit.unitName;
@@ -116,9 +115,6 @@ public class BattleSystem : MonoBehaviour
 
     void PlayerTurn()
     {
-        // DEFINIÇÃO DE TURNO:
-        // Um turno é "quando o jogador recebe controle" (entrada em PlayerTurn()).
-        // Então debuffs sempre tickam aqui e somente aqui.
         playerUnit.TickDebuffsOnPlayerTurnStart();
 
         if (playerUnit.HasDebuff(DebuffType.Stun))
@@ -166,7 +162,6 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerAttackSequence(float multiplicador)
     {
-        // Weakness afeta dano do player
         float multDebuff = playerUnit.GetDamageMultiplierFromDebuffs();
         int danoFinal = Mathf.RoundToInt(playerUnit.strength * multiplicador * multDebuff);
 
@@ -203,7 +198,6 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
 
-        // Esquiva (EvasionDown já está embutido em GetEffectiveAgility)
         int enemyAcc = enemyUnit.accuracy;
         int playerAgiEfetiva = playerUnit.GetEffectiveAgility();
 
@@ -221,7 +215,6 @@ public class BattleSystem : MonoBehaviour
             yield break;
         }
 
-        // Parte do corpo + debuff
         BodyPartType part = ChooseEnemyTargetPart();
 
         PlayerBodyParts bodyParts = playerUnit.GetComponent<PlayerBodyParts>();
@@ -249,13 +242,9 @@ public class BattleSystem : MonoBehaviour
         if (isDead)
         {
             if (PlayerUnit.Instance != null && PlayerUnit.Instance.temForcaDeVontade)
-            {
                 yield return StartCoroutine(VerificarForcaDeVontade());
-            }
             else
-            {
                 StartCoroutine(GameOver());
-            }
         }
         else
         {
@@ -302,10 +291,8 @@ public class BattleSystem : MonoBehaviour
 
         if (r < 0.10f) return BodyPartType.Head;
         if (r < 0.50f) return BodyPartType.Torso;
-
         if (r < 0.65f) return BodyPartType.LeftArm;
         if (r < 0.80f) return BodyPartType.RightArm;
-
         if (r < 0.90f) return BodyPartType.LeftLeg;
         return BodyPartType.RightLeg;
     }
@@ -330,7 +317,11 @@ public class BattleSystem : MonoBehaviour
 
         // Notifica o QuestManager sobre a morte do inimigo
         if (QuestManager.Instance != null && enemyUnit != null)
-            QuestManager.Instance.NotificarMorteInimigo(GameManager.Instance?.currentEnemyID ?? enemyUnit.unitName);
+        {
+            string enemyId = GameManager.Instance?.currentEnemyID ?? enemyUnit.unitName;
+            Debug.Log($"[BattleSystem] NotificarMorteInimigo com ID: '{enemyId}'"); // ← debug tracker
+            QuestManager.Instance.NotificarMorteInimigo(enemyId);
+        }
 
         if (dialogueText != null)
             dialogueText.text = "O " + enemyUnit.unitName + " foi derrotado!";
@@ -354,15 +345,17 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(pausaAposXP);
 
-        if (GameManager.Instance != null) GameManager.Instance.LoadSceneWithFade(nomeCenaMapa);
-        else Debug.LogError("GameManager.Instance é null. Não foi possível fazer LoadSceneWithFade.");
-
+        // ← CORRIGIDO: removido o LoadSceneWithFade duplicado
         if (GameManager.Instance != null)
         {
             GameManager.Instance.defeatedEnemyIDs.Add(GameManager.Instance.currentEnemyID);
             GameManager.Instance.isReturningFromBattle = true;
             GameManager.Instance.StartCombatGracePeriod();
             GameManager.Instance.LoadSceneWithFade(nomeCenaMapa);
+        }
+        else
+        {
+            Debug.LogError("[BattleSystem] GameManager.Instance é null.");
         }
     }
 
@@ -380,26 +373,18 @@ public class BattleSystem : MonoBehaviour
             float a = Mathf.Lerp(1f, 0f, t / duracao);
 
             if (spriteRenderers != null)
-            {
                 foreach (var sr in spriteRenderers)
                 {
                     if (!sr) continue;
-                    var c = sr.color;
-                    c.a = a;
-                    sr.color = c;
+                    var c = sr.color; c.a = a; sr.color = c;
                 }
-            }
 
             if (images != null)
-            {
                 foreach (var img in images)
                 {
                     if (!img) continue;
-                    var c = img.color;
-                    c.a = a;
-                    img.color = c;
+                    var c = img.color; c.a = a; img.color = c;
                 }
-            }
 
             yield return null;
         }
@@ -473,7 +458,6 @@ public class BattleSystem : MonoBehaviour
     {
         state = BattleState.BUSY;
 
-        // 20% de chance de falhar
         bool falhou = Random.value < 0.2f;
 
         if (falhou)
@@ -483,7 +467,6 @@ public class BattleSystem : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
 
-            // Fuga falhou = turno passa pro inimigo
             state = BattleState.ENEMYTURN;
             StartCoroutine(EnemyTurn());
         }
@@ -494,7 +477,6 @@ public class BattleSystem : MonoBehaviour
 
             yield return new WaitForSeconds(1.5f);
 
-            // Volta pra cena de exploração sem XP e sem matar o inimigo
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.isReturningFromBattle = true;

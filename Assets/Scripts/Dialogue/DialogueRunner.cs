@@ -75,8 +75,8 @@ public class DialogueRunner : MonoBehaviour
         AplicarPortraitFixo(leftPortrait, asset.portraitEsquerda);
         AplicarPortraitFixo(rightPortrait, asset.portraitDireita);
 
-        AvancarParaProximoNoVisivel();
         Time.timeScale = 0f;
+        AvancarParaProximoNoVisivel();
     }
 
     void AplicarPortraitFixo(Image img, Sprite sprite)

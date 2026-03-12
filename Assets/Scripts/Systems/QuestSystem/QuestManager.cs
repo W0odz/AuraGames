@@ -25,7 +25,6 @@ public class QuestManager : MonoBehaviour
 
     private void Update()
     {
-        // Avança timers e verifica objetivos EnterBattle não têm tick — apenas Timer precisa de Update
         foreach (var kvp in new Dictionary<string, QuestState>(questStates))
         {
             if (kvp.Value != QuestState.Active) continue;
@@ -47,14 +46,12 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    /// <summary>Inicia uma quest pelo ScriptableObject. Verifica pré-requisitos.</summary>
     public void StartQuest(QuestDefinition def)
     {
         if (def == null) return;
         if (questStates.TryGetValue(def.questId, out var existing) && existing != QuestState.NotStarted)
             return;
 
-        // Verifica pré-requisitos
         if (def.questsNecessarias != null)
         {
             foreach (var prereq in def.questsNecessarias)
@@ -68,11 +65,9 @@ public class QuestManager : MonoBehaviour
             }
         }
 
-        // Registra a quest
         questStates[def.questId] = QuestState.Active;
         questDefs[def.questId] = def;
 
-        // Reseta progresso dos objetivos
         if (def.objetivos != null)
         {
             foreach (var obj in def.objetivos)
@@ -86,13 +81,12 @@ public class QuestManager : MonoBehaviour
         Debug.Log($"[QuestManager] Quest iniciada: {def.questName}");
     }
 
-    /// <summary>Overload para manter compatibilidade com chamadas que usam string.</summary>
     public void StartQuest(string questId)
     {
         if (questDefs.TryGetValue(questId, out var def))
             StartQuest(def);
         else
-            Debug.LogWarning($"[QuestManager] Quest com ID '{questId}' não registrada. Use StartQuest(QuestDefinition) primeiro.");
+            Debug.LogWarning($"[QuestManager] Quest com ID '{questId}' não registrada.");
     }
 
     public void NotificarColetaItem(DadosItem item, int quantidade)
@@ -121,6 +115,7 @@ public class QuestManager : MonoBehaviour
 
     public void NotificarMorteInimigo(string enemyId)
     {
+        Debug.Log($"[QuestManager] NotificarMorteInimigo chamado com ID: '{enemyId}'"); // ← debug
         foreach (var kvp in questStates)
         {
             if (kvp.Value != QuestState.Active) continue;
@@ -131,15 +126,19 @@ public class QuestManager : MonoBehaviour
             foreach (var obj in def.objetivos)
             {
                 if (obj.tipo != QuestObjectiveType.KillEnemy) continue;
+                if (obj.enemyPrefab == null)
+                {
+                    Debug.LogWarning($"[QuestManager] Objetivo KillEnemy sem enemyPrefab atribuído na quest '{def.questName}'");
+                    continue;
+                }
 
-                // Lê o enemyID direto do prefab referenciado
-                if (obj.enemyPrefab == null) continue;
                 var ai = obj.enemyPrefab.GetComponent<EnemyAIController>();
+                Debug.Log($"[QuestManager] Comparando prefab enemyID='{ai?.enemyID}' com '{enemyId}'"); // ← debug
                 if (ai == null || ai.enemyID != enemyId) continue;
-
                 if (obj.EstaCompleto()) continue;
 
                 obj.progressoAtual = Mathf.Min(obj.progressoAtual + 1, obj.quantidadeNecessaria);
+                Debug.Log($"[QuestManager] Progresso atualizado: {obj.progressoAtual}/{obj.quantidadeNecessaria}"); // ← debug
                 algumMudou = true;
             }
 
@@ -172,10 +171,6 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Chamado pelo BattleSystem no início do SetupBattle.
-    /// Completa objetivos do tipo EnterBattle cujo battleEnemyId bate com o inimigo atual.
-    /// </summary>
     public void NotificarInicioCombate(string enemyId)
     {
         foreach (var kvp in questStates)
@@ -188,8 +183,11 @@ public class QuestManager : MonoBehaviour
             foreach (var obj in def.objetivos)
             {
                 if (obj.tipo != QuestObjectiveType.EnterBattle) continue;
-                if (obj.battleEnemyId != enemyId) continue;
                 if (obj.EstaCompleto()) continue;
+                if (obj.battleEnemyPrefab == null) continue;
+
+                var ai = obj.battleEnemyPrefab.GetComponent<EnemyAIController>();
+                if (ai == null || ai.enemyID != enemyId) continue;
 
                 obj.progressoAtual = 1;
                 algumMudou = true;

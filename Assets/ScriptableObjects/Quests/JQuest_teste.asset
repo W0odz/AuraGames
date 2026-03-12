@@ -24,24 +24,30 @@ MonoBehaviour:
     tipo: 2
     itemAlvo: {fileID: 0}
     quantidadeNecessaria: 3
-    enemyId: enemy_test
+    enemyPrefab: {fileID: 6385819010840743586, guid: 02b620b65537ac74d8b98097ff8515ae, type: 3}
     npcName: 
-    battleEnemyId: 
+    battleEnemyPrefab: {fileID: 6089210800779420423, guid: 711663b74ec70b04d84c1a74c9e0553c, type: 3}
     timerNecessario: 0
+    progressoAtual: 0
+    timerAtual: 0
   - descricao: Colete 3 Cogumelos
     tipo: 0
     itemAlvo: {fileID: 11400000, guid: 77b4beb0be32be04a9e183978af9ea58, type: 2}
     quantidadeNecessaria: 3
-    enemyId: 
+    enemyPrefab: {fileID: 0}
     npcName: 
-    battleEnemyId: 
+    battleEnemyPrefab: {fileID: 0}
     timerNecessario: 0
+    progressoAtual: 0
+    timerAtual: 0
   - descricao: 
     tipo: 3
     itemAlvo: {fileID: 0}
     quantidadeNecessaria: 0
-    enemyId: 
+    enemyPrefab: {fileID: 0}
     npcName: 
-    battleEnemyId: 
+    battleEnemyPrefab: {fileID: 0}
     timerNecessario: 0
+    progressoAtual: 0
+    timerAtual: 0
   recompensaXP: 50
