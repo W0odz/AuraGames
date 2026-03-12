@@ -28,4 +28,12 @@ MonoBehaviour:
     npcName: 
     battleEnemyId: 
     timerNecessario: 0
+  - descricao: 
+    tipo: 0
+    itemAlvo: {fileID: 11400000, guid: 77b4beb0be32be04a9e183978af9ea58, type: 2}
+    quantidadeNecessaria: 3
+    enemyId: 
+    npcName: 
+    battleEnemyId: 
+    timerNecessario: 0
   recompensaXP: 50

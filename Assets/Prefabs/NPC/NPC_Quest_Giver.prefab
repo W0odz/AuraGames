@@ -211,6 +211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 296c6df9650ccba449574c32fe6b9437, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcInteractable
-  dialogoPadrao: {fileID: 11400000, guid: 7d75d5e8737419849b85ee9be915e07a, type: 2}
+  dialogoPadrao: {fileID: 11400000, guid: cc1d15867e4ee4d408137c6ad7d1708b, type: 2}
   dialogoUnico: {fileID: 0}
   isMerchant: 0

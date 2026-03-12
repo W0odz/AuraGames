@@ -21,9 +21,15 @@ MonoBehaviour:
     portrait: {fileID: 0}
     acaoDeQuest: 0
     questId: 
-  - text: Mata uns 3 Javali ai mano
+  - text: Mata uns 3 Javali e pega uns 3 cogumelo ai mano
     speakerSide: 1
     speakerName: Desgarrado
     portrait: {fileID: 0}
     acaoDeQuest: 1
+    questId: teste_quest
+  - text: "Ja\xE9"
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: 0}
+    acaoDeQuest: 0
     questId: 
