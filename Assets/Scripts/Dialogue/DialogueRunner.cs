@@ -132,6 +132,11 @@ public class DialogueRunner : MonoBehaviour
 
     void AdvanceDialogue()
     {
+        // Executa a ação de quest do nó atual ANTES de avançar
+        var currentNode = currentAsset.nodes[currentIndex];
+        if (currentNode.acaoDeQuest != DialogueActionType.None)
+            DialogueActions.Execute(currentNode.acaoDeQuest, currentNode.questDef);
+
         currentIndex++;
         if (currentIndex >= currentAsset.nodes.Length)
         {
