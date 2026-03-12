@@ -3,17 +3,15 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class NpcInteractable : MonoBehaviour
 {
-    [Header("Diálogo comum")]
+    [Header("Diálogo")]
     public DialogueAsset dialogoPadrao;
 
-    [Header("Diálogo único (primeira vez)")]
+    [Header("Diálogo único (primeira vez) — ignorado se questVinculada estiver preenchida")]
     public DialogueAsset dialogoUnico;
 
-    [Header("Diálogos de Quest (opcional — deixe questVinculada vazio para ignorar)")]
+    [Header("Quest vinculada (opcional)")]
+    [Tooltip("Se preenchida, os nós do dialogoPadrao serão filtrados pelo estado da quest. Deixe vazio para comportamento padrão.")]
     public QuestDefinition questVinculada;
-    public DialogueAsset dialogoQuestIniciar;   // Exibido quando quest está NotStarted
-    public DialogueAsset dialogoQuestAtivo;     // Exibido quando quest está Active
-    public DialogueAsset dialogoQuestEntrega;   // Exibido quando quest está Completed
 
     private bool jaInteragiu = false;
     public bool isMerchant = false;
@@ -38,45 +36,43 @@ public class NpcInteractable : MonoBehaviour
 
     public void OnInteract()
     {
-        // Notifica o QuestManager sobre a conversa com esse NPC
         if (QuestManager.Instance != null)
             QuestManager.Instance.NotificarConversa(gameObject.name);
 
-        // Se há uma quest vinculada, seleciona o diálogo pelo estado dela
-        if (questVinculada != null && QuestManager.Instance != null)
+        // Se há quest vinculada, usa sempre o dialogoPadrao com filtro de estado
+        if (questVinculada != null)
         {
-            DialogueAsset dialogoQuest = SelecionarDialogoPorEstadoDeQuest();
-            if (dialogoQuest != null)
+            if (dialogoPadrao == null)
             {
-                if (isMerchant)
-                {
-                    NpcMerchant merchant = GetComponent<NpcMerchant>();
-                    DialogueRunner.Instance.StartDialogue(dialogoQuest, () =>
-                    {
-                        if (merchant != null) merchant.OpenMerchantMenu();
-                    });
-                }
-                else
-                {
-                    DialogueRunner.Instance.StartDialogue(dialogoQuest);
-                }
+                Debug.LogWarning($"[NpcInteractable] {gameObject.name} tem questVinculada mas dialogoPadrao está vazio.");
                 return;
             }
-            // Se o diálogo do estado não foi preenchido, cai no comportamento padrão abaixo
+
+            if (isMerchant)
+            {
+                NpcMerchant merchant = GetComponent<NpcMerchant>();
+                DialogueRunner.Instance.StartDialogue(dialogoPadrao, questVinculada, () =>
+                {
+                    if (merchant != null) merchant.OpenMerchantMenu();
+                });
+            }
+            else
+            {
+                DialogueRunner.Instance.StartDialogue(dialogoPadrao, questVinculada);
+            }
+            return;
         }
 
-        // Comportamento original (sem quest vinculada ou diálogo do estado não preenchido)
+        // Comportamento original — sem quest vinculada
         if (isMerchant)
         {
             NpcMerchant merchant = GetComponent<NpcMerchant>();
-
             if (!jaInteragiu)
             {
                 if (dialogoUnico == null) dialogoUnico = dialogoPadrao;
                 DialogueRunner.Instance.StartDialogue(dialogoUnico, () =>
                 {
-                    if (merchant != null)
-                        merchant.OpenMerchantMenu();
+                    if (merchant != null) merchant.OpenMerchantMenu();
                 });
                 jaInteragiu = true;
             }
@@ -84,8 +80,7 @@ public class NpcInteractable : MonoBehaviour
             {
                 DialogueRunner.Instance.StartDialogue(dialogoPadrao, () =>
                 {
-                    if (merchant != null)
-                        merchant.OpenMerchantMenu();
+                    if (merchant != null) merchant.OpenMerchantMenu();
                 });
             }
         }
@@ -102,26 +97,5 @@ public class NpcInteractable : MonoBehaviour
                 DialogueRunner.Instance.StartDialogue(dialogoPadrao);
             }
         }
-    }
-
-    /// <summary>
-    /// Retorna o DialogueAsset correto baseado no estado atual da questVinculada.
-    /// Retorna null se o diálogo daquele estado não foi preenchido (cai no comportamento padrão).
-    /// </summary>
-    private DialogueAsset SelecionarDialogoPorEstadoDeQuest()
-    {
-        string id = questVinculada.questId;
-
-        if (QuestManager.Instance.IsTurnedIn(id))
-            return dialogoPadrao; // Quest já entregue → diálogo padrão
-
-        if (QuestManager.Instance.IsCompleted(id))
-            return dialogoQuestEntrega; // Completed → pronto para entregar
-
-        if (QuestManager.Instance.IsActive(id))
-            return dialogoQuestAtivo; // Active → em progresso
-
-        // NotStarted
-        return dialogoQuestIniciar;
     }
 }
