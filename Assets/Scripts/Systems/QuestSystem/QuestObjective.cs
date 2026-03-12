@@ -11,14 +11,14 @@ public class QuestObjective
     public int quantidadeNecessaria;
 
     // Para KillEnemy
-    [Tooltip("Arraste aqui o prefab do inimigo de EXPLORAÇÃO (pasta Assets).")]
+    [Tooltip("Arraste aqui o prefab do inimigo de EXPLORAÇÃO (que tem EnemyAIController com battlePrefab configurado). A comparação é feita pelo battlePrefab, não por string ID.")]
     public GameObject enemyPrefab; // ← GameObject aceito no ScriptableObject
 
     // Para TalkToNpc
     public string npcName;
 
     // Para EnterBattle
-    [Tooltip("Arraste aqui o prefab do inimigo de EXPLORAÇÃO (pasta Assets).")]
+    [Tooltip("Arraste aqui o prefab do inimigo de EXPLORAÇÃO cujo combate precisa ser iniciado. A comparação é feita pelo battlePrefab, não por string ID.")]
     public GameObject battleEnemyPrefab; // ← idem
 
     // Para Timer
