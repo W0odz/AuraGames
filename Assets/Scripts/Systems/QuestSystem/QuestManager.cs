@@ -140,7 +140,7 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    public void NotificarConversa(string npcName)
+    public void NotificarConversa(GameObject npc)
     {
         foreach (var kvp in questStates)
         {
@@ -149,7 +149,7 @@ public class QuestManager : MonoBehaviour
 
             var obj = ObterObjetivoAtual(def);
             if (obj == null || obj.tipo != QuestObjectiveType.TalkToNpc) continue;
-            if (obj.npcName != npcName) continue;
+            if (obj.npcAlvo == null || obj.npcAlvo != npc) continue;
             if (obj.EstaCompleto()) continue;
 
             obj.progressoAtual = Mathf.Max(1, obj.quantidadeNecessaria);
