@@ -115,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
                 if (ai.battlePrefab != null)
                 {
                     GameManager.Instance.nextBattleEnemyPrefab = ai.battlePrefab;
+                    GameManager.Instance.currentExplorationEnemyBattlePrefab = ai.battlePrefab;
                 }
                 else
                 {

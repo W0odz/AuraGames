@@ -25,36 +25,36 @@ public class QuestManager : MonoBehaviour
 
     private void Update()
     {
-        // Avança timers e verifica objetivos EnterBattle não têm tick — apenas Timer precisa de Update
         foreach (var kvp in new Dictionary<string, QuestState>(questStates))
         {
             if (kvp.Value != QuestState.Active) continue;
             if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
-            if (def.objetivos == null) continue;
 
-            bool algumMudou = false;
-            foreach (var obj in def.objetivos)
-            {
-                if (obj.tipo != QuestObjectiveType.Timer) continue;
-                if (obj.EstaCompleto()) continue;
+            var obj = ObterObjetivoAtual(def);
+            if (obj == null || obj.tipo != QuestObjectiveType.Timer) continue;
+            if (obj.EstaCompleto()) continue;
 
-                obj.timerAtual += Time.deltaTime;
-                algumMudou = true;
-            }
-
-            if (algumMudou)
-                VerificarConclusao(kvp.Key, def);
+            obj.timerAtual += Time.deltaTime;
+            VerificarConclusao(kvp.Key, def);
         }
     }
 
-    /// <summary>Inicia uma quest pelo ScriptableObject. Verifica pré-requisitos.</summary>
+    private QuestObjective ObterObjetivoAtual(QuestDefinition def)
+    {
+        if (def == null || def.objetivos == null) return null;
+        foreach (var obj in def.objetivos)
+        {
+            if (!obj.EstaCompleto()) return obj;
+        }
+        return null;
+    }
+
     public void StartQuest(QuestDefinition def)
     {
         if (def == null) return;
         if (questStates.TryGetValue(def.questId, out var existing) && existing != QuestState.NotStarted)
             return;
 
-        // Verifica pré-requisitos
         if (def.questsNecessarias != null)
         {
             foreach (var prereq in def.questsNecessarias)
@@ -68,11 +68,9 @@ public class QuestManager : MonoBehaviour
             }
         }
 
-        // Registra a quest
         questStates[def.questId] = QuestState.Active;
         questDefs[def.questId] = def;
 
-        // Reseta progresso dos objetivos
         if (def.objetivos != null)
         {
             foreach (var obj in def.objetivos)
@@ -86,13 +84,12 @@ public class QuestManager : MonoBehaviour
         Debug.Log($"[QuestManager] Quest iniciada: {def.questName}");
     }
 
-    /// <summary>Overload para manter compatibilidade com chamadas que usam string.</summary>
     public void StartQuest(string questId)
     {
         if (questDefs.TryGetValue(questId, out var def))
             StartQuest(def);
         else
-            Debug.LogWarning($"[QuestManager] Quest com ID '{questId}' não registrada. Use StartQuest(QuestDefinition) primeiro.");
+            Debug.LogWarning($"[QuestManager] Quest com ID '{questId}' não registrada.");
     }
 
     public void NotificarColetaItem(DadosItem item, int quantidade)
@@ -101,45 +98,45 @@ public class QuestManager : MonoBehaviour
         {
             if (kvp.Value != QuestState.Active) continue;
             if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
-            if (def.objetivos == null) continue;
 
-            bool algumMudou = false;
-            foreach (var obj in def.objetivos)
-            {
-                if (obj.tipo != QuestObjectiveType.CollectItem) continue;
-                if (obj.itemAlvo != item) continue;
-                if (obj.EstaCompleto()) continue;
+            var obj = ObterObjetivoAtual(def);
+            if (obj == null || obj.tipo != QuestObjectiveType.CollectItem) continue;
+            if (obj.itemAlvo != item) continue;
+            if (obj.EstaCompleto()) continue;
 
-                obj.progressoAtual = Mathf.Min(obj.progressoAtual + quantidade, obj.quantidadeNecessaria);
-                algumMudou = true;
-            }
-
-            if (algumMudou)
-                VerificarConclusao(kvp.Key, def);
+            obj.progressoAtual = Mathf.Min(obj.progressoAtual + quantidade, obj.quantidadeNecessaria);
+            VerificarConclusao(kvp.Key, def);
         }
     }
 
     public void NotificarMorteInimigo(string enemyId)
     {
+        var battlePrefabAtual = GameManager.Instance?.currentExplorationEnemyBattlePrefab;
+
         foreach (var kvp in questStates)
         {
             if (kvp.Value != QuestState.Active) continue;
             if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
-            if (def.objetivos == null) continue;
 
-            bool algumMudou = false;
-            foreach (var obj in def.objetivos)
-            {
-                if (obj.tipo != QuestObjectiveType.KillEnemy) continue;
-                if (obj.enemyId != enemyId) continue;
-                if (obj.EstaCompleto()) continue;
+            var obj = ObterObjetivoAtual(def);
+            if (obj == null || obj.tipo != QuestObjectiveType.KillEnemy) continue;
+            if (obj.enemyPrefab == null) continue;
+            if (obj.EstaCompleto()) continue;
 
-                obj.progressoAtual = Mathf.Min(obj.progressoAtual + 1, obj.quantidadeNecessaria);
-                algumMudou = true;
-            }
+            var aiObjetivo = obj.enemyPrefab.GetComponent<EnemyAIController>();
+            if (aiObjetivo == null) continue;
 
-            if (algumMudou)
-                VerificarConclusao(kvp.Key, def);
+            bool bate = false;
+            if (battlePrefabAtual != null && aiObjetivo.battlePrefab != null)
+                bate = aiObjetivo.battlePrefab == battlePrefabAtual;
+            else
+                bate = !string.IsNullOrEmpty(aiObjetivo.enemyID) && aiObjetivo.enemyID == enemyId;
+
+            if (!bate) continue;
+
+            obj.progressoAtual = Mathf.Min(obj.progressoAtual + 1, obj.quantidadeNecessaria);
+            Debug.Log($"[QuestManager] Progresso KillEnemy: {obj.progressoAtual}/{obj.quantidadeNecessaria}");
+            VerificarConclusao(kvp.Key, def);
         }
     }
 
@@ -149,49 +146,44 @@ public class QuestManager : MonoBehaviour
         {
             if (kvp.Value != QuestState.Active) continue;
             if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
-            if (def.objetivos == null) continue;
 
-            bool algumMudou = false;
-            foreach (var obj in def.objetivos)
-            {
-                if (obj.tipo != QuestObjectiveType.TalkToNpc) continue;
-                if (obj.npcName != npcName) continue;
-                if (obj.EstaCompleto()) continue;
+            var obj = ObterObjetivoAtual(def);
+            if (obj == null || obj.tipo != QuestObjectiveType.TalkToNpc) continue;
+            if (obj.npcName != npcName) continue;
+            if (obj.EstaCompleto()) continue;
 
-                obj.progressoAtual = Mathf.Max(1, obj.quantidadeNecessaria);
-                algumMudou = true;
-            }
-
-            if (algumMudou)
-                VerificarConclusao(kvp.Key, def);
+            obj.progressoAtual = Mathf.Max(1, obj.quantidadeNecessaria);
+            VerificarConclusao(kvp.Key, def);
         }
     }
 
-    /// <summary>
-    /// Chamado pelo BattleSystem no início do SetupBattle.
-    /// Completa objetivos do tipo EnterBattle cujo battleEnemyId bate com o inimigo atual.
-    /// </summary>
     public void NotificarInicioCombate(string enemyId)
     {
+        var battlePrefabAtual = GameManager.Instance?.currentExplorationEnemyBattlePrefab;
+
         foreach (var kvp in questStates)
         {
             if (kvp.Value != QuestState.Active) continue;
             if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
-            if (def.objetivos == null) continue;
 
-            bool algumMudou = false;
-            foreach (var obj in def.objetivos)
-            {
-                if (obj.tipo != QuestObjectiveType.EnterBattle) continue;
-                if (obj.battleEnemyId != enemyId) continue;
-                if (obj.EstaCompleto()) continue;
+            var obj = ObterObjetivoAtual(def);
+            if (obj == null || obj.tipo != QuestObjectiveType.EnterBattle) continue;
+            if (obj.battleEnemyPrefab == null) continue;
+            if (obj.EstaCompleto()) continue;
 
-                obj.progressoAtual = 1;
-                algumMudou = true;
-            }
+            var aiObjetivo = obj.battleEnemyPrefab.GetComponent<EnemyAIController>();
+            if (aiObjetivo == null) continue;
 
-            if (algumMudou)
-                VerificarConclusao(kvp.Key, def);
+            bool bate = false;
+            if (battlePrefabAtual != null && aiObjetivo.battlePrefab != null)
+                bate = aiObjetivo.battlePrefab == battlePrefabAtual;
+            else
+                bate = !string.IsNullOrEmpty(aiObjetivo.enemyID) && aiObjetivo.enemyID == enemyId;
+
+            if (!bate) continue;
+
+            obj.progressoAtual = 1;
+            VerificarConclusao(kvp.Key, def);
         }
     }
 
