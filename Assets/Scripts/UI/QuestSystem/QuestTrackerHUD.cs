@@ -20,6 +20,7 @@ public class QuestTrackerHUD : MonoBehaviour
     [System.NonSerialized] private QuestDefinition questAtual;
     [System.NonSerialized] private Coroutine coroutinePolling;
     [System.NonSerialized] private Coroutine coroutineAnimacao;
+    [System.NonSerialized] private QuestObjective objetivoExibido;
 
     private void Awake()
     {
@@ -59,6 +60,7 @@ public class QuestTrackerHUD : MonoBehaviour
         StopAllCoroutines();
         coroutinePolling = null;
         coroutineAnimacao = null;
+        objetivoExibido = null;
 
         if (QuestManager.Instance != null)
         {
@@ -97,6 +99,7 @@ public class QuestTrackerHUD : MonoBehaviour
         }
 
         questAtual = def;
+        objetivoExibido = ObterPrimeiroObjetivoIncompleto(def);
 
         if (textoNomeQuest != null)
             textoNomeQuest.text = def.questName;
@@ -123,6 +126,17 @@ public class QuestTrackerHUD : MonoBehaviour
         {
             if (obj != null && !obj.EstaCompleto())
                 return obj;
+        }
+        return null;
+    }
+
+    private QuestObjective ObterPrimeiroObjetivoIncompleto(QuestDefinition def)
+    {
+        if (def == null || def.objetivos == null) return null;
+        foreach (var obj in def.objetivos)
+        {
+            if (obj == null || obj.apenasInformativo) continue;
+            if (!obj.EstaCompleto()) return obj;
         }
         return null;
     }
@@ -156,33 +170,34 @@ public class QuestTrackerHUD : MonoBehaviour
         {
             if (questAtual == null) yield break;
 
-            QuestObjective obj = ObterObjetivoAtual(questAtual);
-
-            if (obj == null)
+            if (objetivoExibido == null)
             {
                 // Todos os objetivos concluídos — mantém o último riscado até onQuestEntregue
                 yield break;
             }
 
-            if (obj.EstaCompleto())
+            if (objetivoExibido.EstaCompleto())
             {
-                QuestObjective proximo = ObterProximoObjetivo(questAtual, obj);
+                QuestObjective proximo = ObterProximoObjetivo(questAtual, objetivoExibido);
                 if (proximo != null)
-                    IniciarAnimacaoTransicao(obj, proximo);
+                {
+                    IniciarAnimacaoTransicao(objetivoExibido, proximo);
+                    objetivoExibido = proximo;
+                }
                 else
                 {
-                    // Era o último objetivo — mostrar riscado e aguardar entrega
+                    // Último objetivo — mostrar riscado e aguardar entrega
                     if (textoObjetivo != null)
-                        textoObjetivo.text = $"<s>{obj.descricao}</s>";
+                        textoObjetivo.text = $"<s>{objetivoExibido.descricao}</s>";
                 }
                 yield break;
             }
 
             // Atualiza contagem em tempo real
             if (textoObjetivo != null)
-                textoObjetivo.text = FormatarObjetivo(obj);
+                textoObjetivo.text = FormatarObjetivo(objetivoExibido);
 
-            yield return new WaitForSecondsRealtime(intervaloPolling); // ← corrigido
+            yield return new WaitForSecondsRealtime(intervaloPolling);
         }
     }
 
