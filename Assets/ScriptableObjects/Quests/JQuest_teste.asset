@@ -12,12 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abee5bab6c77e584c921f9b738057644, type: 3}
   m_Name: JQuest_teste
   m_EditorClassIdentifier: Assembly-CSharp::QuestDefinition
-  questId: 
-  questName: 
+  questId: teste_quest
+  questName: JotaQuest
   description: 
-  questType: 0
-  npcDadorNome: 
-  npcEntregaNome: 
+  questType: 1
+  npcDadorNome: Desgarrado
+  npcEntregaNome: Desgarrado
   questsNecessarias: []
-  objetivos: []
+  objetivos:
+  - descricao: 
+    tipo: 2
+    itemAlvo: {fileID: 0}
+    quantidadeNecessaria: 3
+    enemyId: enemy_test
+    npcName: 
+    battleEnemyId: 
+    timerNecessario: 0
   recompensaXP: 50
