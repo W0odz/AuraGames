@@ -51,7 +51,7 @@ public class NpcInteractable : MonoBehaviour
     public void OnInteract()
     {
         if (QuestManager.Instance != null)
-            QuestManager.Instance.NotificarConversa(gameObject.name);
+            QuestManager.Instance.NotificarConversa(gameObject);
 
         // Se há quest vinculada, usa sempre o dialogoPadrao com filtro de estado
         if (questVinculada != null)

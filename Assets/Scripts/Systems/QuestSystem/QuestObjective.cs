@@ -15,7 +15,8 @@ public class QuestObjective
     public GameObject enemyPrefab; // ← GameObject aceito no ScriptableObject
 
     // Para TalkToNpc
-    public string npcName;
+    [Tooltip("Arraste aqui o GameObject do NPC com quem o jogador deve falar na cena.")]
+    public GameObject npcAlvo;
 
     // Para EnterBattle
     [Tooltip("Arraste aqui o prefab do inimigo de EXPLORAÇÃO cujo combate precisa ser iniciado. A comparação é feita pelo battlePrefab, não por string ID.")]

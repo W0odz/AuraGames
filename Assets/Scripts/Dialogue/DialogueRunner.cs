@@ -24,6 +24,7 @@ public class DialogueRunner : MonoBehaviour
     private bool recentlyOpened = false;
     private float recentlyOpenedTime = 0f;       // ← tempo unscaled em que abriu
     private const float recentlyOpenedDelay = 0.15f; // ← delay mínimo antes de aceitar input
+    private bool _eSeguroAnterior = false;
     private Action _onEnd;
     private QuestDefinition questDoDialogo;
 
@@ -43,13 +44,21 @@ public class DialogueRunner : MonoBehaviour
         if (recentlyOpened)
         {
             if (Time.unscaledTime - recentlyOpenedTime >= recentlyOpenedDelay)
+            {
                 recentlyOpened = false;
+                _eSeguroAnterior = false;
+            }
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKey(KeyCode.E) && !_eSeguroAnterior)
         {
+            _eSeguroAnterior = true;
             AdvanceDialogue();
+        }
+        else if (!Input.GetKey(KeyCode.E))
+        {
+            _eSeguroAnterior = false;
         }
     }
 
@@ -77,6 +86,7 @@ public class DialogueRunner : MonoBehaviour
         dialoguePanel.SetActive(true);
         recentlyOpened = true;
         recentlyOpenedTime = Time.unscaledTime;
+        _eSeguroAnterior = true;
 
         AplicarPortraitFixo(leftPortrait, asset.portraitEsquerda);
         AplicarPortraitFixo(rightPortrait, asset.portraitDireita);
