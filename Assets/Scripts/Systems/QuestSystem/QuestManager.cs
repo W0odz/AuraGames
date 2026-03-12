@@ -31,7 +31,8 @@ public class QuestManager : MonoBehaviour
             if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
 
             var obj = ObterObjetivoAtual(def);
-            if (obj == null || obj.tipo != QuestObjectiveType.Timer) continue;
+            if (obj == null || obj.apenasInformativo) continue;
+            if (obj.tipo != QuestObjectiveType.Timer) continue;
             if (obj.EstaCompleto()) continue;
 
             obj.timerAtual += Time.deltaTime;
@@ -42,10 +43,20 @@ public class QuestManager : MonoBehaviour
     private QuestObjective ObterObjetivoAtual(QuestDefinition def)
     {
         if (def == null || def.objetivos == null) return null;
+
+        // Retorna o primeiro objetivo real (não informativo) ainda incompleto
         foreach (var obj in def.objetivos)
         {
+            if (obj.apenasInformativo) continue;
             if (!obj.EstaCompleto()) return obj;
         }
+
+        // Todos os reais completos — retorna o informativo para exibir no HUD
+        foreach (var obj in def.objetivos)
+        {
+            if (obj.apenasInformativo) return obj;
+        }
+
         return null;
     }
 
@@ -193,6 +204,7 @@ public class QuestManager : MonoBehaviour
 
         foreach (var obj in def.objetivos)
         {
+            if (obj.apenasInformativo) continue; // ignora informativos
             if (!obj.EstaCompleto()) return;
         }
 

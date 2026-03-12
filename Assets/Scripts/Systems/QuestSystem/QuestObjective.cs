@@ -29,6 +29,10 @@ public class QuestObjective
     public int progressoAtual;
     public float timerAtual;
 
+    // Informativo — exibido no HUD mas não exigido para conclusão da quest
+    [Tooltip("Se marcado, este objetivo é apenas informativo. A quest completa quando todos os objetivos não-informativos terminarem. Este objetivo nunca precisa ser completado.")]
+    public bool apenasInformativo;
+
     public bool EstaCompleto()
     {
         if (tipo == QuestObjectiveType.Timer)
