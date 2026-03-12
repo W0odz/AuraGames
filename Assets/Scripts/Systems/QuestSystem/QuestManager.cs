@@ -105,7 +105,7 @@ public class QuestManager : MonoBehaviour
 
     public void NotificarColetaItem(DadosItem item, int quantidade)
     {
-        foreach (var kvp in questStates)
+        foreach (var kvp in new Dictionary<string, QuestState>(questStates)) // ← cópia
         {
             if (kvp.Value != QuestState.Active) continue;
             if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;

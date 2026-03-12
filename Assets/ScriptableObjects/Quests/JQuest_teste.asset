@@ -20,34 +20,37 @@ MonoBehaviour:
   npcEntregaNome: Desgarrado
   questsNecessarias: []
   objetivos:
-  - descricao: Mate 3 Javalis
+  - descricao: Mate  Javali
     tipo: 2
     itemAlvo: {fileID: 0}
-    quantidadeNecessaria: 3
+    quantidadeNecessaria: 1
     enemyPrefab: {fileID: 6385819010840743586, guid: 02b620b65537ac74d8b98097ff8515ae, type: 3}
-    npcName: 
+    npcAlvo: {fileID: 0}
     battleEnemyPrefab: {fileID: 6089210800779420423, guid: 711663b74ec70b04d84c1a74c9e0553c, type: 3}
     timerNecessario: 0
-    progressoAtual: 0
+    progressoAtual: 1
     timerAtual: 0
-  - descricao: Colete 3 Cogumelos
+    apenasInformativo: 0
+  - descricao: Colete  Cogumelo
     tipo: 0
     itemAlvo: {fileID: 11400000, guid: 77b4beb0be32be04a9e183978af9ea58, type: 2}
-    quantidadeNecessaria: 3
+    quantidadeNecessaria: 1
     enemyPrefab: {fileID: 0}
-    npcName: 
+    npcAlvo: {fileID: 0}
     battleEnemyPrefab: {fileID: 0}
     timerNecessario: 0
-    progressoAtual: 0
+    progressoAtual: 1
     timerAtual: 0
-  - descricao: 
+    apenasInformativo: 0
+  - descricao: "Volte para o Rog\xE9rio Flausino"
     tipo: 3
     itemAlvo: {fileID: 0}
     quantidadeNecessaria: 0
     enemyPrefab: {fileID: 0}
-    npcName: 
+    npcAlvo: {fileID: 1170966186078096790, guid: e35b6ff367f90c241b1e586212c672a3, type: 3}
     battleEnemyPrefab: {fileID: 0}
     timerNecessario: 0
     progressoAtual: 0
     timerAtual: 0
+    apenasInformativo: 1
   recompensaXP: 50
