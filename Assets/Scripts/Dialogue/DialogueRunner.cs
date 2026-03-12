@@ -22,6 +22,7 @@ public class DialogueRunner : MonoBehaviour
     private int currentIndex = 0;
     private bool recentlyOpened = false;
     private Action _onEnd;
+    private QuestDefinition questDoDialogo; // quest vinculada ao NPC atual, pode ser null
 
     public static DialogueRunner Instance { get; private set; }
 
@@ -48,7 +49,19 @@ public class DialogueRunner : MonoBehaviour
     public bool IsDialogueActive
         => currentAsset != null && dialoguePanel != null && dialoguePanel.activeSelf;
 
+    public void StartDialogue(DialogueAsset asset, QuestDefinition quest, Action onEnd = null)
+    {
+        questDoDialogo = quest;
+        IniciarDialogoInterno(asset, onEnd);
+    }
+
     public void StartDialogue(DialogueAsset asset, Action onEnd = null)
+    {
+        questDoDialogo = null; // reset — sem filtro de estado
+        IniciarDialogoInterno(asset, onEnd);
+    }
+
+    void IniciarDialogoInterno(DialogueAsset asset, Action onEnd)
     {
         GameManager.Instance.inputBloqueado = true;   // ← BLOQUEIA input
         _onEnd = onEnd;
@@ -61,7 +74,7 @@ public class DialogueRunner : MonoBehaviour
         AplicarPortraitFixo(leftPortrait, asset.portraitEsquerda);
         AplicarPortraitFixo(rightPortrait, asset.portraitDireita);
 
-        ShowNode();
+        AvancarParaProximoNoVisivel();
         Time.timeScale = 0f;
     }
 
@@ -138,12 +151,47 @@ public class DialogueRunner : MonoBehaviour
             DialogueActions.Execute(currentNode.acaoDeQuest, currentNode.questDef);
 
         currentIndex++;
-        if (currentIndex >= currentAsset.nodes.Length)
+        AvancarParaProximoNoVisivel();
+    }
+
+    void AvancarParaProximoNoVisivel()
+    {
+        while (currentIndex < currentAsset.nodes.Length)
         {
-            EndDialogue();
-            return;
+            if (NoEstaVisivel(currentAsset.nodes[currentIndex]))
+            {
+                ShowNode();
+                return;
+            }
+            currentIndex++;
         }
-        ShowNode();
+        EndDialogue();
+    }
+
+    bool NoEstaVisivel(DialogueNode node)
+    {
+        // Se não há quest vinculada ao NPC ou filtro é Sempre → sempre visível
+        if (questDoDialogo == null || node.estadoQuest == QuestStateFilter.Sempre)
+            return true;
+
+        var qm = QuestManager.Instance;
+        if (qm == null) return true;
+
+        string id = questDoDialogo.questId;
+
+        switch (node.estadoQuest)
+        {
+            case QuestStateFilter.NotStarted:
+                return !qm.IsActive(id) && !qm.IsCompleted(id) && !qm.IsTurnedIn(id);
+            case QuestStateFilter.Active:
+                return qm.IsActive(id);
+            case QuestStateFilter.Completed:
+                return qm.IsCompleted(id);
+            case QuestStateFilter.TurnedIn:
+                return qm.IsTurnedIn(id);
+            default:
+                return true;
+        }
     }
 
     public void EndDialogue()
