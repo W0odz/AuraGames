@@ -26,14 +26,14 @@ public class DialogueRunner : MonoBehaviour
     private const float recentlyOpenedDelay = 0.15f; // ← delay mínimo antes de aceitar input
     private Action _onEnd;
     private QuestDefinition questDoDialogo;
-    private bool _eSeguroAnterior = false;
+
+    public float ultimoFechamentoTime { get; private set; } = -999f;
 
     public static DialogueRunner Instance { get; private set; }
 
     private void Awake()
     {
         Instance = this;
-        Debug.Log($"[DR] Awake — instância ID: {gameObject.GetInstanceID()}");
     }
 
     void Update()
@@ -46,18 +46,10 @@ public class DialogueRunner : MonoBehaviour
                 recentlyOpened = false;
             return;
         }
-        Debug.Log($"[DR] aguardando E — instância ID: {gameObject.GetInstanceID()}");
 
-        // GetKeyDown pode falhar com timeScale=0 em algumas versões do Unity
-        // Usar GetKey com controle manual de estado é mais confiável
-        if (Input.GetKey(KeyCode.E) && !_eSeguroAnterior)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            _eSeguroAnterior = true;
             AdvanceDialogue();
-        }
-        else if (!Input.GetKey(KeyCode.E))
-        {
-            _eSeguroAnterior = false;
         }
     }
 
@@ -82,7 +74,6 @@ public class DialogueRunner : MonoBehaviour
         _onEnd = onEnd;
         currentAsset = asset;
         currentIndex = 0;
-        _eSeguroAnterior = true; // ← começa como true para ignorar o E que abriu o diálogo
         dialoguePanel.SetActive(true);
         recentlyOpened = true;
         recentlyOpenedTime = Time.unscaledTime;
@@ -218,7 +209,7 @@ public class DialogueRunner : MonoBehaviour
 
     public void EndDialogue()
     {
-        _eSeguroAnterior = false; // ← reset ao fechar
+        ultimoFechamentoTime = Time.unscaledTime;
         dialoguePanel.SetActive(false);
         currentAsset = null;
 
