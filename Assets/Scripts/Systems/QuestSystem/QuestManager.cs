@@ -131,7 +131,12 @@ public class QuestManager : MonoBehaviour
             foreach (var obj in def.objetivos)
             {
                 if (obj.tipo != QuestObjectiveType.KillEnemy) continue;
-                if (obj.enemyId != enemyId) continue;
+
+                // Lê o enemyID direto do prefab referenciado
+                if (obj.enemyPrefab == null) continue;
+                var ai = obj.enemyPrefab.GetComponent<EnemyAIController>();
+                if (ai == null || ai.enemyID != enemyId) continue;
+
                 if (obj.EstaCompleto()) continue;
 
                 obj.progressoAtual = Mathf.Min(obj.progressoAtual + 1, obj.quantidadeNecessaria);
