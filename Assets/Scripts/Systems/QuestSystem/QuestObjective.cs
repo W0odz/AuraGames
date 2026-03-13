@@ -3,7 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public class QuestObjective
 {
-    public string descricao; // Texto exibido na UI: "Matar 3 Lobos"
+    public string descricao;
     public QuestObjectiveType tipo;
 
     // Para CollectItem / DeliverItem
@@ -11,21 +11,27 @@ public class QuestObjective
     public int quantidadeNecessaria;
 
     // Para KillEnemy
-    public string enemyId; // Bate com EnemyAIController.enemyID
+    [Tooltip("Arraste aqui o prefab do inimigo de EXPLORAÇÃO (que tem EnemyAIController com battlePrefab configurado). A comparação é feita pelo battlePrefab, não por string ID.")]
+    public GameObject enemyPrefab; // ← GameObject aceito no ScriptableObject
 
     // Para TalkToNpc
-    public string npcName; // Bate com gameObject.name do NPC
+    [Tooltip("Arraste aqui o GameObject do NPC com quem o jogador deve falar na cena.")]
+    public GameObject npcAlvo;
 
     // Para EnterBattle
-    [Tooltip("ID do inimigo cujo combate precisa ser iniciado. Bate com GameManager.currentEnemyID.")]
-    public string battleEnemyId;
+    [Tooltip("Arraste aqui o prefab do inimigo de EXPLORAÇÃO cujo combate precisa ser iniciado. A comparação é feita pelo battlePrefab, não por string ID.")]
+    public GameObject battleEnemyPrefab; // ← idem
 
-    // Para Timer (duração em segundos)
+    // Para Timer
     public float timerNecessario;
 
-    // Progresso em runtime (não serializado no SO, controlado pelo QuestManager)
-    [System.NonSerialized] public int progressoAtual;
-    [System.NonSerialized] public float timerAtual;
+    // Progresso em runtime
+    public int progressoAtual;
+    public float timerAtual;
+
+    // Informativo — exibido no HUD mas não exigido para conclusão da quest
+    [Tooltip("Se marcado, este objetivo é apenas informativo. A quest completa quando todos os objetivos não-informativos terminarem. Este objetivo nunca precisa ser completado.")]
+    public bool apenasInformativo;
 
     public bool EstaCompleto()
     {

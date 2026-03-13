@@ -12,12 +12,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abee5bab6c77e584c921f9b738057644, type: 3}
   m_Name: JQuest_teste
   m_EditorClassIdentifier: Assembly-CSharp::QuestDefinition
-  questId: 
-  questName: 
+  questId: teste_quest
+  questName: JotaQuest
   description: 
-  questType: 0
-  npcDadorNome: 
-  npcEntregaNome: 
+  questType: 1
+  npcDadorNome: Desgarrado
+  npcEntregaNome: Desgarrado
   questsNecessarias: []
-  objetivos: []
+  objetivos:
+  - descricao: Mate  Javali
+    tipo: 2
+    itemAlvo: {fileID: 0}
+    quantidadeNecessaria: 1
+    enemyPrefab: {fileID: 6385819010840743586, guid: 02b620b65537ac74d8b98097ff8515ae, type: 3}
+    npcAlvo: {fileID: 0}
+    battleEnemyPrefab: {fileID: 6089210800779420423, guid: 711663b74ec70b04d84c1a74c9e0553c, type: 3}
+    timerNecessario: 0
+    progressoAtual: 1
+    timerAtual: 0
+    apenasInformativo: 0
+  - descricao: Colete  Cogumelo
+    tipo: 0
+    itemAlvo: {fileID: 11400000, guid: 77b4beb0be32be04a9e183978af9ea58, type: 2}
+    quantidadeNecessaria: 1
+    enemyPrefab: {fileID: 0}
+    npcAlvo: {fileID: 0}
+    battleEnemyPrefab: {fileID: 0}
+    timerNecessario: 0
+    progressoAtual: 1
+    timerAtual: 0
+    apenasInformativo: 0
+  - descricao: "Volte para o Rog\xE9rio Flausino"
+    tipo: 3
+    itemAlvo: {fileID: 0}
+    quantidadeNecessaria: 0
+    enemyPrefab: {fileID: 0}
+    npcAlvo: {fileID: 1170966186078096790, guid: e35b6ff367f90c241b1e586212c672a3, type: 3}
+    battleEnemyPrefab: {fileID: 0}
+    timerNecessario: 0
+    progressoAtual: 0
+    timerAtual: 0
+    apenasInformativo: 1
   recompensaXP: 50
