@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8634230083886269382}
   - component: {fileID: 5838686438572218954}
   m_Layer: 0
-  m_Name: Ervas
+  m_Name: Ervas v2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 4334181723069050510, guid: dfcdf43591c70f340b9b1c2ac47985d8, type: 3}
+  m_Sprite: {fileID: 8677496944202720639, guid: 6cc0eed01812ddf45b4e0f053e146027, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
