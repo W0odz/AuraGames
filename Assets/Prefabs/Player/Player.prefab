@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 989254865412476731}
   - component: {fileID: 2343346095757553459}
   - component: {fileID: 2224337464052428500}
+  - component: {fileID: 9014493366268893898}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -171,3 +172,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   moveSpeed: 14
   enemySafeRadiusOnReturn: 2.5
+--- !u!114 &9014493366268893898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5114076709285204727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21a50f493611b8c45b96d9a1d9825ea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
+  target: {fileID: 6533698976016816849}
