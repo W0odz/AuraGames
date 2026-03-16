@@ -84,6 +84,20 @@ public class PlayerUnit : Unit
     }
 
     #region Debuffs
+
+    public int GetEffectiveStrength()
+    {
+        int str = strength;
+
+        if (HasDebuff(DebuffType.StrengthUp))
+        {
+            int stacks = GetDebuffStacks(DebuffType.StrengthUp);
+            str += 10 * stacks; // cada stack adiciona 10 de força — ajusta como quiser
+        }
+
+        return str;
+    }
+
     public void ApplyDebuff(DebuffType type, int turns, int stacks = 1)
     {
         if (type == DebuffType.None) return;
