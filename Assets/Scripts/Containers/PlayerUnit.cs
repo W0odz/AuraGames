@@ -121,6 +121,20 @@ public class PlayerUnit : Unit
         }
     }
 
+    public bool RemoverDebuffAleatorio()
+    {
+        // Filtra só os debuffs ativos
+        var ativos = debuffs.FindAll(d => d.turnsLeft > 0);
+        if (ativos.Count == 0) return false;
+
+        // Escolhe um aleatório e remove
+        var escolhido = ativos[Random.Range(0, ativos.Count)];
+        debuffs.Remove(escolhido);
+
+        Debug.Log($"[PlayerUnit] Debuff removido: {escolhido.type}");
+        return true;
+    }
+
     public bool HasDebuff(DebuffType type)
     {
         return debuffs.Exists(d => d.type == type && d.turnsLeft > 0);
