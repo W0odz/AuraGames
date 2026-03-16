@@ -82,7 +82,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 296c6df9650ccba449574c32fe6b9437, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcInteractable
-  dialogueAsset: {fileID: 11400000, guid: 9c3d7a75c47515646b1ac924492230a4, type: 2}
+  dialogoPadrao: {fileID: 11400000, guid: 9c3d7a75c47515646b1ac924492230a4, type: 2}
+  dialogoUnico: {fileID: 0}
+  questVinculada: {fileID: 0}
   isMerchant: 0
 --- !u!1 &6927440882809047901
 GameObject:
@@ -112,7 +114,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.8, y: -3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.85, y: 1.8002883, z: 1.8002883}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3332716620632527199}
@@ -164,7 +166,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 1152047965712221352, guid: 7d5e095b02fa99347b65448d84e1876b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
