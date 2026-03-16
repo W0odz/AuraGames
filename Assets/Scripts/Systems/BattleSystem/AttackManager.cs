@@ -191,7 +191,7 @@ public class AttackManager : MonoBehaviour
 
         if (acertouCorpo)
         {
-            int forcaBase = BattleSystem.Instance.playerUnit.strength;
+            int forcaBase = BattleSystem.Instance.playerUnit.GetEffectiveStrength();
             danoFinal = Mathf.RoundToInt(forcaBase * multiplicadorFinal);
 
             if (BattleSystem.Instance.dialogueText != null)
