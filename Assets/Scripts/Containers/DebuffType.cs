@@ -3,6 +3,5 @@ public enum DebuffType
     None,
     Stun,
     Weakness,
-    EvasionDown,
-    StrengthUp
+    EvasionDown
 }
