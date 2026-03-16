@@ -20,6 +20,7 @@ public class QuestTrackerHUD : MonoBehaviour
     [System.NonSerialized] private QuestDefinition questAtual;
     [System.NonSerialized] private Coroutine coroutinePolling;
     [System.NonSerialized] private Coroutine coroutineAnimacao;
+    [System.NonSerialized] private Coroutine coroutineNome;
     [System.NonSerialized] private QuestObjective objetivoExibido;
 
     private void Awake()
@@ -60,6 +61,7 @@ public class QuestTrackerHUD : MonoBehaviour
         StopAllCoroutines();
         coroutinePolling = null;
         coroutineAnimacao = null;
+        coroutineNome = null;
         objetivoExibido = null;
 
         if (QuestManager.Instance != null)
@@ -77,7 +79,14 @@ public class QuestTrackerHUD : MonoBehaviour
 
     private void OnQuestCompleta(QuestDefinition def)
     {
-        // Mantém o painel visível até onQuestEntregue
+        if (questAtual == null || def == null || questAtual.questId != def.questId) return;
+
+        if (coroutineNome != null)
+        {
+            StopCoroutine(coroutineNome);
+            coroutineNome = null;
+        }
+        coroutineNome = StartCoroutine(AnimacaoQuestCompleta(def));
     }
 
     private void OnQuestEntregue(QuestDefinition def)
@@ -102,7 +111,12 @@ public class QuestTrackerHUD : MonoBehaviour
         objetivoExibido = ObterPrimeiroObjetivoIncompleto(def);
 
         if (textoNomeQuest != null)
+        {
+            Color c = textoNomeQuest.color;
+            c.a = 1f;
+            textoNomeQuest.color = c;
             textoNomeQuest.text = def.questName;
+        }
 
         QuestObjective obj = ObterObjetivoAtual(def);
         if (textoObjetivo != null)
@@ -188,7 +202,7 @@ public class QuestTrackerHUD : MonoBehaviour
                 {
                     // Último objetivo — mostrar riscado e aguardar entrega
                     if (textoObjetivo != null)
-                        textoObjetivo.text = $"<s>{objetivoExibido.descricao}</s>";
+                        textoObjetivo.text = $"<voffset=0.15em><s>{objetivoExibido.descricao}</s></voffset>";
                 }
                 yield break;
             }
@@ -232,7 +246,7 @@ public class QuestTrackerHUD : MonoBehaviour
         if (textoObjetivo == null) yield break;
 
         // 1. Mostrar riscado
-        textoObjetivo.text = $"<s>{objetivoConcluido.descricao}</s>";
+        textoObjetivo.text = $"<voffset=0.15em><s>{objetivoConcluido.descricao}</s></voffset>";
 
         // 2. Aguardar pausa (unscaled — não para com timeScale = 0)
         yield return new WaitForSecondsRealtime(pausaRiscado); // ← corrigido
@@ -269,5 +283,41 @@ public class QuestTrackerHUD : MonoBehaviour
 
         c.a = para;
         textoObjetivo.color = c;
+    }
+
+    private IEnumerator FadeTextoNome(float de, float para)
+    {
+        if (textoNomeQuest == null) yield break;
+
+        float elapsed = 0f;
+        Color c = textoNomeQuest.color;
+        c.a = de;
+        textoNomeQuest.color = c;
+
+        while (elapsed < duracaoFade)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            c.a = Mathf.Lerp(de, para, elapsed / duracaoFade);
+            textoNomeQuest.color = c;
+            yield return null;
+        }
+
+        c.a = para;
+        textoNomeQuest.color = c;
+    }
+
+    private IEnumerator AnimacaoQuestCompleta(QuestDefinition def)
+    {
+        if (def == null) yield break;
+
+        // 1. Aplicar strikethrough no nome
+        if (textoNomeQuest != null)
+            textoNomeQuest.text = $"<voffset=0.15em><s>{def.questName}</s></voffset>";
+
+        // 2. Aguardar a mesma pausa do riscado
+        yield return new WaitForSecondsRealtime(pausaRiscado);
+
+        // 3. Fade out do nome
+        yield return StartCoroutine(FadeTextoNome(1f, 0f));
     }
 }
