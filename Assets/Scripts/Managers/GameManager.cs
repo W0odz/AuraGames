@@ -124,11 +124,11 @@ public class GameManager : MonoBehaviour
     public int maxHP = 100;
     public int maxMP = 50;
     public int strength = 10;   // For�a (Ataque F�sico)
-    public int speed = 5;       // Velocidade (ordem de turno, etc - n�o implementado ainda)
-    public int resistance = 5;  // Resist�ncia (Defesa F�sica)
-    public int will = 10;       // Vontade (Ataque M�gico)
-    public int knowledge = 5;   // Conhecimento (Defesa M�gica)
-    public int luck = 5;        // Sorte (Taxa de Cr�tico)
+    //public int speed = 5;       // Velocidade (ordem de turno, etc - n�o implementado ainda)
+    //public int resistance = 5;  // Resist�ncia (Defesa F�sica)
+    //public int will = 10;       // Vontade (Ataque M�gico)
+    //public int knowledge = 5;   // Conhecimento (Defesa M�gica)
+    //public int luck = 5;        // Sorte (Taxa de Cr�tico)
     public DadosArma armaEquipada;
 
     #region M�todos Unity
@@ -186,11 +186,11 @@ public class GameManager : MonoBehaviour
         maxHP = data.maxHP;
         maxMP = data.maxMP;
         strength = data.strength;
-        speed = data.speed;
-        resistance = data.resistance;
-        will = data.will;
-        knowledge = data.knowledge;
-        luck = data.luck;
+        //speed = data.speed;
+        //resistance = data.resistance;
+        //will = data.will;
+        //knowledge = data.knowledge;
+        //luck = data.luck;
         defeatedEnemyIDs = data.defeatedEnemyIDs;
         collectedItemIDs = data.collectedItemIDs;
 
@@ -226,11 +226,11 @@ public class GameManager : MonoBehaviour
         currentHP = maxHP;
         currentMP = maxMP;
         strength = data.strength;
-        speed = data.speed;
-        resistance = data.resistance;
-        will = data.will;
-        knowledge = data.knowledge;
-        luck = data.luck;
+        //speed = data.speed;
+        //resistance = data.resistance;
+        //will = data.will;
+        //knowledge = data.knowledge;
+        //luck = data.luck;
         defeatedEnemyIDs = data.defeatedEnemyIDs;
         collectedItemIDs = data.collectedItemIDs;
 
@@ -253,11 +253,11 @@ public class GameManager : MonoBehaviour
         data.maxHP = maxHP;
         data.maxMP = maxMP;
         data.strength = strength;
-        data.speed = speed;
-        data.resistance = resistance;
-        data.will = will;
-        data.knowledge = knowledge;
-        data.luck = luck;
+        //data.speed = speed;
+        //data.resistance = resistance;
+        //data.will = will;
+        //data.knowledge = knowledge;
+        //data.luck = luck;
         data.defeatedEnemyIDs = defeatedEnemyIDs;
         data.collectedItemIDs = collectedItemIDs;
 
@@ -417,14 +417,15 @@ public class GameManager : MonoBehaviour
         xpToNextLevel = Mathf.FloorToInt(xpToNextLevel * 1.5f);
 
         // Aumenta os Status!
-        maxHP += 10;
+        maxHP += 6;
         maxMP += 5;
         strength += 2;
-        resistance += 1;
-        will += 2;
-        knowledge += 1;
-        speed += 1;
-        luck += 1;
+        PlayerUnit.Instance.agility += 2;
+        //resistance += 1;
+        //will += 2;
+        //knowledge += 1;
+        //speed += 1;
+        //luck += 1;
 
         // Cura o jogador totalmente ao subir de n�vel
         currentHP = maxHP;
