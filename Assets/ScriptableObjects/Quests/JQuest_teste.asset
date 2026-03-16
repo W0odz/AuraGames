@@ -39,7 +39,7 @@ MonoBehaviour:
     npcAlvo: {fileID: 0}
     battleEnemyPrefab: {fileID: 0}
     timerNecessario: 0
-    progressoAtual: 1
+    progressoAtual: 0
     timerAtual: 0
     apenasInformativo: 0
   - descricao: "Volte para o Rog\xE9rio Flausino"
