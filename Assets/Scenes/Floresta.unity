@@ -36819,7 +36819,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 12.604691, y: 9.128281}
+  m_Offset: {x: 12.426001, y: 9.024044}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -36829,7 +36829,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 21.10722, y: 3.7978745}
+  m_Size: {x: 20.332893, y: 3.5894012}
   m_EdgeRadius: 0
 --- !u!1 &557706484
 GameObject:
@@ -39469,7 +39469,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 11.202578, y: 8.86169}
+  m_Offset: {x: 11.351122, y: 9.123607}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -39479,7 +39479,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.4658623, y: 5.2890472}
+  m_Size: {x: 2.1687737, y: 4.765211}
   m_EdgeRadius: 0
 --- !u!1 &606953986
 GameObject:
@@ -60221,6 +60221,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
   target: {fileID: 756380930}
+  mapBoundsCollider: {fileID: 0}
+  smoothSpeed: 0
 --- !u!1 &1096027102
 GameObject:
   m_ObjectHideFlags: 0
@@ -67225,7 +67227,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 13.353663, y: 9.874891}
+  m_Offset: {x: 12.296503, y: 9.843737}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -67235,7 +67237,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 7.0045033, y: 2.3046522}
+  m_Size: {x: 9.24574, y: 2.3669624}
   m_EdgeRadius: 0
 --- !u!1 &1250377370
 GameObject:
