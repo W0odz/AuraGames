@@ -115,8 +115,12 @@ public class PauseManager : MonoBehaviour
 
     public void OnSairSemSalvarButton()
     {
+        if (GameManager.Instance != null && GameManager.Instance.IsShuttingDown) return;
+
         Time.timeScale = 1f;
         isPaused = false;
+        PlayerPrefs.Save();
+
         if (GameManager.Instance != null)
             GameManager.Instance.LoadSceneWithFade("TitleScreen");
         else
