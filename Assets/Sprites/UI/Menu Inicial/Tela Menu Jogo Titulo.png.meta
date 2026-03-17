@@ -1,0 +1,533 @@
+fileFormatVersion: 2
+guid: 5626c8e58356b974eaf8069510a000d0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6010680242986796824
+    second: Tela Menu Jogo Titulo_0
+  - first:
+      213: -9211196414331852034
+    second: Tela Menu Jogo Titulo_1
+  - first:
+      213: -3350649089338331722
+    second: Tela Menu Jogo Titulo_2
+  - first:
+      213: 1744342875638533497
+    second: Tela Menu Jogo Titulo_3
+  - first:
+      213: -3859501714844328284
+    second: Tela Menu Jogo Titulo_4
+  - first:
+      213: -648622028870328591
+    second: Tela Menu Jogo Titulo_5
+  - first:
+      213: -1644573486804321191
+    second: Tela Menu Jogo Titulo_6
+  - first:
+      213: -8457614403976066871
+    second: Tela Menu Jogo Titulo_7
+  - first:
+      213: -3698578887060094374
+    second: Tela Menu Jogo Titulo_8
+  - first:
+      213: 5928100901417187845
+    second: Tela Menu Jogo Titulo_9
+  - first:
+      213: -8570203223596958835
+    second: Tela Menu Jogo Titulo_10
+  - first:
+      213: 3641198416235073039
+    second: Tela Menu Jogo Titulo_11
+  - first:
+      213: 6933577328130240492
+    second: Tela Menu Jogo Titulo_12
+  - first:
+      213: -115574425838756769
+    second: Tela Menu Jogo Titulo_13
+  - first:
+      213: 1246697151720415669
+    second: Tela Menu Jogo Titulo_14
+  - first:
+      213: 9190987102426662420
+    second: Tela Menu Jogo Titulo_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Tela Menu Jogo Titulo_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 70
+        width: 63
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 817cfa5c5d93a6350800000000000000
+      internalID: 6010680242986796824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tela Menu Jogo Titulo_1
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 113
+        width: 36
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efae5670aa14b2080800000000000000
+      internalID: -9211196414331852034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tela Menu Jogo Titulo_2
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 113
+        width: 39
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bda00fd76a1081d0800000000000000
+      internalID: -3350649089338331722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tela Menu Jogo Titulo_3
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 112
+        width: 54
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97d0bec7a96253810800000000000000
+      internalID: 1744342875638533497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tela Menu Jogo Titulo_4
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 112
+        width: 50
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ae51bc83ab407ac0800000000000000
+      internalID: -3859501714844328284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tela Menu Jogo Titulo_5
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 114
+        width: 47
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fed0b783b1aff6f0800000000000000
+      internalID: -648622028870328591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tela Menu Jogo Titulo_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 62
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95cb008802d4d29e0800000000000000
+      internalID: -1644573486804321191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tela Menu Jogo Titulo_7
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 2
+        width: 23
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c887cb828480aa80800000000000000
+      internalID: -8457614403976066871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tela Menu Jogo Titulo_8
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 8
+        width: 42
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a52060f19120cacc0800000000000000
+      internalID: -3698578887060094374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tela Menu Jogo Titulo_9
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 3
+        width: 47
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50af4a58c58d44250800000000000000
+      internalID: 5928100901417187845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tela Menu Jogo Titulo_10
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 12
+        width: 45
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8b78943395801980800000000000000
+      internalID: -8570203223596958835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tela Menu Jogo Titulo_11
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 15
+        width: 40
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0e086ceaa2288230800000000000000
+      internalID: 3641198416235073039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tela Menu Jogo Titulo_12
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 16
+        width: 46
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cefa7e128d3093060800000000000000
+      internalID: 6933577328130240492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tela Menu Jogo Titulo_13
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 12
+        width: 47
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5cd2ca0ca5656ef0800000000000000
+      internalID: -115574425838756769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tela Menu Jogo Titulo_14
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 0
+        width: 22
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b169c644782d4110800000000000000
+      internalID: 1246697151720415669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tela Menu Jogo Titulo_15
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 0
+        width: 23
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 416865fd212fc8f70800000000000000
+      internalID: 9190987102426662420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Tela Menu Jogo Titulo_0: 6010680242986796824
+      Tela Menu Jogo Titulo_1: -9211196414331852034
+      Tela Menu Jogo Titulo_10: -8570203223596958835
+      Tela Menu Jogo Titulo_11: 3641198416235073039
+      Tela Menu Jogo Titulo_12: 6933577328130240492
+      Tela Menu Jogo Titulo_13: -115574425838756769
+      Tela Menu Jogo Titulo_14: 1246697151720415669
+      Tela Menu Jogo Titulo_15: 9190987102426662420
+      Tela Menu Jogo Titulo_2: -3350649089338331722
+      Tela Menu Jogo Titulo_3: 1744342875638533497
+      Tela Menu Jogo Titulo_4: -3859501714844328284
+      Tela Menu Jogo Titulo_5: -648622028870328591
+      Tela Menu Jogo Titulo_6: -1644573486804321191
+      Tela Menu Jogo Titulo_7: -8457614403976066871
+      Tela Menu Jogo Titulo_8: -3698578887060094374
+      Tela Menu Jogo Titulo_9: 5928100901417187845
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
