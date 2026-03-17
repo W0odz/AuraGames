@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
     public string lastExplorationScene;
     public Vector3 playerReturnPosition; // Onde o jogador estava
     public bool isReturningFromBattle;   // Uma "bandeira" para saber se deve usar essa posi��o
+    public string pendingSpawnID = ""; // ID do SpawnPoint de destino na próxima cena
 
     [Header("Player Stats & Level")]
     public string playerName = "Her�i"; // O campo para o nome
