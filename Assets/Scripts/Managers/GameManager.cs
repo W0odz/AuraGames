@@ -96,6 +96,14 @@ public class GameManager : MonoBehaviour
     // Adiciona junto com as outras flags p�blicas
     public bool inputBloqueado = false;
 
+    private bool _isShuttingDown = false;
+
+    /// <summary>
+    /// True quando o jogo está em processo de encerramento.
+    /// Use para impedir que sistemas iniciem novas ações durante o shutdown.
+    /// </summary>
+    public bool IsShuttingDown => _isShuttingDown;
+
     public bool IsInCombatGracePeriod()
     {
         return Time.unscaledTime < combatGraceUntil;
@@ -132,6 +140,23 @@ public class GameManager : MonoBehaviour
     public DadosArma armaEquipada;
 
     #region M�todos Unity
+    private void OnApplicationQuit()
+    {
+        if (_isShuttingDown) return;
+        _isShuttingDown = true;
+
+        // Bloqueia qualquer input — nada mais deve acontecer
+        inputBloqueado = true;
+
+        // NÃO chama SaveCurrentGame() — save é exclusivamente via Fogueira.
+        // Salvar aqui quebraria a mecânica intencional de save limitado.
+
+        // Garante que PlayerPrefs (volumes de áudio, configurações) sejam gravados em disco
+        PlayerPrefs.Save();
+
+        Debug.Log("[GameManager] Graceful shutdown concluído. Progresso não salvo desde a última Fogueira foi descartado (comportamento esperado).");
+    }
+
     void Awake()
     {
         Debug.Log("GAME MANAGER NASCEU! ID: " + gameObject.GetInstanceID());
