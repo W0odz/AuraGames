@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4826356862785279450
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4854236713957726826}
+  - component: {fileID: 1747087892023794422}
+  - component: {fileID: 4985792842595141034}
+  m_Layer: 0
+  m_Name: PlayerData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4854236713957726826
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4826356862785279450}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 973.44006, y: 899.4371, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1747087892023794422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4826356862785279450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4afa424e2b97185459f1c815c1f4e624, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerUnit
+  unitName: Protagonista
+  unitPortrait: {fileID: 0}
+  maxHP: 100
+  currentHP: 100
+  maxMP: 0
+  currentMP: 0
+  strength: 10
+  resistance: 10
+  speed: 5
+  luck: 5
+  isDefending: 0
+  spriteRenderer: {fileID: 0}
+  playerLevel: 1
+  currentXP: 0
+  xpToNextLevel: 100
+  agility: 10
+  temForcaDeVontade: 1
+  debuffs: []
+--- !u!114 &4985792842595141034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4826356862785279450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31819244b5d91384299eab73588c1380, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerBodyParts
+  parts:
+  - {fileID: 11400000, guid: 4cbfc6606b81d404da520c860f73237d, type: 2}
+  - {fileID: 11400000, guid: 0d0cbbe7ec224e94da897dfe5d35bcab, type: 2}
+  - {fileID: 11400000, guid: 8550affe21d970f4191647a1eab7c26f, type: 2}
+  - {fileID: 11400000, guid: 7955a21a6556ddf438c98d10d8526255, type: 2}
+  - {fileID: 11400000, guid: 766bbaea8b05a424da8c74bb826b075a, type: 2}
+  - {fileID: 11400000, guid: c95bcd604cd7c084dbab42f01abe797a, type: 2}
