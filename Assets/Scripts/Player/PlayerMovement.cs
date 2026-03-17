@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
             GameManager.Instance.isReturningFromBattle = false;
             RepelNearbyEnemies();
         }
-        // Prioridade 2: Carregando um Save (Longo Prazo) --- NOVO ---
+        // Prioridade 2: Carregando um Save (Longo Prazo)
         else if (GameManager.Instance.isLoadingSave)
         {
             transform.position = GameManager.Instance.positionToLoad;
@@ -34,7 +34,9 @@ public class PlayerMovement : MonoBehaviour
             // Desliga a flag para não teleportar de novo se trocar de sala
             GameManager.Instance.isLoadingSave = false;
         }
-        // Se nenhuma das duas for verdade, o jogador nasce no local padrão da cena
+        // Prioridade 3: Transição de cena com SpawnPoint
+        // O SpawnPoint.cs cuida do reposicionamento e limpeza do pendingSpawnID no próprio Start()
+        // Se nenhuma das anteriores for verdade, o jogador nasce no local padrão da cena
     }
 
     void Update()
