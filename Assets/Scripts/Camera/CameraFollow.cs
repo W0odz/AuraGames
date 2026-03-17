@@ -1,20 +1,53 @@
 using UnityEngine;
+
 public class CameraFollow : MonoBehaviour
 {
-    // Crie um campo público para arrastar o jogador aqui
+    [Header("Alvo")]
     public Transform target;
 
-    // LateUpdate é chamado depois que todos os Updates (incluindo o do jogador)
-    // foram executados. É o lugar ideal para mover a câmera.
+    [Header("Limites do Mapa")]
+    [Tooltip("Collider2D que define as bordas da sala (mesmo usado pelo EnemyAIController no campo mapBoundsCollider)")]
+    public Collider2D mapBoundsCollider;
+
+    [Header("SuavizaÃ§Ã£o (opcional)")]
+    [Tooltip("0 = sem suavizaÃ§Ã£o, valores maiores = mais suave. Recomendado: 5 a 8")]
+    public float smoothSpeed = 0f;
+
+    private Camera _cam;
+
+    void Awake()
+    {
+        _cam = GetComponent<Camera>();
+    }
+
     void LateUpdate()
     {
-        // Se o alvo (jogador) existir
-        if (target != null)
+        if (target == null) return;
+
+        Vector3 desejada = new Vector3(target.position.x, target.position.y, -10f);
+
+        // Aplica suavizaÃ§Ã£o se configurado
+        Vector3 posicao = smoothSpeed > 0f
+            ? Vector3.Lerp(transform.position, desejada, smoothSpeed * Time.deltaTime)
+            : desejada;
+
+        // Aplica clamp nos limites do mapa se tiver collider configurado
+        if (mapBoundsCollider != null && _cam != null)
         {
-            // Mova a câmera para a posição X e Y do jogador,
-            // mas mantenha a posição Z original da câmera
-            // (que é -10, por padrão, para ela ficar "na frente" dos sprites)
-            transform.position = new Vector3(target.position.x, target.position.y, -10f);
+            float camHalfHeight = _cam.orthographicSize;
+            float camHalfWidth  = camHalfHeight * _cam.aspect;
+
+            Bounds b = mapBoundsCollider.bounds;
+
+            float minX = b.min.x + camHalfWidth;
+            float maxX = b.max.x - camHalfWidth;
+            posicao.x = minX <= maxX ? Mathf.Clamp(posicao.x, minX, maxX) : b.center.x;
+
+            float minY = b.min.y + camHalfHeight;
+            float maxY = b.max.y - camHalfHeight;
+            posicao.y = minY <= maxY ? Mathf.Clamp(posicao.y, minY, maxY) : b.center.y;
         }
+
+        transform.position = posicao;
     }
 }
