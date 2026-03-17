@@ -18038,6 +18038,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneTransition
   goToScene: Floresta
+  spawnID: 
 --- !u!4 &534549167
 Transform:
   m_ObjectHideFlags: 0
@@ -139908,6 +139909,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fbbc8c657371ee4da66cbdbe803701a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseManager
+  modoTituloAtivo: 0
+  saveSlotsPanel: {fileID: 0}
   pausePanel: {fileID: 153233978}
   configPanel: {fileID: 0}
   soundPanel: {fileID: 0}
@@ -204849,5 +204852,5 @@ SceneRoots:
   - {fileID: 899999965074281417}
   - {fileID: 1873173957}
   - {fileID: 1442546579}
-  - {fileID: 534549167}
   - {fileID: 1598379362}
+  - {fileID: 534549167}

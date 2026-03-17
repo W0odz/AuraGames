@@ -351,7 +351,10 @@ public class BattleSystem : MonoBehaviour
             GameManager.Instance.defeatedEnemyIDs.Add(GameManager.Instance.currentEnemyID);
             GameManager.Instance.isReturningFromBattle = true;
             GameManager.Instance.StartCombatGracePeriod();
-            GameManager.Instance.LoadSceneWithFade(nomeCenaMapa);
+
+            string cenaVitoria = GameManager.Instance.lastExplorationScene;
+            if (string.IsNullOrEmpty(cenaVitoria)) cenaVitoria = nomeCenaMapa;
+            GameManager.Instance.LoadSceneWithFade(cenaVitoria);
         }
         else
         {
@@ -482,6 +485,10 @@ public class BattleSystem : MonoBehaviour
                 GameManager.Instance.isReturningFromBattle = true;
                 GameManager.Instance.StartCombatGracePeriod();
                 GameManager.Instance.LoadSceneWithFade(nomeCenaMapa);
+
+                string cenaFuga = GameManager.Instance.lastExplorationScene;
+                if (string.IsNullOrEmpty(cenaFuga)) cenaFuga = nomeCenaMapa;
+                GameManager.Instance.LoadSceneWithFade(cenaFuga);
             }
         }
     }
