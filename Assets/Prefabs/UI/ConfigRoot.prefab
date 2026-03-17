@@ -3683,6 +3683,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fbbc8c657371ee4da66cbdbe803701a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseManager
+  modoTituloAtivo: 1
+  saveSlotsPanel: {fileID: 0}
   pausePanel: {fileID: 0}
   configPanel: {fileID: 643301312236278798}
   soundPanel: {fileID: 2045276513127029003}
@@ -3690,7 +3692,7 @@ MonoBehaviour:
   sliderGeral: {fileID: 1576677124939086414}
   sliderSFX: {fileID: 4227239329383670136}
   sliderMusica: {fileID: 9200135218914003836}
-  audioMixer: {fileID: 0}
+  audioMixer: {fileID: 24100000, guid: 5fd8bb447ba2cd443b2387bf8decffbe, type: 2}
   parametroGeral: VolumeGeral
   parametroSFX: VolumeSFX
   parametroMusica: VolumeMusica

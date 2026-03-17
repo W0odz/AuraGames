@@ -81,7 +81,7 @@ public class SaveSlotUI : MonoBehaviour
             string cenaParaCarregar = GameManager.Instance.sceneToLoad;
             
             // Segurança: Se por algum motivo estiver vazio, vai pra Exploration
-            if (string.IsNullOrEmpty(cenaParaCarregar)) cenaParaCarregar = "ExplorationScene";
+            if (string.IsNullOrEmpty(cenaParaCarregar)) cenaParaCarregar = "Vila_01";
 
             GameManager.Instance.LoadSceneWithFade(cenaParaCarregar);
         }
