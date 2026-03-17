@@ -30,11 +30,8 @@ public class BattleItemPanelUI : MonoBehaviour
 
     public void Abrir()
     {
-        // Só abre no turno do jogador
-        if (BattleSystem.Instance.state != BattleState.PLAYERTURN) return;
-
-        AtualizarLista();
-        painel.SetActive(true);
+        if (BattleItemInlineUI.Instance != null)
+            BattleItemInlineUI.Instance.Abrir();
     }
 
     public void Fechar()
