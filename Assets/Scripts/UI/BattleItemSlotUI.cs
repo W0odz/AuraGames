@@ -40,7 +40,10 @@ public class BattleItemSlotUI : MonoBehaviour
         BattleSystem.Instance.playerHUD.UpdateHP(PlayerUnit.Instance.currentHP);
 
         // 4. Fecha o painel
-        BattleItemPanelUI.Instance.Fechar();
+        if (BattleItemInlineUI.Instance != null)
+            BattleItemInlineUI.Instance.Fechar();
+        else if (BattleItemPanelUI.Instance != null)
+            BattleItemPanelUI.Instance.Fechar();
 
         // 5. Passa o turno
         BattleSystem.Instance.PassarTurnoAposItem();
