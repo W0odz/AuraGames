@@ -54,9 +54,9 @@ MonoBehaviour:
     triggerDialogueId: 
     timerNecessario: 60
     progressoAtual: 0
-    timerAtual: 60.007057
+    timerAtual: 60.008068
     apenasInformativo: 0
-  - descricao: "Ou\xE7a o serm\xE3o"
+  - descricao: "Atenda ao serm\xE3o no templo"
     tipo: 6
     itemAlvo: {fileID: 0}
     quantidadeNecessaria: 0

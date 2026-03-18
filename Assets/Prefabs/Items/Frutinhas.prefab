@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6231587978478694450}
   - component: {fileID: 4501589872421508120}
   - component: {fileID: 8662972477743558660}
+  - component: {fileID: 555132330903623693}
   m_Layer: 0
   m_Name: Frutinhas
   m_TagString: Untagged
@@ -152,3 +153,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemColetavel
   itemParaDar: {fileID: 11400000, guid: e49a43ba42faace41b47e271a91fe42f, type: 2}
   quantidade: 1
+--- !u!114 &555132330903623693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9034096372922481124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf3a23803586a084e847922c1c017aa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Arbusto
+  frutaItem: {fileID: 11400000, guid: e49a43ba42faace41b47e271a91fe42f, type: 2}
+  quantidade: 1
+  spriteComFruta: {fileID: -6083288687002813745, guid: 2ca486923eef53040b6f79d233242827, type: 3}
+  spriteSemFruta: {fileID: -4491312292937690789, guid: 7c4a82e6a7338534e9cb7333cae66ae0, type: 3}
+  tempoRespawn: 0

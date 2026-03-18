@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EquipmentManager
   currentEquipment:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 359ba3db7f6c4774985eddfdfe81a5a3, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -272,6 +272,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fbbc8c657371ee4da66cbdbe803701a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseManager
+  modoTituloAtivo: 0
+  saveSlotsPanel: {fileID: 0}
   pausePanel: {fileID: 0}
   configPanel: {fileID: 0}
   soundPanel: {fileID: 0}
