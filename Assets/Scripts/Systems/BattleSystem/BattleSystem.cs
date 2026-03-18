@@ -4,6 +4,17 @@ using TMPro;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, TARGETING, WON, LOST, BUSY }
 
+[System.Serializable]
+public class DialogoPosBatalha
+{
+    [Tooltip("ID do inimigo (currentEnemyID do GameManager) que dispara este diálogo.")]
+    public string enemyId;
+    [Tooltip("DialogueAsset a ser exibido ao vencer contra esse inimigo.")]
+    public DialogueAsset dialogo;
+    [Tooltip("Nome da cena para a qual o jogador será levado após o diálogo terminar.")]
+    public string cenaDestino;
+}
+
 public class BattleSystem : MonoBehaviour
 {
     public static BattleSystem Instance;
@@ -43,6 +54,9 @@ public class BattleSystem : MonoBehaviour
     public float pausaAntesDeSumirInimigo = 1.5f;
     public float pausaAposFadeInimigo = 1.5f;
     public float pausaAposXP = 1.5f;
+
+    [Header("Diálogos Pós-Vitória")]
+    public DialogoPosBatalha[] dialogosPosVitoria;
 
     public BattleState state;
 
@@ -379,12 +393,46 @@ public class BattleSystem : MonoBehaviour
         if (GameManager.Instance != null)
         {
             GameManager.Instance.defeatedEnemyIDs.Add(GameManager.Instance.currentEnemyID);
-            GameManager.Instance.isReturningFromBattle = true;
-            GameManager.Instance.StartCombatGracePeriod();
 
-            string cenaVitoria = GameManager.Instance.lastExplorationScene;
-            if (string.IsNullOrEmpty(cenaVitoria)) cenaVitoria = nomeCenaMapa;
-            GameManager.Instance.LoadSceneWithFade(cenaVitoria);
+            string enemyIdAtual = GameManager.Instance.currentEnemyID ?? enemyUnit.unitName;
+            if (GameManager.Instance.currentEnemyID == null)
+                Debug.LogWarning("[BattleSystem] currentEnemyID é null; usando unitName como fallback: " + enemyUnit.unitName);
+            DialogoPosBatalha entradaDialogo = null;
+
+            if (dialogosPosVitoria != null)
+            {
+                foreach (var entrada in dialogosPosVitoria)
+                {
+                    if (entrada.enemyId == enemyIdAtual && entrada.dialogo != null)
+                    {
+                        entradaDialogo = entrada;
+                        break;
+                    }
+                }
+            }
+
+            if (entradaDialogo != null)
+            {
+                // Escurece a tela e dispara o diálogo por cima do preto
+                GameManager.Instance.FadeComAcao(() =>
+                {
+                    DialogueRunner.Instance.StartDialogue(entradaDialogo.dialogo, () =>
+                    {
+                        string cenaEspecial = entradaDialogo.cenaDestino;
+                        if (string.IsNullOrEmpty(cenaEspecial)) cenaEspecial = nomeCenaMapa;
+                        GameManager.Instance.LoadSceneWithFade(cenaEspecial);
+                    });
+                });
+            }
+            else
+            {
+                GameManager.Instance.isReturningFromBattle = true;
+                GameManager.Instance.StartCombatGracePeriod();
+
+                string cenaVitoria = GameManager.Instance.lastExplorationScene;
+                if (string.IsNullOrEmpty(cenaVitoria)) cenaVitoria = nomeCenaMapa;
+                GameManager.Instance.LoadSceneWithFade(cenaVitoria);
+            }
         }
         else
         {
