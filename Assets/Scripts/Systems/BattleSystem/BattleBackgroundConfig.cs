@@ -1,13 +1,12 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary>
 /// Coloque este componente na BattleScene.
-/// Aplica o fundo salvo no GameManager na Image de fundo da batalha.
+/// Aplica o fundo salvo no GameManager no SpriteRenderer de fundo da batalha.
 /// </summary>
 public class BattleBackgroundConfig : MonoBehaviour
 {
-    [Tooltip("Nome do GameObject que contém a Image de fundo na BattleScene.")]
+    [Tooltip("Nome do GameObject que contém o SpriteRenderer de fundo na BattleScene.")]
     public string nomeDoObjetoDeFundo = "BattleBackground";
 
     [Tooltip("Fundo padrão caso nenhum tenha sido definido.")]
@@ -15,7 +14,6 @@ public class BattleBackgroundConfig : MonoBehaviour
 
     private void Start()
     {
-        // Busca a Image na BattleScene pelo nome do objeto
         GameObject obj = GameObject.Find(nomeDoObjetoDeFundo);
         if (obj == null)
         {
@@ -23,10 +21,10 @@ public class BattleBackgroundConfig : MonoBehaviour
             return;
         }
 
-        Image img = obj.GetComponent<Image>();
-        if (img == null)
+        SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
+        if (sr == null)
         {
-            Debug.LogWarning($"[BattleBackgroundConfig] Objeto '{nomeDoObjetoDeFundo}' não tem componente Image.");
+            Debug.LogWarning($"[BattleBackgroundConfig] Objeto '{nomeDoObjetoDeFundo}' não tem componente SpriteRenderer.");
             return;
         }
 
@@ -34,9 +32,12 @@ public class BattleBackgroundConfig : MonoBehaviour
 
         if (sprite != null)
         {
-            img.sprite = sprite;
-            img.gameObject.SetActive(true);
+            sr.sprite = sprite;
             Debug.Log($"[BattleBackgroundConfig] Fundo aplicado: '{sprite.name}'");
+        }
+        else
+        {
+            Debug.LogWarning("[BattleBackgroundConfig] Nenhum sprite de fundo definido.");
         }
     }
 }

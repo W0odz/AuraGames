@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: -6274137052180153990}
   - component: {fileID: 3349280894099777274}
   m_Layer: 7
-  m_Name: Exploration_Musico
+  m_Name: Exploration_Pai
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -293,7 +293,7 @@ MonoBehaviour:
   isEstatico: 0
   wanderSpeed: 2
   chaseSpeed: 4
-  battlePrefab: {fileID: 6089210800779420423, guid: d5f08d0b8493c034a836f5f6a6d754a3, type: 3}
+  battlePrefab: {fileID: 6089210800779420423, guid: 7d9df61117c67594b88140957e5dcb82, type: 3}
   isBoss: 0
   dialogoPreBatalha: {fileID: 0}
   chaseDuration: 10

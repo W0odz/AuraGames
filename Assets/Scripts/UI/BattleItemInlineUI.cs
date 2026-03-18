@@ -40,10 +40,10 @@ public class BattleItemInlineUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow))    Mover(-itensPorLinha);
         if (Input.GetKeyDown(KeyCode.DownArrow))  Mover(+itensPorLinha);
 
-        if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.E))
             ConfirmarSelecao();
 
-        if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Mouse2) || Input.GetKeyDown(KeyCode.Escape))
             Fechar();
     }
 

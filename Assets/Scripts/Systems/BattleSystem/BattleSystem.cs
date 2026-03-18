@@ -8,6 +8,10 @@ public class BattleSystem : MonoBehaviour
 {
     public static BattleSystem Instance;
 
+    [Header("Painéis de UI")]
+    public GameObject dialoguePanel;
+    public GameObject commandsPanel;
+
     [Header("Telas de Vitória")]
     public GameObject xpPanel;
     public UnityEngine.UI.Slider xpSlider;
@@ -166,6 +170,11 @@ public class BattleSystem : MonoBehaviour
         if (state != BattleState.PLAYERTURN) return;
 
         state = BattleState.TARGETING;
+
+        // Desativa os painéis ao clicar em atacar
+        if (dialoguePanel != null) dialoguePanel.SetActive(false);
+        if (commandsPanel != null) commandsPanel.SetActive(false);
+
         bool isCortante = AttackManager.Instance != null &&
                   AttackManager.Instance.armaAtual != null &&
                   AttackManager.Instance.armaAtual.tipoDeDano == TipoAtaque.Cortante;

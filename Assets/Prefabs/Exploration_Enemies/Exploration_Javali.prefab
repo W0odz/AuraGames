@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: -6274137052180153990}
   - component: {fileID: 3349280894099777274}
   m_Layer: 7
-  m_Name: Exploration_Musico
+  m_Name: Exploration_Javali
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,8 +165,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0.9433962, g: 0.4405482, b: 0.4405482, a: 1}
+  m_Sprite: {fileID: -8595215621592237086, guid: 477f5fd128e62314295372f5e51107a4, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -290,10 +290,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAIController
   isPassive: 0
-  isEstatico: 0
+  isEstatico: 1
   wanderSpeed: 2
   chaseSpeed: 4
-  battlePrefab: {fileID: 6089210800779420423, guid: d5f08d0b8493c034a836f5f6a6d754a3, type: 3}
+  battlePrefab: {fileID: 6089210800779420423, guid: 6c8b7a2aec851e04ba2bceb5f874c51a, type: 3}
   isBoss: 0
   dialogoPreBatalha: {fileID: 0}
   chaseDuration: 10
