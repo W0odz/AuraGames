@@ -100,6 +100,9 @@ public class GameManager : MonoBehaviour
     [Header("Enemy Persistence (Prototype)")]
     public Dictionary<string, Vector3> enemyPositions = new Dictionary<string, Vector3>();
 
+    [Header("Diálogos Únicos Vistros")]
+    public List<string> seenUniqueDialogues = new List<string>();
+
     // Adiciona junto com as outras flags p�blicas
     public bool inputBloqueado = false;
 
@@ -110,6 +113,15 @@ public class GameManager : MonoBehaviour
     /// Use para impedir que sistemas iniciem novas ações durante o shutdown.
     /// </summary>
     public bool IsShuttingDown => _isShuttingDown;
+
+    public bool DialogoUnicoVisto(string npcID)
+    => seenUniqueDialogues.Contains(npcID);
+
+    public void MarcarDialogoUnicoVisto(string npcID)
+    {
+        if(!seenUniqueDialogues.Contains(npcID))
+            seenUniqueDialogues.Add(npcID);
+    }
 
     public bool IsInCombatGracePeriod()
     {
@@ -166,7 +178,7 @@ public class GameManager : MonoBehaviour
         yield return StartCoroutine(FadeInCoroutine());
     }
 
-    #region M�todos Unity
+    #region Métodos Unity
     private void OnApplicationQuit()
     {
         if (_isShuttingDown) return;
@@ -210,7 +222,7 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    #region Fun��es de Save
+    #region Funções de Save
     public void SetCurrentSlot(int slot)
     {
         currentSaveSlot = slot;
@@ -331,7 +343,7 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    #region Fun��es P�blicas de Transi��o
+    #region Funções Públicas de Transição
 
     // Chame isso em vez de SceneManager.LoadScene()
     public void LoadSceneWithFade(string sceneName)

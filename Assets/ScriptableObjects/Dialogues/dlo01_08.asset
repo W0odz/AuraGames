@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 998d816f9ecd779408036895027b9b91, type: 3}
+  m_Name: dlo01_08
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueAsset
+  portraitEsquerda: {fileID: 0}
+  portraitDireita: {fileID: 0}
+  fundoPainel: {fileID: 0}
+  nodes:
+  - text: "A\xED, garoto."
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 9122415793681804593, guid: 9f66c3dcf19948a4eaa1e1e3133622e7, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
+  - text: "Eu tava falando s\xE9rio quando eu disse pra se cuidar."
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 9122415793681804593, guid: 9f66c3dcf19948a4eaa1e1e3133622e7, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
+  - text: "Voc\xEA \xE9 muito impulsivo, tem que acreditar mais no trabalho em equipe
+      ou vai se estrepar."
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 9122415793681804593, guid: 9f66c3dcf19948a4eaa1e1e3133622e7, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
+  - text: "Eu sei, tio. J\xE1 falei que n\xE3o vou fazer nada."
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -8774304836102649413, guid: 42c019abed3c7b44a8180c97944bf800, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
+  - text: "T\xF4 de olho, hein."
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: 9122415793681804593, guid: 9f66c3dcf19948a4eaa1e1e3133622e7, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
+  - text: "E\u2026 se quiser\u2026 pode ficar morando l\xE1 em casa com a gente."
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: -4728954398870667680, guid: 335c2db0e7c61304cb4519cc38f80f19, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
+  - text: A gente quer o seu bem.
+    speakerSide: 1
+    speakerName: "A\xE7ougueiro"
+    portrait: {fileID: -4728954398870667680, guid: 335c2db0e7c61304cb4519cc38f80f19, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
+  - text: "Obrigado, tio, voc\xEA \xE9 o melhor."
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: -2499865093323967227, guid: e2f5fa213065c3a499ebfc9317f46ac3, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
