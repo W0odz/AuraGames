@@ -81,6 +81,22 @@ public class DialogueRunner : MonoBehaviour
         IniciarDialogoInterno(asset, onEnd);
     }
 
+    /// <summary>
+    /// Inicia o diálogo imediatamente, sem fazer FadeComAcao.
+    /// Use quando a tela já estiver preta (ex: durante FadeToSceneCoroutine).
+    /// </summary>
+    public void StartDialogueImediato(DialogueAsset asset, Action onEnd = null)
+    {
+        if (asset == null)
+        {
+            Debug.LogWarning("[DialogueRunner] StartDialogueImediato chamado com asset null.");
+            onEnd?.Invoke();
+            return;
+        }
+        questDoDialogo = null;
+        AbrirPainel(asset, onEnd);
+    }
+
     void IniciarDialogoInterno(DialogueAsset asset, Action onEnd)
     {
         if (asset.fundoPainel)
@@ -108,7 +124,24 @@ public class DialogueRunner : MonoBehaviour
 
         // Ativa o fundo se necessário
         if (fundoImage != null)
-            fundoImage.gameObject.SetActive(asset.fundoPainel);
+        {
+            // Determina o sprite de fundo: asset tem prioridade.
+            // Fallback para battleBackground do GameManager (usado em diálogos pós-vitória,
+            // disparados via StartDialogueImediato durante FadeToSceneCoroutine).
+            Sprite spriteDoFundo = asset.fundoPainel;
+            if (spriteDoFundo == null && GameManager.Instance?.battleBackground != null)
+                spriteDoFundo = GameManager.Instance.battleBackground;
+
+            if (spriteDoFundo != null)
+            {
+                fundoImage.sprite = spriteDoFundo;
+                fundoImage.gameObject.SetActive(true);
+            }
+            else
+            {
+                fundoImage.gameObject.SetActive(false);
+            }
+        }
 
         AplicarPortraitFixo(leftPortrait, asset.portraitEsquerda);
         AplicarPortraitFixo(rightPortrait, asset.portraitDireita);

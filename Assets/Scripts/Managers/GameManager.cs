@@ -389,7 +389,7 @@ public class GameManager : MonoBehaviour
             // Dispara o diálogo com a tela ainda preta
             // O fade in só acontece ao terminar o diálogo
             bool dialogoTerminou = false;
-            DialogueRunner.Instance.StartDialogue(dialogoParaDisparar, () =>
+            DialogueRunner.Instance.StartDialogueImediato(dialogoParaDisparar, () =>
             {
                 dialogoTerminou = true;
             });
