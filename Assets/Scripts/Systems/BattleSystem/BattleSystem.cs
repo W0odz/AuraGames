@@ -28,6 +28,10 @@ public class BattleSystem : MonoBehaviour
     public BattleHUD enemyHUD;
     public TextMeshProUGUI dialogueText;
 
+    [Header("Painéis de UI")]
+    public GameObject dialoguePanel;
+    public GameObject commandsPanel;
+
     [Header("HUD do Inimigo (Fade rápido)")]
     public CanvasGroup enemyHudCanvasGroup;
 
@@ -136,6 +140,10 @@ public class BattleSystem : MonoBehaviour
 
     void PlayerTurn()
     {
+        // Reativa os painéis ao voltar pro turno do jogador
+        if (dialoguePanel != null) dialoguePanel.SetActive(true);
+        if (commandsPanel != null) commandsPanel.SetActive(true);
+
         playerUnit.TickDebuffsOnPlayerTurnStart();
 
         if (playerUnit.HasDebuff(DebuffType.Stun))
@@ -166,6 +174,11 @@ public class BattleSystem : MonoBehaviour
         if (state != BattleState.PLAYERTURN) return;
 
         state = BattleState.TARGETING;
+
+        // Oculta os painéis ao entrar no modo de mira
+        if (dialoguePanel != null) dialoguePanel.SetActive(false);
+        if (commandsPanel != null) commandsPanel.SetActive(false);
+
         bool isCortante = AttackManager.Instance != null &&
                   AttackManager.Instance.armaAtual != null &&
                   AttackManager.Instance.armaAtual.tipoDeDano == TipoAtaque.Cortante;
