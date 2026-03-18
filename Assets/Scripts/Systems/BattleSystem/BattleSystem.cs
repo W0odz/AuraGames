@@ -417,16 +417,14 @@ public class BattleSystem : MonoBehaviour
 
             if (entradaDialogo != null)
             {
-                // Escurece a tela e dispara o diálogo por cima do preto
-                GameManager.Instance.FadeComAcao(() =>
-                {
-                    DialogueRunner.Instance.StartDialogue(entradaDialogo.dialogo, () =>
-                    {
-                        string cenaEspecial = entradaDialogo.cenaDestino;
-                        if (string.IsNullOrEmpty(cenaEspecial)) cenaEspecial = nomeCenaMapa;
-                        GameManager.Instance.LoadSceneWithFade(cenaEspecial);
-                    });
-                });
+                // Salva o diálogo pendente no GameManager para ser disparado na cena destino
+                // antes do fade in, com a tela ainda preta
+                GameManager.Instance.dialogoPendente = entradaDialogo.dialogo;
+                GameManager.Instance.cenaDestinoPendente = entradaDialogo.cenaDestino;
+
+                string cenaEspecial = entradaDialogo.cenaDestino;
+                if (string.IsNullOrEmpty(cenaEspecial)) cenaEspecial = nomeCenaMapa;
+                GameManager.Instance.LoadSceneWithFade(cenaEspecial);
             }
             else
             {
