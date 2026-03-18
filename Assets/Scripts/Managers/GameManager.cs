@@ -74,6 +74,12 @@ public class GameManager : MonoBehaviour
     public bool isReturningFromBattle;   // Uma "bandeira" para saber se deve usar essa posi��o
     public string pendingSpawnID = ""; // ID do SpawnPoint de destino na próxima cena
 
+    [Header("Diálogo Pós-Vitória Pendente")]
+    [Tooltip("DialogueAsset a ser disparado ao carregar a próxima cena, antes do fade in.")]
+    public DialogueAsset dialogoPendente;
+    [Tooltip("Cena destino para o diálogo pós-vitória.")]
+    public string cenaDestinoPendente;
+
     [Header("Player Stats & Level")]
     public string playerName = "Her�i"; // O campo para o nome
     public int playerLevel = 1;
@@ -370,9 +376,28 @@ public class GameManager : MonoBehaviour
             repelEnemiesOnReturn = false;
         }
 
-        // 3. Fade In (Clarear)
-        // Damos um pequeno delay para a cena carregar
+        // Pequeno delay para a cena carregar
         yield return new WaitForSecondsRealtime(0.1f);
+
+        // 3. Verifica se há diálogo pendente para disparar antes do fade in
+        if (dialogoPendente != null)
+        {
+            DialogueAsset dialogoParaDisparar = dialogoPendente;
+            dialogoPendente = null;
+            cenaDestinoPendente = null;
+
+            // Dispara o diálogo com a tela ainda preta
+            // O fade in só acontece ao terminar o diálogo
+            bool dialogoTerminou = false;
+            DialogueRunner.Instance.StartDialogue(dialogoParaDisparar, () =>
+            {
+                dialogoTerminou = true;
+            });
+
+            yield return new WaitUntil(() => dialogoTerminou);
+        }
+
+        // 4. Fade In (Clarear) — acontece após o diálogo (ou imediatamente se não houver diálogo)
         yield return StartCoroutine(FadeInCoroutine());
     }
 
