@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
     public int currentSaveSlot = 1; // O slot que est� em uso
     public List<string> collectedItemIDs = new List<string>();
     public List<string> defeatedEnemyIDs = new List<string>();
+    public List<string> removedCharacterIDs = new List<string>();
     public string currentEnemyID;
     public string lastExplorationScene;
     public Vector3 playerReturnPosition; // Onde o jogador estava
@@ -131,6 +132,15 @@ public class GameManager : MonoBehaviour
     {
         if(!seenUniqueDialogues.Contains(npcID))
             seenUniqueDialogues.Add(npcID);
+    }
+
+    public bool PersonagemRemovido(string characterId)
+        => removedCharacterIDs.Contains(characterId);
+
+    public void MarcarPersonagemRemovido(string characterId)
+    {
+        if (!removedCharacterIDs.Contains(characterId))
+            removedCharacterIDs.Add(characterId);
     }
 
     public bool IsInCombatGracePeriod()
