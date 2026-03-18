@@ -398,7 +398,7 @@ public class BattleSystem : MonoBehaviour
         {
             GameManager.Instance.defeatedEnemyIDs.Add(GameManager.Instance.currentEnemyID);
 
-            string enemyIdAtual = GameManager.Instance.currentEnemyID ?? enemyUnit.unitName;
+            string enemyIdAtual = enemyUnit.unitName;
             if (GameManager.Instance.currentEnemyID == null)
                 Debug.LogWarning("[BattleSystem] currentEnemyID é null; usando unitName como fallback: " + enemyUnit.unitName);
             DialogoPosBatalha entradaDialogo = null;

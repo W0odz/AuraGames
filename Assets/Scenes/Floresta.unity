@@ -57396,6 +57396,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3349280894099777274, guid: b7e066a39ba80764fbd6f698cda39b4b, type: 3}
+      propertyPath: isPassive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3349280894099777274, guid: b7e066a39ba80764fbd6f698cda39b4b, type: 3}
       propertyPath: chaseSpeed
       value: 0
       objectReference: {fileID: 0}
