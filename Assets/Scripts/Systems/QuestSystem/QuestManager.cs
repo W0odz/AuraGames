@@ -7,10 +7,12 @@ public class QuestManager : MonoBehaviour
 
     private Dictionary<string, QuestState> questStates = new();
     private Dictionary<string, QuestDefinition> questDefs = new();
+    private HashSet<(string questId, int index)> objetivosDisparados = new();
 
     public System.Action<QuestDefinition> onQuestIniciada;
     public System.Action<QuestDefinition> onQuestCompleta;
     public System.Action<QuestDefinition> onQuestEntregue;
+    public System.Action<QuestDefinition, int> onObjetivoConcluido; // def, índice do objetivo
 
     private void Awake()
     {
@@ -81,6 +83,9 @@ public class QuestManager : MonoBehaviour
 
         questStates[def.questId] = QuestState.Active;
         questDefs[def.questId] = def;
+
+        // Limpa eventos disparados desta quest caso ela seja reiniciada
+        objetivosDisparados.RemoveWhere(c => c.questId == def.questId);
 
         if (def.objetivos != null)
         {
@@ -225,9 +230,22 @@ public class QuestManager : MonoBehaviour
     {
         if (def.objetivos == null || def.objetivos.Count == 0) return;
 
+        // Dispara evento por objetivo individual concluído (uma única vez por objetivo)
+        for (int i = 0; i < def.objetivos.Count; i++)
+        {
+            var obj = def.objetivos[i];
+            if (obj.apenasInformativo) continue;
+            if (!obj.EstaCompleto()) continue;
+
+            var chave = (questId, i);
+            if (objetivosDisparados.Add(chave))
+                onObjetivoConcluido?.Invoke(def, i);
+        }
+
+        // Verifica se todos estão completos para completar a quest
         foreach (var obj in def.objetivos)
         {
-            if (obj.apenasInformativo) continue; // ignora informativos
+            if (obj.apenasInformativo) continue;
             if (!obj.EstaCompleto()) return;
         }
 
