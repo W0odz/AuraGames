@@ -16,14 +16,18 @@ public class DialogueRunner : MonoBehaviour
     public GameObject rightNameBox;
     public TMP_Text rightNameText;
 
+    [Header("Fundo do painel")]
+    [Tooltip("Image do Canvas usada como fundo. Ativada quando o DialogueAsset pedir.")]
+    public Image fundoImage;
+
     [Header("Cor de destaque / escurecimento")]
     public float alphaEscurecido = 0.4f;
 
     public DialogueAsset currentAsset;
     private int currentIndex = 0;
     private bool recentlyOpened = false;
-    private float recentlyOpenedTime = 0f;       // ← tempo unscaled em que abriu
-    private const float recentlyOpenedDelay = 0.15f; // ← delay mínimo antes de aceitar input
+    private float recentlyOpenedTime = 0f;
+    private const float recentlyOpenedDelay = 0.15f;
     private bool _eSeguroAnterior = false;
     private Action _onEnd;
     private QuestDefinition questDoDialogo;
@@ -79,6 +83,20 @@ public class DialogueRunner : MonoBehaviour
 
     void IniciarDialogoInterno(DialogueAsset asset, Action onEnd)
     {
+        if (asset.fundoPainel)
+        {
+            // Bloqueia input imediatamente e faz fade antes de abrir
+            GameManager.Instance.inputBloqueado = true;
+            GameManager.Instance.FadeComAcao(() => AbrirPainel(asset, onEnd));
+        }
+        else
+        {
+            AbrirPainel(asset, onEnd);
+        }
+    }
+
+    void AbrirPainel(DialogueAsset asset, Action onEnd)
+    {
         GameManager.Instance.inputBloqueado = true;
         _onEnd = onEnd;
         currentAsset = asset;
@@ -87,6 +105,10 @@ public class DialogueRunner : MonoBehaviour
         recentlyOpened = true;
         recentlyOpenedTime = Time.unscaledTime;
         _eSeguroAnterior = true;
+
+        // Ativa o fundo se necessário
+        if (fundoImage != null)
+            fundoImage.gameObject.SetActive(asset.fundoPainel);
 
         AplicarPortraitFixo(leftPortrait, asset.portraitEsquerda);
         AplicarPortraitFixo(rightPortrait, asset.portraitDireita);
@@ -156,13 +178,10 @@ public class DialogueRunner : MonoBehaviour
     {
         var currentNode = currentAsset.nodes[currentIndex];
 
-        // Executa a ação de quest do nó atual
         if (currentNode.acaoDeQuest != DialogueActionType.None)
         {
             DialogueActions.Execute(currentNode.acaoDeQuest, currentNode.questDef);
 
-            // Após StartQuest, fecha o diálogo imediatamente
-            // O nó Active só deve aparecer na PRÓXIMA interação
             if (currentNode.acaoDeQuest == DialogueActionType.StartQuest)
             {
                 EndDialogue();
@@ -176,12 +195,8 @@ public class DialogueRunner : MonoBehaviour
 
     void AvancarParaProximoNoVisivel()
     {
-
         while (currentIndex < currentAsset.nodes.Length)
         {
-            var node = currentAsset.nodes[currentIndex];
-            bool visivel = NoEstaVisivel(node);
-
             if (NoEstaVisivel(currentAsset.nodes[currentIndex]))
             {
                 ShowNode();
@@ -219,15 +234,36 @@ public class DialogueRunner : MonoBehaviour
 
     public void EndDialogue()
     {
+        var assetFinal = currentAsset;
+        var cbFinal = _onEnd;
+
         ultimoFechamentoTime = Time.unscaledTime;
-        dialoguePanel.SetActive(false);
         currentAsset = null;
-
-        GameManager.Instance.inputBloqueado = false;
-
-        var cb = _onEnd;
         _onEnd = null;
-        cb?.Invoke();
-        Time.timeScale = 1f;
+
+        if (assetFinal != null && assetFinal.fundoPainel)
+        {
+            // Faz fade antes de fechar o painel
+            Time.timeScale = 1f;
+            GameManager.Instance.FadeComAcao(() =>
+            {
+                dialoguePanel.SetActive(false);
+                if (fundoImage != null)
+                    fundoImage.gameObject.SetActive(false);
+
+                GameManager.Instance.inputBloqueado = false;
+                cbFinal?.Invoke();
+            });
+        }
+        else
+        {
+            dialoguePanel.SetActive(false);
+            if (fundoImage != null)
+                fundoImage.gameObject.SetActive(false);
+
+            GameManager.Instance.inputBloqueado = false;
+            cbFinal?.Invoke();
+            Time.timeScale = 1f;
+        }
     }
 }

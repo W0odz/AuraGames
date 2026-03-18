@@ -1,0 +1,403 @@
+fileFormatVersion: 2
+guid: c5cfa2485d6bc684596d2045a111b15e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2038535386666942658
+    second: "Tela Menu Jogo T\xEDtulo prot\xF3tipo_0"
+  - first:
+      213: -4565884608952640155
+    second: "Tela Menu Jogo T\xEDtulo prot\xF3tipo_1"
+  - first:
+      213: 150658125611882610
+    second: "Tela Menu Jogo T\xEDtulo prot\xF3tipo_2"
+  - first:
+      213: 3846517647701579746
+    second: "Tela Menu Jogo T\xEDtulo prot\xF3tipo_3"
+  - first:
+      213: 3737514720852439007
+    second: "Tela Menu Jogo T\xEDtulo prot\xF3tipo_4"
+  - first:
+      213: -5896876610010624370
+    second: "Tela Menu Jogo T\xEDtulo prot\xF3tipo_5"
+  - first:
+      213: -8707933424403081307
+    second: "Tela Menu Jogo T\xEDtulo prot\xF3tipo_6"
+  - first:
+      213: -4793907341939946802
+    second: "Tela Menu Jogo T\xEDtulo prot\xF3tipo_7"
+  - first:
+      213: -2494460557881354205
+    second: "Tela Menu Jogo T\xEDtulo prot\xF3tipo_8"
+  - first:
+      213: -3910407723195826974
+    second: "Tela Menu Jogo T\xEDtulo prot\xF3tipo_9"
+  - first:
+      213: 6898747468058856348
+    second: "Tela Menu Jogo T\xEDtulo prot\xF3tipo_10"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "Tela Menu Jogo T\xEDtulo prot\xF3tipo_0"
+      rect:
+        serializedVersion: 2
+        x: 1434
+        y: 850
+        width: 54
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3f37afcddaa5b3e0800000000000000
+      internalID: -2038535386666942658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Tela Menu Jogo T\xEDtulo prot\xF3tipo_1"
+      rect:
+        serializedVersion: 2
+        x: 1512
+        y: 855
+        width: 68
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56d54f5a328b2a0c0800000000000000
+      internalID: -4565884608952640155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Tela Menu Jogo T\xEDtulo prot\xF3tipo_2"
+      rect:
+        serializedVersion: 2
+        x: 1550
+        y: 853
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2785f9b54ce371200800000000000000
+      internalID: 150658125611882610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Tela Menu Jogo T\xEDtulo prot\xF3tipo_3"
+      rect:
+        serializedVersion: 2
+        x: 1564
+        y: 855
+        width: 24
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e7168dbb63916530800000000000000
+      internalID: 3846517647701579746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Tela Menu Jogo T\xEDtulo prot\xF3tipo_4"
+      rect:
+        serializedVersion: 2
+        x: 1578
+        y: 850
+        width: 23
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdfe33f16d15ed330800000000000000
+      internalID: 3737514720852439007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Tela Menu Jogo T\xEDtulo prot\xF3tipo_5"
+      rect:
+        serializedVersion: 2
+        x: 1597
+        y: 859
+        width: 45
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8ec10857f51a2ea0800000000000000
+      internalID: -5896876610010624370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Tela Menu Jogo T\xEDtulo prot\xF3tipo_6"
+      rect:
+        serializedVersion: 2
+        x: 1638
+        y: 853
+        width: 48
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a714b6efa4372780800000000000000
+      internalID: -8707933424403081307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Tela Menu Jogo T\xEDtulo prot\xF3tipo_7"
+      rect:
+        serializedVersion: 2
+        x: 1688
+        y: 860
+        width: 47
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eca4885fbae987db0800000000000000
+      internalID: -4793907341939946802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Tela Menu Jogo T\xEDtulo prot\xF3tipo_8"
+      rect:
+        serializedVersion: 2
+        x: 1743
+        y: 859
+        width: 41
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 328524db655e16dd0800000000000000
+      internalID: -2494460557881354205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Tela Menu Jogo T\xEDtulo prot\xF3tipo_9"
+      rect:
+        serializedVersion: 2
+        x: 1788
+        y: 858
+        width: 48
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ecf7fbd4e07bb9c0800000000000000
+      internalID: -3910407723195826974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Tela Menu Jogo T\xEDtulo prot\xF3tipo_10"
+      rect:
+        serializedVersion: 2
+        x: 1840
+        y: 860
+        width: 51
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9b06c465464dbf50800000000000000
+      internalID: 6898747468058856348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "Tela Menu Jogo T\xEDtulo prot\xF3tipo_0": -2038535386666942658
+      "Tela Menu Jogo T\xEDtulo prot\xF3tipo_1": -4565884608952640155
+      "Tela Menu Jogo T\xEDtulo prot\xF3tipo_10": 6898747468058856348
+      "Tela Menu Jogo T\xEDtulo prot\xF3tipo_2": 150658125611882610
+      "Tela Menu Jogo T\xEDtulo prot\xF3tipo_3": 3846517647701579746
+      "Tela Menu Jogo T\xEDtulo prot\xF3tipo_4": 3737514720852439007
+      "Tela Menu Jogo T\xEDtulo prot\xF3tipo_5": -5896876610010624370
+      "Tela Menu Jogo T\xEDtulo prot\xF3tipo_6": -8707933424403081307
+      "Tela Menu Jogo T\xEDtulo prot\xF3tipo_7": -4793907341939946802
+      "Tela Menu Jogo T\xEDtulo prot\xF3tipo_8": -2494460557881354205
+      "Tela Menu Jogo T\xEDtulo prot\xF3tipo_9": -3910407723195826974
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

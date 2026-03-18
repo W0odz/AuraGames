@@ -140,6 +140,26 @@ public class GameManager : MonoBehaviour
     //public int luck = 5;        // Sorte (Taxa de Cr�tico)
     public DadosArma armaEquipada;
 
+    public void FadeComAcao(System.Action aoEscurecer)
+    {
+        StartCoroutine(FadeComAcaoCoroutine(aoEscurecer));
+    }
+
+    private IEnumerator FadeComAcaoCoroutine(System.Action aoEscurecer)
+    {
+        // Fade Out
+        yield return StartCoroutine(FadeOutCoroutine(false));
+
+        // Executa a ação no pico do preto (ex: ativar fundo + abrir diálogo)
+        aoEscurecer?.Invoke();
+
+        // Pequena pausa pra UI atualizar antes de clarear
+        yield return new WaitForSecondsRealtime(0.05f);
+
+        // Fade In
+        yield return StartCoroutine(FadeInCoroutine());
+    }
+
     #region M�todos Unity
     private void OnApplicationQuit()
     {

@@ -14,55 +14,89 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueAsset
   portraitEsquerda: {fileID: 0}
   portraitDireita: {fileID: 4463082706710318454, guid: 3eebd4ab3aa0c0f4cb69a46b3cd92e92, type: 3}
+  fundoPainel: {fileID: -8148876011986367135, guid: 56d14a545f6c75643bd2f7d582544d6b, type: 3}
   nodes:
   - text: "Bom dia, meus amados irm\xE3os. Ou\xE7am agora as palavras de seu humilde
       Sacerdote."
     speakerSide: 1
     speakerName: Sacerdote
-    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+    portrait: {fileID: 0}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "Seu medo \xE9 a chaga que corrompe sua alma."
     speakerSide: 1
     speakerName: Sacerdote
-    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+    portrait: {fileID: 0}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "S\xEA forte e incendeie o desespero e a saudade que lhe atormentam em
       seu \xE2mago. "
     speakerSide: 1
     speakerName: Sacerdote
-    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+    portrait: {fileID: 0}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "Confie em seu poder intr\xEDnseco e na luz que guia o desamparado."
     speakerSide: 1
     speakerName: Sacerdote
-    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+    portrait: {fileID: 0}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "N\xE3o temam a praga que o mal roga sobre este vilarejo."
     speakerSide: 1
     speakerName: Sacerdote
-    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+    portrait: {fileID: 0}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "A dor, sentida por cada um que no cora\xE7\xE3o do Fulgor reside, ser\xE1
       a luz que tocar\xE1 suas testemunhas no dia em que o inimigo sofrer nossa c\xF3lera. "
     speakerSide: 1
     speakerName: Sacerdote
-    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+    portrait: {fileID: 0}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "N\xE3o temam pelos dias que vir\xE3o, pois os servos da luz sagrada ser\xE3o,
       e apenas eles, iluminados para encontrar a verdade. "
     speakerSide: 1
     speakerName: Sacerdote
-    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+    portrait: {fileID: 0}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "Contudo, dever\xE3o, sim, ofertar seu p\xE3o e carne para que o Fulgor
       admire sua devo\xE7\xE3o verdadeira."
     speakerSide: 1
     speakerName: Sacerdote
-    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+    portrait: {fileID: 0}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "Lembrem-se do press\xE1gio recitado para os \xFAltimos dias: quando n\xE3o
       houver luz para guiar os cegos, o fogo do Escolhido queimar\xE1 os cora\xE7\xF5es
       impuros."
     speakerSide: 1
     speakerName: Sacerdote
-    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+    portrait: {fileID: 0}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "Ah\u2026 n\xE3o chore, irm\xE3, confie no poder do sagrado."
     speakerSide: 1
     speakerName: Sacerdote
-    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+    portrait: {fileID: 0}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "Agora vamos para a pr\xF3xima passagem, sim?"
     speakerSide: 1
     speakerName: Sacerdote
-    portrait: {fileID: -4775893656924661636, guid: 536ee0eae6dd20649b39363cf74ad2db, type: 3}
+    portrait: {fileID: 0}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
