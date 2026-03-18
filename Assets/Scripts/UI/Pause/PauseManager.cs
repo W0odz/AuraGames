@@ -133,12 +133,8 @@ public class PauseManager : MonoBehaviour
     {
         if (configPanel != null) configPanel.SetActive(false);
 
-        // Volta para o painel correto dependendo do contexto
-        if (modoTituloAtivo)
-        {
-            if (saveSlotsPanel != null) saveSlotsPanel.SetActive(true);
-        }
-        else
+        // No modo título: só fecha tudo, não reabre o painel de saves
+        if (!modoTituloAtivo)
         {
             if (pausePanel != null) pausePanel.SetActive(true);
         }

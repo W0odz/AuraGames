@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueAsset
   portraitEsquerda: {fileID: 0}
   portraitDireita: {fileID: 0}
+  fundoPainel: {fileID: 0}
   nodes:
   - text: ...Oi tio.
     speakerSide: 0

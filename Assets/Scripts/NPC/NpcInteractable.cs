@@ -50,10 +50,7 @@ public class NpcInteractable : MonoBehaviour
 
     public void OnInteract()
     {
-        if (QuestManager.Instance != null)
-            QuestManager.Instance.NotificarConversa(gameObject);
-
-        // Se há quest vinculada, usa sempre o dialogoPadrao com filtro de estado
+        // Quest vinculada — com filtro de estado
         if (questVinculada != null)
         {
             if (dialogoPadrao == null)
@@ -67,17 +64,21 @@ public class NpcInteractable : MonoBehaviour
                 NpcMerchant merchant = GetComponent<NpcMerchant>();
                 DialogueRunner.Instance.StartDialogue(dialogoPadrao, questVinculada, () =>
                 {
+                    NotificarQuestManager();
                     if (merchant != null) merchant.OpenMerchantMenu();
                 });
             }
             else
             {
-                DialogueRunner.Instance.StartDialogue(dialogoPadrao, questVinculada);
+                DialogueRunner.Instance.StartDialogue(dialogoPadrao, questVinculada, () =>
+                {
+                    NotificarQuestManager();
+                });
             }
             return;
         }
 
-        // Comportamento original — sem quest vinculada
+        // Sem quest vinculada
         if (isMerchant)
         {
             NpcMerchant merchant = GetComponent<NpcMerchant>();
@@ -86,6 +87,7 @@ public class NpcInteractable : MonoBehaviour
                 if (dialogoUnico == null) dialogoUnico = dialogoPadrao;
                 DialogueRunner.Instance.StartDialogue(dialogoUnico, () =>
                 {
+                    NotificarQuestManager();
                     if (merchant != null) merchant.OpenMerchantMenu();
                 });
                 jaInteragiu = true;
@@ -94,6 +96,7 @@ public class NpcInteractable : MonoBehaviour
             {
                 DialogueRunner.Instance.StartDialogue(dialogoPadrao, () =>
                 {
+                    NotificarQuestManager();
                     if (merchant != null) merchant.OpenMerchantMenu();
                 });
             }
@@ -103,13 +106,26 @@ public class NpcInteractable : MonoBehaviour
             if (!jaInteragiu)
             {
                 if (dialogoUnico == null) dialogoUnico = dialogoPadrao;
-                DialogueRunner.Instance.StartDialogue(dialogoUnico);
+                DialogueRunner.Instance.StartDialogue(dialogoUnico, () =>
+                {
+                    NotificarQuestManager();
+                });
                 jaInteragiu = true;
             }
             else
             {
-                DialogueRunner.Instance.StartDialogue(dialogoPadrao);
+                DialogueRunner.Instance.StartDialogue(dialogoPadrao, () =>
+                {
+                    NotificarQuestManager();
+                });
             }
         }
+    }
+
+    // Notifica ao final do diálogo, não no início
+    private void NotificarQuestManager()
+    {
+        if (QuestManager.Instance != null)
+            QuestManager.Instance.NotificarConversa(gameObject);
     }
 }
