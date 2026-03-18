@@ -55,22 +55,43 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator SetupBattle()
     {
+        // Espera o PlayerUnit estar disponível (máx. 3 segundos)
+        float timeout = 3f;
+        while (PlayerUnit.Instance == null && timeout > 0f)
+        {
+            timeout -= Time.deltaTime;
+            yield return null;
+        }
+
         if (PlayerUnit.Instance == null)
         {
-            Debug.LogError("[BattleSystem] PlayerUnit.Instance é NULL.");
+            Debug.LogError("[BattleSystem] PlayerUnit.Instance é NULL após espera. Verifique se o PlayerUnit está na cena de exploração.");
             yield break;
         }
 
         playerUnit = PlayerUnit.Instance;
         playerUnit.InicializarUnidade();
 
-        GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
+        // Usa o prefab do inimigo que colidiu na exploração — fallback pro campo do Inspector
+        GameObject prefabParaInstanciar = GameManager.Instance?.nextBattleEnemyPrefab ?? enemyPrefab;
+
+        if (prefabParaInstanciar == null)
+        {
+            Debug.LogError("[BattleSystem] Nenhum prefab de inimigo definido. Atribua um no Inspector ou verifique o PlayerMovement.");
+            yield break;
+        }
+
+        GameObject enemyGO = Instantiate(prefabParaInstanciar, enemyBattleStation);
         enemyGO.transform.localPosition = Vector3.zero;
         enemyUnit = enemyGO.GetComponent<EnemyUnit>();
 
+        // Limpa o prefab do GameManager após usar
+        if (GameManager.Instance != null)
+            GameManager.Instance.nextBattleEnemyPrefab = null;
+
         if (enemyUnit == null)
         {
-            Debug.LogError("[BattleSystem] enemyPrefab não tem componente EnemyUnit.");
+            Debug.LogError("[BattleSystem] prefab instanciado não tem componente EnemyUnit.");
             yield break;
         }
 
