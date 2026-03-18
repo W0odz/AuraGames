@@ -122,19 +122,12 @@ public class DialogueRunner : MonoBehaviour
         recentlyOpenedTime = Time.unscaledTime;
         _eSeguroAnterior = true;
 
-        // Ativa o fundo se necessário
+        // Ativa o fundo SOMENTE se o DialogueAsset tiver um sprite de fundo explícito
         if (fundoImage != null)
         {
-            // Determina o sprite de fundo: asset tem prioridade.
-            // Fallback para battleBackground do GameManager (usado em diálogos pós-vitória,
-            // disparados via StartDialogueImediato durante FadeToSceneCoroutine).
-            Sprite spriteDoFundo = asset.fundoPainel;
-            if (spriteDoFundo == null && GameManager.Instance?.battleBackground != null)
-                spriteDoFundo = GameManager.Instance.battleBackground;
-
-            if (spriteDoFundo != null)
+            if (asset.fundoPainel != null)
             {
-                fundoImage.sprite = spriteDoFundo;
+                fundoImage.sprite = asset.fundoPainel;
                 fundoImage.gameObject.SetActive(true);
             }
             else

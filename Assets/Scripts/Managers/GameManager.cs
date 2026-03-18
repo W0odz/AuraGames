@@ -215,7 +215,8 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
-
+            // Reset defensivo do timeScale (caso uma cena anterior tenha deixado travado)
+            Time.timeScale = 1f;
         }
         else if (_instance != this)
         {
@@ -370,6 +371,7 @@ public class GameManager : MonoBehaviour
 
         // 2. Carregar a Cena
         SceneManager.LoadScene(sceneName);
+        Time.timeScale = 1f; // Garante reset do timeScale em qualquer transição de cena
         if (repelEnemiesOnReturn)
         {
             RepelEnemiesNearPosition(playerReturnPosition, enemySafeRadiusOnReturn);
@@ -386,8 +388,10 @@ public class GameManager : MonoBehaviour
             dialogoPendente = null;
             cenaDestinoPendente = null;
 
-            // Dispara o diálogo com a tela ainda preta
-            // O fade in só acontece ao terminar o diálogo
+            // Faz o fade-in ANTES de abrir o diálogo, para o jogador poder ver o painel
+            yield return StartCoroutine(FadeInCoroutine());
+
+            // Dispara o diálogo com a tela já visível
             bool dialogoTerminou = false;
             DialogueRunner.Instance.StartDialogueImediato(dialogoParaDisparar, () =>
             {
@@ -395,9 +399,12 @@ public class GameManager : MonoBehaviour
             });
 
             yield return new WaitUntil(() => dialogoTerminou);
+
+            // Fade-in já foi feito antes do diálogo — não faz de novo
+            yield break;
         }
 
-        // 4. Fade In (Clarear) — acontece após o diálogo (ou imediatamente se não houver diálogo)
+        // 4. Fade In (Clarear) — acontece imediatamente se não há diálogo pendente
         yield return StartCoroutine(FadeInCoroutine());
     }
 
