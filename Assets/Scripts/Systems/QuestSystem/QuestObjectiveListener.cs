@@ -39,6 +39,15 @@ public class QuestObjectiveListener : MonoBehaviour
 
         if (quest == null || QuestManager.Instance == null) yield break;
         if (quest.objetivos == null || indiceDoObjetivo >= quest.objetivos.Count) yield break;
+
+        // Guarda se a quest está ativa ou já foi concluída/entregue.
+        // Se estiver NotStarted, o objetivo nunca foi iniciado — não desativar nada.
+        bool questIniciadaOuConcluida = QuestManager.Instance.IsActive(quest.questId)
+                                     || QuestManager.Instance.IsCompleted(quest.questId)
+                                     || QuestManager.Instance.IsTurnedIn(quest.questId);
+
+        if (!questIniciadaOuConcluida) yield break;
+
         if (!quest.objetivos[indiceDoObjetivo].EstaCompleto()) yield break;
 
         // Reentrou na cena com objetivo já concluído — desativa direto
