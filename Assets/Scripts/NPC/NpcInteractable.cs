@@ -13,7 +13,6 @@ public class NpcInteractable : MonoBehaviour
     [Tooltip("Se preenchida, os nós do dialogoPadrao serão filtrados pelo estado da quest. Deixe vazio para comportamento padrão.")]
     public QuestDefinition questVinculada;
 
-    private bool jaInteragiu = false;
     public bool isMerchant = false;
     private bool playerNearby = false;
 
@@ -50,7 +49,7 @@ public class NpcInteractable : MonoBehaviour
 
     public void OnInteract()
     {
-        // Quest vinculada — com filtro de estado
+        // Quest vinculada — com filtro de estado (sem mudança)
         if (questVinculada != null)
         {
             if (dialogoPadrao == null)
@@ -78,19 +77,26 @@ public class NpcInteractable : MonoBehaviour
             return;
         }
 
+        // Resolve se o diálogo único já foi visto — persiste entre cenas via GameManager
+        var identidade = GetComponent<NpcIdentidade>();
+        string npcId = (identidade != null && !string.IsNullOrEmpty(identidade.npcId))
+            ? identidade.npcId
+            : gameObject.name;
+
+        bool jaViuUnico = dialogoUnico == null || GameManager.Instance.DialogoUnicoVisto(npcId);
+
         // Sem quest vinculada
         if (isMerchant)
         {
             NpcMerchant merchant = GetComponent<NpcMerchant>();
-            if (!jaInteragiu)
+            if (!jaViuUnico)
             {
-                if (dialogoUnico == null) dialogoUnico = dialogoPadrao;
                 DialogueRunner.Instance.StartDialogue(dialogoUnico, () =>
                 {
+                    GameManager.Instance.MarcarDialogoUnicoVisto(npcId);
                     NotificarQuestManager();
                     if (merchant != null) merchant.OpenMerchantMenu();
                 });
-                jaInteragiu = true;
             }
             else
             {
@@ -103,14 +109,13 @@ public class NpcInteractable : MonoBehaviour
         }
         else
         {
-            if (!jaInteragiu)
+            if (!jaViuUnico)
             {
-                if (dialogoUnico == null) dialogoUnico = dialogoPadrao;
                 DialogueRunner.Instance.StartDialogue(dialogoUnico, () =>
                 {
+                    GameManager.Instance.MarcarDialogoUnicoVisto(npcId);
                     NotificarQuestManager();
                 });
-                jaInteragiu = true;
             }
             else
             {

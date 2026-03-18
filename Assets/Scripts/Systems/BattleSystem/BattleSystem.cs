@@ -4,9 +4,24 @@ using TMPro;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, TARGETING, WON, LOST, BUSY }
 
+[System.Serializable]
+public class DialogoPosBatalha
+{
+    [Tooltip("ID do inimigo (currentEnemyID do GameManager) que dispara este diálogo.")]
+    public string enemyId;
+    [Tooltip("DialogueAsset a ser exibido ao vencer contra esse inimigo.")]
+    public DialogueAsset dialogo;
+    [Tooltip("Nome da cena para a qual o jogador será levado após o diálogo terminar.")]
+    public string cenaDestino;
+}
+
 public class BattleSystem : MonoBehaviour
 {
     public static BattleSystem Instance;
+
+    [Header("Painéis de UI")]
+    public GameObject dialoguePanel;
+    public GameObject commandsPanel;
 
     [Header("Telas de Vitória")]
     public GameObject xpPanel;
@@ -40,6 +55,9 @@ public class BattleSystem : MonoBehaviour
     public float pausaAposFadeInimigo = 1.5f;
     public float pausaAposXP = 1.5f;
 
+    [Header("Diálogos Pós-Vitória")]
+    public DialogoPosBatalha[] dialogosPosVitoria;
+
     public BattleState state;
 
     private void Awake()
@@ -55,22 +73,43 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator SetupBattle()
     {
+        // Espera o PlayerUnit estar disponível (máx. 3 segundos)
+        float timeout = 3f;
+        while (PlayerUnit.Instance == null && timeout > 0f)
+        {
+            timeout -= Time.deltaTime;
+            yield return null;
+        }
+
         if (PlayerUnit.Instance == null)
         {
-            Debug.LogError("[BattleSystem] PlayerUnit.Instance é NULL.");
+            Debug.LogError("[BattleSystem] PlayerUnit.Instance é NULL após espera. Verifique se o PlayerUnit está na cena de exploração.");
             yield break;
         }
 
         playerUnit = PlayerUnit.Instance;
         playerUnit.InicializarUnidade();
 
-        GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
+        // Usa o prefab do inimigo que colidiu na exploração — fallback pro campo do Inspector
+        GameObject prefabParaInstanciar = GameManager.Instance?.nextBattleEnemyPrefab ?? enemyPrefab;
+
+        if (prefabParaInstanciar == null)
+        {
+            Debug.LogError("[BattleSystem] Nenhum prefab de inimigo definido. Atribua um no Inspector ou verifique o PlayerMovement.");
+            yield break;
+        }
+
+        GameObject enemyGO = Instantiate(prefabParaInstanciar, enemyBattleStation);
         enemyGO.transform.localPosition = Vector3.zero;
         enemyUnit = enemyGO.GetComponent<EnemyUnit>();
 
+        // Limpa o prefab do GameManager após usar
+        if (GameManager.Instance != null)
+            GameManager.Instance.nextBattleEnemyPrefab = null;
+
         if (enemyUnit == null)
         {
-            Debug.LogError("[BattleSystem] enemyPrefab não tem componente EnemyUnit.");
+            Debug.LogError("[BattleSystem] prefab instanciado não tem componente EnemyUnit.");
             yield break;
         }
 
@@ -145,6 +184,11 @@ public class BattleSystem : MonoBehaviour
         if (state != BattleState.PLAYERTURN) return;
 
         state = BattleState.TARGETING;
+
+        // Desativa os painéis ao clicar em atacar
+        if (dialoguePanel != null) dialoguePanel.SetActive(false);
+        if (commandsPanel != null) commandsPanel.SetActive(false);
+
         bool isCortante = AttackManager.Instance != null &&
                   AttackManager.Instance.armaAtual != null &&
                   AttackManager.Instance.armaAtual.tipoDeDano == TipoAtaque.Cortante;
@@ -187,6 +231,10 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
+
+        if (dialoguePanel != null) dialoguePanel.SetActive(true);
+        if (commandsPanel != null) commandsPanel.SetActive(true);
+
         bool isDead = false;
 
         yield return new WaitForSeconds(3f);
@@ -349,12 +397,44 @@ public class BattleSystem : MonoBehaviour
         if (GameManager.Instance != null)
         {
             GameManager.Instance.defeatedEnemyIDs.Add(GameManager.Instance.currentEnemyID);
-            GameManager.Instance.isReturningFromBattle = true;
-            GameManager.Instance.StartCombatGracePeriod();
 
-            string cenaVitoria = GameManager.Instance.lastExplorationScene;
-            if (string.IsNullOrEmpty(cenaVitoria)) cenaVitoria = nomeCenaMapa;
-            GameManager.Instance.LoadSceneWithFade(cenaVitoria);
+            string enemyIdAtual = enemyUnit.unitName;
+            if (GameManager.Instance.currentEnemyID == null)
+                Debug.LogWarning("[BattleSystem] currentEnemyID é null; usando unitName como fallback: " + enemyUnit.unitName);
+            DialogoPosBatalha entradaDialogo = null;
+
+            if (dialogosPosVitoria != null)
+            {
+                foreach (var entrada in dialogosPosVitoria)
+                {
+                    if (entrada.enemyId == enemyIdAtual && entrada.dialogo != null)
+                    {
+                        entradaDialogo = entrada;
+                        break;
+                    }
+                }
+            }
+
+            if (entradaDialogo != null)
+            {
+                // Salva o diálogo pendente no GameManager para ser disparado na cena destino
+                // antes do fade in, com a tela ainda preta
+                GameManager.Instance.dialogoPendente = entradaDialogo.dialogo;
+                GameManager.Instance.cenaDestinoPendente = entradaDialogo.cenaDestino;
+
+                string cenaEspecial = entradaDialogo.cenaDestino;
+                if (string.IsNullOrEmpty(cenaEspecial)) cenaEspecial = nomeCenaMapa;
+                GameManager.Instance.LoadSceneWithFade(cenaEspecial);
+            }
+            else
+            {
+                GameManager.Instance.isReturningFromBattle = true;
+                GameManager.Instance.StartCombatGracePeriod();
+
+                string cenaVitoria = GameManager.Instance.lastExplorationScene;
+                if (string.IsNullOrEmpty(cenaVitoria)) cenaVitoria = nomeCenaMapa;
+                GameManager.Instance.LoadSceneWithFade(cenaVitoria);
+            }
         }
         else
         {

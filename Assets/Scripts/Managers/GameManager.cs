@@ -74,6 +74,12 @@ public class GameManager : MonoBehaviour
     public bool isReturningFromBattle;   // Uma "bandeira" para saber se deve usar essa posi��o
     public string pendingSpawnID = ""; // ID do SpawnPoint de destino na próxima cena
 
+    [Header("Diálogo Pós-Vitória Pendente")]
+    [Tooltip("DialogueAsset a ser disparado ao carregar a próxima cena, antes do fade in.")]
+    public DialogueAsset dialogoPendente;
+    [Tooltip("Cena destino para o diálogo pós-vitória.")]
+    public string cenaDestinoPendente;
+
     [Header("Player Stats & Level")]
     public string playerName = "Her�i"; // O campo para o nome
     public int playerLevel = 1;
@@ -93,12 +99,19 @@ public class GameManager : MonoBehaviour
     public float combatGraceDuration = 3f;
     public float combatGraceUntil = 0f;
 
+    [Header("Batalha — Fundo")]
+    [Tooltip("Sprite do fundo que será usado na BattleScene. Definido automaticamente pela cena de exploração.")]
+    public Sprite battleBackground;
+
     [Header("Enemy Return Safety")]
     public bool repelEnemiesOnReturn = false;
     public float enemySafeRadiusOnReturn = 3.0f;
 
     [Header("Enemy Persistence (Prototype)")]
     public Dictionary<string, Vector3> enemyPositions = new Dictionary<string, Vector3>();
+
+    [Header("Diálogos Únicos Vistros")]
+    public List<string> seenUniqueDialogues = new List<string>();
 
     // Adiciona junto com as outras flags p�blicas
     public bool inputBloqueado = false;
@@ -110,6 +123,15 @@ public class GameManager : MonoBehaviour
     /// Use para impedir que sistemas iniciem novas ações durante o shutdown.
     /// </summary>
     public bool IsShuttingDown => _isShuttingDown;
+
+    public bool DialogoUnicoVisto(string npcID)
+    => seenUniqueDialogues.Contains(npcID);
+
+    public void MarcarDialogoUnicoVisto(string npcID)
+    {
+        if(!seenUniqueDialogues.Contains(npcID))
+            seenUniqueDialogues.Add(npcID);
+    }
 
     public bool IsInCombatGracePeriod()
     {
@@ -166,7 +188,7 @@ public class GameManager : MonoBehaviour
         yield return StartCoroutine(FadeInCoroutine());
     }
 
-    #region M�todos Unity
+    #region Métodos Unity
     private void OnApplicationQuit()
     {
         if (_isShuttingDown) return;
@@ -210,7 +232,7 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    #region Fun��es de Save
+    #region Funções de Save
     public void SetCurrentSlot(int slot)
     {
         currentSaveSlot = slot;
@@ -331,7 +353,7 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    #region Fun��es P�blicas de Transi��o
+    #region Funções Públicas de Transição
 
     // Chame isso em vez de SceneManager.LoadScene()
     public void LoadSceneWithFade(string sceneName)
@@ -354,9 +376,28 @@ public class GameManager : MonoBehaviour
             repelEnemiesOnReturn = false;
         }
 
-        // 3. Fade In (Clarear)
-        // Damos um pequeno delay para a cena carregar
+        // Pequeno delay para a cena carregar
         yield return new WaitForSecondsRealtime(0.1f);
+
+        // 3. Verifica se há diálogo pendente para disparar antes do fade in
+        if (dialogoPendente != null)
+        {
+            DialogueAsset dialogoParaDisparar = dialogoPendente;
+            dialogoPendente = null;
+            cenaDestinoPendente = null;
+
+            // Dispara o diálogo com a tela ainda preta
+            // O fade in só acontece ao terminar o diálogo
+            bool dialogoTerminou = false;
+            DialogueRunner.Instance.StartDialogue(dialogoParaDisparar, () =>
+            {
+                dialogoTerminou = true;
+            });
+
+            yield return new WaitUntil(() => dialogoTerminou);
+        }
+
+        // 4. Fade In (Clarear) — acontece após o diálogo (ou imediatamente se não houver diálogo)
         yield return StartCoroutine(FadeInCoroutine());
     }
 

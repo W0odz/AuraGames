@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 998d816f9ecd779408036895027b9b91, type: 3}
+  m_Name: dlo01_09
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueAsset
+  portraitEsquerda: {fileID: -2499865093323967227, guid: e2f5fa213065c3a499ebfc9317f46ac3, type: 3}
+  portraitDireita: {fileID: 4463082706710318454, guid: 3eebd4ab3aa0c0f4cb69a46b3cd92e92, type: 3}
+  fundoPainel: {fileID: 0}
+  nodes:
+  - text: "Gra\xE7as a voc\xEA e seu pai, o templo est\xE1 recheado de p\xE3o e carne,
+      continue assim!"
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: 0}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
+  - text: "Nunca esque\xE7o minhas oferendas."
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: 0}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
+  - text: Muito bom, filho, o Fulgor aprecia seu gesto.
+    speakerSide: 1
+    speakerName: Sacerdote
+    portrait: {fileID: 0}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0

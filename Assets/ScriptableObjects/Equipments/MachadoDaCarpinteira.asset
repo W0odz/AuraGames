@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9896ec5fe7b417f4a9b9a2a4d70b7998, type: 3}
+  m_Name: MachadoDaCarpinteira
+  m_EditorClassIdentifier: Assembly-CSharp::DadosArma
+  nomeItem: Machado Da Carpinteira
+  descricao: 
+  iconeItem: {fileID: -3615744542873261963, guid: f44ff7cc7c668164bb80ad3a81193ce7, type: 3}
+  tipoItem: 1
+  slotOndeEquipa: 0
+  efeitosDoItem: []
+  valorEscambo: 1
+  bonusStrength: 0
+  bonusResistance: 0
+  bonusMaxHP: 0
+  bonusMaxMP: 0
+  apenasForaDeBatalha: 0
+  tipoDeDano: 1
+  velocidadeDoAro: 1.5
+  limiteDeTinta: 100

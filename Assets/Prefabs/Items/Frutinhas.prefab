@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4472180615928867253}
   - component: {fileID: 6231587978478694450}
   - component: {fileID: 4501589872421508120}
-  - component: {fileID: 8662972477743558660}
+  - component: {fileID: 3596432778534991334}
   - component: {fileID: 555132330903623693}
   m_Layer: 0
   m_Name: Frutinhas
@@ -139,20 +139,43 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.0001, y: 0.0001}
   m_EdgeRadius: 0
---- !u!114 &8662972477743558660
-MonoBehaviour:
+--- !u!70 &3596432778534991334
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9034096372922481124}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9814fb2c2244194eb445b55069852fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ItemColetavel
-  itemParaDar: {fileID: 11400000, guid: e49a43ba42faace41b47e271a91fe42f, type: 2}
-  quantidade: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1.75, y: 1.75}
+  m_Direction: 0
 --- !u!114 &555132330903623693
 MonoBehaviour:
   m_ObjectHideFlags: 0
