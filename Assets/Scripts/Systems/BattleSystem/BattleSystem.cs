@@ -231,6 +231,10 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
+
+        if (dialoguePanel != null) dialoguePanel.SetActive(true);
+        if (commandsPanel != null) commandsPanel.SetActive(true);
+
         bool isDead = false;
 
         yield return new WaitForSeconds(3f);

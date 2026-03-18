@@ -1549,7 +1549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcad75f37f974874eb9ed473633940c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUnit
-  unitName: Javali
+  unitName: "Ca\xE7ador"
   unitPortrait: {fileID: 0}
   maxHP: 50
   currentHP: 50

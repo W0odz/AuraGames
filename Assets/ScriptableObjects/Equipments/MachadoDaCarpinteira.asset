@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DadosArma
   nomeItem: Machado Da Carpinteira
   descricao: 
-  iconeItem: {fileID: 0}
-  tipoItem: 0
+  iconeItem: {fileID: -3615744542873261963, guid: f44ff7cc7c668164bb80ad3a81193ce7, type: 3}
+  tipoItem: 1
   slotOndeEquipa: 0
   efeitosDoItem: []
   valorEscambo: 1

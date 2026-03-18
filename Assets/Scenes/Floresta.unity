@@ -10375,6 +10375,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &286942679 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 453792655116239195, guid: 7ee4226cde7a6ab4aaab81a38daa4d9a, type: 3}
+  m_PrefabInstance: {fileID: 18002519}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &299984649
 GameObject:
   m_ObjectHideFlags: 0
@@ -19034,7 +19045,7 @@ GameObject:
   m_Component:
   - component: {fileID: 526381617}
   m_Layer: 0
-  m_Name: Arbustos
+  m_Name: BloqueioArbustos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28610,6 +28621,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4865047398782504748, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: 'currentEquipment.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: c29c5b7152304c9479adaa6624aed05e, type: 2}
+    - target: {fileID: 7193595712712339372, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: resultIcon
+      value: 
+      objectReference: {fileID: 1431046852}
+    - target: {fileID: 7193595712712339372, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: resultName
+      value: 
+      objectReference: {fileID: 1329478466}
+    - target: {fileID: 7193595712712339372, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: resultDescription
+      value: 
+      objectReference: {fileID: 286942679}
+    - target: {fileID: 7193595712712339372, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: recipeListContainer
+      value: 
+      objectReference: {fileID: 859347941}
+    - target: {fileID: 7193595712712339372, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: ingredientsContainer
+      value: 
+      objectReference: {fileID: 1502831267}
+    - target: {fileID: 7193595712712339372, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: resultAndIngredientsGroup
+      value: 
+      objectReference: {fileID: 1824291144}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -28778,11 +28817,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6533698976016816849, guid: 64c8f1e97c85169438488846248d355a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 127.8
+      value: 19.6
       objectReference: {fileID: 0}
     - target: {fileID: 6533698976016816849, guid: 64c8f1e97c85169438488846248d355a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 36.1
+      value: 6.3
       objectReference: {fileID: 0}
     - target: {fileID: 6533698976016816849, guid: 64c8f1e97c85169438488846248d355a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -35284,6 +35323,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!224 &859347941 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6313528878980887165, guid: 7ee4226cde7a6ab4aaab81a38daa4d9a, type: 3}
+  m_PrefabInstance: {fileID: 18002519}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &860109224
 GameObject:
   m_ObjectHideFlags: 0
@@ -43712,6 +43756,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1075118006}
+  - component: {fileID: 1075118007}
+  - component: {fileID: 1075118008}
   m_Layer: 0
   m_Name: Block_2
   m_TagString: Untagged
@@ -43737,6 +43783,65 @@ Transform:
   - {fileID: 825446492}
   m_Father: {fileID: 526381617}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1075118007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1075118005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fdeea26ee8757f439d6e32d64e022ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BloqueioArbusto
+  nomeArmaRequerida: MachadoDaCarpinteira
+--- !u!61 &1075118008
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1075118005}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 24.230848, y: -3.0971565}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 6.737568, y: 3.4727688}
+  m_EdgeRadius: 0
 --- !u!1 &1081082645
 GameObject:
   m_ObjectHideFlags: 0
@@ -48515,6 +48620,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1186587795}
+  - component: {fileID: 1186587796}
+  - component: {fileID: 1186587797}
   m_Layer: 0
   m_Name: Block_1
   m_TagString: Untagged
@@ -48539,6 +48646,65 @@ Transform:
   - {fileID: 1434985061}
   m_Father: {fileID: 526381617}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1186587796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186587794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fdeea26ee8757f439d6e32d64e022ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BloqueioArbusto
+  nomeArmaRequerida: MachadoDaCarpinteira
+--- !u!61 &1186587797
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186587794}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -1.4059925, y: -1.422631}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 5.376045, y: 3.845262}
+  m_EdgeRadius: 0
 --- !u!1 &1189437156
 GameObject:
   m_ObjectHideFlags: 0
@@ -53655,6 +53821,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1329478466 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8854349454929850038, guid: 7ee4226cde7a6ab4aaab81a38daa4d9a, type: 3}
+  m_PrefabInstance: {fileID: 18002519}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &1330027368
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -57191,6 +57368,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1431046852 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7271710495447269988, guid: 7ee4226cde7a6ab4aaab81a38daa4d9a, type: 3}
+  m_PrefabInstance: {fileID: 18002519}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1001 &1432614025
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60843,6 +61031,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!224 &1502831267 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8085821911475551211, guid: 7ee4226cde7a6ab4aaab81a38daa4d9a, type: 3}
+  m_PrefabInstance: {fileID: 18002519}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1506950750
 GameObject:
   m_ObjectHideFlags: 0
@@ -632090,11 +632283,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7159320044293941838, guid: a1c88776f360a5c4da32eed94d73c2dd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.21
+      value: -0.27
       objectReference: {fileID: 0}
     - target: {fileID: 7159320044293941838, guid: a1c88776f360a5c4da32eed94d73c2dd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -18.43
+      value: -17.81
       objectReference: {fileID: 0}
     - target: {fileID: 7159320044293941838, guid: a1c88776f360a5c4da32eed94d73c2dd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -632498,6 +632691,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1824291144 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5068461319105222810, guid: 7ee4226cde7a6ab4aaab81a38daa4d9a, type: 3}
+  m_PrefabInstance: {fileID: 18002519}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1829751379
 PrefabInstance:
   m_ObjectHideFlags: 0
