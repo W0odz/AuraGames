@@ -13,8 +13,12 @@ public class DialogueTrigger : MonoBehaviour
     [Tooltip("Se true, só dispara o diálogo uma vez")]
     public bool apenasUmaVez = false;
 
+    [Header("Quest (opcional)")]
+    [Tooltip("ID único deste trigger. Deve bater com o 'triggerDialogueId' no QuestObjective.")]
+    public string triggerId;
+
     [Header("Imagem de Fundo (opcional)")]
-    [Tooltip("Imagem fullscreen exibida durante o diálogo (ex: interior de uma loja, outra área)")]
+    [Tooltip("Imagem fullscreen exibida durante o diálogo")]
     public Sprite imagemFundo;
 
     [Tooltip("Referência ao Image do Canvas que será usado como fundo fullscreen")]
@@ -63,6 +67,10 @@ public class DialogueTrigger : MonoBehaviour
 
         jaDisparou = true;
 
+        // Notifica o QuestManager se tiver um ID configurado
+        if (!string.IsNullOrEmpty(triggerId) && QuestManager.Instance != null)
+            QuestManager.Instance.NotificarDialogueTrigger(triggerId);
+
         // Ativa o fundo antes do diálogo
         if (fundoUI != null && imagemFundo != null)
         {
@@ -76,7 +84,6 @@ public class DialogueTrigger : MonoBehaviour
             if (fundoUI != null)
                 fundoUI.gameObject.SetActive(false);
 
-            // Permite disparar de novo se não for apenasUmaVez
             if (!apenasUmaVez)
                 jaDisparou = false;
         });

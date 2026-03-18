@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5721882248502467320}
   - component: {fileID: 3255922561365376729}
   - component: {fileID: 2924713031740778865}
+  - component: {fileID: 5983547149308000189}
   m_Layer: 0
   m_Name: Mercante_Base
   m_TagString: Untagged
@@ -129,6 +130,19 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
+--- !u!114 &5983547149308000189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2723412143084396514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06964e45ec15fe54a85e760e1391e199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NpcIdentidade
+  npcId: 
 --- !u!1 &8775093652435039992
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,6 +228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NpcInteractable
   dialogoPadrao: {fileID: 11400000, guid: f4f16eeb4b2adf8418d659536f082c1b, type: 2}
   dialogoUnico: {fileID: 0}
+  questVinculada: {fileID: 0}
   isMerchant: 1
 --- !u!114 &139855477514319430
 MonoBehaviour:

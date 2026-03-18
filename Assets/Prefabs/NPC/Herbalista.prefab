@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 668873534665274342}
   - component: {fileID: 4417614306097125962}
   - component: {fileID: 440987994299255320}
+  - component: {fileID: 2972739403117526798}
   m_Layer: 0
   m_Name: Herbalista
   m_TagString: Untagged
@@ -215,3 +216,16 @@ CapsuleCollider2D:
   m_Offset: {x: -0.023211671, y: 0.034817506}
   m_Size: {x: 0.5443115, y: 1.6046723}
   m_Direction: 0
+--- !u!114 &2972739403117526798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5435260534411423168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06964e45ec15fe54a85e760e1391e199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NpcIdentidade
+  npcId: 

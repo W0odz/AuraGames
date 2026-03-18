@@ -58,6 +58,12 @@ public class GameManager : MonoBehaviour
     public GameObject nextBattleEnemyPrefab; // O prefab que ser� spawnado na batalha
     public GameObject currentExplorationEnemyBattlePrefab; // battlePrefab do inimigo de explora��o que iniciou a batalha atual
 
+    // Adicionar junto dos outros campos de estado (região "Estados do Jogo")
+
+    [Header("Intro do Jogo")]
+    [Tooltip("Se true, a cena da vila vai disparar o diálogo de intro e a primeira quest ao carregar.")]
+    public bool triggerIntroOnLoad = false;
+
     [Header("Dados Persistentes do Jogo")]
     public int currentSaveSlot = 1; // O slot que est� em uso
     public List<string> collectedItemIDs = new List<string>();
@@ -245,24 +251,22 @@ public class GameManager : MonoBehaviour
         positionToLoad = new Vector3(data.posX, data.posY, data.posZ);
         isLoadingSave = true; // Avisa o sistema que estamos carregando um save
 
+        LoadSceneWithFade(data.sceneName);
+
         Debug.Log("Jogo carregado do Slot " + slot);
     }
 
     // Cria um novo jogo (usa valores padr�o)
-    public void CreateNewGame(string playerNameInput)
+    public void CreateNewGame(string playerNameInput, string cenaInicial = "Vila_01")
     {
-        GameData data = new GameData(); // Cria um cont�iner com valores padr�o
+        GameData data = new GameData();
 
         if (!string.IsNullOrEmpty(playerNameInput))
-        {
             data.playerName = playerNameInput;
-        }
         else
-        {
-            data.playerName = "Her�i";
-        }
+            data.playerName = "Herói";
 
-        // Copia os dados padr�o para o GameManager
+        // Copia os dados padrão para o GameManager
         playerName = data.playerName;
         playerLevel = data.playerLevel;
         currentXP = data.currentXP;
@@ -272,15 +276,16 @@ public class GameManager : MonoBehaviour
         currentHP = maxHP;
         currentMP = maxMP;
         strength = data.strength;
-        //speed = data.speed;
-        //resistance = data.resistance;
-        //will = data.will;
-        //knowledge = data.knowledge;
-        //luck = data.luck;
         defeatedEnemyIDs = data.defeatedEnemyIDs;
         collectedItemIDs = data.collectedItemIDs;
 
+        // Sinaliza que deve rodar a intro ao carregar a cena
+        triggerIntroOnLoad = true;
+
         Debug.Log("Novo jogo criado.");
+
+        // Carrega a cena inicial
+        LoadSceneWithFade(cenaInicial);
     }
 
     // Salva os dados atuais do GameManager em um arquivo

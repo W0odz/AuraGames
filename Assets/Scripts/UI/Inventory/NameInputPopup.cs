@@ -32,7 +32,7 @@ public class NameInputPopup : MonoBehaviour
         GameManager.Instance.CreateNewGame(chosenName);
 
         // 3. Carrega a cena
-        GameManager.Instance.LoadSceneWithFade("ExplorationScene");
+        GameManager.Instance.LoadSceneWithFade("Vila_01");
 
         // Fecha o popup (opcional, já que vamos mudar de cena)
         gameObject.SetActive(false);

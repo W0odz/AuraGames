@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1315060357740947925}
   - component: {fileID: 8501059733103044368}
   - component: {fileID: 8640869065397817803}
+  - component: {fileID: 2112214280597879350}
   m_Layer: 0
   m_Name: Cultista 1
   m_TagString: Untagged
@@ -129,6 +130,19 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0317688, y: 0.058243085}
   m_Size: {x: 0.4470337, y: 1.5317205}
   m_Direction: 0
+--- !u!114 &2112214280597879350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7121248496030349273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06964e45ec15fe54a85e760e1391e199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NpcIdentidade
+  npcId: 
 --- !u!1 &8294117512578309237
 GameObject:
   m_ObjectHideFlags: 0

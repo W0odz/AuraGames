@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6353061497193434474}
   - component: {fileID: 1229359909097311963}
   - component: {fileID: 7395566956291293973}
+  - component: {fileID: 2334498028675189413}
   m_Layer: 0
   m_Name: Florista
   m_TagString: Untagged
@@ -129,6 +130,19 @@ CapsuleCollider2D:
   m_Offset: {x: -0.016464233, y: 0.028808594}
   m_Size: {x: 0.48184204, y: 1.5719131}
   m_Direction: 0
+--- !u!114 &2334498028675189413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2901766052159058570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06964e45ec15fe54a85e760e1391e199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NpcIdentidade
+  npcId: 
 --- !u!1 &8303685038821272038
 GameObject:
   m_ObjectHideFlags: 0

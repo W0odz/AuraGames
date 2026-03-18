@@ -20,24 +20,62 @@ MonoBehaviour:
   npcEntregaNome: 
   questsNecessarias: []
   objetivos:
-  - descricao: "Fale com o A\xE7ougueiro"
+  - descricao: "Fale com o A\xE7ougueiro."
     tipo: 3
     itemAlvo: {fileID: 0}
     quantidadeNecessaria: 0
     enemyPrefab: {fileID: 0}
-    npcAlvo: {fileID: 0}
+    npcAlvoNome: acougueiro_vila_01
     battleEnemyPrefab: {fileID: 0}
+    triggerDialogueId: 
     timerNecessario: 0
     progressoAtual: 0
     timerAtual: 0
     apenasInformativo: 0
-  - descricao: 
-    tipo: 0
+  - descricao: Fale com o Sacerdote.
+    tipo: 3
     itemAlvo: {fileID: 0}
     quantidadeNecessaria: 0
     enemyPrefab: {fileID: 0}
-    npcAlvo: {fileID: 0}
+    npcAlvoNome: sacerdote_vila_01
     battleEnemyPrefab: {fileID: 0}
+    triggerDialogueId: 
+    timerNecessario: 0
+    progressoAtual: 0
+    timerAtual: 0
+    apenasInformativo: 0
+  - descricao: "Volte mais tarde para o serm\xE3o."
+    tipo: 4
+    itemAlvo: {fileID: 0}
+    quantidadeNecessaria: 0
+    enemyPrefab: {fileID: 0}
+    npcAlvoNome: 
+    battleEnemyPrefab: {fileID: 0}
+    triggerDialogueId: 
+    timerNecessario: 0
+    progressoAtual: 0
+    timerAtual: 60
+    apenasInformativo: 0
+  - descricao: "Ou\xE7a o serm\xE3o"
+    tipo: 6
+    itemAlvo: {fileID: 0}
+    quantidadeNecessaria: 0
+    enemyPrefab: {fileID: 0}
+    npcAlvoNome: 
+    battleEnemyPrefab: {fileID: 0}
+    triggerDialogueId: entrada_igreja
+    timerNecessario: 0
+    progressoAtual: 0
+    timerAtual: 0
+    apenasInformativo: 0
+  - descricao: Procure pistas pela floresta
+    tipo: 2
+    itemAlvo: {fileID: 0}
+    quantidadeNecessaria: 0
+    enemyPrefab: {fileID: 6385819010840743586, guid: b7e066a39ba80764fbd6f698cda39b4b, type: 3}
+    npcAlvoNome: 
+    battleEnemyPrefab: {fileID: 6089210800779420423, guid: d5f08d0b8493c034a836f5f6a6d754a3, type: 3}
+    triggerDialogueId: 
     timerNecessario: 0
     progressoAtual: 0
     timerAtual: 0

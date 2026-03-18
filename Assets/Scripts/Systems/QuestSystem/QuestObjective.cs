@@ -11,16 +11,20 @@ public class QuestObjective
     public int quantidadeNecessaria;
 
     // Para KillEnemy
-    [Tooltip("Arraste aqui o prefab do inimigo de EXPLORAÇÃO (que tem EnemyAIController com battlePrefab configurado). A comparação é feita pelo battlePrefab, não por string ID.")]
-    public GameObject enemyPrefab; // ← GameObject aceito no ScriptableObject
+    [Tooltip("Arraste aqui o prefab do inimigo de exploração.")]
+    public GameObject enemyPrefab;
 
     // Para TalkToNpc
-    [Tooltip("Arraste aqui o GameObject do NPC com quem o jogador deve falar na cena.")]
-    public GameObject npcAlvo;
+    [Tooltip("ID do NPC (componente NpcIdentidade.npcId).")]
+    public string npcAlvoNome;
 
     // Para EnterBattle
-    [Tooltip("Arraste aqui o prefab do inimigo de EXPLORAÇÃO cujo combate precisa ser iniciado. A comparação é feita pelo battlePrefab, não por string ID.")]
-    public GameObject battleEnemyPrefab; // ← idem
+    [Tooltip("Prefab do inimigo de exploração cujo combate precisa ser iniciado.")]
+    public GameObject battleEnemyPrefab;
+
+    // Para TriggerDialogue
+    [Tooltip("ID do DialogueTrigger que precisa ser ativado. Deve bater com o campo 'triggerId' no DialogueTrigger.")]
+    public string triggerDialogueId;
 
     // Para Timer
     public float timerNecessario;
@@ -29,8 +33,7 @@ public class QuestObjective
     public int progressoAtual;
     public float timerAtual;
 
-    // Informativo — exibido no HUD mas não exigido para conclusão da quest
-    [Tooltip("Se marcado, este objetivo é apenas informativo. A quest completa quando todos os objetivos não-informativos terminarem. Este objetivo nunca precisa ser completado.")]
+    [Tooltip("Se marcado, este objetivo é apenas informativo e nunca precisa ser completado.")]
     public bool apenasInformativo;
 
     public bool EstaCompleto()

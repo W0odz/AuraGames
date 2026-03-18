@@ -153,6 +153,10 @@ public class QuestManager : MonoBehaviour
 
     public void NotificarConversa(GameObject npc)
     {
+        // Tenta pegar o ID pelo componente, senão usa o nome do GameObject
+        var identidade = npc.GetComponent<NpcIdentidade>();
+        string idNpc = identidade != null ? identidade.npcId : npc.name;
+
         foreach (var kvp in questStates)
         {
             if (kvp.Value != QuestState.Active) continue;
@@ -160,7 +164,8 @@ public class QuestManager : MonoBehaviour
 
             var obj = ObterObjetivoAtual(def);
             if (obj == null || obj.tipo != QuestObjectiveType.TalkToNpc) continue;
-            if (obj.npcAlvo == null || obj.npcAlvo != npc) continue;
+            if (string.IsNullOrEmpty(obj.npcAlvoNome)) continue;
+            if (obj.npcAlvoNome != idNpc) continue;
             if (obj.EstaCompleto()) continue;
 
             obj.progressoAtual = Mathf.Max(1, obj.quantidadeNecessaria);
@@ -192,6 +197,24 @@ public class QuestManager : MonoBehaviour
                 bate = !string.IsNullOrEmpty(aiObjetivo.enemyID) && aiObjetivo.enemyID == enemyId;
 
             if (!bate) continue;
+
+            obj.progressoAtual = 1;
+            VerificarConclusao(kvp.Key, def);
+        }
+    }
+
+    public void NotificarDialogueTrigger(string triggerId)
+    {
+        foreach (var kvp in questStates)
+        {
+            if (kvp.Value != QuestState.Active) continue;
+            if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
+
+            var obj = ObterObjetivoAtual(def);
+            if (obj == null || obj.tipo != QuestObjectiveType.TriggerDialogue) continue;
+            if (string.IsNullOrEmpty(obj.triggerDialogueId)) continue;
+            if (obj.triggerDialogueId != triggerId) continue;
+            if (obj.EstaCompleto()) continue;
 
             obj.progressoAtual = 1;
             VerificarConclusao(kvp.Key, def);
@@ -269,4 +292,4 @@ public class QuestManager : MonoBehaviour
 }
 
 public enum QuestState { NotStarted, Active, Completed, TurnedIn }
-public enum QuestObjectiveType { CollectItem, DeliverItem, KillEnemy, TalkToNpc, Timer, EnterBattle }
+public enum QuestObjectiveType { CollectItem, DeliverItem, KillEnemy, TalkToNpc, Timer, EnterBattle, TriggerDialogue }
