@@ -13,6 +13,8 @@ public class DialogoPosBatalha
     public DialogueAsset dialogo;
     [Tooltip("Nome da cena para a qual o jogador será levado após o diálogo terminar.")]
     public string cenaDestino;
+    [Tooltip("ID do SpawnPoint na cena destino onde o jogador vai aparecer. Deve bater com o spawnID do SpawnPoint na cena destino.")]
+    public string spawnIdDestino;
 }
 
 public class BattleSystem : MonoBehaviour
@@ -421,6 +423,15 @@ public class BattleSystem : MonoBehaviour
                 // antes do fade in, com a tela ainda preta
                 GameManager.Instance.dialogoPendente = entradaDialogo.dialogo;
                 GameManager.Instance.cenaDestinoPendente = entradaDialogo.cenaDestino;
+
+                // Usa SpawnPoint da cena destino para posicionar o jogador corretamente;
+                // limpa o valor anterior se não houver spawn configurado
+                GameManager.Instance.pendingSpawnID = !string.IsNullOrEmpty(entradaDialogo.spawnIdDestino)
+                    ? entradaDialogo.spawnIdDestino
+                    : null;
+
+                // Garante que isReturningFromBattle não vai reposicionar o jogador para a cena anterior
+                GameManager.Instance.isReturningFromBattle = false;
 
                 string cenaEspecial = entradaDialogo.cenaDestino;
                 if (string.IsNullOrEmpty(cenaEspecial)) cenaEspecial = nomeCenaMapa;
