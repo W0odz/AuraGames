@@ -388,10 +388,11 @@ public class GameManager : MonoBehaviour
             dialogoPendente = null;
             cenaDestinoPendente = null;
 
-            // Faz o fade-in ANTES de abrir o diálogo, para o jogador poder ver o painel
-            yield return StartCoroutine(FadeInCoroutine());
+            // Clareia apenas parcialmente (alpha 1 → 0.15) para o painel de diálogo
+            // ficar visível sem expor a cena por baixo
+            yield return StartCoroutine(FadeInParcialCoroutine(0.15f));
 
-            // Dispara o diálogo com a tela já visível
+            // Dispara o diálogo com a tela semi-escurecida
             bool dialogoTerminou = false;
             DialogueRunner.Instance.StartDialogueImediato(dialogoParaDisparar, () =>
             {
@@ -400,7 +401,8 @@ public class GameManager : MonoBehaviour
 
             yield return new WaitUntil(() => dialogoTerminou);
 
-            // Fade-in já foi feito antes do diálogo — não faz de novo
+            // Após o diálogo terminar, clareia a tela completamente
+            yield return StartCoroutine(FadeInCoroutine());
             yield break;
         }
 
@@ -487,6 +489,22 @@ public class GameManager : MonoBehaviour
             fadeImage.color = new Color(0, 0, 0, alpha);
             yield return null;
         }
+    }
+
+    /// <summary>
+    /// Clareia a tela do preto total (alpha=1) até o alpha alvo informado.
+    /// Usado para deixar o painel de diálogo visível sem expor a cena por baixo.
+    /// </summary>
+    private IEnumerator FadeInParcialCoroutine(float alphaAlvo)
+    {
+        float alpha = 1f;
+        while (alpha > alphaAlvo)
+        {
+            alpha -= Time.unscaledDeltaTime * fadeSpeed;
+            fadeImage.color = new Color(0, 0, 0, Mathf.Max(alpha, alphaAlvo));
+            yield return null;
+        }
+        fadeImage.color = new Color(0, 0, 0, alphaAlvo);
     }
     #endregion
 
