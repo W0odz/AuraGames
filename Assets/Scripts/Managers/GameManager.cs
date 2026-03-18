@@ -93,6 +93,10 @@ public class GameManager : MonoBehaviour
     public float combatGraceDuration = 3f;
     public float combatGraceUntil = 0f;
 
+    [Header("Batalha — Fundo")]
+    [Tooltip("Sprite do fundo que será usado na BattleScene. Definido automaticamente pela cena de exploração.")]
+    public Sprite battleBackground;
+
     [Header("Enemy Return Safety")]
     public bool repelEnemiesOnReturn = false;
     public float enemySafeRadiusOnReturn = 3.0f;

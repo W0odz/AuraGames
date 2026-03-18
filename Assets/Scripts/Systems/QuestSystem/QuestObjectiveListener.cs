@@ -15,19 +15,22 @@ public class QuestObjectiveListener : MonoBehaviour
     [Header("GameObjects para ativar ao concluir o objetivo")]
     public GameObject[] ativarAoConcluir;
 
-    private bool _iniciado = false;
     private bool _objetivoConcluido = false;
     private bool _acoesConcluidas = false;
 
     private void Start()
     {
-        _iniciado = true;
-
-        // Registra o evento só depois do Start — evita receber eventos da inicialização da quest
+        // Registra AQUI — depois que todos os Awake/OnEnable já rodaram
         if (QuestManager.Instance != null)
             QuestManager.Instance.onObjetivoConcluido += OnObjetivoConcluido;
 
         StartCoroutine(InicializarEstado());
+    }
+
+    private void OnDestroy()
+    {
+        if (QuestManager.Instance != null)
+            QuestManager.Instance.onObjetivoConcluido -= OnObjetivoConcluido;
     }
 
     private IEnumerator InicializarEstado()
@@ -38,34 +41,17 @@ public class QuestObjectiveListener : MonoBehaviour
         if (quest.objetivos == null || indiceDoObjetivo >= quest.objetivos.Count) yield break;
         if (!quest.objetivos[indiceDoObjetivo].EstaCompleto()) yield break;
 
-        // Já estava concluído ao reentrar na cena — desativa direto sem checar câmera
+        // Reentrou na cena com objetivo já concluído — desativa direto
         _objetivoConcluido = true;
         _acoesConcluidas = true;
         AplicarDesativar();
         AplicarAtivar();
     }
 
-    private void OnEnable()
-    {
-        // Só registra se o Start já rodou (evita receber eventos prematuros no primeiro frame)
-        if (_iniciado && QuestManager.Instance != null)
-            QuestManager.Instance.onObjetivoConcluido += OnObjetivoConcluido;
-    }
-
-    private void OnDisable()
-    {
-        if (QuestManager.Instance != null)
-            QuestManager.Instance.onObjetivoConcluido -= OnObjetivoConcluido;
-    }
-
-    private void OnDestroy()
-    {
-        if (QuestManager.Instance != null)
-            QuestManager.Instance.onObjetivoConcluido -= OnObjetivoConcluido;
-    }
-
     private void OnObjetivoConcluido(QuestDefinition def, int indice)
     {
+        Debug.Log($"[QuestObjectiveListener] Evento recebido — quest={def.questId}, indice={indice}, esperado={indiceDoObjetivo}");
+
         if (quest == null || def.questId != quest.questId) return;
         if (indice != indiceDoObjetivo) return;
 
@@ -78,9 +64,8 @@ public class QuestObjectiveListener : MonoBehaviour
         if (!_objetivoConcluido || _acoesConcluidas) return;
 
         Camera cam = Camera.main;
-
-        bool algumAindaNaCamera = false;
         bool algumAtivo = false;
+        bool algumNaCamera = false;
 
         foreach (var obj in desativarAoConcluir)
         {
@@ -88,16 +73,16 @@ public class QuestObjectiveListener : MonoBehaviour
             algumAtivo = true;
             if (cam != null && EstaVisivelNaCamera(obj, cam))
             {
-                algumAindaNaCamera = true;
+                algumNaCamera = true;
                 break;
             }
         }
 
-        if (algumAtivo && !algumAindaNaCamera)
+        if (algumAtivo && !algumNaCamera)
         {
             _acoesConcluidas = true;
             AplicarDesativar();
-            Debug.Log($"[QuestObjectiveListener] Todos os objetos fora da câmera — desativados.");
+            Debug.Log("[QuestObjectiveListener] Objetos fora da câmera — desativados.");
         }
     }
 
@@ -110,10 +95,8 @@ public class QuestObjectiveListener : MonoBehaviour
                 renderer.bounds
             );
 
-        Vector3 viewportPos = cam.WorldToViewportPoint(obj.transform.position);
-        return viewportPos.x >= 0f && viewportPos.x <= 1f &&
-               viewportPos.y >= 0f && viewportPos.y <= 1f &&
-               viewportPos.z > 0f;
+        Vector3 vp = cam.WorldToViewportPoint(obj.transform.position);
+        return vp.x >= 0f && vp.x <= 1f && vp.y >= 0f && vp.y <= 1f && vp.z > 0f;
     }
 
     private void AplicarDesativar()

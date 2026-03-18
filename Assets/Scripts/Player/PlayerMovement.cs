@@ -71,20 +71,14 @@ public class PlayerMovement : MonoBehaviour
         if (GameManager.Instance != null && GameManager.Instance.IsInCombatGracePeriod())
             return;
 
-        // Verificamos se a coisa que tocamos tem a tag "Enemy"
         if (other.CompareTag("Enemy"))
         {
-            // Pega a IA do inimigo para saber o ID dele
             EnemyAIController ai = other.GetComponent<EnemyAIController>();
 
-            if (ai != null && ai.isPassive)
-            {
-                return; // Sai da função imediatamente
-            }
+            if (ai != null && ai.isPassive) return;
 
             if (ai != null)
             {
-
                 if (ai.isBoss)
                 {
                     Debug.Log("PLAYER: Encontrei um CHEFE! Ativando modo Boss Battle.");
@@ -95,25 +89,19 @@ public class PlayerMovement : MonoBehaviour
                     GameManager.Instance.isBossBattle = false;
                 }
 
-                //Congela tudo imediatamente
+                // Congela tudo imediatamente
                 EnemyAIController.FreezeAllEnemies();
 
-                // Desativa o movimento do PRÓPRIO jogador também
-                // para ele não continuar andando durante o fade
+                // Para o jogador
                 this.enabled = false;
                 rb.linearVelocity = Vector2.zero;
 
-                // Salva qual inimigo estamos lutando
+                // Salva dados da batalha
                 GameManager.Instance.currentEnemyID = ai.enemyID;
-
-                // Salva de qual cena estamos vindo
                 GameManager.Instance.lastExplorationScene = SceneManager.GetActiveScene().name;
-
-                // Antes de ir para a batalha, salva onde estamos
                 GameManager.Instance.playerReturnPosition = transform.position;
                 GameManager.Instance.isReturningFromBattle = true;
 
-                // Pega o prefab de batalha do inimigo e manda pro GameManager
                 if (ai.battlePrefab != null)
                 {
                     GameManager.Instance.nextBattleEnemyPrefab = ai.battlePrefab;
@@ -124,13 +112,23 @@ public class PlayerMovement : MonoBehaviour
                     Debug.LogError("O inimigo de exploração não tem um Battle Prefab configurado!");
                 }
 
-                // Inicia a batalha (agora com fade)
                 CacheEnemyPositionsBeforeBattle();
-                StartBattle();
+
+                // Se o inimigo tem diálogo pré-batalha, toca antes de ir pra cena
+                if (ai.dialogoPreBatalha != null && DialogueRunner.Instance != null)
+                {
+                    GameManager.Instance.inputBloqueado = true;
+                    DialogueRunner.Instance.StartDialogue(ai.dialogoPreBatalha, () =>
+                    {
+                        StartBattle();
+                    });
+                }
+                else
+                {
+                    StartBattle();
+                }
             }
-
         }
-
     }
     #endregion
 

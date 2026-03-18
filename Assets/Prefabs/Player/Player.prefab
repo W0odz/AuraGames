@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ac680e64f68b34aa54d9f0ade3bf17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveSpeed: 14
+  moveSpeed: 9
   enemySafeRadiusOnReturn: 2.5
 --- !u!114 &9014493366268893898
 MonoBehaviour:
@@ -185,3 +185,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
   target: {fileID: 6533698976016816849}
+  mapBoundsCollider: {fileID: 0}
+  smoothSpeed: 0

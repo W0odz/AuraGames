@@ -1,14 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Trigger de diálogo no mapa. Ao entrar na área e pressionar E,
-/// inicia um DialogueAsset — opcionalmente exibindo uma imagem de fundo fullscreen.
-/// </summary>
 public class DialogueTrigger : MonoBehaviour
 {
+    public enum ModoDisparo { AoPressionarE, AoEntrarNaArea }
+
     [Header("Diálogo")]
     public DialogueAsset dialogo;
+
+    [Tooltip("Define como o diálogo é disparado.")]
+    public ModoDisparo modoDisparo = ModoDisparo.AoPressionarE;
 
     [Tooltip("Se true, só dispara o diálogo uma vez")]
     public bool apenasUmaVez = false;
@@ -18,11 +19,15 @@ public class DialogueTrigger : MonoBehaviour
     public string triggerId;
 
     [Header("Imagem de Fundo (opcional)")]
-    [Tooltip("Imagem fullscreen exibida durante o diálogo")]
     public Sprite imagemFundo;
-
-    [Tooltip("Referência ao Image do Canvas que será usado como fundo fullscreen")]
     public Image fundoUI;
+
+    [Header("Alterar Velocidade do Jogador (opcional)")]
+    [Tooltip("Se true, altera a velocidade do jogador ao fim do diálogo.")]
+    public bool alterarVelocidade = false;
+
+    [Tooltip("Nova velocidade do jogador após o diálogo.")]
+    public float novaVelocidade = 6f;
 
     private bool playerDentro = false;
     private bool jaDisparou = false;
@@ -34,6 +39,9 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
         playerDentro = true;
+
+        if (modoDisparo == ModoDisparo.AoEntrarNaArea)
+            TentarDisparar();
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -44,11 +52,26 @@ public class DialogueTrigger : MonoBehaviour
 
     private void Update()
     {
+        if (modoDisparo != ModoDisparo.AoPressionarE) return;
+
         if (!playerDentro) return;
         if (apenasUmaVez && jaDisparou) return;
         if (GameManager.Instance != null && GameManager.Instance.inputBloqueado) return;
         if (DialogueRunner.Instance.IsDialogueActive) return;
         if (!Input.GetKeyDown(KeyCode.E)) return;
+
+        if (Time.unscaledTime - ultimaInteracaoTime < cooldownInteracao) return;
+        if (Time.unscaledTime - DialogueRunner.Instance.ultimoFechamentoTime < cooldownInteracao) return;
+
+        ultimaInteracaoTime = Time.unscaledTime;
+        Disparar();
+    }
+
+    private void TentarDisparar()
+    {
+        if (apenasUmaVez && jaDisparou) return;
+        if (GameManager.Instance != null && GameManager.Instance.inputBloqueado) return;
+        if (DialogueRunner.Instance.IsDialogueActive) return;
 
         if (Time.unscaledTime - ultimaInteracaoTime < cooldownInteracao) return;
         if (Time.unscaledTime - DialogueRunner.Instance.ultimoFechamentoTime < cooldownInteracao) return;
@@ -67,22 +90,30 @@ public class DialogueTrigger : MonoBehaviour
 
         jaDisparou = true;
 
-        // Notifica o QuestManager se tiver um ID configurado
         if (!string.IsNullOrEmpty(triggerId) && QuestManager.Instance != null)
             QuestManager.Instance.NotificarDialogueTrigger(triggerId);
 
-        // Ativa o fundo antes do diálogo
         if (fundoUI != null && imagemFundo != null)
         {
             fundoUI.sprite = imagemFundo;
             fundoUI.gameObject.SetActive(true);
         }
 
-        // Ao terminar o diálogo, esconde o fundo
         DialogueRunner.Instance.StartDialogue(dialogo, () =>
         {
             if (fundoUI != null)
                 fundoUI.gameObject.SetActive(false);
+
+            // Altera a velocidade do jogador ao fim do diálogo
+            if (alterarVelocidade)
+            {
+                var pm = FindFirstObjectByType<PlayerMovement>();
+                if (pm != null)
+                {
+                    pm.moveSpeed = novaVelocidade;
+                    Debug.Log($"[DialogueTrigger] Velocidade do jogador alterada para {novaVelocidade}.");
+                }
+            }
 
             if (!apenasUmaVez)
                 jaDisparou = false;

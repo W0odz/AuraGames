@@ -5,13 +5,21 @@ public class EnemyAIController : MonoBehaviour
 {
     public bool isPassive = false; // Se marcado, ele só passeia
 
+    [Header("Comportamento")]
+    [Tooltip("Se true, o inimigo fica parado no lugar — não anda nem persegue. Ainda inicia batalha ao contato.")]
+    public bool isEstatico = false;
+
     [Header("Velocidades")]
     public float wanderSpeed = 2f;
     public float chaseSpeed = 4f;
 
     [Header("Identidade de Batalha")]
-    public GameObject battlePrefab; // Qual inimigo eu sou na batalha?
+    public GameObject battlePrefab;
     public bool isBoss = false;
+
+    [Header("Diálogo Pré-Batalha (opcional)")]
+    [Tooltip("Se preenchido, este diálogo toca antes de entrar na batalha.")]
+    public DialogueAsset dialogoPreBatalha;
 
     [Header("Configuracao de Perseguicao")]
     public float chaseDuration = 10f;
@@ -21,11 +29,11 @@ public class EnemyAIController : MonoBehaviour
     public Collider2D mapBoundsCollider;
 
     [Header("Detecção / Aggro (opcional)")]
-    [Tooltip("Triggers/Colliders2D usados para detectar o player (ex: DetectionArea). Durante o grace period eles serão desativados (pausa a detecção), mas o inimigo continuará passeando.")]
+    [Tooltip("Triggers/Colliders2D usados para detectar o player.")]
     public Collider2D[] aggroDetectors;
 
     [Header("ID do inimigo")]
-    public string enemyID; // Será definido pelo Spawner
+    public string enemyID;
 
     // --- VARIÁVEIS INTERNAS ---
     private Rigidbody2D rb;
@@ -38,11 +46,7 @@ public class EnemyAIController : MonoBehaviour
 
     private bool isAggroSuppressed;
 
-    private enum State
-    {
-        Wandering,
-        Chasing
-    }
+    private enum State { Wandering, Chasing }
     private State currentState;
 
     #region Métodos Unity
@@ -57,7 +61,7 @@ public class EnemyAIController : MonoBehaviour
         currentState = State.Wandering;
         currentMoveSpeed = wanderSpeed;
 
-        if (mapBoundsCollider != null)
+        if (!isEstatico && mapBoundsCollider != null)
         {
             bounds = mapBoundsCollider.bounds;
             PickNewWanderTarget();
@@ -66,40 +70,31 @@ public class EnemyAIController : MonoBehaviour
 
     void Update()
     {
+        // Estático — não faz nada de movimento
+        if (isEstatico) return;
+
         if (mapBoundsCollider == null) return;
 
-        // Pausa a DETECÇÃO durante o grace period, sem congelar movimento.
         bool shouldSuppress = (GameManager.Instance != null && GameManager.Instance.IsInCombatGracePeriod());
         if (shouldSuppress != isAggroSuppressed)
-        {
             SetAggroSuppressed(shouldSuppress);
-        }
 
-        // Se por algum motivo ainda estiver perseguindo enquanto suprimido, força parar.
         if (isAggroSuppressed && currentState == State.Chasing)
-        {
             StopChasing();
-        }
 
         switch (currentState)
         {
             case State.Wandering:
                 if (Vector2.Distance(transform.position, wanderTarget) < 0.5f)
-                {
                     PickNewWanderTarget();
-                }
                 moveDirection = (wanderTarget - (Vector2)transform.position).normalized;
                 break;
 
             case State.Chasing:
                 if (playerToChase != null)
-                {
                     moveDirection = (playerToChase.position - transform.position).normalized;
-                }
                 else
-                {
                     StopChasing();
-                }
                 break;
         }
     }
@@ -107,6 +102,14 @@ public class EnemyAIController : MonoBehaviour
     void FixedUpdate()
     {
         if (rb == null) return;
+
+        // Estático — garante que não se mova
+        if (isEstatico)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
         rb.linearVelocity = moveDirection * currentMoveSpeed;
     }
     #endregion
@@ -116,42 +119,25 @@ public class EnemyAIController : MonoBehaviour
     {
         isAggroSuppressed = suppressed;
 
-        // Pausa detecção: desliga colliders de "aggro range" se estiverem configurados.
         if (aggroDetectors != null)
-        {
             foreach (var col in aggroDetectors)
-            {
                 if (col != null) col.enabled = !suppressed;
-            }
-        }
 
-        // Se entrou em grace period e estava perseguindo, para perseguição mas continua wander.
         if (suppressed)
-        {
             StopChasing();
-        }
     }
     #endregion
 
     #region Sistema de Perseguição
-
-    // Chamada pelo DetectionArea para INICIAR a perseguição
     public void StartChasing(Transform player)
     {
-        // Durante o grace period: não iniciar perseguição/agro
-        if (GameManager.Instance != null && GameManager.Instance.IsInCombatGracePeriod())
-            return;
-
-        // Proteção extra caso alguém chame StartChasing mesmo com detectors desligados
-        if (isAggroSuppressed)
-            return;
-
+        if (isEstatico) return; // Estático nunca persegue
+        if (GameManager.Instance != null && GameManager.Instance.IsInCombatGracePeriod()) return;
+        if (isAggroSuppressed) return;
         if (isPassive) return;
 
         if (chaseCoroutine != null)
-        {
             StopCoroutine(chaseCoroutine);
-        }
 
         playerToChase = player;
         currentState = State.Chasing;
@@ -166,9 +152,7 @@ public class EnemyAIController : MonoBehaviour
         {
             playerToChase = null;
             currentState = State.Wandering;
-
             currentMoveSpeed = wanderSpeed;
-
             PickNewWanderTarget();
             chaseCoroutine = null;
         }
@@ -182,6 +166,8 @@ public class EnemyAIController : MonoBehaviour
 
     void PickNewWanderTarget()
     {
+        if (mapBoundsCollider == null) return;
+
         int attempts = 0;
         do
         {
