@@ -14,91 +14,156 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueAsset
   portraitEsquerda: {fileID: 0}
   portraitDireita: {fileID: 0}
+  fundoPainel: {fileID: 0}
   nodes:
   - text: Carpinteira! Herbalista!
     speakerSide: 0
     speakerName: 
     portrait: {fileID: -4293909199066766194, guid: a84e9df47cf59a74088a3d669648b720, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: O que aconteceu com ele?!
     speakerSide: 1
     speakerName: Carpinteira
     portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "Encontrei ele assim num t\xFAnel que achei em um dos casebres."
     speakerSide: 0
     speakerName: 
     portrait: {fileID: -8774304836102649413, guid: 42c019abed3c7b44a8180c97944bf800, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: Herbalista!
     speakerSide: 1
     speakerName: Carpinteira
     portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "V\xE1 agora cuidar desses ferimentos!"
     speakerSide: 1
     speakerName: Carpinteira
     portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: Costureiro, me ajude aqui!
     speakerSide: 1
     speakerName: Herbalista
     portrait: {fileID: 475354748142868185, guid: d6055f48fc8e3024cb89376388d4ae88, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "Que t\xFAnel \xE9 esse?"
     speakerSide: 1
     speakerName: Carpinteira
     portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "O que voc\xEA achou?"
     speakerSide: 1
     speakerName: Carpinteira
     portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "Acho que meu pai matou um dos cultistas\u2026 n\xE3o sei porqu\xEA.\r\n"
     speakerSide: 0
     speakerName: 
     portrait: {fileID: -8774304836102649413, guid: 42c019abed3c7b44a8180c97944bf800, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "Mas ele tinha uma chave, que abria um al\xE7ap\xE3o."
     speakerSide: 0
     speakerName: 
     portrait: {fileID: -8774304836102649413, guid: 42c019abed3c7b44a8180c97944bf800, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "S\xF3 que quando eu abri, tinha um t\xFAnel embaixo da terra e o Fazendeiro
       tava l\xE1 desmaiado."
     speakerSide: 0
     speakerName: 
     portrait: {fileID: -8774304836102649413, guid: 42c019abed3c7b44a8180c97944bf800, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "Esse t\xFAnel leva pra onde?"
     speakerSide: 1
     speakerName: Carpinteira
     portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "N\xE3o sei! Precisamos voltar l\xE1!"
     speakerSide: 0
     speakerName: 
     portrait: {fileID: 4058102605782207891, guid: cc953b912b3629e4580d243c75555a88, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "Eu, voc\xEA e meu tio!"
     speakerSide: 0
     speakerName: 
     portrait: {fileID: 4058102605782207891, guid: cc953b912b3629e4580d243c75555a88, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "N\xE3o \xE9 assim, garoto."
     speakerSide: 1
     speakerName: "A\xE7ougueiro"
     portrait: {fileID: 9122415793681804593, guid: 9f66c3dcf19948a4eaa1e1e3133622e7, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "N\xE3o podemos simplesmente sair daqui e entrar num t\xFAnel sem saber
       o que tem nele."
     speakerSide: 1
     speakerName: "A\xE7ougueiro"
     portrait: {fileID: 9122415793681804593, guid: 9f66c3dcf19948a4eaa1e1e3133622e7, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "Seu tio tem raz\xE3o, \xE9 muito arriscado."
     speakerSide: 1
     speakerName: Carpinteira
     portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "Vamos estudar a \xE1rea para tentar entender onde leva esse t\xFAnel e
       ent\xE3o nos preparar para agir."
     speakerSide: 1
     speakerName: Carpinteira
     portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "N\xE3o podemos agir por impulso, entendido?"
     speakerSide: 1
     speakerName: Carpinteira
     portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "Sim, \xE9 melhor assim mesmo\u2026"
     speakerSide: 0
     speakerName: 
     portrait: {fileID: 5141988116160616292, guid: 5b0bd42f0124ad445a7fa44139787621, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0
   - text: "Amanh\xE3 cedo n\xF3s trabalharemos nisso, v\xE1 para casa."
     speakerSide: 1
     speakerName: Carpinteira
     portrait: {fileID: 8070572476435812613, guid: 3d2db493b5e5ffa46877dfdebf579893, type: 3}
+    acaoDeQuest: 2
+    questDef: {fileID: 11400000, guid: 12357c63fa066904c8589409034b0f11, type: 2}
+    estadoQuest: 0
+  recompensas: []

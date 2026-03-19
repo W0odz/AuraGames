@@ -156,6 +156,10 @@ PrefabInstance:
       value: Calabouco
       objectReference: {fileID: 0}
     - target: {fileID: 8073931538270021683, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+      propertyPath: transitionID
+      value: casebre_01.2_to_calabouco
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073931538270021683, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: itemNecessario
       value: "Chave do Calabou\xE7o"
       objectReference: {fileID: 0}
