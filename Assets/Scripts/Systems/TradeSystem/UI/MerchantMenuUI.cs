@@ -317,11 +317,9 @@ public class MerchantMenuUI : MonoBehaviour
 
         if (sucesso)
         {
-            // Consome do estoque do mercador
             foreach (var (item, qty) in _barraMercador)
                 _merchant.ConsumirDoEstoque(item, qty);
 
-            // Adiciona ao estoque do mercador os itens do jogador
             foreach (var (item, qty) in _barraJogador)
                 _merchant.AdicionarAoEstoque(item, qty);
 
