@@ -27,6 +27,9 @@ public class DadosItem : ScriptableObject
     [Header("Restrições de Uso")]
     public bool apenasForaDeBatalha = false;
 
+    [Tooltip("Se marcado, este item não aparece no menu de venda ao mercador.")]
+    public bool naoVendavel = false;
+
     public void Use(GameObject player)
     {
         if (efeitosDoItem == null || efeitosDoItem.Count == 0) return;
