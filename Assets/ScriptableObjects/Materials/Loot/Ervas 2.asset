@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7dd9b1f521a42445b6a820d4b6a1a00, type: 3}
   m_Name: Ervas 2
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
-  nomeItem: Ervas
+  nomeItem: Ervas Verdes
   descricao: Um punhado de ervas
   iconeItem: {fileID: 133841776207877090, guid: 35a6053cc53e14d49aa4e82385291ebc, type: 3}
   tipoItem: 2
-  slotOndeEquipa: 0
+  slotOndeEquipa: 5
   efeitosDoItem: []
   valorEscambo: 1
   bonusStrength: 0

@@ -23035,7 +23035,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PermanentRemoval
   characterId: Cultista9
-  removido: 1
+  removido: 0
 --- !u!1 &889464274
 GameObject:
   m_ObjectHideFlags: 0
@@ -127189,6 +127189,10 @@ PrefabInstance:
       propertyPath: dialogoPadrao
       value: 
       objectReference: {fileID: 11400000, guid: 5aa2df22dce573f4d97fd811834b8350, type: 2}
+    - target: {fileID: 7239082206763857835, guid: cbefe97e820e5ee469676e19005cafd5, type: 3}
+      propertyPath: questVinculada
+      value: 
+      objectReference: {fileID: 11400000, guid: 015d5bee34bfb4240a55081e47427495, type: 2}
     - target: {fileID: 8235405767762754867, guid: cbefe97e820e5ee469676e19005cafd5, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.25
@@ -175517,6 +175521,10 @@ PrefabInstance:
       propertyPath: dialogoPadrao
       value: 
       objectReference: {fileID: 11400000, guid: 7a8cbef71180e0e48b65862cb23b3a33, type: 2}
+    - target: {fileID: 6330494028282410958, guid: be584a7289e094641b6844ac5d3a6886, type: 3}
+      propertyPath: questVinculada
+      value: 
+      objectReference: {fileID: 11400000, guid: 015d5bee34bfb4240a55081e47427495, type: 2}
     - target: {fileID: 8206148376021063168, guid: be584a7289e094641b6844ac5d3a6886, type: 3}
       propertyPath: m_Name
       value: "A\xE7ougueiro"
@@ -176188,7 +176196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PermanentRemoval
   characterId: Cultista10
-  removido: 1
+  removido: 0
 --- !u!1 &2109621192
 GameObject:
   m_ObjectHideFlags: 0

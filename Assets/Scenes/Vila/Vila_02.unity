@@ -2540,17 +2540,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &107187889 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2658173957254617101, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
-  m_PrefabInstance: {fileID: 20205644}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &112075152
 GameObject:
   m_ObjectHideFlags: 0
@@ -5751,6 +5740,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3.2187195, y: 3.2528381}
   m_EdgeRadius: 0
+--- !u!114 &211109945 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8854372053805594412, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_PrefabInstance: {fileID: 20205644}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &214134565
 GameObject:
   m_ObjectHideFlags: 0
@@ -27496,6 +27496,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sacerdote
       objectReference: {fileID: 0}
+    - target: {fileID: 7239082206763857835, guid: cbefe97e820e5ee469676e19005cafd5, type: 3}
+      propertyPath: dialogoPadrao
+      value: 
+      objectReference: {fileID: 11400000, guid: 6accae556b37a1f4da78e00f1ff52ed5, type: 2}
     - target: {fileID: 8235405767762754867, guid: cbefe97e820e5ee469676e19005cafd5, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.25
@@ -145844,7 +145848,7 @@ PrefabInstance:
     - target: {fileID: 6788394771900257917, guid: 11918436010044747b5d4eb3232f84b8, type: 3}
       propertyPath: fundoImage
       value: 
-      objectReference: {fileID: 107187889}
+      objectReference: {fileID: 211109945}
     - target: {fileID: 6788394771900257917, guid: 11918436010044747b5d4eb3232f84b8, type: 3}
       propertyPath: leftNameBox
       value: 

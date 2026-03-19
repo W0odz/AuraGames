@@ -135,7 +135,8 @@ MonoBehaviour:
     acaoDeQuest: 0
     questDef: {fileID: 0}
     estadoQuest: 0
-  - text: Agora vai pra sala do boneco, vamos te mostrar umas coisinhas.
+  - text: Agora vai pra sala do boneco, toma aqui esse meu machado, vamos te mostrar
+      umas coisinhas.
     speakerSide: 1
     speakerName: Carpinteira
     portrait: {fileID: 2791210452372573440, guid: a3335bb26b57e78438a4529e9e10e1a2, type: 3}
