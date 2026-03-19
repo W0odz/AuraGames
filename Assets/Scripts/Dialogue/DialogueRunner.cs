@@ -34,6 +34,11 @@ public class DialogueRunner : MonoBehaviour
 
     public float ultimoFechamentoTime { get; private set; } = -999f;
 
+    /// <summary>
+    /// Disparado ao fim de qualquer diálogo. Usado pelo DialogueEndEvent para executar ações pós-diálogo.
+    /// </summary>
+    public System.Action onDialogueEnd;
+
     public static DialogueRunner Instance { get; private set; }
 
     private void Awake()
@@ -279,6 +284,7 @@ public class DialogueRunner : MonoBehaviour
 
                 GameManager.Instance.inputBloqueado = false;
                 cbFinal?.Invoke();
+                onDialogueEnd?.Invoke();
             });
         }
         else
@@ -289,6 +295,7 @@ public class DialogueRunner : MonoBehaviour
 
             GameManager.Instance.inputBloqueado = false;
             cbFinal?.Invoke();
+            onDialogueEnd?.Invoke();
             Time.timeScale = 1f;
         }
     }
