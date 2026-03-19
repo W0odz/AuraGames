@@ -287,6 +287,7 @@ public class DialogueRunner : MonoBehaviour
 
                 GameManager.Instance.inputBloqueado = false;
                 cbFinal?.Invoke();
+                ConcederRecompensas(assetFinal);
                 onDialogueEnd?.Invoke();
                 QuestManager.Instance?.NotificarFimDialogo(assetFinal);
             });
@@ -299,9 +300,38 @@ public class DialogueRunner : MonoBehaviour
 
             GameManager.Instance.inputBloqueado = false;
             cbFinal?.Invoke();
+            ConcederRecompensas(assetFinal);
             onDialogueEnd?.Invoke();
             QuestManager.Instance?.NotificarFimDialogo(assetFinal);
             Time.timeScale = 1f;
+        }
+    }
+
+    private void ConcederRecompensas(DialogueAsset asset)
+    {
+        if (asset == null || asset.recompensas == null || asset.recompensas.Length == 0) return;
+        if (InventoryManager.Instance == null) return;
+
+        foreach (var recompensa in asset.recompensas)
+        {
+            if (recompensa.item == null) continue;
+
+            switch (recompensa.tipo)
+            {
+                case RecompensaDialogo.TipoRecompensa.ConcederItem:
+                    InventoryManager.Instance.AdicionarItem(recompensa.item, recompensa.quantidade);
+                    Debug.Log($"[DialogueRunner] Recompensa concedida: {recompensa.quantidade}x {recompensa.item.nomeItem}");
+                    break;
+
+                case RecompensaDialogo.TipoRecompensa.EquiparItem:
+                    InventoryManager.Instance.AdicionarItem(recompensa.item, 1);
+                    if (EquipmentManager.Instance != null)
+                    {
+                        EquipmentManager.Instance.Equip(recompensa.item);
+                        Debug.Log($"[DialogueRunner] Item equipado via diálogo: {recompensa.item.nomeItem}");
+                    }
+                    break;
+            }
         }
     }
 }
