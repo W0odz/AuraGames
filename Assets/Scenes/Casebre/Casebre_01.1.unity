@@ -255,11 +255,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8073931538270021683, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: spawnID
-      value: Casebre_01_Para_Floresta
+      value: Casebre_01.1_Para_Floresta_02
       objectReference: {fileID: 0}
     - target: {fileID: 8073931538270021683, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: goToScene
-      value: Floresta
+      value: Floresta_02
       objectReference: {fileID: 0}
     - target: {fileID: 8728713674120308150, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: m_LocalPosition.x

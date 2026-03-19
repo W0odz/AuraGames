@@ -798,11 +798,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8073931538270021683, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: spawnID
-      value: Casebre_02_Para_Floresta
+      value: Casebre_02.1_Para_Floresta_02
       objectReference: {fileID: 0}
     - target: {fileID: 8073931538270021683, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: goToScene
-      value: Floresta
+      value: Floresta_02
       objectReference: {fileID: 0}
     - target: {fileID: 8728713674120308150, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -230327,7 +230327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b68f0003b9c747146aa3fe93d0776951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CollectFromObject
-  Item: {fileID: 0}
+  Item: {fileID: 11400000, guid: c6b62ea77d60ff449ba41b66096831bb, type: 2}
   quantidade: 1
   tempoRespawn: 0
 --- !u!70 &1393592602
