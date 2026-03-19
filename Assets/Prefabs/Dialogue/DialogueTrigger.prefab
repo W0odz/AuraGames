@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 315024939701667397}
   - component: {fileID: 5147908228271679811}
   - component: {fileID: 4566469322967195303}
+  - component: {fileID: 2950235648269312317}
   m_Layer: 0
   m_Name: DialogueTrigger
   m_TagString: Untagged
@@ -92,6 +93,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
   dialogo: {fileID: 0}
+  modoDisparo: 0
   apenasUmaVez: 1
+  triggerId: 
   imagemFundo: {fileID: 0}
   fundoUI: {fileID: 0}
+  alterarVelocidade: 0
+  novaVelocidade: 6
+--- !u!114 &2950235648269312317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4467694312145797072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b57577a34076e1043bb0bc7b89e3fe32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueEndEvent
+  desativarTemporariamente: []
+  removerPermanentemente: []

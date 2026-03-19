@@ -6482,70 +6482,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &231529844
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 231529846}
-  - component: {fileID: 231529845}
-  m_Layer: 0
-  m_Name: QuestObjectiveListener_Sermao
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &231529845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 231529844}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5938b695e3be49a4c861ba5e8f23c8ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::QuestObjectiveListener
-  quest: {fileID: 11400000, guid: 015d5bee34bfb4240a55081e47427495, type: 2}
-  indiceDoObjetivo: 3
-  desativarAoConcluir:
-  - {fileID: 1845270318}
-  - {fileID: 2073588294}
-  - {fileID: 1227366192}
-  - {fileID: 21667525}
-  - {fileID: 1059300077}
-  - {fileID: 224789805}
-  - {fileID: 208132189}
-  - {fileID: 1324820201}
-  - {fileID: 1190658310}
-  - {fileID: 903744035}
-  - {fileID: 951518449}
-  - {fileID: 43671603}
-  - {fileID: 229254956}
-  - {fileID: 1306130844}
-  - {fileID: 889344042}
-  - {fileID: 2104296823}
-  ativarAoConcluir: []
---- !u!4 &231529846
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 231529844}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 186.6181, y: 828.50885, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &232591595
 GameObject:
   m_ObjectHideFlags: 0
@@ -177230,6 +177166,78 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: removerPermanentemente.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: desativarTemporariamente.Array.size
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'removerPermanentemente.Array.data[0]'
+      value: 
+      objectReference: {fileID: 889344048}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'removerPermanentemente.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2104296826}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1845270318}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2073588294}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1227366192}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[3]'
+      value: 
+      objectReference: {fileID: 21667525}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[4]'
+      value: 
+      objectReference: {fileID: 1059300077}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[5]'
+      value: 
+      objectReference: {fileID: 1190658310}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[6]'
+      value: 
+      objectReference: {fileID: 903744035}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[7]'
+      value: 
+      objectReference: {fileID: 951518449}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[8]'
+      value: 
+      objectReference: {fileID: 43671603}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[9]'
+      value: 
+      objectReference: {fileID: 229254956}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[10]'
+      value: 
+      objectReference: {fileID: 1306130844}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[11]'
+      value: 
+      objectReference: {fileID: 224789805}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[12]'
+      value: 
+      objectReference: {fileID: 208132189}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[13]'
+      value: 
+      objectReference: {fileID: 1324820201}
     - target: {fileID: 4467694312145797072, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
       propertyPath: m_Name
       value: DialogueTrigger
@@ -177346,5 +177354,4 @@ SceneRoots:
   - {fileID: 376554462}
   - {fileID: 1448935960}
   - {fileID: 1906718627}
-  - {fileID: 231529846}
   - {fileID: 56506739}
