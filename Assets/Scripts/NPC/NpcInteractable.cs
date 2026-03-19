@@ -49,7 +49,13 @@ public class NpcInteractable : MonoBehaviour
 
     public void OnInteract()
     {
-        // Quest vinculada — com filtro de estado (sem mudança)
+        // Resolve o ID deste NPC (usado tanto para dialogoUnico como para verificação de objetivo)
+        var identidade = GetComponent<NpcIdentidade>();
+        string npcId = (identidade != null && !string.IsNullOrEmpty(identidade.npcId))
+            ? identidade.npcId
+            : gameObject.name;
+
+        // Quest vinculada — verifica se o objetivo atual é TalkToNpc apontando para este NPC
         if (questVinculada != null)
         {
             if (dialogoPadrao == null)
@@ -58,31 +64,60 @@ public class NpcInteractable : MonoBehaviour
                 return;
             }
 
-            if (isMerchant)
+            bool deveUsarDialogoUnico = dialogoUnico != null
+                && QuestManager.Instance != null
+                && QuestManager.Instance.ObjetivoAtualEhTalkToNpc(questVinculada.questId, npcId);
+
+            if (deveUsarDialogoUnico)
             {
-                NpcMerchant merchant = GetComponent<NpcMerchant>();
-                DialogueRunner.Instance.StartDialogue(dialogoPadrao, questVinculada, () =>
+                if (isMerchant)
                 {
-                    NotificarQuestManager();
-                    if (merchant != null) merchant.OpenMerchantMenu();
-                });
+                    NpcMerchant merchant = GetComponent<NpcMerchant>();
+                    DialogueRunner.Instance.StartDialogue(dialogoUnico, () =>
+                    {
+                        NotificarQuestManager();
+                        if (merchant != null) merchant.OpenMerchantMenu();
+                        var endEvent = GetComponent<DialogueEndEvent>();
+                        if (endEvent != null) endEvent.ExecutarAcoes();
+                    });
+                }
+                else
+                {
+                    DialogueRunner.Instance.StartDialogue(dialogoUnico, () =>
+                    {
+                        NotificarQuestManager();
+                        var endEvent = GetComponent<DialogueEndEvent>();
+                        if (endEvent != null) endEvent.ExecutarAcoes();
+                    });
+                }
             }
             else
             {
-                DialogueRunner.Instance.StartDialogue(dialogoPadrao, questVinculada, () =>
+                if (isMerchant)
                 {
-                    NotificarQuestManager();
-                });
+                    NpcMerchant merchant = GetComponent<NpcMerchant>();
+                    DialogueRunner.Instance.StartDialogue(dialogoPadrao, questVinculada, () =>
+                    {
+                        NotificarQuestManager();
+                        if (merchant != null) merchant.OpenMerchantMenu();
+                        var endEvent = GetComponent<DialogueEndEvent>();
+                        if (endEvent != null) endEvent.ExecutarAcoes();
+                    });
+                }
+                else
+                {
+                    DialogueRunner.Instance.StartDialogue(dialogoPadrao, questVinculada, () =>
+                    {
+                        NotificarQuestManager();
+                        var endEvent = GetComponent<DialogueEndEvent>();
+                        if (endEvent != null) endEvent.ExecutarAcoes();
+                    });
+                }
             }
             return;
         }
 
         // Resolve se o diálogo único já foi visto — persiste entre cenas via GameManager
-        var identidade = GetComponent<NpcIdentidade>();
-        string npcId = (identidade != null && !string.IsNullOrEmpty(identidade.npcId))
-            ? identidade.npcId
-            : gameObject.name;
-
         bool jaViuUnico = dialogoUnico == null || GameManager.Instance.DialogoUnicoVisto(npcId);
 
         // Sem quest vinculada
@@ -96,6 +131,8 @@ public class NpcInteractable : MonoBehaviour
                     GameManager.Instance.MarcarDialogoUnicoVisto(npcId);
                     NotificarQuestManager();
                     if (merchant != null) merchant.OpenMerchantMenu();
+                    var endEvent = GetComponent<DialogueEndEvent>();
+                    if (endEvent != null) endEvent.ExecutarAcoes();
                 });
             }
             else
@@ -104,6 +141,8 @@ public class NpcInteractable : MonoBehaviour
                 {
                     NotificarQuestManager();
                     if (merchant != null) merchant.OpenMerchantMenu();
+                    var endEvent = GetComponent<DialogueEndEvent>();
+                    if (endEvent != null) endEvent.ExecutarAcoes();
                 });
             }
         }
@@ -115,6 +154,8 @@ public class NpcInteractable : MonoBehaviour
                 {
                     GameManager.Instance.MarcarDialogoUnicoVisto(npcId);
                     NotificarQuestManager();
+                    var endEvent = GetComponent<DialogueEndEvent>();
+                    if (endEvent != null) endEvent.ExecutarAcoes();
                 });
             }
             else
@@ -122,6 +163,8 @@ public class NpcInteractable : MonoBehaviour
                 DialogueRunner.Instance.StartDialogue(dialogoPadrao, () =>
                 {
                     NotificarQuestManager();
+                    var endEvent = GetComponent<DialogueEndEvent>();
+                    if (endEvent != null) endEvent.ExecutarAcoes();
                 });
             }
         }

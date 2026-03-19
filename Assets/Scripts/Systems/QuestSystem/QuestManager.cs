@@ -326,6 +326,36 @@ public class QuestManager : MonoBehaviour
         }
         return result;
     }
+
+    /// <summary>
+    /// Retorna true se alguma quest ativa tem como objetivo ATUAL um TriggerDialogue com triggerDialogueId igual ao fornecido.
+    /// </summary>
+    public bool ObjetivoAtualEhTrigger(string triggerId)
+    {
+        foreach (var kvp in new Dictionary<string, QuestState>(questStates))
+        {
+            if (kvp.Value != QuestState.Active) continue;
+            if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
+
+            var obj = ObterObjetivoAtual(def);
+            if (obj == null || obj.tipo != QuestObjectiveType.TriggerDialogue) continue;
+            if (obj.triggerDialogueId == triggerId) return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Retorna true se a quest com o ID fornecido está ativa e seu objetivo ATUAL é TalkToNpc com npcAlvoNome igual ao npcId fornecido.
+    /// </summary>
+    public bool ObjetivoAtualEhTalkToNpc(string questId, string npcId)
+    {
+        if (!questStates.TryGetValue(questId, out var state) || state != QuestState.Active) return false;
+        if (!questDefs.TryGetValue(questId, out var def)) return false;
+
+        var obj = ObterObjetivoAtual(def);
+        if (obj == null || obj.tipo != QuestObjectiveType.TalkToNpc) return false;
+        return obj.npcAlvoNome == npcId;
+    }
 }
 
 public enum QuestState { NotStarted, Active, Completed, TurnedIn }
