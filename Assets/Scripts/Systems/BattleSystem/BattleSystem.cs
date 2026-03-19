@@ -156,6 +156,14 @@ public class BattleSystem : MonoBehaviour
             Debug.Log("Sucesso: AttackManager recebeu a arma " + AttackManager.Instance.armaAtual.name);
         }
 
+        // Aguarda o BattleTutorialPanel inicializar (máx. 2 segundos)
+        float tutorialTimeout = 2f;
+        while (BattleTutorialPanel.Instance == null && tutorialTimeout > 0f)
+        {
+            tutorialTimeout -= Time.deltaTime;
+            yield return null;
+        }
+
         string idAtual = GameManager.Instance?.currentEnemyID ?? "";
         if (!string.IsNullOrEmpty(tutorialEnemyID)
             && idAtual == tutorialEnemyID
