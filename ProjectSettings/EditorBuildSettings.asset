@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Vila/Vila_01.unity
     guid: e0a8672415958f247bbcf2f36f146321
   - enabled: 1
-    path: Assets/Scenes/Floresta.unity
+    path: Assets/Scenes/Floresta/Floresta.unity
     guid: bfbd7d0034c318549b4c4ae5000a2f7d
   - enabled: 1
     path: Assets/Scenes/Resistencia/Resistencia.unity
@@ -42,7 +42,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Resistencia/Resistencia_03.unity
     guid: e59d3d38fe0468a4985696d26d963537
   - enabled: 1
-    path: Assets/Scenes/Calabouco.unity
+    path: "Assets/Scenes/Calabou\xE7o/Calabouco.unity"
     guid: 8c828d825e2356a43b35e3ee00a9e63a
   - enabled: 1
     path: Assets/Scenes/Casebre/Casebre_01.2.unity
@@ -51,11 +51,14 @@ EditorBuildSettings:
     path: Assets/Scenes/Casebre/Casebre_02.2.unity
     guid: ca73f9772ee19d44c9c43fb427247f1c
   - enabled: 1
-    path: Assets/Scenes/Floresta_02.unity
+    path: Assets/Scenes/Floresta/Floresta_02.unity
     guid: 2799966c949c8304aa3a11d704b4ae36
   - enabled: 1
-    path: Assets/Scenes/Floresta_03.unity
+    path: Assets/Scenes/Floresta/Floresta_03.unity
     guid: 9e046dc9f6227dc41a4d7ba749eafa39
+  - enabled: 1
+    path: "Assets/Scenes/Calabou\xE7o/Calabouco_02.unity"
+    guid: d683a30956cc7864cbf08c8879481231
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

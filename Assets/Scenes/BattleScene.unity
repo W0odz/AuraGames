@@ -3080,6 +3080,11 @@ MonoBehaviour:
     cenaDialogo: Resistencia
     cenaAposDialogo: 
     spawnIdDestino: 
+  - enemyId: "ca\xE7ador_monstro"
+    dialogo: {fileID: 11400000, guid: 7ba2aa5114392944ab96e8094f1c3443, type: 2}
+    cenaDialogo: Calabouco_02
+    cenaAposDialogo: 
+    spawnIdDestino: 
   tutorialEnemyID: Javali
   halfHpVictoryEnemyID: "M\xFAsico"
   noFleeEnemyID: "M\xFAsico"
