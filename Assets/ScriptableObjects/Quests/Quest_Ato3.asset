@@ -48,4 +48,18 @@ MonoBehaviour:
     progressoAtual: 0
     timerAtual: 0
     apenasInformativo: 0
+  - descricao: EnCoNtRe SeU pAi
+    tipo: 5
+    itemAlvo: {fileID: 0}
+    quantidadeNecessaria: 0
+    enemyPrefab: {fileID: 6385819010840743586, guid: 688cb9ea9a1ae3e4491e272b6a881f93, type: 3}
+    npcAlvoNome: 
+    battleEnemyPrefab: {fileID: 6089210800779420423, guid: 7d9df61117c67594b88140957e5dcb82, type: 3}
+    triggerDialogueId: 
+    sceneTransitionID: 
+    dialogoAlvo: {fileID: 0}
+    timerNecessario: 0
+    progressoAtual: 0
+    timerAtual: 0
+    apenasInformativo: 0
   recompensaXP: 50

@@ -2569,6 +2569,48 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+--- !u!1 &1008429976 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7344400387926534969, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_PrefabInstance: {fileID: 1008429975}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1008429977 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1987092161471842755, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_PrefabInstance: {fileID: 1008429975}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1008429978 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9054536668875623488, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_PrefabInstance: {fileID: 1008429975}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1008429979 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1222084398560309630, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_PrefabInstance: {fileID: 1008429975}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1008429980 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1472124021055820594, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_PrefabInstance: {fileID: 1008429975}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
+--- !u!114 &1071680113 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8360972529820939431, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_PrefabInstance: {fileID: 1008429975}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!1 &1080354795
 GameObject:
   m_ObjectHideFlags: 0
@@ -2796,6 +2838,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 310479380}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1085270382 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7099497563556980437, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_PrefabInstance: {fileID: 1008429975}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!4 &1094308624 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 668873534665274342, guid: 7cf410f2c5283d2438329506ebd60535, type: 3}
@@ -3317,6 +3370,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Managers
       objectReference: {fileID: 0}
+    - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: sliderSFX
+      value: 
+      objectReference: {fileID: 1085270382}
+    - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: pausePanel
+      value: 
+      objectReference: {fileID: 1008429976}
+    - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: soundPanel
+      value: 
+      objectReference: {fileID: 1008429978}
+    - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: configPanel
+      value: 
+      objectReference: {fileID: 1008429977}
+    - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: sliderGeral
+      value: 
+      objectReference: {fileID: 1008429980}
+    - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: sliderMusica
+      value: 
+      objectReference: {fileID: 1071680113}
+    - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: controlsPanel
+      value: 
+      objectReference: {fileID: 1008429979}
     - target: {fileID: 1811729982111679785, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: listaItens.Array.size
       value: 2

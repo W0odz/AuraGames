@@ -7764,6 +7764,11 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 14.694203, y: 4.670065}
   m_EdgeRadius: 0
+--- !u!1 &212102857 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7344400387926534969, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_PrefabInstance: {fileID: 1253130755}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &214085121
 GameObject:
   m_ObjectHideFlags: 0
@@ -13152,6 +13157,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &371905446 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9054536668875623488, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_PrefabInstance: {fileID: 1253130755}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &375297898
 GameObject:
   m_ObjectHideFlags: 0
@@ -13563,6 +13573,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &384611494 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7099497563556980437, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_PrefabInstance: {fileID: 1253130755}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!1 &388684602
 GameObject:
   m_ObjectHideFlags: 0
@@ -28597,6 +28618,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Managers
       objectReference: {fileID: 0}
+    - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: sliderSFX
+      value: 
+      objectReference: {fileID: 384611494}
+    - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: pausePanel
+      value: 
+      objectReference: {fileID: 212102857}
+    - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: soundPanel
+      value: 
+      objectReference: {fileID: 371905446}
+    - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: configPanel
+      value: 
+      objectReference: {fileID: 1443499152}
+    - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: sliderGeral
+      value: 
+      objectReference: {fileID: 1292285611}
+    - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: sliderMusica
+      value: 
+      objectReference: {fileID: 1464794436}
+    - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: controlsPanel
+      value: 
+      objectReference: {fileID: 2075162533}
     - target: {fileID: 2207976064434011169, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 30.1708
@@ -53219,6 +53268,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1292285611 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1472124021055820594, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_PrefabInstance: {fileID: 1253130755}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!1 &1302638570
 GameObject:
   m_ObjectHideFlags: 0
@@ -57868,6 +57928,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1443499152 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1987092161471842755, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_PrefabInstance: {fileID: 1253130755}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1449234508
 GameObject:
   m_ObjectHideFlags: 0
@@ -58647,6 +58712,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1464794436 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8360972529820939431, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_PrefabInstance: {fileID: 1253130755}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!1001 &1466127540
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -641727,6 +641803,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2075162533 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1222084398560309630, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_PrefabInstance: {fileID: 1253130755}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2077956756
 PrefabInstance:
   m_ObjectHideFlags: 0
