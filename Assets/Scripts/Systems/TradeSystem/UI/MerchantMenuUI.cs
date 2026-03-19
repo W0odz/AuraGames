@@ -117,6 +117,7 @@ public class MerchantMenuUI : MonoBehaviour
         foreach (var slot in InventoryManager.Instance.listaItens)
         {
             if (slot.item == null) continue;
+            if (slot.item.naoVendavel) continue;
             var go = Instantiate(itemSlotPrefab, inventarioContent);
             go.GetComponent<MerchantItemSlotUI>().Setup(slot.item, () => AdicionarBarraJogador(slot.item, 1));
         }
@@ -236,6 +237,7 @@ public class MerchantMenuUI : MonoBehaviour
         foreach (var slot in InventoryManager.Instance.listaItens)
         {
             if (slot.item == null) continue;
+            if (slot.item.naoVendavel) continue;
 
             // Desconta o que já está na barra do jogador
             int naFarra = 0;
@@ -308,7 +310,7 @@ public class MerchantMenuUI : MonoBehaviour
         int valorMercador = CalcValorLado(_barraMercador);
 
         bool sucesso = EscamboSystem.ExecutarTroca(
-            _barraMercador[0].item, _barraMercador[0].qty,
+            _barraMercador,
             _barraJogador,
             valorJogador, valorMercador,
             _merchant.tolerancia);

@@ -37,7 +37,7 @@ public static class EscamboSystem
     }
 
     public static bool ExecutarTroca(
-        DadosItem itemDesejado, int qtdDesejada,
+        List<(DadosItem item, int qty)> itensMercador,
         List<(DadosItem item, int qty)> ofertaJogador,
         int valorOferecido, int valorDesejado, float tolerancia)
     {
@@ -46,10 +46,14 @@ public static class EscamboSystem
         foreach (var (item, qty) in ofertaJogador)
             if (InventoryManager.Instance.GetItemCount(item) < qty) return false;
 
+        // Remove os itens da oferta do jogador
         foreach (var (item, qty) in ofertaJogador)
             InventoryManager.Instance.RemoverItem(item, qty);
 
-        InventoryManager.Instance.AdicionarItem(itemDesejado, qtdDesejada);
+        // Entrega TODOS os itens do mercador ao jogador
+        foreach (var (item, qty) in itensMercador)
+            InventoryManager.Instance.AdicionarItem(item, qty);
+
         return true;
     }
 }
