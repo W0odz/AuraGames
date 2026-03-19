@@ -52175,9 +52175,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueEndEvent
   desativarTemporariamente: []
+  removerObjetos:
+  - {fileID: 451969802}
   removerPermanentemente:
   - {fileID: 1921068167}
-  - {fileID: 451969806}
   cenaDestino: Resistencia_02
   spawnIdDestino: "Calabou\xE7o_Para_Resisencia_02"
 --- !u!114 &1921068167

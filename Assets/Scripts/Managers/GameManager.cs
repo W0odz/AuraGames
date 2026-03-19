@@ -569,6 +569,9 @@ public class GameManager : MonoBehaviour
         }
         fadeImage.color = new Color(0, 0, 0, alphaAlvo);
     }
+
+    public UnityEngine.UI.Image GetFadeImage() => fadeImage;
+
     #endregion
 
     #region Concedimento de Xp
