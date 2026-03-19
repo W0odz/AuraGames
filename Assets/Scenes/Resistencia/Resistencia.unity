@@ -3237,6 +3237,49 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ee4226cde7a6ab4aaab81a38daa4d9a, type: 3}
+--- !u!224 &1273188419 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8085821911475551211, guid: 7ee4226cde7a6ab4aaab81a38daa4d9a, type: 3}
+  m_PrefabInstance: {fileID: 1273188418}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1273188420 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 453792655116239195, guid: 7ee4226cde7a6ab4aaab81a38daa4d9a, type: 3}
+  m_PrefabInstance: {fileID: 1273188418}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1273188421 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8854349454929850038, guid: 7ee4226cde7a6ab4aaab81a38daa4d9a, type: 3}
+  m_PrefabInstance: {fileID: 1273188418}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &1273188422 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7271710495447269988, guid: 7ee4226cde7a6ab4aaab81a38daa4d9a, type: 3}
+  m_PrefabInstance: {fileID: 1273188418}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!1 &1273188423 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5068461319105222810, guid: 7ee4226cde7a6ab4aaab81a38daa4d9a, type: 3}
+  m_PrefabInstance: {fileID: 1273188418}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1286810524
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3289,6 +3332,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7193595712712339372, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: resultIcon
+      value: 
+      objectReference: {fileID: 1273188422}
+    - target: {fileID: 7193595712712339372, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: resultName
+      value: 
+      objectReference: {fileID: 1273188421}
+    - target: {fileID: 7193595712712339372, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: resultDescription
+      value: 
+      objectReference: {fileID: 1273188420}
+    - target: {fileID: 7193595712712339372, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: ingredientsContainer
+      value: 
+      objectReference: {fileID: 1273188419}
+    - target: {fileID: 7193595712712339372, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: resultAndIngredientsGroup
+      value: 
+      objectReference: {fileID: 1273188423}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

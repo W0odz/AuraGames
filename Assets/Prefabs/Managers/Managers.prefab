@@ -80,15 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81feec5b57753ae4ab92a30549785180, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
-  listaItens:
-  - item: {fileID: 11400000, guid: f7dc99c6aacb28743b5fd9d221f17446, type: 2}
-    quantidade: 1
-  - item: {fileID: 11400000, guid: c544a40c80764f04d92da6bd28cf62ac, type: 2}
-    quantidade: 1
-  - item: {fileID: 11400000, guid: bb5f168e63613814c8788a666f23c74b, type: 2}
-    quantidade: 1
-  - item: {fileID: 11400000, guid: 359ba3db7f6c4774985eddfdfe81a5a3, type: 2}
-    quantidade: 1
+  listaItens: []
 --- !u!114 &4865047398782504748
 MonoBehaviour:
   m_ObjectHideFlags: 0
