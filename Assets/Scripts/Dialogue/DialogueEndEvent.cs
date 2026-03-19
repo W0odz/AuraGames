@@ -1,10 +1,11 @@
-using System.Collections;
 using UnityEngine;
 
 /// <summary>
 /// Adicione este componente no mesmo GameObject de um DialogueTrigger ou NpcInteractable.
 /// Ao fim do diálogo, desativa GameObjects temporários (voltam ao reentrar na cena)
 /// e marca personagens como removidos permanentemente via PermanentRemoval.
+/// ExecutarAcoes() deve ser chamado explicitamente pelo DialogueTrigger ou NpcInteractable
+/// ao fim do diálogo correto, evitando que qualquer término de diálogo na cena dispare este evento.
 /// </summary>
 public class DialogueEndEvent : MonoBehaviour
 {
@@ -16,61 +17,7 @@ public class DialogueEndEvent : MonoBehaviour
     [Tooltip("NPCs com PermanentRemoval que devem sumir para sempre após este diálogo.")]
     public PermanentRemoval[] removerPermanentemente;
 
-    private bool _registrado = false;
-
-    private void OnEnable()
-    {
-        TentarRegistrar();
-    }
-
-    private void Start()
-    {
-        TentarRegistrar();
-    }
-
-    private void TentarRegistrar()
-    {
-        if (DialogueRunner.Instance == null || _registrado) return;
-
-        // Se há diálogo ativo no momento em que este objeto foi ativado,
-        // aguardar ele terminar antes de se registrar para evitar disparo prematuro.
-        if (DialogueRunner.Instance.IsDialogueActive)
-        {
-            StartCoroutine(RegistrarAposDialogoAtual());
-            return;
-        }
-
-        DialogueRunner.Instance.onDialogueEnd += OnDialogueEnd;
-        _registrado = true;
-    }
-
-    private IEnumerator RegistrarAposDialogoAtual()
-    {
-        // Aguarda até o diálogo atual terminar
-        yield return new WaitUntil(() =>
-            DialogueRunner.Instance == null || !DialogueRunner.Instance.IsDialogueActive);
-
-        // Pequena espera extra para garantir que onDialogueEnd já foi disparado neste frame
-        yield return null;
-
-        if (DialogueRunner.Instance != null && !_registrado)
-        {
-            DialogueRunner.Instance.onDialogueEnd += OnDialogueEnd;
-            _registrado = true;
-        }
-    }
-
-    private void OnDisable()
-    {
-        StopAllCoroutines();
-        if (DialogueRunner.Instance != null)
-        {
-            DialogueRunner.Instance.onDialogueEnd -= OnDialogueEnd;
-            _registrado = false;
-        }
-    }
-
-    private void OnDialogueEnd()
+    public void ExecutarAcoes()
     {
         // Desativa temporariamente
         foreach (var obj in desativarTemporariamente)
@@ -92,9 +39,5 @@ public class DialogueEndEvent : MonoBehaviour
             pr.gameObject.SetActive(false);
             Debug.Log($"[DialogueEndEvent] '{pr.gameObject.name}' removido permanentemente.");
         }
-
-        // Se desregistra após disparar para não ser acionado por outros diálogos futuros na cena
-        DialogueRunner.Instance.onDialogueEnd -= OnDialogueEnd;
-        _registrado = false;
     }
 }
