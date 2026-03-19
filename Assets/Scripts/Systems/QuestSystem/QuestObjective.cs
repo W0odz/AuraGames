@@ -26,6 +26,10 @@ public class QuestObjective
     [Tooltip("ID do DialogueTrigger que precisa ser ativado. Deve bater com o campo 'triggerId' no DialogueTrigger.")]
     public string triggerDialogueId;
 
+    // Para UseSceneTransition
+    [Tooltip("ID do SceneTransition (campo transitionID) que precisa ser usado.")]
+    public string sceneTransitionID;
+
     // Para Timer
     public float timerNecessario;
 

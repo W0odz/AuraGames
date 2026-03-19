@@ -226,6 +226,25 @@ public class QuestManager : MonoBehaviour
         }
     }
 
+    public void NotificarSceneTransition(string transitionID)
+    {
+        foreach (var kvp in new Dictionary<string, QuestState>(questStates))
+        {
+            if (kvp.Value != QuestState.Active) continue;
+            if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
+
+            var obj = ObterObjetivoAtual(def);
+            if (obj == null || obj.tipo != QuestObjectiveType.UseSceneTransition) continue;
+            if (string.IsNullOrEmpty(obj.sceneTransitionID)) continue;
+            if (obj.sceneTransitionID != transitionID) continue;
+            if (obj.EstaCompleto()) continue;
+
+            obj.progressoAtual = 1;
+            Debug.Log($"[QuestManager] Progresso UseSceneTransition: {transitionID}");
+            VerificarConclusao(kvp.Key, def);
+        }
+    }
+
     private void VerificarConclusao(string questId, QuestDefinition def)
     {
         if (def.objetivos == null || def.objetivos.Count == 0) return;
@@ -310,4 +329,4 @@ public class QuestManager : MonoBehaviour
 }
 
 public enum QuestState { NotStarted, Active, Completed, TurnedIn }
-public enum QuestObjectiveType { CollectItem, DeliverItem, KillEnemy, TalkToNpc, Timer, EnterBattle, TriggerDialogue }
+public enum QuestObjectiveType { CollectItem, DeliverItem, KillEnemy, TalkToNpc, Timer, EnterBattle, TriggerDialogue, UseSceneTransition }

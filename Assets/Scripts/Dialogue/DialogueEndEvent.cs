@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -19,16 +20,39 @@ public class DialogueEndEvent : MonoBehaviour
 
     private void OnEnable()
     {
-        if (DialogueRunner.Instance != null && !_registrado)
-        {
-            DialogueRunner.Instance.onDialogueEnd += OnDialogueEnd;
-            _registrado = true;
-        }
+        TentarRegistrar();
     }
 
     private void Start()
     {
-        // Fallback: registra caso DialogueRunner ainda não existia durante OnEnable
+        TentarRegistrar();
+    }
+
+    private void TentarRegistrar()
+    {
+        if (DialogueRunner.Instance == null || _registrado) return;
+
+        // Se há diálogo ativo no momento em que este objeto foi ativado,
+        // aguardar ele terminar antes de se registrar para evitar disparo prematuro.
+        if (DialogueRunner.Instance.IsDialogueActive)
+        {
+            StartCoroutine(RegistrarAposDialogoAtual());
+            return;
+        }
+
+        DialogueRunner.Instance.onDialogueEnd += OnDialogueEnd;
+        _registrado = true;
+    }
+
+    private IEnumerator RegistrarAposDialogoAtual()
+    {
+        // Aguarda até o diálogo atual terminar
+        yield return new WaitUntil(() =>
+            DialogueRunner.Instance == null || !DialogueRunner.Instance.IsDialogueActive);
+
+        // Pequena espera extra para garantir que onDialogueEnd já foi disparado neste frame
+        yield return null;
+
         if (DialogueRunner.Instance != null && !_registrado)
         {
             DialogueRunner.Instance.onDialogueEnd += OnDialogueEnd;
@@ -38,6 +62,7 @@ public class DialogueEndEvent : MonoBehaviour
 
     private void OnDisable()
     {
+        StopAllCoroutines();
         if (DialogueRunner.Instance != null)
         {
             DialogueRunner.Instance.onDialogueEnd -= OnDialogueEnd;
