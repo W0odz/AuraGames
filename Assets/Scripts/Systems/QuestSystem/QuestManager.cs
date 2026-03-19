@@ -327,6 +327,26 @@ public class QuestManager : MonoBehaviour
         return result;
     }
 
+    public void NotificarFimDialogo(DialogueAsset asset)
+    {
+        if (asset == null) return;
+
+        foreach (var kvp in new Dictionary<string, QuestState>(questStates))
+        {
+            if (kvp.Value != QuestState.Active) continue;
+            if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
+
+            var obj = ObterObjetivoAtual(def);
+            if (obj == null || obj.tipo != QuestObjectiveType.AguardarDialogo) continue;
+            if (obj.dialogoAlvo == null || obj.dialogoAlvo != asset) continue;
+            if (obj.EstaCompleto()) continue;
+
+            obj.progressoAtual = 1;
+            Debug.Log($"[QuestManager] Progresso AguardarDialogo: {asset.name}");
+            VerificarConclusao(kvp.Key, def);
+        }
+    }
+
     /// <summary>
     /// Retorna true se alguma quest ativa tem como objetivo ATUAL um TriggerDialogue com triggerDialogueId igual ao fornecido.
     /// </summary>
@@ -359,4 +379,4 @@ public class QuestManager : MonoBehaviour
 }
 
 public enum QuestState { NotStarted, Active, Completed, TurnedIn }
-public enum QuestObjectiveType { CollectItem, DeliverItem, KillEnemy, TalkToNpc, Timer, EnterBattle, TriggerDialogue, UseSceneTransition }
+public enum QuestObjectiveType { CollectItem, DeliverItem, KillEnemy, TalkToNpc, Timer, EnterBattle, TriggerDialogue, UseSceneTransition, AguardarDialogo }
