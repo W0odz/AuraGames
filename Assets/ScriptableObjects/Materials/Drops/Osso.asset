@@ -14,15 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
   nomeItem: Osso
   descricao: Um osso comum de criatura
-  iconeItem: {fileID: 5353222233169801993, guid: f99e251a57b438d4e9f1b3940b2eab75, type: 3}
-  valorOuro: 0
+  iconeItem: {fileID: 2300323935221723256, guid: f374c396817e4294ab14622807ee175b, type: 3}
   tipoItem: 2
   slotOndeEquipa: 0
+  efeitosDoItem: []
+  valorEscambo: 1
   bonusStrength: 0
   bonusResistance: 0
-  bonusWill: 0
-  bonusKnowledge: 0
-  bonusSpeed: 0
-  bonusLuck: 0
   bonusMaxHP: 0
   bonusMaxMP: 0
+  apenasForaDeBatalha: 0

@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7dd9b1f521a42445b6a820d4b6a1a00, type: 3}
-  m_Name: EspetinhoDeFrutas
+  m_Name: CapaceteDeCouro
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
-  nomeItem: Espetinho de Frutas
-  descricao: Um conjunto de frutas encontradas na floresta local
-  iconeItem: {fileID: 0}
-  valorOuro: 0
-  tipoItem: 0
-  slotOndeEquipa: 5
-  efeitosDoItem:
-  - {fileID: 11400000, guid: 7c10af9622f6ae94f9cdbb22fc2687d3, type: 2}
+  nomeItem: Capacete de Couro
+  descricao: Uma vestimenta que ajuda a se esconder das suas presas
+  iconeItem: {fileID: -887496087412394427, guid: 7f3aa4995239ba145a5ca72cf81b5020, type: 3}
+  tipoItem: 1
+  slotOndeEquipa: 1
+  efeitosDoItem: []
+  valorEscambo: 1
   bonusStrength: 0
-  bonusResistance: 0
+  bonusResistance: 2
   bonusMaxHP: 0
-  bonusMaxMP: 0
+  bonusMaxMP: 10
+  apenasForaDeBatalha: 0

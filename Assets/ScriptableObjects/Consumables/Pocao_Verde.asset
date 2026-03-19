@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7dd9b1f521a42445b6a820d4b6a1a00, type: 3}
-  m_Name: CarneAssada
+  m_Name: Pocao_Verde
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
-  nomeItem: CarneAssada
-  descricao: A receita de carne assada que seu tio te ensinou
-  iconeItem: {fileID: 0}
-  valorOuro: 0
+  nomeItem: "Po\xE7\xE3o Verde"
+  descricao: 
+  iconeItem: {fileID: -8594505581712603399, guid: f220ae0cc4f845543968ebfab524cbba, type: 3}
   tipoItem: 0
   slotOndeEquipa: 5
-  efeitosDoItem: []
+  efeitosDoItem:
+  - {fileID: 11400000, guid: 7b7a6956be16ce8499a582e89ae245c4, type: 2}
+  valorEscambo: 1
   bonusStrength: 0
   bonusResistance: 0
   bonusMaxHP: 0
   bonusMaxMP: 0
+  apenasForaDeBatalha: 0

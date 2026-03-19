@@ -290,7 +290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAIController
   isPassive: 0
-  isEstatico: 1
+  isEstatico: 0
   wanderSpeed: 2
   chaseSpeed: 4
   battlePrefab: {fileID: 6089210800779420423, guid: bb646ff2c343ebb4e8a7b620b4c7e4a5, type: 3}

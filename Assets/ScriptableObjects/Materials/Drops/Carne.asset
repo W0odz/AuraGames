@@ -14,15 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
   nomeItem: Carne
   descricao: "Um peda\xE7o de carne de javali\n"
-  iconeItem: {fileID: 8588571722467060235, guid: 6d4dccdddf207f84c9a04a35071a267a, type: 3}
-  valorOuro: 0
+  iconeItem: {fileID: 3109182483404986131, guid: 36820c6f2a5ff5347ab14661d807f643, type: 3}
   tipoItem: 2
   slotOndeEquipa: 0
+  efeitosDoItem: []
+  valorEscambo: 1
   bonusStrength: 0
   bonusResistance: 0
-  bonusWill: 0
-  bonusKnowledge: 0
-  bonusSpeed: 0
-  bonusLuck: 0
   bonusMaxHP: 0
   bonusMaxMP: 0
+  apenasForaDeBatalha: 0

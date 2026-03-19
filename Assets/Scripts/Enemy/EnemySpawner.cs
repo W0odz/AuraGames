@@ -258,19 +258,6 @@ public class EnemySpawner : MonoBehaviour
         GameObject enemyGO = Instantiate(explorationPrefab, spawnPosition, Quaternion.identity);
         enemies[slotIndex] = enemyGO;
 
-        if (battlePrefab != null) enemyGO.transform.localScale = battlePrefab.transform.localScale;
-
-        SpriteRenderer expRend = enemyGO.GetComponent<SpriteRenderer>();
-        if (expRend == null) expRend = enemyGO.GetComponentInChildren<SpriteRenderer>();
-        SpriteRenderer batRend = battlePrefab.GetComponent<SpriteRenderer>();
-        if (batRend == null) batRend = battlePrefab.GetComponentInChildren<SpriteRenderer>();
-
-        if (expRend != null && batRend != null)
-        {
-            expRend.sprite = batRend.sprite;
-            expRend.color = batRend.color;
-        }
-
         EnemyAIController ai = enemyGO.GetComponent<EnemyAIController>();
         if (ai != null)
         {

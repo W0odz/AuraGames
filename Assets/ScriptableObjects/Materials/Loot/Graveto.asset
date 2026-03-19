@@ -14,15 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
   nomeItem: Graveto
   descricao: Apenas um graveto
-  iconeItem: {fileID: 1334350047126572761, guid: f252a4a4700f364479a66d96a3efb6f1, type: 3}
-  valorOuro: 0
+  iconeItem: {fileID: 203528549091833367, guid: 7ef282662952c50468378130784984f7, type: 3}
   tipoItem: 2
   slotOndeEquipa: 0
+  efeitosDoItem: []
+  valorEscambo: 1
   bonusStrength: 0
   bonusResistance: 0
-  bonusWill: 0
-  bonusKnowledge: 0
-  bonusSpeed: 0
-  bonusLuck: 0
   bonusMaxHP: 0
   bonusMaxMP: 0
+  apenasForaDeBatalha: 0

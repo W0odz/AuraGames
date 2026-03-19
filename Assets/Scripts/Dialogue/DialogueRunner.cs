@@ -272,9 +272,12 @@ public class DialogueRunner : MonoBehaviour
         currentAsset = null;
         _onEnd = null;
 
-        if (assetFinal != null && assetFinal.fundoPainel)
+        // Se há cena destino pendente no GameManager, não faz FadeComAcao aqui —
+        // o FadeToSceneCoroutine já controla o fade de saída antes de trocar de cena
+        bool temCenaDestino = !string.IsNullOrEmpty(GameManager.Instance?.cenaDestinoPendente);
+
+        if (assetFinal != null && assetFinal.fundoPainel != null && !temCenaDestino)
         {
-            // Faz fade antes de fechar o painel
             Time.timeScale = 1f;
             GameManager.Instance.FadeComAcao(() =>
             {
@@ -284,7 +287,9 @@ public class DialogueRunner : MonoBehaviour
 
                 GameManager.Instance.inputBloqueado = false;
                 cbFinal?.Invoke();
+                ConcederRecompensas(assetFinal);
                 onDialogueEnd?.Invoke();
+                QuestManager.Instance?.NotificarFimDialogo(assetFinal);
             });
         }
         else
@@ -295,8 +300,38 @@ public class DialogueRunner : MonoBehaviour
 
             GameManager.Instance.inputBloqueado = false;
             cbFinal?.Invoke();
+            ConcederRecompensas(assetFinal);
             onDialogueEnd?.Invoke();
+            QuestManager.Instance?.NotificarFimDialogo(assetFinal);
             Time.timeScale = 1f;
+        }
+    }
+
+    private void ConcederRecompensas(DialogueAsset asset)
+    {
+        if (asset == null || asset.recompensas == null || asset.recompensas.Length == 0) return;
+        if (InventoryManager.Instance == null) return;
+
+        foreach (var recompensa in asset.recompensas)
+        {
+            if (recompensa.item == null) continue;
+
+            switch (recompensa.tipo)
+            {
+                case RecompensaDialogo.TipoRecompensa.ConcederItem:
+                    InventoryManager.Instance.AdicionarItem(recompensa.item, recompensa.quantidade);
+                    Debug.Log($"[DialogueRunner] Recompensa concedida: {recompensa.quantidade}x {recompensa.item.nomeItem}");
+                    break;
+
+                case RecompensaDialogo.TipoRecompensa.EquiparItem:
+                    InventoryManager.Instance.AdicionarItem(recompensa.item, 1);
+                    if (EquipmentManager.Instance != null)
+                    {
+                        EquipmentManager.Instance.Equip(recompensa.item);
+                        Debug.Log($"[DialogueRunner] Item equipado via diálogo: {recompensa.item.nomeItem}");
+                    }
+                    break;
+            }
         }
     }
 }

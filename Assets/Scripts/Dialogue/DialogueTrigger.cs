@@ -88,6 +88,12 @@ public class DialogueTrigger : MonoBehaviour
             return;
         }
 
+        if (!string.IsNullOrEmpty(triggerId) && QuestManager.Instance != null)
+        {
+            if (!QuestManager.Instance.ObjetivoAtualEhTrigger(triggerId))
+                return;
+        }
+
         jaDisparou = true;
 
         if (!string.IsNullOrEmpty(triggerId) && QuestManager.Instance != null)
@@ -117,6 +123,9 @@ public class DialogueTrigger : MonoBehaviour
 
             if (!apenasUmaVez)
                 jaDisparou = false;
+
+            var endEvent = GetComponent<DialogueEndEvent>();
+            if (endEvent != null) endEvent.ExecutarAcoes();
         });
     }
 }

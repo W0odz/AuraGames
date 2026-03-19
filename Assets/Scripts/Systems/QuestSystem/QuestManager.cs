@@ -129,7 +129,7 @@ public class QuestManager : MonoBehaviour
     {
         var battlePrefabAtual = GameManager.Instance?.currentExplorationEnemyBattlePrefab;
 
-        foreach (var kvp in questStates)
+        foreach (var kvp in new Dictionary<string, QuestState>(questStates))
         {
             if (kvp.Value != QuestState.Active) continue;
             if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
@@ -162,7 +162,7 @@ public class QuestManager : MonoBehaviour
         var identidade = npc.GetComponent<NpcIdentidade>();
         string idNpc = identidade != null ? identidade.npcId : npc.name;
 
-        foreach (var kvp in questStates)
+        foreach (var kvp in new Dictionary<string, QuestState>(questStates))
         {
             if (kvp.Value != QuestState.Active) continue;
             if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
@@ -182,7 +182,7 @@ public class QuestManager : MonoBehaviour
     {
         var battlePrefabAtual = GameManager.Instance?.currentExplorationEnemyBattlePrefab;
 
-        foreach (var kvp in questStates)
+        foreach (var kvp in new Dictionary<string, QuestState>(questStates))
         {
             if (kvp.Value != QuestState.Active) continue;
             if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
@@ -210,7 +210,7 @@ public class QuestManager : MonoBehaviour
 
     public void NotificarDialogueTrigger(string triggerId)
     {
-        foreach (var kvp in questStates)
+        foreach (var kvp in new Dictionary<string, QuestState>(questStates))
         {
             if (kvp.Value != QuestState.Active) continue;
             if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
@@ -222,6 +222,25 @@ public class QuestManager : MonoBehaviour
             if (obj.EstaCompleto()) continue;
 
             obj.progressoAtual = 1;
+            VerificarConclusao(kvp.Key, def);
+        }
+    }
+
+    public void NotificarSceneTransition(string transitionID)
+    {
+        foreach (var kvp in new Dictionary<string, QuestState>(questStates))
+        {
+            if (kvp.Value != QuestState.Active) continue;
+            if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
+
+            var obj = ObterObjetivoAtual(def);
+            if (obj == null || obj.tipo != QuestObjectiveType.UseSceneTransition) continue;
+            if (string.IsNullOrEmpty(obj.sceneTransitionID)) continue;
+            if (obj.sceneTransitionID != transitionID) continue;
+            if (obj.EstaCompleto()) continue;
+
+            obj.progressoAtual = 1;
+            Debug.Log($"[QuestManager] Progresso UseSceneTransition: {transitionID}");
             VerificarConclusao(kvp.Key, def);
         }
     }
@@ -300,14 +319,64 @@ public class QuestManager : MonoBehaviour
     public List<QuestDefinition> GetAllActive()
     {
         var result = new List<QuestDefinition>();
-        foreach (var kvp in questStates)
+        foreach (var kvp in new Dictionary<string, QuestState>(questStates))
         {
             if (kvp.Value == QuestState.Active && questDefs.TryGetValue(kvp.Key, out var def))
                 result.Add(def);
         }
         return result;
     }
+
+    public void NotificarFimDialogo(DialogueAsset asset)
+    {
+        if (asset == null) return;
+
+        foreach (var kvp in new Dictionary<string, QuestState>(questStates))
+        {
+            if (kvp.Value != QuestState.Active) continue;
+            if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
+
+            var obj = ObterObjetivoAtual(def);
+            if (obj == null || obj.tipo != QuestObjectiveType.AguardarDialogo) continue;
+            if (obj.dialogoAlvo == null || obj.dialogoAlvo != asset) continue;
+            if (obj.EstaCompleto()) continue;
+
+            obj.progressoAtual = 1;
+            Debug.Log($"[QuestManager] Progresso AguardarDialogo: {asset.name}");
+            VerificarConclusao(kvp.Key, def);
+        }
+    }
+
+    /// <summary>
+    /// Retorna true se alguma quest ativa tem como objetivo ATUAL um TriggerDialogue com triggerDialogueId igual ao fornecido.
+    /// </summary>
+    public bool ObjetivoAtualEhTrigger(string triggerId)
+    {
+        foreach (var kvp in new Dictionary<string, QuestState>(questStates))
+        {
+            if (kvp.Value != QuestState.Active) continue;
+            if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
+
+            var obj = ObterObjetivoAtual(def);
+            if (obj == null || obj.tipo != QuestObjectiveType.TriggerDialogue) continue;
+            if (obj.triggerDialogueId == triggerId) return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Retorna true se a quest com o ID fornecido está ativa e seu objetivo ATUAL é TalkToNpc com npcAlvoNome igual ao npcId fornecido.
+    /// </summary>
+    public bool ObjetivoAtualEhTalkToNpc(string questId, string npcId)
+    {
+        if (!questStates.TryGetValue(questId, out var state) || state != QuestState.Active) return false;
+        if (!questDefs.TryGetValue(questId, out var def)) return false;
+
+        var obj = ObterObjetivoAtual(def);
+        if (obj == null || obj.tipo != QuestObjectiveType.TalkToNpc) return false;
+        return obj.npcAlvoNome == npcId;
+    }
 }
 
 public enum QuestState { NotStarted, Active, Completed, TurnedIn }
-public enum QuestObjectiveType { CollectItem, DeliverItem, KillEnemy, TalkToNpc, Timer, EnterBattle, TriggerDialogue }
+public enum QuestObjectiveType { CollectItem, DeliverItem, KillEnemy, TalkToNpc, Timer, EnterBattle, TriggerDialogue, UseSceneTransition, AguardarDialogo }

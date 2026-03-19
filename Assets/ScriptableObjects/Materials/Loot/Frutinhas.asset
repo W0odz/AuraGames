@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
   nomeItem: Frutinhas
   descricao: 'Nascem em arbustos baixos da floresta '
-  iconeItem: {fileID: 9001397999531247841, guid: 923b2963f0b6de848a461ce274f36c6c, type: 3}
-  valorOuro: 0
+  iconeItem: {fileID: -6083288687002813745, guid: bacf8029d81112f47a3bc4acdd510a12, type: 3}
   tipoItem: 2
   slotOndeEquipa: 0
+  efeitosDoItem: []
+  valorEscambo: 1
   bonusStrength: 0
   bonusResistance: 0
   bonusMaxHP: 0
   bonusMaxMP: 0
+  apenasForaDeBatalha: 0

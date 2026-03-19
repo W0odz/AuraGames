@@ -4,6 +4,8 @@ using UnityEngine;
 /// Adicione este componente no mesmo GameObject de um DialogueTrigger ou NpcInteractable.
 /// Ao fim do diálogo, desativa GameObjects temporários (voltam ao reentrar na cena)
 /// e marca personagens como removidos permanentemente via PermanentRemoval.
+/// ExecutarAcoes() deve ser chamado explicitamente pelo DialogueTrigger ou NpcInteractable
+/// ao fim do diálogo correto, evitando que qualquer término de diálogo na cena dispare este evento.
 /// </summary>
 public class DialogueEndEvent : MonoBehaviour
 {
@@ -15,37 +17,7 @@ public class DialogueEndEvent : MonoBehaviour
     [Tooltip("NPCs com PermanentRemoval que devem sumir para sempre após este diálogo.")]
     public PermanentRemoval[] removerPermanentemente;
 
-    private bool _registrado = false;
-
-    private void OnEnable()
-    {
-        if (DialogueRunner.Instance != null && !_registrado)
-        {
-            DialogueRunner.Instance.onDialogueEnd += OnDialogueEnd;
-            _registrado = true;
-        }
-    }
-
-    private void Start()
-    {
-        // Fallback: registra caso DialogueRunner ainda não existia durante OnEnable
-        if (DialogueRunner.Instance != null && !_registrado)
-        {
-            DialogueRunner.Instance.onDialogueEnd += OnDialogueEnd;
-            _registrado = true;
-        }
-    }
-
-    private void OnDisable()
-    {
-        if (DialogueRunner.Instance != null)
-        {
-            DialogueRunner.Instance.onDialogueEnd -= OnDialogueEnd;
-            _registrado = false;
-        }
-    }
-
-    private void OnDialogueEnd()
+    public void ExecutarAcoes()
     {
         // Desativa temporariamente
         foreach (var obj in desativarTemporariamente)
@@ -67,9 +39,5 @@ public class DialogueEndEvent : MonoBehaviour
             pr.gameObject.SetActive(false);
             Debug.Log($"[DialogueEndEvent] '{pr.gameObject.name}' removido permanentemente.");
         }
-
-        // Se desregistra após disparar para não ser acionado por outros diálogos futuros na cena
-        DialogueRunner.Instance.onDialogueEnd -= OnDialogueEnd;
-        _registrado = false;
     }
 }

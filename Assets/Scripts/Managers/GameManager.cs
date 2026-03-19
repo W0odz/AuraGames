@@ -114,6 +114,12 @@ public class GameManager : MonoBehaviour
     [Header("Diálogos Únicos Vistros")]
     public List<string> seenUniqueDialogues = new List<string>();
 
+    [Header("Tutoriais Vistos")]
+    public List<string> seenTutorialIDs = new List<string>();
+
+    [Header("Transições Únicas Usadas")]
+    public List<string> usedTransitionIDs = new List<string>();
+
     // Adiciona junto com as outras flags p�blicas
     public bool inputBloqueado = false;
 
@@ -141,6 +147,15 @@ public class GameManager : MonoBehaviour
     {
         if (!removedCharacterIDs.Contains(characterId))
             removedCharacterIDs.Add(characterId);
+    }
+
+    public bool TransicaoUsada(string transitionID)
+        => usedTransitionIDs.Contains(transitionID);
+
+    public void MarcarTransicaoUsada(string transitionID)
+    {
+        if (!usedTransitionIDs.Contains(transitionID))
+            usedTransitionIDs.Add(transitionID);
     }
 
     public bool IsInCombatGracePeriod()
@@ -278,8 +293,7 @@ public class GameManager : MonoBehaviour
         //luck = data.luck;
         defeatedEnemyIDs = data.defeatedEnemyIDs;
         collectedItemIDs = data.collectedItemIDs;
-
-        // Guarda a posi��o e a cena para usar quando a cena carregar
+        usedTransitionIDs = data.usedTransitionIDs ?? new List<string>();
         sceneToLoad = data.sceneName;
         positionToLoad = new Vector3(data.posX, data.posY, data.posZ);
         isLoadingSave = true; // Avisa o sistema que estamos carregando um save
@@ -344,6 +358,7 @@ public class GameManager : MonoBehaviour
         //data.luck = luck;
         data.defeatedEnemyIDs = defeatedEnemyIDs;
         data.collectedItemIDs = collectedItemIDs;
+        data.usedTransitionIDs = usedTransitionIDs;
 
         // 1. Encontra o jogador na cena atual
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -379,26 +394,40 @@ public class GameManager : MonoBehaviour
         // 1. Fade Out (Escurecer)
         yield return StartCoroutine(FadeOutCoroutine(isGoingToBattle));
 
-        // 2. Carregar a Cena
-        SceneManager.LoadScene(sceneName);
-        Time.timeScale = 1f; // Garante reset do timeScale em qualquer transição de cena
-        if (repelEnemiesOnReturn)
-        {
-            RepelEnemiesNearPosition(playerReturnPosition, enemySafeRadiusOnReturn);
-            repelEnemiesOnReturn = false;
-        }
-
-        // Pequeno delay para a cena carregar
-        yield return new WaitForSecondsRealtime(0.1f);
-
-        // 3. Verifica se há diálogo pendente para disparar antes do fade in
+        // 2. Se há diálogo pendente, usa LoadSceneAsync para manter a tela preta
+        //    enquanto a cena carrega, eliminando o flicker
         if (dialogoPendente != null)
         {
+            // Salva tudo antes de limpar — cenaDestinoPendente é limpa aqui
+            // mas precisa estar disponível pro EndDialogue verificar durante o diálogo
             DialogueAsset dialogoParaDisparar = dialogoPendente;
-            dialogoPendente = null;
-            cenaDestinoPendente = null;
+            string cenaFinalDestino = cenaDestinoPendente;
+            string spawnFinal = pendingSpawnID;
 
-            // Clareia apenas parcialmente (alpha 1 → 0.15) para o painel de diálogo
+            dialogoPendente = null;
+            // NÃO limpa cenaDestinoPendente aqui — EndDialogue precisa checar ela
+
+            var op = SceneManager.LoadSceneAsync(sceneName);
+            op.allowSceneActivation = false;
+            Time.timeScale = 1f;
+
+            // Aguarda a cena carregar em background com a tela ainda preta
+            while (op.progress < 0.9f)
+                yield return null;
+
+            // Ativa a cena — ainda com tela 100% preta
+            op.allowSceneActivation = true;
+
+            // Aguarda frames suficientes para a cena inicializar completamente
+            yield return new WaitForSecondsRealtime(0.15f);
+
+            if (repelEnemiesOnReturn)
+            {
+                RepelEnemiesNearPosition(playerReturnPosition, enemySafeRadiusOnReturn);
+                repelEnemiesOnReturn = false;
+            }
+
+            // Clareia parcialmente (alpha 1 → 0.15) para o painel de diálogo
             // ficar visível sem expor a cena por baixo
             yield return StartCoroutine(FadeInParcialCoroutine(0.15f));
 
@@ -411,12 +440,36 @@ public class GameManager : MonoBehaviour
 
             yield return new WaitUntil(() => dialogoTerminou);
 
-            // Após o diálogo terminar, clareia a tela completamente
+            // Limpa agora que o diálogo terminou
+            cenaDestinoPendente = null;
+
+            // Se há cena destino pós-diálogo, navega pra lá com fade
+            if (!string.IsNullOrEmpty(cenaFinalDestino))
+            {
+                yield return StartCoroutine(FadeOutCoroutine(false));
+
+                if (!string.IsNullOrEmpty(spawnFinal))
+                    pendingSpawnID = spawnFinal;
+
+                SceneManager.LoadScene(cenaFinalDestino);
+                Time.timeScale = 1f;
+                yield return new WaitForSecondsRealtime(0.1f);
+            }
+
             yield return StartCoroutine(FadeInCoroutine());
             yield break;
         }
 
-        // 4. Fade In (Clarear) — acontece imediatamente se não há diálogo pendente
+        // 3. Sem diálogo pendente: comportamento original inalterado
+        SceneManager.LoadScene(sceneName);
+        Time.timeScale = 1f;
+        if (repelEnemiesOnReturn)
+        {
+            RepelEnemiesNearPosition(playerReturnPosition, enemySafeRadiusOnReturn);
+            repelEnemiesOnReturn = false;
+        }
+
+        yield return new WaitForSecondsRealtime(0.1f);
         yield return StartCoroutine(FadeInCoroutine());
     }
 

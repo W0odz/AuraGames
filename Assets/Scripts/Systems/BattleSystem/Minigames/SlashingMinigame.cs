@@ -24,7 +24,7 @@ public class SlashingMinigame : MonoBehaviour
     public Slider timeSlider;
 
     [Header("Detecção (weakpoints sem Collider2D)")]
-    public float slashThickness = 0.35f;
+    public float slashThickness = 0.5f;
 
     [Header("Regra de sucesso")]
     [Range(0f, 1f)]
@@ -111,6 +111,7 @@ public class SlashingMinigame : MonoBehaviour
     // Não reseta timer: ele já está correndo desde o Iniciar()
     public void BeginSlashFromWorldPoint(Vector2 worldStart)
     {
+        Debug.Log($"[Slash] BeginSlash worldStart={worldStart}");
         if (!isActive) return;
         if (worldCamera == null) worldCamera = Camera.main;
 
@@ -237,6 +238,7 @@ public class SlashingMinigame : MonoBehaviour
         gameObject.SetActive(false);
 
         AttackManager.Instance.FinalizarAtaqueSlashing(sucesso, weakPointsHit, precisao, startPoint, endPoint);
+        Debug.Log($"[Slash] startPoint={startPoint} endPoint={endPoint} | sucesso={sucesso} | precisao={precisao:F4}");
     }
 
     int CountWeakPointsHit_NoCollider(Vector2 a, Vector2 b)
@@ -252,7 +254,10 @@ public class SlashingMinigame : MonoBehaviour
             float d = DistancePointToSegment(p, a, b);
 
             if (d <= slashThickness)
+            {
+                wp.ReceberClique(); // descobre e consome o uso
                 count++;
+            }
         }
 
         return count;
