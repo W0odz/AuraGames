@@ -47,14 +47,14 @@ MonoBehaviour:
   - descricao: "Volte mais tarde para o serm\xE3o."
     tipo: 4
     itemAlvo: {fileID: 0}
-    quantidadeNecessaria: 0
+    quantidadeNecessaria: 1
     enemyPrefab: {fileID: 0}
     npcAlvoNome: 
     battleEnemyPrefab: {fileID: 0}
     triggerDialogueId: 
     timerNecessario: 60
     progressoAtual: 0
-    timerAtual: 69.67633
+    timerAtual: 61.97018
     apenasInformativo: 0
   - descricao: "Atenda ao serm\xE3o no templo"
     tipo: 6
@@ -65,7 +65,7 @@ MonoBehaviour:
     battleEnemyPrefab: {fileID: 0}
     triggerDialogueId: entrada_igreja
     timerNecessario: 0
-    progressoAtual: 1
+    progressoAtual: 0
     timerAtual: 0
     apenasInformativo: 0
   - descricao: Procure pistas pela floresta

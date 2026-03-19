@@ -1213,7 +1213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1955566823423358860, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
       propertyPath: m_Name
-      value: Cultista 2 (2)
+      value: Cultista 6
       objectReference: {fileID: 0}
     - target: {fileID: 4951375928657678689, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
       propertyPath: m_SortingOrder
@@ -1424,6 +1424,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &56506737
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 56506739}
+  - component: {fileID: 56506738}
+  m_Layer: 0
+  m_Name: QuestObjectiveListener_Sermao_Inicio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &56506738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56506737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5938b695e3be49a4c861ba5e8f23c8ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuestObjectiveListener
+  quest: {fileID: 11400000, guid: 015d5bee34bfb4240a55081e47427495, type: 2}
+  indiceDoObjetivo: 2
+  desativarAoConcluir: []
+  ativarAoConcluir:
+  - {fileID: 8346847556875808918}
+--- !u!4 &56506739
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56506737}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 186.6181, y: 828.50885, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &59904452
 GameObject:
   m_ObjectHideFlags: 0
@@ -6300,7 +6349,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7121248496030349273, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
       propertyPath: m_Name
-      value: Cultista 1 (3)
+      value: Cultista 7
       objectReference: {fileID: 0}
     - target: {fileID: 8501059733103044368, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
       propertyPath: m_SortingOrder
@@ -22992,7 +23041,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7121248496030349273, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
       propertyPath: m_Name
-      value: Cultista 1 (4)
+      value: Cultista 9
       objectReference: {fileID: 0}
     - target: {fileID: 8501059733103044368, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
       propertyPath: m_SortingOrder
@@ -23049,8 +23098,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30975eafea4a2214299ece98feced2ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PermanentRemoval
-  quest: {fileID: 11400000, guid: 015d5bee34bfb4240a55081e47427495, type: 2}
-  indiceDoObjetivo: 3
+  characterId: Cultista9
+  removido: 1
 --- !u!1 &889464274
 GameObject:
   m_ObjectHideFlags: 0
@@ -23297,7 +23346,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1955566823423358860, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
       propertyPath: m_Name
-      value: Cultista 2 (1)
+      value: Cultista 4
       objectReference: {fileID: 0}
     - target: {fileID: 4951375928657678689, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
       propertyPath: m_SortingOrder
@@ -24396,7 +24445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7121248496030349273, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
       propertyPath: m_Name
-      value: Cultista 1 (2)
+      value: Cultista 5
       objectReference: {fileID: 0}
     - target: {fileID: 8501059733103044368, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
       propertyPath: m_SortingOrder
@@ -126159,7 +126208,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7121248496030349273, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
       propertyPath: m_Name
-      value: Cultista 1 (1)
+      value: Cultista 3
       objectReference: {fileID: 0}
     - target: {fileID: 8501059733103044368, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
       propertyPath: m_SortingOrder
@@ -129144,7 +129193,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1955566823423358860, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
       propertyPath: m_Name
-      value: Cultista 2 (3)
+      value: Cultista 8
       objectReference: {fileID: 0}
     - target: {fileID: 4951375928657678689, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
       propertyPath: m_SortingOrder
@@ -176145,7 +176194,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1955566823423358860, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
       propertyPath: m_Name
-      value: Cultista 2 (4)
+      value: Cultista 10
       objectReference: {fileID: 0}
     - target: {fileID: 4951375928657678689, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
       propertyPath: m_SortingOrder
@@ -176202,8 +176251,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30975eafea4a2214299ece98feced2ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PermanentRemoval
-  quest: {fileID: 11400000, guid: 015d5bee34bfb4240a55081e47427495, type: 2}
-  indiceDoObjetivo: 3
+  characterId: Cultista10
+  removido: 1
 --- !u!1 &2109621192
 GameObject:
   m_ObjectHideFlags: 0
@@ -177185,6 +177234,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialogueTrigger
       objectReference: {fileID: 0}
+    - target: {fileID: 4467694312145797072, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4566469322967195303, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
       propertyPath: dialogo
       value: 
@@ -177206,6 +177259,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+--- !u!1 &8346847556875808918 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4467694312145797072, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+  m_PrefabInstance: {fileID: 8346847556875808917}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8400535924822079942
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -177289,3 +177347,4 @@ SceneRoots:
   - {fileID: 1448935960}
   - {fileID: 1906718627}
   - {fileID: 231529846}
+  - {fileID: 56506739}

@@ -64,6 +64,10 @@ public class QuestObjectiveListener : MonoBehaviour
         if (quest == null || def.questId != quest.questId) return;
         if (indice != indiceDoObjetivo) return;
 
+        Debug.Log($"[QuestObjectiveListener] BATEU! Ativando {ativarAoConcluir.Length} objetos."); // ← NOVO
+        foreach (var obj in ativarAoConcluir)
+            Debug.Log($"[QuestObjectiveListener] → {(obj == null ? "NULL" : obj.name)} = SetActive(true)"); // ← NOVO
+
         _objetivoConcluido = true;
         AplicarAtivar();
     }
