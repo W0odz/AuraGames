@@ -12,7 +12,7 @@ public class BattleBackgroundSetter : MonoBehaviour
     [Tooltip("Sprite do fundo de batalha desta cena. Será exibido na BattleScene.")]
     public Sprite fundoDeBatalha;
 
-    private void Awake()
+    private void Start()
     {
         if (GameManager.Instance != null && fundoDeBatalha != null)
             GameManager.Instance.battleBackground = fundoDeBatalha;
