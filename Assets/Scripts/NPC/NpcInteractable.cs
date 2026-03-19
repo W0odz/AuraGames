@@ -20,6 +20,17 @@ public class NpcInteractable : MonoBehaviour
     private float ultimaInteracaoTime = -999f;
     private const float cooldownInteracao = 0.5f;
 
+    private NpcIdentidade _identidade;
+    private string _npcId;
+
+    void Awake()
+    {
+        _identidade = GetComponent<NpcIdentidade>();
+        _npcId = (_identidade != null && !string.IsNullOrEmpty(_identidade.npcId))
+            ? _identidade.npcId
+            : gameObject.name;
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player")) playerNearby = true;
@@ -43,17 +54,21 @@ public class NpcInteractable : MonoBehaviour
         // Também ignora se o DialogueRunner acabou de fechar o diálogo
         if (Time.unscaledTime - DialogueRunner.Instance.ultimoFechamentoTime < cooldownInteracao) return;
 
+        // Bloqueia interação se a quest vinculada está ativa mas o objetivo atual não é falar com este NPC
+        if (questVinculada != null && QuestManager.Instance != null && QuestManager.Instance.IsActive(questVinculada.questId))
+        {
+            if (!QuestManager.Instance.ObjetivoAtualEhTalkToNpc(questVinculada.questId, _npcId))
+                return;
+        }
+
         ultimaInteracaoTime = Time.unscaledTime;
         OnInteract();
     }
 
     public void OnInteract()
     {
-        // Resolve o ID deste NPC (usado tanto para dialogoUnico como para verificação de objetivo)
-        var identidade = GetComponent<NpcIdentidade>();
-        string npcId = (identidade != null && !string.IsNullOrEmpty(identidade.npcId))
-            ? identidade.npcId
-            : gameObject.name;
+        // Uses the cached NPC ID resolved in Awake()
+        string npcId = _npcId;
 
         // Quest vinculada — verifica se o objetivo atual é TalkToNpc apontando para este NPC
         if (questVinculada != null)
