@@ -53,6 +53,11 @@ public class CinematicSequence : MonoBehaviour
         public bool alterarPosicao = false;
         public Vector3 novaPosicao;
 
+        [Header("Rotação (opcional)")]
+        [Tooltip("Se true, aplica novaRotacao ao alvo no pico do preto.")]
+        public bool alterarRotacao = false;
+        public Vector3 novaRotacao;
+
         [Header("Sprite (opcional — exige SpriteRenderer)")]
         [Tooltip("Se diferente de null, troca o sprite do SpriteRenderer do alvo.")]
         public Sprite novoSprite;
@@ -157,6 +162,9 @@ public class CinematicSequence : MonoBehaviour
 
             if (t.alterarPosicao)
                 t.alvo.transform.position = t.novaPosicao;
+
+            if (t.alterarRotacao)
+                t.alvo.transform.eulerAngles = t.novaRotacao;
 
             if (t.novoSprite != null)
             {
