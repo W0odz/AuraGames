@@ -70,18 +70,18 @@ MonoBehaviour:
     npcAlvoNome: 
     battleEnemyPrefab: {fileID: 0}
     triggerDialogueId: 
-    sceneTransitionID: 
+    sceneTransitionID: SceneChangeTrigger_Calabouco
     dialogoAlvo: {fileID: 0}
     timerNecessario: 0
     progressoAtual: 0
     timerAtual: 0
     apenasInformativo: 0
   - descricao: Leve o fazendeiro para a base
-    tipo: 7
+    tipo: 3
     itemAlvo: {fileID: 0}
     quantidadeNecessaria: 0
     enemyPrefab: {fileID: 0}
-    npcAlvoNome: 
+    npcAlvoNome: fazendeiro_ferido
     battleEnemyPrefab: {fileID: 0}
     triggerDialogueId: 
     sceneTransitionID: 

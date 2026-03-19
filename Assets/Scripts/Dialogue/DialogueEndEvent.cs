@@ -1,14 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Adicione este componente no mesmo GameObject de um DialogueTrigger ou NpcInteractable.
-/// Ao fim do diálogo, desativa GameObjects temporários (voltam ao reentrar na cena),
-/// remove GameObjects permanentemente da cena (Destroy),
-/// marca personagens como removidos permanentemente via PermanentRemoval,
-/// e opcionalmente transporta o jogador para outra cena.
-/// ExecutarAcoes() deve ser chamado explicitamente pelo DialogueTrigger ou NpcInteractable
-/// ao fim do diálogo correto, evitando que qualquer término de diálogo na cena dispare este evento.
-/// </summary>
 public class DialogueEndEvent : MonoBehaviour
 {
     [Header("Desativar ao fim do diálogo (temporário — volta ao reentrar na cena)")]

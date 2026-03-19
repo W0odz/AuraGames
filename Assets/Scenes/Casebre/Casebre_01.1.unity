@@ -129,7 +129,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1062666765458882614, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: m_Name
-      value: SceneChangeTrigger (1)
+      value: SceneChangeTrigger_Calabouco
       objectReference: {fileID: 0}
     - target: {fileID: 3625821216007796294, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: m_Size.x
