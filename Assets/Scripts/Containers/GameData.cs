@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class GameData
 {
-    // Informações do Jogador
+    // Informaï¿½ï¿½es do Jogador
     public string playerName;
     public int playerLevel;
     public int currentXP;
@@ -29,16 +29,19 @@ public class GameData
 
     public List<string> collectedItemIDs;
 
-    // Dados de posição
+    // TransiÃ§Ãµes Ãºnicas jÃ¡ usadas
+    public List<string> usedTransitionIDs;
+
+    // Dados de posiï¿½ï¿½o
     public string sceneName; // O nome da cena (Ex: "ExplorationScene")
     public float posX;
     public float posY;
     public float posZ;
 
-    // O Construtor (valores padrão para um Jogo Novo)
+    // O Construtor (valores padrï¿½o para um Jogo Novo)
     public GameData()
     {
-        this.playerName = "Herói";
+        this.playerName = "Herï¿½i";
         this.playerLevel = 1;
         this.currentXP = 0;
         this.xpToNextLevel = 100;
@@ -48,7 +51,7 @@ public class GameData
         this.currentHP = 100; // Garanta que nasce cheio
         this.currentMP = 50;
 
-        this.strength = 20;   // Aumente conforme necessário
+        this.strength = 20;   // Aumente conforme necessï¿½rio
         this.speed = 0;
         this.resistance = 5;
         this.will = 20;
@@ -58,5 +61,7 @@ public class GameData
         this.defeatedEnemyIDs = new List<string>();
 
         this.collectedItemIDs = new List<string>();
+
+        this.usedTransitionIDs = new List<string>();
     }
 }

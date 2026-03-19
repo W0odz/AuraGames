@@ -117,6 +117,9 @@ public class GameManager : MonoBehaviour
     [Header("Tutoriais Vistos")]
     public List<string> seenTutorialIDs = new List<string>();
 
+    [Header("Transições Únicas Usadas")]
+    public List<string> usedTransitionIDs = new List<string>();
+
     // Adiciona junto com as outras flags p�blicas
     public bool inputBloqueado = false;
 
@@ -144,6 +147,15 @@ public class GameManager : MonoBehaviour
     {
         if (!removedCharacterIDs.Contains(characterId))
             removedCharacterIDs.Add(characterId);
+    }
+
+    public bool TransicaoUsada(string transitionID)
+        => usedTransitionIDs.Contains(transitionID);
+
+    public void MarcarTransicaoUsada(string transitionID)
+    {
+        if (!usedTransitionIDs.Contains(transitionID))
+            usedTransitionIDs.Add(transitionID);
     }
 
     public bool IsInCombatGracePeriod()
@@ -281,8 +293,7 @@ public class GameManager : MonoBehaviour
         //luck = data.luck;
         defeatedEnemyIDs = data.defeatedEnemyIDs;
         collectedItemIDs = data.collectedItemIDs;
-
-        // Guarda a posi��o e a cena para usar quando a cena carregar
+        usedTransitionIDs = data.usedTransitionIDs ?? new List<string>();
         sceneToLoad = data.sceneName;
         positionToLoad = new Vector3(data.posX, data.posY, data.posZ);
         isLoadingSave = true; // Avisa o sistema que estamos carregando um save
@@ -347,6 +358,7 @@ public class GameManager : MonoBehaviour
         //data.luck = luck;
         data.defeatedEnemyIDs = defeatedEnemyIDs;
         data.collectedItemIDs = collectedItemIDs;
+        data.usedTransitionIDs = usedTransitionIDs;
 
         // 1. Encontra o jogador na cena atual
         GameObject player = GameObject.FindGameObjectWithTag("Player");
