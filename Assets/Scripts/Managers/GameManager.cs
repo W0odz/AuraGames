@@ -54,6 +54,9 @@ public class GameManager : MonoBehaviour
     public Image fadeImage; // Arraste o FadeImage aqui
     public float fadeSpeed = 1.5f;
 
+    [Tooltip("Image UI usada para exibir splash screens de transição de batalha. Deve ficar ABAIXO do fadeImage no Canvas (ordem de renderização menor).")]
+    public UnityEngine.UI.Image battleTransitionImage;
+
     [Header("Transi��o de Batalha")]
     public GameObject nextBattleEnemyPrefab; // O prefab que ser� spawnado na batalha
     public GameObject currentExplorationEnemyBattlePrefab; // battlePrefab do inimigo de explora��o que iniciou a batalha atual
@@ -196,6 +199,15 @@ public class GameManager : MonoBehaviour
     public void FadeComAcao(System.Action aoEscurecer)
     {
         StartCoroutine(FadeComAcaoCoroutine(aoEscurecer));
+    }
+
+    /// <summary>
+    /// Exibe uma imagem de transição em tela cheia por pelo menos <paramref name="duracaoMinima"/> segundos,
+    /// depois vai para a BattleScene com fade. Chamado por PlayerMovement quando o inimigo tem imagemTransicaoBatalha.
+    /// </summary>
+    public void IniciarTransicaoBatalha(Sprite imagemSplash, float duracaoMinima)
+    {
+        StartCoroutine(TransicaoBatalhaCoroutine(imagemSplash, duracaoMinima));
     }
 
     private IEnumerator FadeComAcaoCoroutine(System.Action aoEscurecer)
@@ -473,6 +485,41 @@ public class GameManager : MonoBehaviour
         yield return StartCoroutine(FadeInCoroutine());
     }
 
+    private IEnumerator TransicaoBatalhaCoroutine(Sprite imagemSplash, float duracaoMinima)
+    {
+        // ── Etapa 1: Fade out da cena de exploração ───────────────────────
+        yield return StartCoroutine(FadeOutCoroutine(false));
+
+        // ── Etapa 2: No pico do preto — prepara e ativa a imagem splash ───
+        if (battleTransitionImage != null)
+        {
+            battleTransitionImage.sprite = imagemSplash;
+            battleTransitionImage.color = new Color(1f, 1f, 1f, 1f);
+            battleTransitionImage.gameObject.SetActive(true);
+        }
+
+        // ── Etapa 3: Fade in — revela a splash ────────────────────────────
+        yield return StartCoroutine(FadeInCoroutine());
+
+        // ── Etapa 4: Aguarda o tempo mínimo garantido (mínimo 3 s) ────────
+        float espera = Mathf.Max(duracaoMinima, 3f);
+        yield return new WaitForSecondsRealtime(espera);
+
+        // ── Etapa 5: Fade out da splash ───────────────────────────────────
+        yield return StartCoroutine(FadeOutCoroutine(false));
+
+        // ── Etapa 6: No pico do preto — desativa splash, carrega batalha ──
+        if (battleTransitionImage != null)
+            battleTransitionImage.gameObject.SetActive(false);
+
+        SceneManager.LoadScene("BattleScene");
+        Time.timeScale = 1f;
+        yield return new WaitForSecondsRealtime(0.1f);
+
+        // ── Etapa 7: Fade in da BattleScene ──────────────────────────────
+        yield return StartCoroutine(FadeInCoroutine());
+    }
+
     private void RepelEnemiesNearPosition(Vector2 center, float radius)
     {
         EnemyAIController[] enemies = FindObjectsByType<EnemyAIController>(FindObjectsSortMode.None);
@@ -569,6 +616,9 @@ public class GameManager : MonoBehaviour
         }
         fadeImage.color = new Color(0, 0, 0, alphaAlvo);
     }
+
+    public UnityEngine.UI.Image GetFadeImage() => fadeImage;
+
     #endregion
 
     #region Concedimento de Xp

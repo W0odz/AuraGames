@@ -179,6 +179,7 @@ MonoBehaviour:
     speakerSide: 1
     speakerName: "A\xE7ougueiro"
     portrait: {fileID: 322978210323480407, guid: 4f4212e6a98b64d4c992fa4a772d9593, type: 3}
-    acaoDeQuest: 0
-    questDef: {fileID: 0}
+    acaoDeQuest: 2
+    questDef: {fileID: 11400000, guid: 015d5bee34bfb4240a55081e47427495, type: 2}
     estadoQuest: 0
+  recompensas: []

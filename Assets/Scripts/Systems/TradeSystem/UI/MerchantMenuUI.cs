@@ -9,7 +9,7 @@ public class MerchantMenuUI : MonoBehaviour
 
     [Header("Fundo do Menu")]
     public Image imagemFundo;
-    public Sprite fundoPadrao;  // ← arrasta o sprite padrão no Inspector
+    public Sprite fundoPadrao;
 
     [Header("Painel raiz")]
     public GameObject painel;
@@ -64,7 +64,6 @@ public class MerchantMenuUI : MonoBehaviour
         _barraJogador.Clear();
         _barraMercador.Clear();
 
-        // Troca o fundo — usa o do mercador se tiver, senão o padrão
         if (imagemFundo != null)
             imagemFundo.sprite = merchant.fundoMenu != null ? merchant.fundoMenu : fundoPadrao;
 
@@ -97,14 +96,14 @@ public class MerchantMenuUI : MonoBehaviour
 
         foreach (var slot in _merchant.estoque)
         {
-            // Ignora slots vazios ou zerados
             if (slot.item == null || slot.quantidade <= 0) continue;
 
+            DadosItem itemCapturado = slot.item;
             var go = Instantiate(itemSlotPrefab, estoqueContent);
             go.GetComponent<MerchantItemSlotUI>().Setup(
-                slot.item,
-                () => AdicionarBarraMercador(slot.item, 1),
-                slot.quantidade   // ← passa a qtd pro slot mostrar
+                itemCapturado,
+                () => AdicionarBarraMercador(itemCapturado, 1),
+                slot.quantidade
             );
         }
     }
@@ -117,8 +116,12 @@ public class MerchantMenuUI : MonoBehaviour
         foreach (var slot in InventoryManager.Instance.listaItens)
         {
             if (slot.item == null) continue;
+            DadosItem itemCapturado = slot.item;
+
+            if (slot.item.naoVendivel) continue;
+
             var go = Instantiate(itemSlotPrefab, inventarioContent);
-            go.GetComponent<MerchantItemSlotUI>().Setup(slot.item, () => AdicionarBarraJogador(slot.item, 1));
+            go.GetComponent<MerchantItemSlotUI>().Setup(itemCapturado, () => AdicionarBarraJogador(itemCapturado, 1));
         }
     }
 
@@ -132,14 +135,14 @@ public class MerchantMenuUI : MonoBehaviour
             {
                 _barraMercador[i] = (item, _barraMercador[i].qty + qty);
                 RefreshBarraUI();
-                RefreshEstoqueTemporario();  // ← atualiza grid
+                RefreshEstoqueTemporario();
                 AtualizarFalaEBotao();
                 return;
             }
         }
         _barraMercador.Add((item, qty));
         RefreshBarraUI();
-        RefreshEstoqueTemporario();  // ← atualiza grid
+        RefreshEstoqueTemporario();
         AtualizarFalaEBotao();
     }
 
@@ -154,7 +157,7 @@ public class MerchantMenuUI : MonoBehaviour
                 else _barraMercador[i] = (item, novaQty);
 
                 RefreshBarraUI();
-                RefreshEstoqueTemporario();  // ← atualiza grid
+                RefreshEstoqueTemporario();
                 AtualizarFalaEBotao();
                 return;
             }
@@ -171,14 +174,14 @@ public class MerchantMenuUI : MonoBehaviour
             {
                 _barraJogador[i] = (item, _barraJogador[i].qty + qty);
                 RefreshBarraUI();
-                RefreshInventarioTemporario();  // ← atualiza grid
+                RefreshInventarioTemporario();
                 AtualizarFalaEBotao();
                 return;
             }
         }
         _barraJogador.Add((item, qty));
         RefreshBarraUI();
-        RefreshInventarioTemporario();  // ← atualiza grid
+        RefreshInventarioTemporario();
         AtualizarFalaEBotao();
     }
 
@@ -193,7 +196,7 @@ public class MerchantMenuUI : MonoBehaviour
                 else _barraJogador[i] = (item, novaQty);
 
                 RefreshBarraUI();
-                RefreshInventarioTemporario();  // ← atualiza grid
+                RefreshInventarioTemporario();
                 AtualizarFalaEBotao();
                 return;
             }
@@ -211,18 +214,18 @@ public class MerchantMenuUI : MonoBehaviour
         {
             if (slot.item == null || slot.quantidade <= 0) continue;
 
-            // Desconta o que já está na barra do mercador
             int naFarra = 0;
-            foreach (var (item, qty) in _barraMercador)
-                if (item == slot.item) naFarra = qty;
+            foreach (var (barItem, barQty) in _barraMercador)
+                if (barItem == slot.item) naFarra = barQty;
 
             int qtdDisponivel = slot.quantidade - naFarra;
-            if (qtdDisponivel <= 0) continue; // item esgotado na mesa, some do grid
+            if (qtdDisponivel <= 0) continue;
 
+            DadosItem itemCapturado = slot.item;
             var go = Instantiate(itemSlotPrefab, estoqueContent);
             go.GetComponent<MerchantItemSlotUI>().Setup(
-                slot.item,
-                () => AdicionarBarraMercador(slot.item, 1),
+                itemCapturado,
+                () => AdicionarBarraMercador(itemCapturado, 1),
                 qtdDisponivel
             );
         }
@@ -237,18 +240,21 @@ public class MerchantMenuUI : MonoBehaviour
         {
             if (slot.item == null) continue;
 
-            // Desconta o que já está na barra do jogador
+            if (slot.item.naoVendivel) continue;
+
+
             int naFarra = 0;
-            foreach (var (item, qty) in _barraJogador)
-                if (item == slot.item) naFarra = qty;
+            foreach (var (barItem, barQty) in _barraJogador)
+                if (barItem == slot.item) naFarra = barQty;
 
             int qtdDisponivel = slot.quantidade - naFarra;
-            if (qtdDisponivel <= 0) continue; // item esgotado na mochila, some do grid
+            if (qtdDisponivel <= 0) continue;
 
+            DadosItem itemCapturado = slot.item;
             var go = Instantiate(itemSlotPrefab, inventarioContent);
             go.GetComponent<MerchantItemSlotUI>().Setup(
-                slot.item,
-                () => AdicionarBarraJogador(slot.item, 1),
+                itemCapturado,
+                () => AdicionarBarraJogador(itemCapturado, 1),
                 qtdDisponivel
             );
         }
@@ -262,16 +268,18 @@ public class MerchantMenuUI : MonoBehaviour
         foreach (Transform t in barraMercadorContent) Destroy(t.gameObject);
         foreach (var (item, qty) in _barraMercador)
         {
+            DadosItem itemCapturado = item;
             var go = Instantiate(itemSlotPrefab, barraMercadorContent);
-            go.GetComponent<MerchantItemSlotUI>().Setup(item, () => RemoverBarraMercador(item));
+            go.GetComponent<MerchantItemSlotUI>().Setup(itemCapturado, () => RemoverBarraMercador(itemCapturado));
         }
 
         // lado jogador
         foreach (Transform t in barraJogadorContent) Destroy(t.gameObject);
         foreach (var (item, qty) in _barraJogador)
         {
+            DadosItem itemCapturado = item;
             var go = Instantiate(itemSlotPrefab, barraJogadorContent);
-            go.GetComponent<MerchantItemSlotUI>().Setup(item, () => RemoverBarraJogador(item));
+            go.GetComponent<MerchantItemSlotUI>().Setup(itemCapturado, () => RemoverBarraJogador(itemCapturado));
         }
     }
 
@@ -308,18 +316,16 @@ public class MerchantMenuUI : MonoBehaviour
         int valorMercador = CalcValorLado(_barraMercador);
 
         bool sucesso = EscamboSystem.ExecutarTroca(
-            _barraMercador[0].item, _barraMercador[0].qty,
+            _barraMercador,
             _barraJogador,
             valorJogador, valorMercador,
             _merchant.tolerancia);
 
         if (sucesso)
         {
-            // Consome do estoque do mercador
             foreach (var (item, qty) in _barraMercador)
                 _merchant.ConsumirDoEstoque(item, qty);
 
-            // Adiciona ao estoque do mercador os itens do jogador
             foreach (var (item, qty) in _barraJogador)
                 _merchant.AdicionarAoEstoque(item, qty);
 

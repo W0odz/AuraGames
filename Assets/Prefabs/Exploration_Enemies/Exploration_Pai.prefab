@@ -296,7 +296,9 @@ MonoBehaviour:
   battlePrefab: {fileID: 6089210800779420423, guid: 7d9df61117c67594b88140957e5dcb82, type: 3}
   isBoss: 0
   dialogoPreBatalha: {fileID: 0}
+  imagemTransicaoBatalha: {fileID: 0}
+  duracaoImagemTransicao: 3
   chaseDuration: 10
   mapBoundsCollider: {fileID: 0}
   aggroDetectors: []
-  enemyID: 
+  enemyID: cacador_monstro

@@ -10,59 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: abee5bab6c77e584c921f9b738057644, type: 3}
-  m_Name: Quest_Ato2
+  m_Name: Quest_Ato3
   m_EditorClassIdentifier: Assembly-CSharp::QuestDefinition
-  questId: quest_ato2
-  questName: Descubra o segredo na floresta
+  questId: quest_ato3
+  questName: Encontre seu Pai
   description: 
   questType: 0
   npcDadorNome: 
   npcEntregaNome: 
   questsNecessarias: []
   objetivos:
-  - descricao: Lute contra o boneco de treino
-    tipo: 2
-    itemAlvo: {fileID: 0}
-    quantidadeNecessaria: 1
-    enemyPrefab: {fileID: 6385819010840743586, guid: eb9837910f83a3a49bd5114f39cccaa6, type: 3}
-    npcAlvoNome: 
-    battleEnemyPrefab: {fileID: 6089210800779420423, guid: 621dc4782a3e12c4aa4a9d176fc3b8cf, type: 3}
-    triggerDialogueId: 
-    sceneTransitionID: 
-    dialogoAlvo: {fileID: 0}
-    timerNecessario: 0
-    progressoAtual: 0
-    timerAtual: 0
-    apenasInformativo: 0
-  - descricao: 
-    tipo: 8
-    itemAlvo: {fileID: 0}
-    quantidadeNecessaria: 0
-    enemyPrefab: {fileID: 0}
-    npcAlvoNome: 
-    battleEnemyPrefab: {fileID: 0}
-    triggerDialogueId: 
-    sceneTransitionID: 
-    dialogoAlvo: {fileID: 11400000, guid: f17bee9be85554a449efc2fd6c8a7dc5, type: 2}
-    timerNecessario: 0
-    progressoAtual: 0
-    timerAtual: 0
-    apenasInformativo: 0
-  - descricao: Investigue os casebres na floresta
-    tipo: 0
-    itemAlvo: {fileID: 11400000, guid: c6b62ea77d60ff449ba41b66096831bb, type: 2}
-    quantidadeNecessaria: 1
-    enemyPrefab: {fileID: 0}
-    npcAlvoNome: 
-    battleEnemyPrefab: {fileID: 0}
-    triggerDialogueId: 
-    sceneTransitionID: 
-    dialogoAlvo: {fileID: 0}
-    timerNecessario: 0
-    progressoAtual: 0
-    timerAtual: 0
-    apenasInformativo: 0
-  - descricao: Descubra o uso da chave
+  - descricao: "Siga o caminho subterr\xE2neo sozinho"
     tipo: 7
     itemAlvo: {fileID: 0}
     quantidadeNecessaria: 0
@@ -70,18 +28,32 @@ MonoBehaviour:
     npcAlvoNome: 
     battleEnemyPrefab: {fileID: 0}
     triggerDialogueId: 
-    sceneTransitionID: SceneChangeTrigger_Calabouco
+    sceneTransitionID: casebre_01.2_to_calabouco
     dialogoAlvo: {fileID: 0}
     timerNecessario: 0
     progressoAtual: 0
     timerAtual: 0
     apenasInformativo: 0
-  - descricao: Leve o fazendeiro para a base
-    tipo: 3
+  - descricao: "Siga o caminho subterr\xE2neo sozinho"
+    tipo: 7
     itemAlvo: {fileID: 0}
     quantidadeNecessaria: 0
     enemyPrefab: {fileID: 0}
-    npcAlvoNome: fazendeiro_ferido
+    npcAlvoNome: 
+    battleEnemyPrefab: {fileID: 0}
+    triggerDialogueId: 
+    sceneTransitionID: casebre_01.2_to_calabouco
+    dialogoAlvo: {fileID: 0}
+    timerNecessario: 0
+    progressoAtual: 0
+    timerAtual: 0
+    apenasInformativo: 0
+  - descricao: EnCoNtRe SeU pAi
+    tipo: 6
+    itemAlvo: {fileID: 0}
+    quantidadeNecessaria: 0
+    enemyPrefab: {fileID: 0}
+    npcAlvoNome: 
     battleEnemyPrefab: {fileID: 0}
     triggerDialogueId: 
     sceneTransitionID: 

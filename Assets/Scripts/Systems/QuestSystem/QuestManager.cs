@@ -348,20 +348,45 @@ public class QuestManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Retorna true se alguma quest ativa tem como objetivo ATUAL um TriggerDialogue com triggerDialogueId igual ao fornecido.
+    /// Retorna true se o DialogueTrigger com este triggerId pode disparar.
+    /// Bloqueia SOMENTE quando há uma quest ativa cujo objetivo atual é exatamente
+    /// este TriggerDialogue e ele ainda não foi concluído.
+    /// Libera quando: a quest não existe, não está ativa, o objetivo já foi concluído,
+    /// ou o objetivo atual já passou para outro.
     /// </summary>
     public bool ObjetivoAtualEhTrigger(string triggerId)
     {
+        bool encontrouQuestComEsseTrigger = false;
+
         foreach (var kvp in new Dictionary<string, QuestState>(questStates))
         {
             if (kvp.Value != QuestState.Active) continue;
             if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
+            if (def.objetivos == null) continue;
 
-            var obj = ObterObjetivoAtual(def);
-            if (obj == null || obj.tipo != QuestObjectiveType.TriggerDialogue) continue;
-            if (obj.triggerDialogueId == triggerId) return true;
+            // Verifica se algum objetivo desta quest usa este triggerId
+            foreach (var obj in def.objetivos)
+            {
+                if (obj.apenasInformativo) continue;
+                if (obj.tipo != QuestObjectiveType.TriggerDialogue) continue;
+                if (obj.triggerDialogueId != triggerId) continue;
+
+                encontrouQuestComEsseTrigger = true;
+
+                // Se o objetivo já foi concluído, libera o diálogo
+                if (obj.EstaCompleto()) return true;
+
+                // Se ainda não foi concluído, verifica se é o objetivo ATUAL
+                var objetivoAtual = ObterObjetivoAtual(def);
+                if (objetivoAtual == obj) return true; // É o atual → permite disparar
+
+                // Não é o atual (ainda não chegou aqui) → bloqueia
+                return false;
+            }
         }
-        return false;
+
+        // Nenhuma quest ativa tem esse triggerId → libera (comportamento livre)
+        return !encontrouQuestComEsseTrigger;
     }
 
     /// <summary>

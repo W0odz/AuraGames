@@ -24,3 +24,4 @@ MonoBehaviour:
   bonusMaxHP: 0
   bonusMaxMP: 0
   apenasForaDeBatalha: 0
+  naoVendavel: 1
