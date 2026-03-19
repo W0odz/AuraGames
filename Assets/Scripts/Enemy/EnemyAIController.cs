@@ -21,6 +21,14 @@ public class EnemyAIController : MonoBehaviour
     [Tooltip("Se preenchido, este diálogo toca antes de entrar na batalha.")]
     public DialogueAsset dialogoPreBatalha;
 
+    [Header("Transição com Imagem (opcional)")]
+    [Tooltip("Se preenchido, exibe esta imagem estática em tela cheia antes de entrar na batalha.")]
+    public Sprite imagemTransicaoBatalha;
+
+    [Tooltip("Segundos mínimos que a imagem fica visível antes do fade para a batalha. Mínimo garantido: 3s.")]
+    [Min(3f)]
+    public float duracaoImagemTransicao = 3f;
+
     [Header("Configuracao de Perseguicao")]
     public float chaseDuration = 10f;
     private Coroutine chaseCoroutine;
