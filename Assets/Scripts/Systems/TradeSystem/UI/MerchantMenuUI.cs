@@ -116,11 +116,10 @@ public class MerchantMenuUI : MonoBehaviour
         foreach (var slot in InventoryManager.Instance.listaItens)
         {
             if (slot.item == null) continue;
-<<<<<<< Updated upstream
             DadosItem itemCapturado = slot.item;
-=======
+
             if (slot.item.naoVendivel) continue;
->>>>>>> Stashed changes
+
             var go = Instantiate(itemSlotPrefab, inventarioContent);
             go.GetComponent<MerchantItemSlotUI>().Setup(itemCapturado, () => AdicionarBarraJogador(itemCapturado, 1));
         }
@@ -240,10 +239,9 @@ public class MerchantMenuUI : MonoBehaviour
         foreach (var slot in InventoryManager.Instance.listaItens)
         {
             if (slot.item == null) continue;
-<<<<<<< Updated upstream
-=======
+
             if (slot.item.naoVendivel) continue;
->>>>>>> Stashed changes
+
 
             int naFarra = 0;
             foreach (var (barItem, barQty) in _barraJogador)
