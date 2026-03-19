@@ -543,7 +543,8 @@ Transform:
   m_LocalPosition: {x: -16.22616, y: 2.70822, z: 0}
   m_LocalScale: {x: -1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 342085718}
   m_Father: {fileID: 96917858}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &196817471 stripped
@@ -1098,6 +1099,88 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.28, y: 1.1224632}
   m_EdgeRadius: 0
+--- !u!1001 &342085717
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 143024737}
+    m_Modifications:
+    - target: {fileID: 2750746522571746138, guid: eb9837910f83a3a49bd5114f39cccaa6, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3349280894099777274, guid: eb9837910f83a3a49bd5114f39cccaa6, type: 3}
+      propertyPath: enemyID
+      value: boneco_de_treino
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385819010840743586, guid: eb9837910f83a3a49bd5114f39cccaa6, type: 3}
+      propertyPath: m_Name
+      value: Exploration_Boneco
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159320044293941838, guid: eb9837910f83a3a49bd5114f39cccaa6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1.1596992
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159320044293941838, guid: eb9837910f83a3a49bd5114f39cccaa6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.1596992
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159320044293941838, guid: eb9837910f83a3a49bd5114f39cccaa6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1596992
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159320044293941838, guid: eb9837910f83a3a49bd5114f39cccaa6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.046666466
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159320044293941838, guid: eb9837910f83a3a49bd5114f39cccaa6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.080600105
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159320044293941838, guid: eb9837910f83a3a49bd5114f39cccaa6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159320044293941838, guid: eb9837910f83a3a49bd5114f39cccaa6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159320044293941838, guid: eb9837910f83a3a49bd5114f39cccaa6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159320044293941838, guid: eb9837910f83a3a49bd5114f39cccaa6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159320044293941838, guid: eb9837910f83a3a49bd5114f39cccaa6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159320044293941838, guid: eb9837910f83a3a49bd5114f39cccaa6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159320044293941838, guid: eb9837910f83a3a49bd5114f39cccaa6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159320044293941838, guid: eb9837910f83a3a49bd5114f39cccaa6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: eb9837910f83a3a49bd5114f39cccaa6, type: 3}
+--- !u!4 &342085718 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7159320044293941838, guid: eb9837910f83a3a49bd5114f39cccaa6, type: 3}
+  m_PrefabInstance: {fileID: 342085717}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &351063764
 GameObject:
   m_ObjectHideFlags: 0

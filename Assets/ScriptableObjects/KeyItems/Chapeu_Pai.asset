@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
   nomeItem: "Chap\xE9u do Ca\xE7ador"
   descricao: 
-  iconeItem: {fileID: -5092847197342442320, guid: 1098d229139d13d499ae883e18106f7b, type: 3}
+  iconeItem: {fileID: -5092847197342442320, guid: 77f427940e20606428daf1d7c9182ee0, type: 3}
   tipoItem: 3
   slotOndeEquipa: 5
   efeitosDoItem: []
