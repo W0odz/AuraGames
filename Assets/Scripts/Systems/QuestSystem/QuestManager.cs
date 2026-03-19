@@ -129,7 +129,7 @@ public class QuestManager : MonoBehaviour
     {
         var battlePrefabAtual = GameManager.Instance?.currentExplorationEnemyBattlePrefab;
 
-        foreach (var kvp in questStates)
+        foreach (var kvp in new Dictionary<string, QuestState>(questStates))
         {
             if (kvp.Value != QuestState.Active) continue;
             if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
@@ -162,7 +162,7 @@ public class QuestManager : MonoBehaviour
         var identidade = npc.GetComponent<NpcIdentidade>();
         string idNpc = identidade != null ? identidade.npcId : npc.name;
 
-        foreach (var kvp in questStates)
+        foreach (var kvp in new Dictionary<string, QuestState>(questStates))
         {
             if (kvp.Value != QuestState.Active) continue;
             if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
@@ -182,7 +182,7 @@ public class QuestManager : MonoBehaviour
     {
         var battlePrefabAtual = GameManager.Instance?.currentExplorationEnemyBattlePrefab;
 
-        foreach (var kvp in questStates)
+        foreach (var kvp in new Dictionary<string, QuestState>(questStates))
         {
             if (kvp.Value != QuestState.Active) continue;
             if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
@@ -210,7 +210,7 @@ public class QuestManager : MonoBehaviour
 
     public void NotificarDialogueTrigger(string triggerId)
     {
-        foreach (var kvp in questStates)
+        foreach (var kvp in new Dictionary<string, QuestState>(questStates))
         {
             if (kvp.Value != QuestState.Active) continue;
             if (!questDefs.TryGetValue(kvp.Key, out var def)) continue;
@@ -300,7 +300,7 @@ public class QuestManager : MonoBehaviour
     public List<QuestDefinition> GetAllActive()
     {
         var result = new List<QuestDefinition>();
-        foreach (var kvp in questStates)
+        foreach (var kvp in new Dictionary<string, QuestState>(questStates))
         {
             if (kvp.Value == QuestState.Active && questDefs.TryGetValue(kvp.Key, out var def))
                 result.Add(def);
