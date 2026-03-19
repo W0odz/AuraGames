@@ -288,6 +288,7 @@ public class DialogueRunner : MonoBehaviour
                 GameManager.Instance.inputBloqueado = false;
                 cbFinal?.Invoke();
                 onDialogueEnd?.Invoke();
+                QuestManager.Instance?.NotificarFimDialogo(assetFinal);
             });
         }
         else
@@ -299,6 +300,7 @@ public class DialogueRunner : MonoBehaviour
             GameManager.Instance.inputBloqueado = false;
             cbFinal?.Invoke();
             onDialogueEnd?.Invoke();
+            QuestManager.Instance?.NotificarFimDialogo(assetFinal);
             Time.timeScale = 1f;
         }
     }

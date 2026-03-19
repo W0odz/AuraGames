@@ -30,6 +30,10 @@ public class QuestObjective
     [Tooltip("ID do SceneTransition (campo transitionID) que precisa ser usado.")]
     public string sceneTransitionID;
 
+    // Para AguardarDialogo
+    [Tooltip("DialogueAsset cujo término completa este objetivo.")]
+    public DialogueAsset dialogoAlvo;
+
     // Para Timer
     public float timerNecessario;
 
