@@ -299,4 +299,4 @@ MonoBehaviour:
   chaseDuration: 10
   mapBoundsCollider: {fileID: 0}
   aggroDetectors: []
-  enemyID: 
+  enemyID: Javali

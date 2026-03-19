@@ -11,9 +11,11 @@ public class DialogoPosBatalha
     public string enemyId;
     [Tooltip("DialogueAsset a ser exibido ao vencer contra esse inimigo.")]
     public DialogueAsset dialogo;
-    [Tooltip("Nome da cena para a qual o jogador será levado após o diálogo terminar.")]
-    public string cenaDestino;
-    [Tooltip("ID do SpawnPoint na cena destino onde o jogador vai aparecer. Deve bater com o spawnID do SpawnPoint na cena destino.")]
+    [Tooltip("Cena onde o diálogo será exibido (ex: floresta).")]
+    public string cenaDialogo;
+    [Tooltip("Cena para onde ir após o diálogo terminar (ex: Resistencia).")]
+    public string cenaAposDialogo;
+    [Tooltip("ID do SpawnPoint na cena pós-diálogo onde o jogador vai aparecer.")]
     public string spawnIdDestino;
 }
 
@@ -59,6 +61,10 @@ public class BattleSystem : MonoBehaviour
 
     [Header("Diálogos Pós-Vitória")]
     public DialogoPosBatalha[] dialogosPosVitoria;
+
+    [Header("Tutorial de Batalha")]
+    [Tooltip("ID do inimigo que dispara o tutorial na primeira batalha.")]
+    public string tutorialEnemyID;
 
     public BattleState state;
 
@@ -150,8 +156,25 @@ public class BattleSystem : MonoBehaviour
             Debug.Log("Sucesso: AttackManager recebeu a arma " + AttackManager.Instance.armaAtual.name);
         }
 
-        state = BattleState.PLAYERTURN;
-        PlayerTurn();
+        string idAtual = GameManager.Instance?.currentEnemyID ?? "";
+        if (!string.IsNullOrEmpty(tutorialEnemyID)
+            && idAtual == tutorialEnemyID
+            && GameManager.Instance != null
+            && !GameManager.Instance.seenTutorialIDs.Contains(tutorialEnemyID)
+            && BattleTutorialPanel.Instance != null)
+        {
+            GameManager.Instance.seenTutorialIDs.Add(tutorialEnemyID);
+            BattleTutorialPanel.Instance.Mostrar(() =>
+            {
+                state = BattleState.PLAYERTURN;
+                PlayerTurn();
+            });
+        }
+        else
+        {
+            state = BattleState.PLAYERTURN;
+            PlayerTurn();
+        }
     }
 
     void PlayerTurn()
@@ -400,15 +423,17 @@ public class BattleSystem : MonoBehaviour
         {
             GameManager.Instance.defeatedEnemyIDs.Add(GameManager.Instance.currentEnemyID);
 
-            string enemyIdAtual = enemyUnit.unitName;
+            string enemyIdAtual = GameManager.Instance.currentEnemyID ?? enemyUnit.unitName;
             if (GameManager.Instance.currentEnemyID == null)
                 Debug.LogWarning("[BattleSystem] currentEnemyID é null; usando unitName como fallback: " + enemyUnit.unitName);
             DialogoPosBatalha entradaDialogo = null;
 
             if (dialogosPosVitoria != null)
             {
+                Debug.Log($"[BattleSystem] enemyIdAtual='{enemyIdAtual}'");
                 foreach (var entrada in dialogosPosVitoria)
                 {
+                    Debug.Log($"[BattleSystem] entrada.enemyId='{entrada.enemyId}'");
                     if (entrada.enemyId == enemyIdAtual && entrada.dialogo != null)
                     {
                         entradaDialogo = entrada;
@@ -419,23 +444,17 @@ public class BattleSystem : MonoBehaviour
 
             if (entradaDialogo != null)
             {
-                // Salva o diálogo pendente no GameManager para ser disparado na cena destino
-                // antes do fade in, com a tela ainda preta
                 GameManager.Instance.dialogoPendente = entradaDialogo.dialogo;
-                GameManager.Instance.cenaDestinoPendente = entradaDialogo.cenaDestino;
-
-                // Usa SpawnPoint da cena destino para posicionar o jogador corretamente;
-                // limpa o valor anterior se não houver spawn configurado
+                GameManager.Instance.cenaDestinoPendente = entradaDialogo.cenaAposDialogo;
                 GameManager.Instance.pendingSpawnID = !string.IsNullOrEmpty(entradaDialogo.spawnIdDestino)
                     ? entradaDialogo.spawnIdDestino
                     : null;
-
-                // Garante que isReturningFromBattle não vai reposicionar o jogador para a cena anterior
                 GameManager.Instance.isReturningFromBattle = false;
 
-                string cenaEspecial = entradaDialogo.cenaDestino;
-                if (string.IsNullOrEmpty(cenaEspecial)) cenaEspecial = nomeCenaMapa;
-                GameManager.Instance.LoadSceneWithFade(cenaEspecial);
+                // Carrega a cena onde o diálogo vai acontecer (ex: floresta)
+                string cenaDialogo = entradaDialogo.cenaDialogo;
+                if (string.IsNullOrEmpty(cenaDialogo)) cenaDialogo = nomeCenaMapa;
+                GameManager.Instance.LoadSceneWithFade(cenaDialogo);
             }
             else
             {
