@@ -29,6 +29,16 @@ public class NpcInteractable : MonoBehaviour
         _npcId = (_identidade != null && !string.IsNullOrEmpty(_identidade.npcId))
             ? _identidade.npcId
             : gameObject.name;
+
+        // Avisa sobre NPCs sem ID configurado — isso pode causar conflito no diálogo único
+        // quando dois GameObjects têm o mesmo nome e compartilham a flag "já visto".
+        if (dialogoUnico != null && (_identidade == null || string.IsNullOrEmpty(_identidade.npcId)))
+            Debug.LogWarning(
+                $"[NpcInteractable] '{gameObject.name}' tem dialogoUnico configurado mas não possui " +
+                $"NpcIdentidade com npcId definido. O ID usado será o nome do GameObject ('{gameObject.name}'). " +
+                $"Se outro NPC tiver o mesmo nome, o diálogo único será compartilhado entre eles. " +
+                $"Adicione o componente NpcIdentidade e defina um npcId único neste GameObject.",
+                this);
     }
 
     void OnTriggerEnter2D(Collider2D other)
