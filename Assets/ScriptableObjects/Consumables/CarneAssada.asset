@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
   nomeItem: CarneAssada
   descricao: A receita de carne assada que seu tio te ensinou
-  iconeItem: {fileID: 0}
-  valorOuro: 0
+  iconeItem: {fileID: 3109182483404986131, guid: 21d45499ad27cc94f979ff6555b54332, type: 3}
   tipoItem: 0
   slotOndeEquipa: 5
   efeitosDoItem: []
+  valorEscambo: 1
   bonusStrength: 0
   bonusResistance: 0
   bonusMaxHP: 0
   bonusMaxMP: 0
+  apenasForaDeBatalha: 0

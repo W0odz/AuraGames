@@ -81,12 +81,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3913567757785527020, guid: abca5558e5fa996448f30ca477987ca4, type: 3}
+  m_Sprite: {fileID: -977968407615920826, guid: f0dc4cad7c2056b43bbf2f0c48b63ed2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.43, y: 3.28}
+  m_Size: {x: 0.51, y: 0.52}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -130,8 +130,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.43, y: 3.28}
-    newSize: {x: 2.43, y: 3.28}
+    oldSize: {x: 0.51, y: 0.52}
+    newSize: {x: 0.51, y: 0.52}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -152,3 +152,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemColetavel
   itemParaDar: {fileID: 11400000, guid: 359ba3db7f6c4774985eddfdfe81a5a3, type: 2}
   quantidade: 1
+  alterarVelocidade: 0
+  novaVelocidade: 6

@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7dd9b1f521a42445b6a820d4b6a1a00, type: 3}
-  m_Name: Cogumelos
+  m_Name: LuvasDeCouro
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
-  nomeItem: Cogumelos
-  descricao: "Comest\xEDveis e comumente usados na culin\xE1ria local"
-  iconeItem: {fileID: -345279942616170839, guid: 4a2d3b83f0934d34ea6e825f32e36d89, type: 3}
-  tipoItem: 2
-  slotOndeEquipa: 0
+  nomeItem: Luvas de Couro
+  descricao: "Acess\xF3rio importante para manusear ferramentas de ca\xE7a"
+  iconeItem: {fileID: 21300000, guid: 586bc522c00522a43a6330bd11d59149, type: 3}
+  tipoItem: 1
+  slotOndeEquipa: 3
   efeitosDoItem: []
   valorEscambo: 1
   bonusStrength: 0
-  bonusResistance: 0
+  bonusResistance: 5
   bonusMaxHP: 0
-  bonusMaxMP: 0
+  bonusMaxMP: 5
   apenasForaDeBatalha: 0

@@ -3076,6 +3076,8 @@ MonoBehaviour:
     cenaAposDialogo: Resistencia
     spawnIdDestino: Resistencia_01
   tutorialEnemyID: Javali
+  halfHpVictoryEnemyID: "M\xFAsico"
+  noFleeEnemyID: "M\xFAsico"
   state: 0
 --- !u!1 &1244751207
 GameObject:
@@ -6123,7 +6125,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -1977605382956334027, guid: 437ad58eb2c00c24d88edf3c02e10911, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6323,8 +6325,8 @@ MonoBehaviour:
   worldCamera: {fileID: 519420031}
   lineRenderer: {fileID: 2023223863}
   timeSlider: {fileID: 1445634276}
-  slashThickness: 0.35
-  minPrecisionToSucceed: 0.5
+  slashThickness: 0.5
+  minPrecisionToSucceed: 0.4
   limiteModo: 2
   maxRadiusOverride: 0
   maxDrawTime: 0.9

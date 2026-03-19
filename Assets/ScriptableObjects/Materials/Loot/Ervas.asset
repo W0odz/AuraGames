@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
   nomeItem: Ervas
   descricao: Um punhado de ervas
-  iconeItem: {fileID: 3431587040451159344, guid: bc56d4549fdc26c4e8c82ab794127df5, type: 3}
-  valorOuro: 0
+  iconeItem: {fileID: 2113464202407611351, guid: 677033e5e097290458c0592d20dbaf33, type: 3}
   tipoItem: 2
   slotOndeEquipa: 0
+  efeitosDoItem: []
+  valorEscambo: 1
   bonusStrength: 0
   bonusResistance: 0
   bonusMaxHP: 0
   bonusMaxMP: 0
+  apenasForaDeBatalha: 0

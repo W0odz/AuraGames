@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 586bc522c00522a43a6330bd11d59149
+guid: 7ef282662952c50468378130784984f7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6853695157924088669
-    second: luvas_0
-  - first:
-      213: 2578849453973715204
-    second: luvas_1
+      213: 203528549091833367
+    second: gravetos_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -103,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: luvas_0
+      name: gravetos_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 16
-        width: 21
-        height: 29
+        x: 10
+        y: 8
+        width: 39
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,30 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d5b41e60f673d1f50800000000000000
-      internalID: 6853695157924088669
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: luvas_1
-      rect:
-        serializedVersion: 2
-        x: 30
-        y: 14
-        width: 21
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 40930514ae9e9c320800000000000000
-      internalID: 2578849453973715204
+      spriteID: 716f446132413d200800000000000000
+      internalID: 203528549091833367
       vertices: []
       indices: 
       edges: []
@@ -150,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -160,8 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      luvas_0: 6853695157924088669
-      luvas_1: 2578849453973715204
+      gravetos_0: 203528549091833367
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

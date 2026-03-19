@@ -252,7 +252,7 @@ public class BattleSystem : MonoBehaviour
         enemyHUD.UpdateHP(enemyUnit.currentHP);
 
         // Verifica se é batalha especial de metade de HP
-        string idAtualBatalha = GameManager.Instance?.currentEnemyID ?? "";
+        string idAtualBatalha = GameManager.Instance?.currentEnemyID ?? "Músico";
         if (!isDead
             && !string.IsNullOrEmpty(halfHpVictoryEnemyID)
             && idAtualBatalha == halfHpVictoryEnemyID

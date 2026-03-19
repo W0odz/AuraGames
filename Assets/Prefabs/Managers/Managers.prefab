@@ -285,7 +285,7 @@ MonoBehaviour:
   sliderGeral: {fileID: 0}
   sliderSFX: {fileID: 0}
   sliderMusica: {fileID: 0}
-  audioMixer: {fileID: 0}
+  audioMixer: {fileID: 24100000, guid: 5fd8bb447ba2cd443b2387bf8decffbe, type: 2}
   parametroGeral: VolumeGeral
   parametroSFX: VolumeSFX
   parametroMusica: VolumeMusica
@@ -310,4 +310,8 @@ MonoBehaviour:
   recipeListContainer: {fileID: 0}
   recipeButtonPrefab: {fileID: 3688908035033008714, guid: 2786e664dcbade6478c5d86cb1840834, type: 3}
   availableRecipes:
+  - {fileID: 11400000, guid: 493c6d974dac7d84dbf9cd8feeea66e8, type: 2}
   - {fileID: 11400000, guid: 626c4dbcb3bae3a43ba7cf9fd8269b35, type: 2}
+  - {fileID: 11400000, guid: 978c534978d593d44901eae40a296c2b, type: 2}
+  - {fileID: 11400000, guid: e0ba33d49d935b04ab17f3649294f2d1, type: 2}
+  - {fileID: 11400000, guid: 0c23c7981759b0248a110451e63a3fce, type: 2}

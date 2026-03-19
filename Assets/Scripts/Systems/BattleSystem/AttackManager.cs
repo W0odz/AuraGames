@@ -208,6 +208,18 @@ public class AttackManager : MonoBehaviour
             bool isDead = BattleSystem.Instance.enemyUnit.TakeDamage(danoFinal);
             BattleSystem.Instance.enemyHUD.UpdateHP(BattleSystem.Instance.enemyUnit.currentHP);
 
+            string idAtualBatalha = GameManager.Instance?.currentEnemyID ?? "";
+            BattleSystem bs = BattleSystem.Instance;
+            if (!isDead
+                && !string.IsNullOrEmpty(bs.halfHpVictoryEnemyID)
+                && idAtualBatalha == bs.halfHpVictoryEnemyID
+                && bs.enemyUnit.currentHP <= bs.enemyUnit.maxHP / 2.0f)
+            {
+                bs.state = BattleState.WON;
+                bs.StartCoroutine("EndBattle");
+                return;
+            }
+
             if (isDead) BattleSystem.Instance.StartCoroutine("EndBattle");
             else BattleSystem.Instance.StartCoroutine("EnemyTurn");
         }

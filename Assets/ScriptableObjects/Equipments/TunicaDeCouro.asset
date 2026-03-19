@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
   nomeItem: Tunica de Couro
   descricao: Uma tunica simples feita de couro de javali
-  iconeItem: {fileID: 0}
-  valorOuro: 0
+  iconeItem: {fileID: 7666160464547710465, guid: 9a56d84ac806cf54780691b36f5bc5bb, type: 3}
   tipoItem: 1
   slotOndeEquipa: 2
   efeitosDoItem: []
+  valorEscambo: 1
   bonusStrength: 0
   bonusResistance: 5
   bonusMaxHP: 10
   bonusMaxMP: 0
+  apenasForaDeBatalha: 0

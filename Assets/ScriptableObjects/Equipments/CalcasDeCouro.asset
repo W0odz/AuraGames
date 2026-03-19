@@ -10,17 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7dd9b1f521a42445b6a820d4b6a1a00, type: 3}
-  m_Name: Cogumelos
+  m_Name: CalcasDeCouro
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
-  nomeItem: Cogumelos
-  descricao: "Comest\xEDveis e comumente usados na culin\xE1ria local"
-  iconeItem: {fileID: -345279942616170839, guid: 4a2d3b83f0934d34ea6e825f32e36d89, type: 3}
-  tipoItem: 2
-  slotOndeEquipa: 0
+  nomeItem: "Cal\xE7as de Couro"
+  descricao: 'Uma roupa comum utilizada pelos habitantes da vila
+
+'
+  iconeItem: {fileID: 5583394234534851079, guid: 897b74d941dea3b4a8fd2b54299a4326, type: 3}
+  tipoItem: 1
+  slotOndeEquipa: 4
   efeitosDoItem: []
   valorEscambo: 1
   bonusStrength: 0
-  bonusResistance: 0
-  bonusMaxHP: 0
+  bonusResistance: 2
+  bonusMaxHP: 5
   bonusMaxMP: 0
   apenasForaDeBatalha: 0

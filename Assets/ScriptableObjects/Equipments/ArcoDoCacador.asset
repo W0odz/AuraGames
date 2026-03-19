@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DadosArma
   nomeItem: "Arco do Ca\xE7ador"
   descricao: "Um arco de ca\xE7a usado pelo seu pai"
-  iconeItem: {fileID: 3913567757785527020, guid: abca5558e5fa996448f30ca477987ca4, type: 3}
+  iconeItem: {fileID: -977968407615920826, guid: f0dc4cad7c2056b43bbf2f0c48b63ed2, type: 3}
   tipoItem: 1
   slotOndeEquipa: 0
   efeitosDoItem: []
