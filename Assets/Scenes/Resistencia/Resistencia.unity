@@ -3574,7 +3574,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9099072744648549925, guid: 4c10ec95cd4b3cf4087f84c25a6a67ab, type: 3}
       propertyPath: spawnID
-      value: Vila_02_Para_Resistencia
+      value: Vila_Para_Resistencia
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4242,7 +4242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8073931538270021683, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: spawnID
-      value: Resistencia_Para_Vila_02
+      value: Resistencia_Para_Vila
       objectReference: {fileID: 0}
     - target: {fileID: 8073931538270021683, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: goToScene
@@ -16651,13 +16651,13 @@ SceneRoots:
   - {fileID: 97856080}
   - {fileID: 1008429975}
   - {fileID: 1273188418}
-  - {fileID: 1455445902}
   - {fileID: 443648473}
   - {fileID: 310479380}
   - {fileID: 1810657108}
   - {fileID: 351063765}
+  - {fileID: 1455445902}
   - {fileID: 96917858}
-  - {fileID: 1286810524}
-  - {fileID: 2145530901}
   - {fileID: 1356324487}
   - {fileID: 1485765785}
+  - {fileID: 1286810524}
+  - {fileID: 2145530901}
