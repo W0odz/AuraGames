@@ -114,8 +114,17 @@ public class PlayerMovement : MonoBehaviour
 
                 CacheEnemyPositionsBeforeBattle();
 
-                // Se o inimigo tem diálogo pré-batalha, toca antes de ir pra cena
-                if (ai.dialogoPreBatalha != null && DialogueRunner.Instance != null)
+                // Prioridade 1: Imagem de transição (splash screen de batalha)
+                if (ai.imagemTransicaoBatalha != null)
+                {
+                    GameManager.Instance.inputBloqueado = true;
+                    GameManager.Instance.IniciarTransicaoBatalha(
+                        ai.imagemTransicaoBatalha,
+                        ai.duracaoImagemTransicao
+                    );
+                }
+                // Prioridade 2: Diálogo pré-batalha
+                else if (ai.dialogoPreBatalha != null && DialogueRunner.Instance != null)
                 {
                     GameManager.Instance.inputBloqueado = true;
                     DialogueRunner.Instance.StartDialogue(ai.dialogoPreBatalha, () =>
@@ -123,6 +132,7 @@ public class PlayerMovement : MonoBehaviour
                         StartBattle();
                     });
                 }
+                // Prioridade 3: Transição direta
                 else
                 {
                     StartBattle();
