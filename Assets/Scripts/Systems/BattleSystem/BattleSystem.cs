@@ -66,6 +66,12 @@ public class BattleSystem : MonoBehaviour
     [Tooltip("ID do inimigo que dispara o tutorial na primeira batalha.")]
     public string tutorialEnemyID;
 
+    [Header("Batalha Especial")]
+    [Tooltip("ID do inimigo que termina a batalha quando chega na metade do HP.")]
+    public string halfHpVictoryEnemyID;
+    [Tooltip("ID do inimigo que não permite fuga.")]
+    public string noFleeEnemyID;
+
     public BattleState state;
 
     private void Awake()
@@ -244,6 +250,18 @@ public class BattleSystem : MonoBehaviour
 
         bool isDead = enemyUnit.TakeDamage(danoFinal);
         enemyHUD.UpdateHP(enemyUnit.currentHP);
+
+        // Verifica se é batalha especial de metade de HP
+        string idAtualBatalha = GameManager.Instance?.currentEnemyID ?? "";
+        if (!isDead
+            && !string.IsNullOrEmpty(halfHpVictoryEnemyID)
+            && idAtualBatalha == halfHpVictoryEnemyID
+            && enemyUnit.currentHP <= enemyUnit.maxHP / 2.0f)
+        {
+            state = BattleState.WON;
+            StartCoroutine(EndBattle());
+            yield break;
+        }
 
         if (dialogueText != null)
             dialogueText.text = "Ataque realizado!";
@@ -572,6 +590,15 @@ public class BattleSystem : MonoBehaviour
     public void OnFugirButton()
     {
         if (state != BattleState.PLAYERTURN) return;
+
+        string idAtualBatalha = GameManager.Instance?.currentEnemyID ?? "";
+        if (!string.IsNullOrEmpty(noFleeEnemyID) && idAtualBatalha == noFleeEnemyID)
+        {
+            if (dialogueText != null)
+                dialogueText.text = "Você não pode fugir desta batalha!";
+            return;
+        }
+
         StartCoroutine(TentarFugir());
     }
 
