@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
     public int currentSaveSlot = 1; // O slot que est� em uso
     public List<string> collectedItemIDs = new List<string>();
     public List<string> defeatedEnemyIDs = new List<string>();
+    public List<string> removedCharacterIDs = new List<string>();
     public string currentEnemyID;
     public string lastExplorationScene;
     public Vector3 playerReturnPosition; // Onde o jogador estava
@@ -131,6 +132,15 @@ public class GameManager : MonoBehaviour
     {
         if(!seenUniqueDialogues.Contains(npcID))
             seenUniqueDialogues.Add(npcID);
+    }
+
+    public bool PersonagemRemovido(string characterId)
+        => removedCharacterIDs.Contains(characterId);
+
+    public void MarcarPersonagemRemovido(string characterId)
+    {
+        if (!removedCharacterIDs.Contains(characterId))
+            removedCharacterIDs.Add(characterId);
     }
 
     public bool IsInCombatGracePeriod()
@@ -215,7 +225,8 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
-
+            // Reset defensivo do timeScale (caso uma cena anterior tenha deixado travado)
+            Time.timeScale = 1f;
         }
         else if (_instance != this)
         {
@@ -370,6 +381,7 @@ public class GameManager : MonoBehaviour
 
         // 2. Carregar a Cena
         SceneManager.LoadScene(sceneName);
+        Time.timeScale = 1f; // Garante reset do timeScale em qualquer transição de cena
         if (repelEnemiesOnReturn)
         {
             RepelEnemiesNearPosition(playerReturnPosition, enemySafeRadiusOnReturn);
@@ -386,18 +398,25 @@ public class GameManager : MonoBehaviour
             dialogoPendente = null;
             cenaDestinoPendente = null;
 
-            // Dispara o diálogo com a tela ainda preta
-            // O fade in só acontece ao terminar o diálogo
+            // Clareia apenas parcialmente (alpha 1 → 0.15) para o painel de diálogo
+            // ficar visível sem expor a cena por baixo
+            yield return StartCoroutine(FadeInParcialCoroutine(0.15f));
+
+            // Dispara o diálogo com a tela semi-escurecida
             bool dialogoTerminou = false;
-            DialogueRunner.Instance.StartDialogue(dialogoParaDisparar, () =>
+            DialogueRunner.Instance.StartDialogueImediato(dialogoParaDisparar, () =>
             {
                 dialogoTerminou = true;
             });
 
             yield return new WaitUntil(() => dialogoTerminou);
+
+            // Após o diálogo terminar, clareia a tela completamente
+            yield return StartCoroutine(FadeInCoroutine());
+            yield break;
         }
 
-        // 4. Fade In (Clarear) — acontece após o diálogo (ou imediatamente se não houver diálogo)
+        // 4. Fade In (Clarear) — acontece imediatamente se não há diálogo pendente
         yield return StartCoroutine(FadeInCoroutine());
     }
 
@@ -480,6 +499,22 @@ public class GameManager : MonoBehaviour
             fadeImage.color = new Color(0, 0, 0, alpha);
             yield return null;
         }
+    }
+
+    /// <summary>
+    /// Clareia a tela do preto total (alpha=1) até o alpha alvo informado.
+    /// Usado para deixar o painel de diálogo visível sem expor a cena por baixo.
+    /// </summary>
+    private IEnumerator FadeInParcialCoroutine(float alphaAlvo)
+    {
+        float alpha = 1f;
+        while (alpha > alphaAlvo)
+        {
+            alpha -= Time.unscaledDeltaTime * fadeSpeed;
+            fadeImage.color = new Color(0, 0, 0, Mathf.Max(alpha, alphaAlvo));
+            yield return null;
+        }
+        fadeImage.color = new Color(0, 0, 0, alphaAlvo);
     }
     #endregion
 

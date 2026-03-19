@@ -1213,7 +1213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1955566823423358860, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
       propertyPath: m_Name
-      value: Cultista 2 (2)
+      value: Cultista 6
       objectReference: {fileID: 0}
     - target: {fileID: 4951375928657678689, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
       propertyPath: m_SortingOrder
@@ -1251,6 +1251,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcIdentidade
   npcId: 
+--- !u!1 &43671603 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1955566823423358860, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
+  m_PrefabInstance: {fileID: 43671599}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &45640372
 GameObject:
   m_ObjectHideFlags: 0
@@ -1419,6 +1424,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &56506737
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 56506739}
+  - component: {fileID: 56506738}
+  m_Layer: 0
+  m_Name: QuestObjectiveListener_Sermao_Inicio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &56506738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56506737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5938b695e3be49a4c861ba5e8f23c8ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuestObjectiveListener
+  quest: {fileID: 11400000, guid: 015d5bee34bfb4240a55081e47427495, type: 2}
+  indiceDoObjetivo: 2
+  desativarAoConcluir: []
+  ativarAoConcluir:
+  - {fileID: 8346847556875808918}
+--- !u!4 &56506739
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56506737}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 186.6181, y: 828.50885, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &59904452
 GameObject:
   m_ObjectHideFlags: 0
@@ -6295,7 +6349,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7121248496030349273, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
       propertyPath: m_Name
-      value: Cultista 1 (3)
+      value: Cultista 7
       objectReference: {fileID: 0}
     - target: {fileID: 8501059733103044368, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
       propertyPath: m_SortingOrder
@@ -6333,6 +6387,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcIdentidade
   npcId: 
+--- !u!1 &229254956 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7121248496030349273, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
+  m_PrefabInstance: {fileID: 229254952}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &229488982
 GameObject:
   m_ObjectHideFlags: 0
@@ -6423,62 +6482,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &231529844
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 231529846}
-  - component: {fileID: 231529845}
-  m_Layer: 0
-  m_Name: QuestObjectiveListener_Sermao
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &231529845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 231529844}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5938b695e3be49a4c861ba5e8f23c8ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::QuestObjectiveListener
-  quest: {fileID: 11400000, guid: 015d5bee34bfb4240a55081e47427495, type: 2}
-  indiceDoObjetivo: 3
-  desativarAoConcluir:
-  - {fileID: 1845270318}
-  - {fileID: 2073588294}
-  - {fileID: 1227366192}
-  - {fileID: 21667525}
-  - {fileID: 1059300077}
-  - {fileID: 224789805}
-  - {fileID: 208132189}
-  - {fileID: 1324820201}
-  ativarAoConcluir: []
---- !u!4 &231529846
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 231529844}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 186.6181, y: 828.50885, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &232591595
 GameObject:
   m_ObjectHideFlags: 0
@@ -22974,17 +22977,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7121248496030349273, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
       propertyPath: m_Name
-      value: Cultista 1 (4)
+      value: Cultista 9
       objectReference: {fileID: 0}
     - target: {fileID: 8501059733103044368, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
       propertyPath: m_SortingOrder
       value: 3
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2112214280597879350, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7121248496030349273, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 889344048}
     - targetCorrespondingSourceObject: {fileID: 8294117512578309237, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
       insertIndex: -1
       addedObject: {fileID: 889344041}
@@ -23012,6 +23017,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcIdentidade
   npcId: 
+--- !u!1 &889344042 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7121248496030349273, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
+  m_PrefabInstance: {fileID: 889344038}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &889344048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889344042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30975eafea4a2214299ece98feced2ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PermanentRemoval
+  characterId: Cultista9
+  removido: 1
 --- !u!1 &889464274
 GameObject:
   m_ObjectHideFlags: 0
@@ -23258,7 +23282,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1955566823423358860, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
       propertyPath: m_Name
-      value: Cultista 2 (1)
+      value: Cultista 4
       objectReference: {fileID: 0}
     - target: {fileID: 4951375928657678689, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
       propertyPath: m_SortingOrder
@@ -23296,6 +23320,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcIdentidade
   npcId: 
+--- !u!1 &903744035 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1955566823423358860, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
+  m_PrefabInstance: {fileID: 903744031}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &906494544
 GameObject:
   m_ObjectHideFlags: 0
@@ -24352,7 +24381,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7121248496030349273, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
       propertyPath: m_Name
-      value: Cultista 1 (2)
+      value: Cultista 5
       objectReference: {fileID: 0}
     - target: {fileID: 8501059733103044368, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
       propertyPath: m_SortingOrder
@@ -24390,6 +24419,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcIdentidade
   npcId: 
+--- !u!1 &951518449 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7121248496030349273, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
+  m_PrefabInstance: {fileID: 951518445}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &952646926
 GameObject:
   m_ObjectHideFlags: 0
@@ -28707,6 +28741,10 @@ PrefabInstance:
     - target: {fileID: 2752191640025970295, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3973174108740180508, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+      propertyPath: m_Name
+      value: DialogueBackground
       objectReference: {fileID: 0}
     - target: {fileID: 6208859697982998641, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
       propertyPath: m_AnchorMax.y
@@ -126106,7 +126144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7121248496030349273, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
       propertyPath: m_Name
-      value: Cultista 1 (1)
+      value: Cultista 3
       objectReference: {fileID: 0}
     - target: {fileID: 8501059733103044368, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
       propertyPath: m_SortingOrder
@@ -126144,6 +126182,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcIdentidade
   npcId: 
+--- !u!1 &1190658310 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7121248496030349273, guid: 04020e6f144b8ff42bb92d3577102e25, type: 3}
+  m_PrefabInstance: {fileID: 1190658306}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1198594977
 GameObject:
   m_ObjectHideFlags: 0
@@ -129086,7 +129129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1955566823423358860, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
       propertyPath: m_Name
-      value: Cultista 2 (3)
+      value: Cultista 8
       objectReference: {fileID: 0}
     - target: {fileID: 4951375928657678689, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
       propertyPath: m_SortingOrder
@@ -129124,6 +129167,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcIdentidade
   npcId: 
+--- !u!1 &1306130844 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1955566823423358860, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
+  m_PrefabInstance: {fileID: 1306130840}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1310270049
 GameObject:
   m_ObjectHideFlags: 0
@@ -176082,17 +176130,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1955566823423358860, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
       propertyPath: m_Name
-      value: Cultista 2 (4)
+      value: Cultista 10
       objectReference: {fileID: 0}
     - target: {fileID: 4951375928657678689, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -4615038554880574733, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1955566823423358860, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2104296826}
     - targetCorrespondingSourceObject: {fileID: 4588147658195967827, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2104296822}
@@ -176120,6 +176170,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcIdentidade
   npcId: 
+--- !u!1 &2104296823 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1955566823423358860, guid: 1f50e1ed1068814479d457b96c648964, type: 3}
+  m_PrefabInstance: {fileID: 2104296819}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2104296826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104296823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30975eafea4a2214299ece98feced2ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PermanentRemoval
+  characterId: Cultista10
+  removido: 1
 --- !u!1 &2109621192
 GameObject:
   m_ObjectHideFlags: 0
@@ -176707,17 +176776,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2143036002 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2658173957254617101, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
-  m_PrefabInstance: {fileID: 1100558950}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &2145773860
 GameObject:
   m_ObjectHideFlags: 0
@@ -177070,7 +177128,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 315024939701667397, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 66
+      value: 67.78
       objectReference: {fileID: 0}
     - target: {fileID: 315024939701667397, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
       propertyPath: m_LocalPosition.y
@@ -177108,9 +177166,85 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: removerPermanentemente.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: desativarTemporariamente.Array.size
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'removerPermanentemente.Array.data[0]'
+      value: 
+      objectReference: {fileID: 889344048}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'removerPermanentemente.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2104296826}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1845270318}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2073588294}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1227366192}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[3]'
+      value: 
+      objectReference: {fileID: 21667525}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[4]'
+      value: 
+      objectReference: {fileID: 1059300077}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[5]'
+      value: 
+      objectReference: {fileID: 1190658310}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[6]'
+      value: 
+      objectReference: {fileID: 903744035}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[7]'
+      value: 
+      objectReference: {fileID: 951518449}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[8]'
+      value: 
+      objectReference: {fileID: 43671603}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[9]'
+      value: 
+      objectReference: {fileID: 229254956}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[10]'
+      value: 
+      objectReference: {fileID: 1306130844}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[11]'
+      value: 
+      objectReference: {fileID: 224789805}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[12]'
+      value: 
+      objectReference: {fileID: 208132189}
+    - target: {fileID: 2950235648269312317, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: 'desativarTemporariamente.Array.data[13]'
+      value: 
+      objectReference: {fileID: 1324820201}
     - target: {fileID: 4467694312145797072, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
       propertyPath: m_Name
       value: DialogueTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 4467694312145797072, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4566469322967195303, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
       propertyPath: dialogo
@@ -177119,7 +177253,7 @@ PrefabInstance:
     - target: {fileID: 4566469322967195303, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
       propertyPath: fundoUI
       value: 
-      objectReference: {fileID: 2143036002}
+      objectReference: {fileID: 299469926}
     - target: {fileID: 4566469322967195303, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
       propertyPath: triggerId
       value: entrada_igreja
@@ -177133,6 +177267,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+--- !u!1 &8346847556875808918 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4467694312145797072, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+  m_PrefabInstance: {fileID: 8346847556875808917}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8400535924822079942
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -177215,4 +177354,4 @@ SceneRoots:
   - {fileID: 376554462}
   - {fileID: 1448935960}
   - {fileID: 1906718627}
-  - {fileID: 231529846}
+  - {fileID: 56506739}

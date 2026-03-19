@@ -20,6 +20,30 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Floresta.unity
     guid: bfbd7d0034c318549b4c4ae5000a2f7d
+  - enabled: 1
+    path: Assets/Scenes/Resistencia/Resistencia.unity
+    guid: 2143c4c267f379e4c9aacb9075f8715b
+  - enabled: 1
+    path: Assets/Scenes/Vila/Vila_02.unity
+    guid: 13041c9a040353c4c851fc6b3464e31c
+  - enabled: 1
+    path: Assets/Scenes/Resistencia/Resistencia_02.unity
+    guid: bdf9c3569e6f94741a438bc234ed0547
+  - enabled: 1
+    path: Assets/Scenes/Casebre/Casebre_01.unity
+    guid: 6adca01e8e9c0224db1f0738c2735e56
+  - enabled: 1
+    path: Assets/Scenes/Casebre/Casebre_02.unity
+    guid: b24d94a29ab25c743af15c7268464f5c
+  - enabled: 1
+    path: Assets/Scenes/Vila/Vila_03.unity
+    guid: eee7e03d15e763b408f72baf03b55780
+  - enabled: 1
+    path: Assets/Scenes/Resistencia/Resistencia_03.unity
+    guid: e59d3d38fe0468a4985696d26d963537
+  - enabled: 1
+    path: "Assets/Scenes/Calabou\xE7o.unity"
+    guid: 8c828d825e2356a43b35e3ee00a9e63a
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -34,6 +34,11 @@ public class DialogueRunner : MonoBehaviour
 
     public float ultimoFechamentoTime { get; private set; } = -999f;
 
+    /// <summary>
+    /// Disparado ao fim de qualquer diálogo. Usado pelo DialogueEndEvent para executar ações pós-diálogo.
+    /// </summary>
+    public System.Action onDialogueEnd;
+
     public static DialogueRunner Instance { get; private set; }
 
     private void Awake()
@@ -81,6 +86,22 @@ public class DialogueRunner : MonoBehaviour
         IniciarDialogoInterno(asset, onEnd);
     }
 
+    /// <summary>
+    /// Inicia o diálogo imediatamente, sem fazer FadeComAcao.
+    /// Use quando a tela já estiver preta (ex: durante FadeToSceneCoroutine).
+    /// </summary>
+    public void StartDialogueImediato(DialogueAsset asset, Action onEnd = null)
+    {
+        if (asset == null)
+        {
+            Debug.LogWarning("[DialogueRunner] StartDialogueImediato chamado com asset null.");
+            onEnd?.Invoke();
+            return;
+        }
+        questDoDialogo = null;
+        AbrirPainel(asset, onEnd);
+    }
+
     void IniciarDialogoInterno(DialogueAsset asset, Action onEnd)
     {
         if (asset.fundoPainel)
@@ -106,9 +127,19 @@ public class DialogueRunner : MonoBehaviour
         recentlyOpenedTime = Time.unscaledTime;
         _eSeguroAnterior = true;
 
-        // Ativa o fundo se necessário
+        // Ativa o fundo SOMENTE se o DialogueAsset tiver um sprite de fundo explícito
         if (fundoImage != null)
-            fundoImage.gameObject.SetActive(asset.fundoPainel);
+        {
+            if (asset.fundoPainel != null)
+            {
+                fundoImage.sprite = asset.fundoPainel;
+                fundoImage.gameObject.SetActive(true);
+            }
+            else
+            {
+                fundoImage.gameObject.SetActive(false);
+            }
+        }
 
         AplicarPortraitFixo(leftPortrait, asset.portraitEsquerda);
         AplicarPortraitFixo(rightPortrait, asset.portraitDireita);
@@ -253,6 +284,7 @@ public class DialogueRunner : MonoBehaviour
 
                 GameManager.Instance.inputBloqueado = false;
                 cbFinal?.Invoke();
+                onDialogueEnd?.Invoke();
             });
         }
         else
@@ -263,6 +295,7 @@ public class DialogueRunner : MonoBehaviour
 
             GameManager.Instance.inputBloqueado = false;
             cbFinal?.Invoke();
+            onDialogueEnd?.Invoke();
             Time.timeScale = 1f;
         }
     }

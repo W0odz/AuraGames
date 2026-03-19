@@ -52,9 +52,9 @@ MonoBehaviour:
     npcAlvoNome: 
     battleEnemyPrefab: {fileID: 0}
     triggerDialogueId: 
-    timerNecessario: 60
+    timerNecessario: 10
     progressoAtual: 0
-    timerAtual: 60.008068
+    timerAtual: 10.004088
     apenasInformativo: 0
   - descricao: "Atenda ao serm\xE3o no templo"
     tipo: 6
@@ -71,7 +71,7 @@ MonoBehaviour:
   - descricao: Procure pistas pela floresta
     tipo: 2
     itemAlvo: {fileID: 0}
-    quantidadeNecessaria: 0
+    quantidadeNecessaria: 1
     enemyPrefab: {fileID: 6385819010840743586, guid: b7e066a39ba80764fbd6f698cda39b4b, type: 3}
     npcAlvoNome: 
     battleEnemyPrefab: {fileID: 6089210800779420423, guid: d5f08d0b8493c034a836f5f6a6d754a3, type: 3}

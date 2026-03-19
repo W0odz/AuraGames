@@ -2934,7 +2934,7 @@ MonoBehaviour:
   dialogosPosVitoria:
   - enemyId: "M\xFAsico"
     dialogo: {fileID: 11400000, guid: 3f83b47e75b744048aba16a721e90c20, type: 2}
-    cenaDestino: Resitencia
+    cenaDestino: Resistencia
   state: 0
 --- !u!1 &1244751207
 GameObject:
