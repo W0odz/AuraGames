@@ -2,8 +2,10 @@ using UnityEngine;
 
 /// <summary>
 /// Adicione este componente no mesmo GameObject de um DialogueTrigger ou NpcInteractable.
-/// Ao fim do diálogo, desativa GameObjects temporários (voltam ao reentrar na cena)
-/// e marca personagens como removidos permanentemente via PermanentRemoval.
+/// Ao fim do diálogo, desativa GameObjects temporários (voltam ao reentrar na cena),
+/// remove GameObjects permanentemente da cena (Destroy),
+/// marca personagens como removidos permanentemente via PermanentRemoval,
+/// e opcionalmente transporta o jogador para outra cena.
 /// ExecutarAcoes() deve ser chamado explicitamente pelo DialogueTrigger ou NpcInteractable
 /// ao fim do diálogo correto, evitando que qualquer término de diálogo na cena dispare este evento.
 /// </summary>
@@ -13,9 +15,20 @@ public class DialogueEndEvent : MonoBehaviour
     [Tooltip("GameObjects que serão desativados quando o diálogo terminar. Voltam ao reentrar na cena.")]
     public GameObject[] desativarTemporariamente;
 
-    [Header("Remover permanentemente ao fim do diálogo")]
+    [Header("Remover permanentemente ao fim do diálogo (Destroy — qualquer GameObject)")]
+    [Tooltip("GameObjects que serão destruídos permanentemente desta cena ao fim do diálogo (não voltam).")]
+    public GameObject[] removerObjetos;
+
+    [Header("Remover NPC permanentemente (via PermanentRemoval — persiste entre sessões)")]
     [Tooltip("NPCs com PermanentRemoval que devem sumir para sempre após este diálogo.")]
     public PermanentRemoval[] removerPermanentemente;
+
+    [Header("Transporte de Cena (opcional)")]
+    [Tooltip("Nome da cena para onde o jogador será transportado ao fim do diálogo. Deixe vazio para não transportar.")]
+    public string cenaDestino;
+
+    [Tooltip("ID do SpawnPoint na cena destino onde o jogador vai aparecer. Deixe vazio para usar o spawn padrão.")]
+    public string spawnIdDestino;
 
     public void ExecutarAcoes()
     {
@@ -26,7 +39,15 @@ public class DialogueEndEvent : MonoBehaviour
                 obj.SetActive(false);
         }
 
-        // Remove permanentemente
+        // Remove (Destroy) objetos permanentemente desta cena
+        foreach (var obj in removerObjetos)
+        {
+            if (obj == null) continue;
+            Debug.Log($"[DialogueEndEvent] '{obj.name}' destruído permanentemente da cena.");
+            Destroy(obj);
+        }
+
+        // Remove NPCs permanentemente (via PermanentRemoval — persiste entre sessões)
         foreach (var pr in removerPermanentemente)
         {
             if (pr == null) continue;
@@ -38,6 +59,23 @@ public class DialogueEndEvent : MonoBehaviour
             GameManager.Instance.MarcarPersonagemRemovido(pr.characterId);
             pr.gameObject.SetActive(false);
             Debug.Log($"[DialogueEndEvent] '{pr.gameObject.name}' removido permanentemente.");
+        }
+
+        // Transporta para outra cena
+        if (!string.IsNullOrEmpty(cenaDestino))
+        {
+            if (GameManager.Instance == null)
+            {
+                Debug.LogError("[DialogueEndEvent] GameManager.Instance é null — não foi possível transportar para a cena.");
+                return;
+            }
+
+            GameManager.Instance.pendingSpawnID = !string.IsNullOrEmpty(spawnIdDestino)
+                ? spawnIdDestino
+                : null;
+
+            Debug.Log($"[DialogueEndEvent] Transportando para cena '{cenaDestino}', spawn '{spawnIdDestino}'.");
+            GameManager.Instance.LoadSceneWithFade(cenaDestino);
         }
     }
 }
