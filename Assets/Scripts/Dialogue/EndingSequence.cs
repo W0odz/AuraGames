@@ -4,68 +4,78 @@ using UnityEngine.UI;
 
 /// <summary>
 /// Gerencia a sequência de fim de jogo.
-/// Coloque em um GameObject da cena onde o diálogo final acontece.
+/// Coloque na cena da cutscene final.
 ///
 /// Fluxo:
-///   1. Aguarda o diálogo final terminar
-///   2. Fade out da cena
-///   3. Ativa o painel de agradecimento com fade in
-///   4. Aguarda <see cref="duracaoPainel"/> segundos
-///   5. Fade out do painel
-///   6. Carrega TitleScreen com fade in
+///   1. Espera o DialogueRunner ficar disponível
+///   2. Espera o dialogoFinal COMEÇAR
+///   3. Espera o dialogoFinal TERMINAR
+///   4. Fade out da cena
+///   5. Ativa o painel de agradecimento com fade in
+///   6. Aguarda duracaoPainel segundos
+///   7. Fade out do painel
+///   8. Carrega TitleScreen
 /// </summary>
 public class EndingSequence : MonoBehaviour
 {
     [Header("Diálogo Final")]
-    [Tooltip("DialogueAsset do diálogo que, ao terminar, dispara a sequência de fim de jogo.")]
+    [Tooltip("O mesmo DialogueAsset configurado no DialogoPosBatalha do BattleSystem.")]
     public DialogueAsset dialogoFinal;
 
     [Header("Painel de Agradecimento")]
-    [Tooltip("GameObject do painel de agradecimento (deve começar desativado).")]
+    [Tooltip("GameObject do painel (deve começar desativado).")]
     public GameObject painelAgradecimento;
 
-    [Tooltip("CanvasGroup do painel de agradecimento, usado para o fade. Se nulo, o painel aparece instantaneamente.")]
+    [Tooltip("CanvasGroup do painel para fade suave. Se nulo, aparece instantaneamente.")]
     public CanvasGroup canvasGroupPainel;
 
-    [Tooltip("Segundos que o painel fica visível antes de ir para a tela de título.")]
+    [Tooltip("Segundos que o painel fica visível.")]
     [Min(1f)]
     public float duracaoPainel = 4f;
 
-    [Tooltip("Duração do fade in/out do painel de agradecimento.")]
+    [Tooltip("Duração do fade in/out do painel.")]
     [Min(0.1f)]
     public float duracaoFadePainel = 1f;
 
-    private void Start()
+    private IEnumerator Start()
     {
         if (painelAgradecimento != null)
             painelAgradecimento.SetActive(false);
 
-        // Registra o callback no DialogueRunner para saber quando o diálogo terminou
+        // ── Etapa 1: Espera o DialogueRunner existir (máx. 5s) ───────────
+        float timeout = 5f;
+        while (DialogueRunner.Instance == null && timeout > 0f)
+        {
+            timeout -= Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        if (DialogueRunner.Instance == null)
+        {
+            Debug.LogError("[EndingSequence] DialogueRunner.Instance não encontrado após 5s!");
+            yield break;
+        }
+
+        // ── Etapa 2: Espera o dialogoFinal COMEÇAR ────────────────────────
+        yield return new WaitUntil(() =>
+            DialogueRunner.Instance != null &&
+            DialogueRunner.Instance.IsDialogueActive &&
+            DialogueRunner.Instance.currentAsset == dialogoFinal
+        );
+
+        // ── Etapa 3: Espera o dialogoFinal TERMINAR ───────────────────────
+        bool terminou = false;
+        System.Action onEnd = () => terminou = true;
+        DialogueRunner.Instance.onDialogueEnd += onEnd;
+
+        yield return new WaitUntil(() => terminou);
+
+        // Remove o listener
         if (DialogueRunner.Instance != null)
-            DialogueRunner.Instance.onDialogueEnd += OnDialogoFinalTerminou;
-        else
-            Debug.LogWarning("[EndingSequence] DialogueRunner.Instance não encontrado.");
-    }
+            DialogueRunner.Instance.onDialogueEnd -= onEnd;
 
-    private void OnDestroy()
-    {
-        // Limpa o callback ao destruir o objeto
-        if (DialogueRunner.Instance != null)
-            DialogueRunner.Instance.onDialogueEnd -= OnDialogoFinalTerminou;
-    }
-
-    private void OnDialogoFinalTerminou()
-    {
-        // Só dispara se o diálogo que terminou for o dialogoFinal configurado
-        if (DialogueRunner.Instance != null &&
-            DialogueRunner.Instance.currentAsset == dialogoFinal)
-            return; // ainda está rodando, não terminou
-
-        // Remove o listener imediatamente para não disparar múltiplas vezes
-        if (DialogueRunner.Instance != null)
-            DialogueRunner.Instance.onDialogueEnd -= OnDialogoFinalTerminou;
-
-        StartCoroutine(SequenciaFimDeJogo());
+        // ── Etapa 4 em diante: sequência de fim de jogo ───────────────────
+        yield return StartCoroutine(SequenciaFimDeJogo());
     }
 
     private IEnumerator SequenciaFimDeJogo()
