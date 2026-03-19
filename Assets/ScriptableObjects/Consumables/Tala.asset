@@ -15,11 +15,12 @@ MonoBehaviour:
   nomeItem: Tala
   descricao: Ajuda as partes machucadas do seu corpo a se regenerar
   iconeItem: {fileID: 0}
-  valorOuro: 0
   tipoItem: 0
   slotOndeEquipa: 5
   efeitosDoItem: []
+  valorEscambo: 5
   bonusStrength: 0
   bonusResistance: 0
   bonusMaxHP: 0
   bonusMaxMP: 0
+  apenasForaDeBatalha: 0
