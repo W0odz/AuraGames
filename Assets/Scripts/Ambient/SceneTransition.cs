@@ -84,6 +84,10 @@ public class SceneTransition : MonoBehaviour
 
         if (GameManager.Instance != null)
         {
+            // Notifica o QuestManager sobre o uso da transição
+            if (!string.IsNullOrEmpty(transitionID))
+                QuestManager.Instance?.NotificarSceneTransition(transitionID);
+
             GameManager.Instance.pendingSpawnID = spawnID;
             GameManager.Instance.LoadSceneWithFade(goToScene);
         }
