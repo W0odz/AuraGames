@@ -49,9 +49,9 @@ public class CinematicSequence : MonoBehaviour
         public GameObject alvo;
 
         [Header("Posição (opcional)")]
-        [Tooltip("Se true, teleporta o alvo para novaPosicao no pico do preto.")]
+        [Tooltip("Se true, teleporta o alvo para novaPosicaoLocal (posição local) no pico do preto.")]
         public bool alterarPosicao = false;
-        public Vector3 novaPosicao;
+        public Vector3 novaPosicaoLocal;
 
         [Header("Rotação (opcional)")]
         [Tooltip("Se true, aplica novaRotacao ao alvo no pico do preto.")]
@@ -161,7 +161,7 @@ public class CinematicSequence : MonoBehaviour
             if (t.alvo == null) continue;
 
             if (t.alterarPosicao)
-                t.alvo.transform.position = t.novaPosicao;
+                t.alvo.transform.localPosition = t.novaPosicaoLocal;
 
             if (t.alterarRotacao)
                 t.alvo.transform.eulerAngles = t.novaRotacao;
