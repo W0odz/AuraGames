@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 998d816f9ecd779408036895027b9b91, type: 3}
+  m_Name: dln02_04
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueAsset
+  portraitEsquerda: {fileID: 0}
+  portraitDireita: {fileID: 0}
+  fundoPainel: {fileID: 0}
+  nodes:
+  - text: Preciso levar o Fazendeiro de volta pra base.....
+    speakerSide: 0
+    speakerName: 
+    portrait: {fileID: 4058102605782207891, guid: cc953b912b3629e4580d243c75555a88, type: 3}
+    acaoDeQuest: 0
+    questDef: {fileID: 0}
+    estadoQuest: 0

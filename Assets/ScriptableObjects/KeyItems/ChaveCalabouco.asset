@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
   nomeItem: "Chave do Calabou\xE7o"
   descricao: 
-  iconeItem: {fileID: 0}
+  iconeItem: {fileID: -7863760665189516231, guid: 0416c14e0c12d7744ba9b58fd881b168, type: 3}
   tipoItem: 3
   slotOndeEquipa: 5
   efeitosDoItem: []
