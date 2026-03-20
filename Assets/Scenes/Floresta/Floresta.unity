@@ -12635,10 +12635,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 369354221}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8232354911f9ad469ac0d53719fca72, type: 3}
+  m_Script: {fileID: 11500000, guid: 358bb104332b96049b718eff563ac382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleBackgroundSetter
-  fundo: {fileID: -6321973395389558542, guid: 4c1700bd1fd15ec42adb230be0e2fc8a, type: 3}
+  fundoDeBatalha: {fileID: -6321973395389558542, guid: 4c1700bd1fd15ec42adb230be0e2fc8a, type: 3}
 --- !u!1 &370532203
 GameObject:
   m_ObjectHideFlags: 0
