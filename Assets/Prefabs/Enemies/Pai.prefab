@@ -1551,7 +1551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUnit
   unitName: "Ca\xE7ador"
   unitPortrait: {fileID: 0}
-  maxHP: 50
+  maxHP: 300
   currentHP: 50
   maxMP: 0
   currentMP: 0
