@@ -28770,6 +28770,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8624966677139261579, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+      propertyPath: audioMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 5fd8bb447ba2cd443b2387bf8decffbe, type: 2}
     - target: {fileID: 8793969481897377516, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
       propertyPath: m_Pivot.x
       value: 0
