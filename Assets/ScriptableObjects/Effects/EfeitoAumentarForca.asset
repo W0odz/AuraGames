@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9b53302ac9b2a438bd7621788e8c3e, type: 3}
   m_Name: EfeitoAumentarForca
   m_EditorClassIdentifier: Assembly-CSharp::StrengthUpEffect
-  turnos: 3
+  turnos: 5
   stacks: 1

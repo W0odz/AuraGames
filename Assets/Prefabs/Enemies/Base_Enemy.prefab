@@ -145,11 +145,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUnit
   unitName: Javali
   unitPortrait: {fileID: 0}
-  maxHP: 50
-  currentHP: 50
+  maxHP: 22
+  currentHP: 22
   maxMP: 0
   currentMP: 0
-  strength: 10
+  strength: 3
   resistance: 10
   speed: 10
   luck: 2
@@ -160,6 +160,7 @@ MonoBehaviour:
     quantidade: 1
     chanceDeDrop: 40
   expReward: 50
+  accuracy: 10
 --- !u!114 &5063425681963335978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,6 +174,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterTarget
   raioDeAcerto: 0.3
+  bonusAoAcertarPontoFraco: 0.4
+  logDistancias: 1
 --- !u!1 &7118619373777434269
 GameObject:
   m_ObjectHideFlags: 0

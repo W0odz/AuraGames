@@ -47,11 +47,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerUnit
   unitName: Protagonista
   unitPortrait: {fileID: 0}
-  maxHP: 100
-  currentHP: 100
+  maxHP: 11
+  currentHP: 11
   maxMP: 0
   currentMP: 0
-  strength: 10
+  strength: 15
   resistance: 10
   speed: 5
   luck: 5

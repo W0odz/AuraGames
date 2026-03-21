@@ -872,11 +872,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUnit
   unitName: Derretido
   unitPortrait: {fileID: 0}
-  maxHP: 50
-  currentHP: 50
+  maxHP: 36
+  currentHP: 36
   maxMP: 0
   currentMP: 0
-  strength: 10
+  strength: 6
   resistance: 10
   speed: 10
   luck: 2
@@ -887,7 +887,7 @@ MonoBehaviour:
     quantidade: 1
     chanceDeDrop: 40
   expReward: 50
-  accuracy: 10
+  accuracy: 11
 --- !u!114 &5063425681963335978
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0c795b1bba279d4989202aae1951e09, type: 3}
   m_Name: Perna D
   m_EditorClassIdentifier: Assembly-CSharp::BodyPartDefinition
-  part: 3
+  part: 5
   damageMultiplier: 1
   debuff: 3
-  debuffDuration: 2
+  debuffTurns: 2
   debuffStacks: 1
