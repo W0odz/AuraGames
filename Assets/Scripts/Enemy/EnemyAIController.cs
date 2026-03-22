@@ -44,10 +44,10 @@ public class EnemyAIController : MonoBehaviour
     public string enemyID;
 
     // --- VARIÁVEIS INTERNAS ---
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Animator animator;
     private Rigidbody2D rb;
     private Transform playerToChase;
-    private SpriteRenderer spriteRenderer;
-    private Animator animator;
     private Vector2 moveDirection;
     private Vector2 wanderTarget;
     private Bounds bounds;

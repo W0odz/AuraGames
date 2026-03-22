@@ -303,6 +303,8 @@ MonoBehaviour:
   mapBoundsCollider: {fileID: 0}
   aggroDetectors: []
   enemyID: Javali
+  spriteRenderer: {fileID: 2750746522571746138}
+  animator: {fileID: 1003828468602657661}
 --- !u!95 &1003828468602657661
 Animator:
   serializedVersion: 7
