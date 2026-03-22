@@ -15,6 +15,9 @@ public class PauseManager : MonoBehaviour
     [Tooltip("O painel com os 3 slots de save (só usado na tela inicial)")]
     public GameObject saveSlotsPanel;
 
+    [Tooltip("Botões principais da tela inicial (Jogar, Configurações, Sair) — ocultados quando saveSlotsPanel está aberto")]
+    public GameObject mainMenuButtons;
+
     [Header("Painéis — Pause (jogo)")]
     public GameObject pausePanel;
 
@@ -96,6 +99,7 @@ public class PauseManager : MonoBehaviour
     {
         FecharTodosPaineis();
         if (saveSlotsPanel != null) saveSlotsPanel.SetActive(true);
+        if (mainMenuButtons != null) mainMenuButtons.SetActive(false);
     }
 
     /// <summary>Chamado pelo botão "Voltar" dentro do painel de saves.</summary>
@@ -132,14 +136,19 @@ public class PauseManager : MonoBehaviour
         if (saveSlotsPanel != null) saveSlotsPanel.SetActive(false);
         if (pausePanel     != null) pausePanel.SetActive(false);
         if (configPanel    != null) configPanel.SetActive(true);
+        if (modoTituloAtivo && mainMenuButtons != null) mainMenuButtons.SetActive(false);
     }
 
     public void OnVoltarDeConfiguracoesButton()
     {
         if (configPanel != null) configPanel.SetActive(false);
 
-        // No modo título: só fecha tudo, não reabre o painel de saves
-        if (!modoTituloAtivo)
+        // No modo título: só fecha tudo e reexibe os botões principais
+        if (modoTituloAtivo)
+        {
+            if (mainMenuButtons != null) mainMenuButtons.SetActive(true);
+        }
+        else
         {
             if (pausePanel != null) pausePanel.SetActive(true);
         }
@@ -212,6 +221,10 @@ public class PauseManager : MonoBehaviour
         if (soundPanel     != null) soundPanel.SetActive(false);
         if (controlsPanel  != null) controlsPanel.SetActive(false);
         if (saveSlotsPanel != null) saveSlotsPanel.SetActive(false);
+
+        // No modo título, reexibe os botões principais ao fechar tudo
+        if (modoTituloAtivo && mainMenuButtons != null)
+            mainMenuButtons.SetActive(true);
     }
 
     // ── Áudio ─────────────────────────────────────────────────────

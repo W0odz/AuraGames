@@ -24,6 +24,9 @@ public class NameInputPopup : MonoBehaviour
     [Tooltip("Painel dos slots de save — ativado ao fechar este popup.")]
     public GameObject saveSlotsPanel;
 
+    [Tooltip("Painel transparente que bloqueia cliques em toda a tela enquanto o popup está aberto. Deve ser um Image com raycastTarget=true, alpha=0, cobrindo toda a tela, com sorting order abaixo do popup.")]
+    public GameObject bloqueadorInput;
+
     // Slot que receberá o novo jogo (definido por OpenPopup)
     private int _slotID;
 
@@ -56,6 +59,7 @@ public class NameInputPopup : MonoBehaviour
         AtualizarBotao();
 
         gameObject.SetActive(true);
+        if (bloqueadorInput != null) bloqueadorInput.SetActive(true);
 
         if (nameInputField != null)
             nameInputField.ActivateInputField();
@@ -67,6 +71,7 @@ public class NameInputPopup : MonoBehaviour
     public void OnCancelarClicado()
     {
         gameObject.SetActive(false);
+        if (bloqueadorInput != null) bloqueadorInput.SetActive(false);
 
         if (saveSlotsPanel != null)
             saveSlotsPanel.SetActive(true);
@@ -97,6 +102,7 @@ public class NameInputPopup : MonoBehaviour
         if (string.IsNullOrWhiteSpace(nome)) return;
 
         gameObject.SetActive(false);
+        if (bloqueadorInput != null) bloqueadorInput.SetActive(false);
 
         GameManager.Instance.SetCurrentSlot(_slotID);
         GameManager.Instance.CreateNewGame(nome);
