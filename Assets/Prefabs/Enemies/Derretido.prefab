@@ -872,7 +872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUnit
   unitName: Derretido
   unitPortrait: {fileID: 0}
-  maxHP: 50
+  maxHP: 100
   currentHP: 50
   maxMP: 0
   currentMP: 0
