@@ -47,6 +47,7 @@ public class EnemyAIController : MonoBehaviour
     private Rigidbody2D rb;
     private Transform playerToChase;
     private SpriteRenderer spriteRenderer;
+    private Animator animator;
     private Vector2 moveDirection;
     private Vector2 wanderTarget;
     private Bounds bounds;
@@ -62,6 +63,7 @@ public class EnemyAIController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     void Start()
@@ -115,10 +117,22 @@ public class EnemyAIController : MonoBehaviour
         if (isEstatico)
         {
             rb.linearVelocity = Vector2.zero;
+            if (animator != null) animator.SetFloat("Speed", 0f);
             return;
         }
 
         rb.linearVelocity = moveDirection * currentMoveSpeed;
+
+        // Animação
+        if (animator != null)
+            animator.SetFloat("Speed", moveDirection.magnitude);
+
+        // Flip horizontal
+        if (spriteRenderer != null)
+        {
+            if (moveDirection.x < 0f) spriteRenderer.flipX = true;
+            else if (moveDirection.x > 0f) spriteRenderer.flipX = false;
+        }
     }
     #endregion
 
