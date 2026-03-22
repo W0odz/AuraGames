@@ -134,8 +134,8 @@ public class EnemyAIController : MonoBehaviour
         // Flip horizontal
         if (spriteRenderer != null)
         {
-            if (moveDirection.x < 0f) spriteRenderer.flipX = true;
-            else if (moveDirection.x > 0f) spriteRenderer.flipX = false;
+            if (moveDirection.x > 0f) spriteRenderer.flipX = true;
+            else if (moveDirection.x < 0f) spriteRenderer.flipX = false;
         }
     }
     #endregion
