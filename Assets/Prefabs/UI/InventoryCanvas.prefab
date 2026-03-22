@@ -2129,6 +2129,7 @@ GameObject:
   - component: {fileID: 8082983502338292789}
   - component: {fileID: 4775248551916766434}
   - component: {fileID: 7439768399681176567}
+  - component: {fileID: 7145520892894281801}
   m_Layer: 5
   m_Name: GlovesSlot
   m_TagString: Untagged
@@ -2252,6 +2253,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EquipmentSlotUI
   slotType: 3
   iconImage: {fileID: 7499288096635278399}
+--- !u!114 &7145520892894281801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3338254075639871075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d39e1f8370227f4e9619b97daa832b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonHover
+  hoverScale: 1.1
+  animationSpeed: 10
 --- !u!1 &3444231804209108532
 GameObject:
   m_ObjectHideFlags: 0
@@ -2581,6 +2596,7 @@ GameObject:
   - component: {fileID: 3475065472325760480}
   - component: {fileID: 5360584461457019280}
   - component: {fileID: 8796740051762178671}
+  - component: {fileID: 4446980842017715922}
   m_Layer: 5
   m_Name: LegsSlot
   m_TagString: Untagged
@@ -2704,6 +2720,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EquipmentSlotUI
   slotType: 4
   iconImage: {fileID: 7424269158366047756}
+--- !u!114 &4446980842017715922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3596542582620712712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d39e1f8370227f4e9619b97daa832b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonHover
+  hoverScale: 1.1
+  animationSpeed: 10
 --- !u!1 &4184149870248634933
 GameObject:
   m_ObjectHideFlags: 0
@@ -3041,6 +3071,7 @@ GameObject:
   - component: {fileID: 4282702132770104539}
   - component: {fileID: 8461150285269027206}
   - component: {fileID: 4196519713819563218}
+  - component: {fileID: 4770742610901973703}
   m_Layer: 5
   m_Name: WeaponSlot
   m_TagString: Untagged
@@ -3164,6 +3195,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EquipmentSlotUI
   slotType: 0
   iconImage: {fileID: 8856299716079883533}
+--- !u!114 &4770742610901973703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5050759516313849714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d39e1f8370227f4e9619b97daa832b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonHover
+  hoverScale: 1.1
+  animationSpeed: 10
 --- !u!1 &5068461319105222810
 GameObject:
   m_ObjectHideFlags: 0
@@ -4085,6 +4130,7 @@ GameObject:
   - component: {fileID: 6259469013910834779}
   - component: {fileID: 7282166089470305653}
   - component: {fileID: 7526302757453204920}
+  - component: {fileID: 7177209648055072583}
   m_Layer: 5
   m_Name: HelmetSlot
   m_TagString: Untagged
@@ -4208,6 +4254,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EquipmentSlotUI
   slotType: 1
   iconImage: {fileID: 6291608271585568502}
+--- !u!114 &7177209648055072583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6164486213865091757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d39e1f8370227f4e9619b97daa832b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonHover
+  hoverScale: 1.1
+  animationSpeed: 10
 --- !u!1 &6213610346800525537
 GameObject:
   m_ObjectHideFlags: 0
@@ -4854,6 +4914,7 @@ GameObject:
   - component: {fileID: 566648420581515893}
   - component: {fileID: 8607860828427339395}
   - component: {fileID: 4956001045382995414}
+  - component: {fileID: 1486928573470430841}
   m_Layer: 5
   m_Name: ArmorSlot
   m_TagString: Untagged
@@ -4977,6 +5038,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EquipmentSlotUI
   slotType: 2
   iconImage: {fileID: 3576703685297689944}
+--- !u!114 &1486928573470430841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7153438291387369187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d39e1f8370227f4e9619b97daa832b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonHover
+  hoverScale: 1.1
+  animationSpeed: 10
 --- !u!1 &7256119164458721247
 GameObject:
   m_ObjectHideFlags: 0

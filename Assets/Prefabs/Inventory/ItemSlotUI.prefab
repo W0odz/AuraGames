@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 8940549843686878850}
   - component: {fileID: 2519453049402525478}
   - component: {fileID: 3637419859589808534}
+  - component: {fileID: -1324323310105914772}
   m_Layer: 5
   m_Name: ItemSlotUI
   m_TagString: Untagged
@@ -285,6 +286,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlotUI
   iconImage: {fileID: 4067699107919394546}
   amountText: {fileID: 3882120020005356058}
+--- !u!114 &-1324323310105914772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2997039392933908848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d39e1f8370227f4e9619b97daa832b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonHover
+  hoverScale: 1.1
+  animationSpeed: 10
 --- !u!1 &4659716721228976194
 GameObject:
   m_ObjectHideFlags: 0

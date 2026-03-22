@@ -1,7 +1,8 @@
-// PauseManager.cs — controla tanto o menu de pause do jogo quanto a tela inicial
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using System.Collections;
+using UnityEngine.EventSystems;
 
 public class PauseManager : MonoBehaviour
 {
@@ -100,6 +101,13 @@ public class PauseManager : MonoBehaviour
         FecharTodosPaineis();
         if (saveSlotsPanel != null) saveSlotsPanel.SetActive(true);
         if (mainMenuButtons != null) mainMenuButtons.SetActive(false);
+        StartCoroutine(LimparFocoProximoFrame());
+    }
+
+    private IEnumerator LimparFocoProximoFrame()
+    {
+        yield return null; // espera 1 frame para o EventSystem registrar o painel
+        EventSystem.current?.SetSelectedGameObject(null);
     }
 
     /// <summary>Chamado pelo botão "Voltar" dentro do painel de saves.</summary>
