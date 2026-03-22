@@ -5,30 +5,34 @@ using System.Linq; // Usado para encontrar os outros slots
 
 public class SaveSlotUI : MonoBehaviour
 {
-    [Header("Configuração do Slot")]
+    [Header("Configuraï¿½ï¿½o do Slot")]
     public int slotID;
 
-    [Header("Referências da UI")]
+    [Header("Referï¿½ncias da UI")]
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI loadButtonText;
     public Button loadButton;
     public Button copyButton;
     public Button eraseButton;
 
-    [Header("Referências Externas")]
+    [Header("Referï¿½ncias Externas")]
     public NameInputPopup namePopup;
 
     private void Start()
     {
         RefreshUI();
 
-        // Adiciona os "listeners" aos botões
+        // Garante que nÃ£o haja listeners duplicados (caso o Inspector jÃ¡ os tenha)
+        loadButton.onClick.RemoveAllListeners();
+        eraseButton.onClick.RemoveAllListeners();
+        copyButton.onClick.RemoveAllListeners();
+
         loadButton.onClick.AddListener(OnLoadClicked);
         eraseButton.onClick.AddListener(OnEraseClicked);
         copyButton.onClick.AddListener(OnCopyClicked);
     }
 
-    // Esta função será chamada por outros slots quando
+    // Esta funï¿½ï¿½o serï¿½ chamada por outros slots quando
     // o estado de "copiar" mudar
     public void RefreshUI()
     {
@@ -37,19 +41,19 @@ public class SaveSlotUI : MonoBehaviour
         if (data != null)
         {
             // --- SE EXISTE UM SAVE ---
-            levelText.text = "Nível: " + data.playerLevel;
+            levelText.text = "Nï¿½vel: " + data.playerLevel;
             loadButtonText.text = "Carregar";
 
-            loadButton.interactable = true;
-            eraseButton.interactable = true;
-            copyButton.interactable = true; // Pode copiar um save que existe
+            SetButtonInteractable(loadButton, true);
+            SetButtonInteractable(eraseButton, true);
+            SetButtonInteractable(copyButton, true); // Pode copiar um save que existe
         }
         else
         {
-            // --- SE O SLOT ESTÁ VAZIO ---
-            levelText.text = "Nível: --";
+            // --- SE O SLOT ESTï¿½ VAZIO ---
+            levelText.text = "Nï¿½vel: --";
 
-            // Verifica se há algo na "área de transferência"
+            // Verifica se hï¿½ algo na "ï¿½rea de transferï¿½ncia"
             if (GameManager.dataToCopy != null)
             {
                 loadButtonText.text = "Colar"; // "Paste"
@@ -59,19 +63,29 @@ public class SaveSlotUI : MonoBehaviour
                 loadButtonText.text = "Jogo Novo";
             }
 
-            loadButton.interactable = true;
-            eraseButton.interactable = false;
-            copyButton.interactable = false; // Não pode copiar um slot vazio
+            SetButtonInteractable(loadButton, true);
+            SetButtonInteractable(eraseButton, false);
+            SetButtonInteractable(copyButton, false); // Nï¿½o pode copiar um slot vazio
         }
     }
 
-    // Chamado quando o botão "Load / Jogo Novo / Colar" é clicado
+    private void SetButtonInteractable(Button btn, bool interactable)
+    {
+        if (btn == null) return;
+        btn.interactable = interactable;
+        // Desabilita o raycast quando nÃ£o interactÃ¡vel para impedir hover visual
+        var graphic = btn.targetGraphic;
+        if (graphic != null)
+            graphic.raycastTarget = interactable;
+    }
+
+    // Chamado quando o botï¿½o "Load / Jogo Novo / Colar" ï¿½ clicado
     public void OnLoadClicked()
     {
         // 1. Define o slot atual no GameManager
         GameManager.Instance.SetCurrentSlot(slotID);
 
-        // 2. Decide a ação
+        // 2. Decide a aï¿½ï¿½o
         if (SaveSystem.SaveFileExists(slotID))
         {
            // 1. Carrega os dados (isso preenche 'sceneToLoad' no GameManager)
@@ -80,14 +94,14 @@ public class SaveSlotUI : MonoBehaviour
             // 2. Carrega a cena correta que estava no save
             string cenaParaCarregar = GameManager.Instance.sceneToLoad;
             
-            // Segurança: Se por algum motivo estiver vazio, vai pra Exploration
+            // Seguranï¿½a: Se por algum motivo estiver vazio, vai pra Exploration
             if (string.IsNullOrEmpty(cenaParaCarregar)) cenaParaCarregar = "Vila_01";
 
             GameManager.Instance.LoadSceneWithFade(cenaParaCarregar);
         }
         else if (GameManager.dataToCopy != null)
         {
-            // --- Colar Jogo (Este slot está vazio, mas o clipboard não) ---
+            // --- Colar Jogo (Este slot estï¿½ vazio, mas o clipboard nï¿½o) ---
             SaveSystem.SaveGame(GameManager.dataToCopy, slotID);
 
             // Limpa o clipboard
@@ -109,12 +123,12 @@ public class SaveSlotUI : MonoBehaviour
         }
     }
 
-    // Chamado quando o botão "Erase" é clicado
+    // Chamado quando o botï¿½o "Erase" ï¿½ clicado
     public void OnEraseClicked()
     {
         SaveSystem.EraseGame(slotID);
 
-        // Se estávamos copiando este slot, limpa o clipboard
+        // Se estï¿½vamos copiando este slot, limpa o clipboard
         if (GameManager.dataToCopy != null && SaveSystem.LoadGame(slotID) == null)
         {
             GameManager.dataToCopy = null;
@@ -124,7 +138,7 @@ public class SaveSlotUI : MonoBehaviour
         UpdateAllSlotUIs();
     }
 
-    // Chamado quando o botão "Copy" é clicado
+    // Chamado quando o botï¿½o "Copy" ï¿½ clicado
     public void OnCopyClicked()
     {
         // Pega os dados deste slot e os coloca no clipboard
@@ -134,12 +148,12 @@ public class SaveSlotUI : MonoBehaviour
             GameManager.dataToCopy = dataToCopy;
             Debug.Log("Slot " + slotID + " copiado!");
 
-            // Atualiza todos os outros slots para mostrar a opção "Colar"
+            // Atualiza todos os outros slots para mostrar a opï¿½ï¿½o "Colar"
             UpdateAllSlotUIs();
         }
     }
 
-    // Uma função "helper" que avisa todos os outros slots para se atualizarem
+    // Uma funï¿½ï¿½o "helper" que avisa todos os outros slots para se atualizarem
     private void UpdateAllSlotUIs()
     {
         // Encontra todos os scripts SaveSlotUI na cena
