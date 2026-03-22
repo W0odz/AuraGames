@@ -30138,6 +30138,11 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 8.365173, y: 4.9245872}
   m_EdgeRadius: 0
+--- !u!1 &768616322 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1231538210993400972, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_PrefabInstance: {fileID: 1253130755}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &769470700
 GameObject:
   m_ObjectHideFlags: 0
@@ -35823,6 +35828,10 @@ PrefabInstance:
       propertyPath: rightPortrait
       value: 
       objectReference: {fileID: 1253130761}
+    - target: {fileID: 6788394771900257917, guid: 11918436010044747b5d4eb3232f84b8, type: 3}
+      propertyPath: indicadorAvancar
+      value: 
+      objectReference: {fileID: 768616322}
     - target: {fileID: 7830755680491969307, guid: 11918436010044747b5d4eb3232f84b8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 958.7497

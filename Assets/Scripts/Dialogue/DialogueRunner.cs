@@ -63,8 +63,7 @@ public class DialogueRunner : MonoBehaviour
             return;
         }
 
-        // Botão de avanço trocado de KeyCode.E para Mouse1 (botão direito do mouse)
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
             AdvanceDialogue();
         }

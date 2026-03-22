@@ -890,6 +890,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3300468086716828424, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3973174108740180508, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
       propertyPath: m_Name
       value: DialogueBackground
@@ -1038,7 +1042,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!1 &20205648 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1222084398560309630, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1231538210993400972, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
   m_PrefabInstance: {fileID: 20205644}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &20205649 stripped
@@ -26976,7 +26980,7 @@ PrefabInstance:
     - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: controlsPanel
       value: 
-      objectReference: {fileID: 20205648}
+      objectReference: {fileID: 0}
     - target: {fileID: 2207976064434011169, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 91.19146
@@ -145881,6 +145885,10 @@ PrefabInstance:
       propertyPath: rightPortrait
       value: 
       objectReference: {fileID: 1178649544}
+    - target: {fileID: 6788394771900257917, guid: 11918436010044747b5d4eb3232f84b8, type: 3}
+      propertyPath: indicadorAvancar
+      value: 
+      objectReference: {fileID: 20205648}
     - target: {fileID: 7830755680491969307, guid: 11918436010044747b5d4eb3232f84b8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 77.38046

@@ -28556,7 +28556,7 @@ PrefabInstance:
     - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: controlsPanel
       value: 
-      objectReference: {fileID: 2075162533}
+      objectReference: {fileID: 0}
     - target: {fileID: 2207976064434011169, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 30.1708
@@ -35911,6 +35911,10 @@ PrefabInstance:
       propertyPath: rightPortrait
       value: 
       objectReference: {fileID: 1253130761}
+    - target: {fileID: 6788394771900257917, guid: 11918436010044747b5d4eb3232f84b8, type: 3}
+      propertyPath: indicadorAvancar
+      value: 
+      objectReference: {fileID: 1848906888}
     - target: {fileID: 7830755680491969307, guid: 11918436010044747b5d4eb3232f84b8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 958.7497
@@ -633554,6 +633558,11 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 6.4766197, y: 8.226142}
   m_EdgeRadius: 0
+--- !u!1 &1848906888 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1231538210993400972, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_PrefabInstance: {fileID: 1253130755}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1852686864
 GameObject:
   m_ObjectHideFlags: 0
@@ -641714,11 +641723,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &2075162533 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1222084398560309630, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
-  m_PrefabInstance: {fileID: 1253130755}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2077956756
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2586,7 +2586,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1008429979 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1222084398560309630, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1231538210993400972, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
   m_PrefabInstance: {fileID: 1008429975}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1008429980 stripped
@@ -3397,7 +3397,7 @@ PrefabInstance:
     - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: controlsPanel
       value: 
-      objectReference: {fileID: 1008429979}
+      objectReference: {fileID: 0}
     - target: {fileID: 1811729982111679785, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: listaItens.Array.size
       value: 2
@@ -16476,6 +16476,10 @@ PrefabInstance:
       propertyPath: rightPortrait
       value: 
       objectReference: {fileID: 723258704}
+    - target: {fileID: 6788394771900257917, guid: 11918436010044747b5d4eb3232f84b8, type: 3}
+      propertyPath: indicadorAvancar
+      value: 
+      objectReference: {fileID: 1008429979}
     - target: {fileID: 7830755680491969307, guid: 11918436010044747b5d4eb3232f84b8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 242.05917

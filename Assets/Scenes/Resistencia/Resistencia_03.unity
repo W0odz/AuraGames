@@ -2811,7 +2811,7 @@ PrefabInstance:
     - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: controlsPanel
       value: 
-      objectReference: {fileID: 938963383}
+      objectReference: {fileID: 0}
     - target: {fileID: 2207976064434011169, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.91937
@@ -2958,11 +2958,6 @@ Transform:
 --- !u!1 &926326667 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7344400387926534969, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
-  m_PrefabInstance: {fileID: 606287554}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &938963383 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1222084398560309630, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
   m_PrefabInstance: {fileID: 606287554}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &989463523
@@ -4484,6 +4479,11 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.6, y: 0.77}
   m_EdgeRadius: 0
+--- !u!1 &1621425338 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1231538210993400972, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_PrefabInstance: {fileID: 606287554}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1650537137 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9054536668875623488, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
@@ -15995,6 +15995,10 @@ PrefabInstance:
       propertyPath: rightPortrait
       value: 
       objectReference: {fileID: 606287561}
+    - target: {fileID: 6788394771900257917, guid: 11918436010044747b5d4eb3232f84b8, type: 3}
+      propertyPath: indicadorAvancar
+      value: 
+      objectReference: {fileID: 1621425338}
     - target: {fileID: 7830755680491969307, guid: 11918436010044747b5d4eb3232f84b8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 242.05917

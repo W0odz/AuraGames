@@ -9511,6 +9511,7 @@ MonoBehaviour:
   rightNameText: {fileID: 1109741081}
   fundoImage: {fileID: 299469926}
   alphaEscurecido: 0.4
+  indicadorAvancar: {fileID: 1100558954}
   currentAsset: {fileID: 0}
 --- !u!4 &341672008
 Transform:
@@ -28554,7 +28555,7 @@ PrefabInstance:
     - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: controlsPanel
       value: 
-      objectReference: {fileID: 1100558954}
+      objectReference: {fileID: 0}
     - target: {fileID: 2207976064434011169, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 91.19146
@@ -28876,7 +28877,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1100558954 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1222084398560309630, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1231538210993400972, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
   m_PrefabInstance: {fileID: 1100558950}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1100558955 stripped
