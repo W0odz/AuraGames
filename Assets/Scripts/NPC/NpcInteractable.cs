@@ -67,9 +67,9 @@ public class NpcInteractable : MonoBehaviour
         // Atualiza visibilidade do indicador: só mostra se perto E sem diálogo ativo
         if (indicador != null)
         {
-            bool deveVer = playerNearby && !DialogueRunner.Instance.IsDialogueActive;
-            if (deveVer) indicador.Mostrar();
-            else         indicador.Esconder();
+            bool shouldShow = playerNearby && !DialogueRunner.Instance.IsDialogueActive;
+            if (shouldShow && !indicador.gameObject.activeSelf) indicador.Mostrar();
+            else if (!shouldShow && indicador.gameObject.activeSelf) indicador.Esconder();
         }
 
         if (GameManager.Instance.inputBloqueado) return;
