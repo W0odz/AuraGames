@@ -270,6 +270,17 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    public void QuitGame()
+    {
+        OnApplicationQuit();   // executa o shutdown manualmente
+        Application.Quit();    // fecha o jogo de verdade
+
+        // No Editor o Application.Quit() não funciona, então:
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+    }
+
     #region Funções de Save
     public void SetCurrentSlot(int slot)
     {

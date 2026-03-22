@@ -2354,6 +2354,7 @@ GameObject:
   - component: {fileID: 6617349158763387612}
   - component: {fileID: 2279808087260938859}
   - component: {fileID: 3079811574928575358}
+  - component: {fileID: 7393897499155495519}
   m_Layer: 5
   m_Name: Backpack
   m_TagString: Untagged
@@ -2474,6 +2475,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7393897499155495519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3465698818775045285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d39e1f8370227f4e9619b97daa832b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonHover
+  hoverScale: 1.1
+  animationSpeed: 10
 --- !u!1 &3497527063738049348
 GameObject:
   m_ObjectHideFlags: 0
@@ -3686,6 +3701,7 @@ GameObject:
   - component: {fileID: 1401406574155878556}
   - component: {fileID: 1384901552928037451}
   - component: {fileID: 8214763013789838339}
+  - component: {fileID: 2467509941101583574}
   m_Layer: 5
   m_Name: Craft
   m_TagString: Untagged
@@ -3806,6 +3822,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2467509941101583574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5866546300008688539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d39e1f8370227f4e9619b97daa832b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonHover
+  hoverScale: 1.1
+  animationSpeed: 10
 --- !u!1 &5942912909175937189
 GameObject:
   m_ObjectHideFlags: 0

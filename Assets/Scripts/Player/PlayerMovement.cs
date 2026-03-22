@@ -39,7 +39,8 @@ public class PlayerMovement : MonoBehaviour
         // Se nenhuma das anteriores for verdade, o jogador nasce no local padrão da cena
     }
 
-    void Update()
+    // FixedUpdate é chamado em um intervalo fixo (ideal para f�sica)
+    void FixedUpdate()
     {
         if (GameManager.Instance.inputBloqueado)
         {
@@ -53,13 +54,6 @@ public class PlayerMovement : MonoBehaviour
         // .normalized garante que o movimento na diagonal
         // nao seja mais rápido que o normal.
         moveInput = new Vector2(moveX, moveY).normalized;
-    }
-
-    // FixedUpdate é chamado em um intervalo fixo (ideal para f�sica)
-    void FixedUpdate()
-    {
-        // ANTES: rb.MovePosition(rb.position + moveInput * moveSpeed * Time.fixedDeltaTime);
-        // DEPOIS: Definimos a velocidade, e deixamos a f�sica cuidar do resto
         rb.linearVelocity = moveInput * moveSpeed;
     }
 

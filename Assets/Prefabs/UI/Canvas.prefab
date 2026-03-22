@@ -475,9 +475,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8793969481897377516}
     m_Modifications:
+    - target: {fileID: 420283675148387791, guid: 6939700f8b7516742aac741d0e7999c5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1139130987095949572, guid: 6939700f8b7516742aac741d0e7999c5, type: 3}
+      propertyPath: controlsPanel
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1968913682228523041, guid: 6939700f8b7516742aac741d0e7999c5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2586043702756827083, guid: 6939700f8b7516742aac741d0e7999c5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3261008117390521873, guid: 6939700f8b7516742aac741d0e7999c5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4954662085039269096, guid: 6939700f8b7516742aac741d0e7999c5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5813181905211318564, guid: 6939700f8b7516742aac741d0e7999c5, type: 3}
       propertyPath: m_Name
       value: PauseRoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005037014314419585, guid: 6939700f8b7516742aac741d0e7999c5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8282169833702197606, guid: 6939700f8b7516742aac741d0e7999c5, type: 3}
       propertyPath: m_Pivot.x
@@ -559,8 +587,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8625419965126614940, guid: 6939700f8b7516742aac741d0e7999c5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8929852544642140053, guid: 6939700f8b7516742aac741d0e7999c5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8929852544642140053, guid: 6939700f8b7516742aac741d0e7999c5, type: 3}
+    - {fileID: 7532481135615604977, guid: 6939700f8b7516742aac741d0e7999c5, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6939700f8b7516742aac741d0e7999c5, type: 3}

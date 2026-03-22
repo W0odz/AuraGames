@@ -118,6 +118,7 @@ GameObject:
   - component: {fileID: 88951311769827310}
   - component: {fileID: 1199614739526307629}
   - component: {fileID: 1238829062474553016}
+  - component: {fileID: 3469418036236548369}
   m_Layer: 5
   m_Name: Confirmar
   m_TagString: Untagged
@@ -226,6 +227,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3469418036236548369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338108295075813964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d39e1f8370227f4e9619b97daa832b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonHover
+  hoverScale: 1.1
+  animationSpeed: 10
 --- !u!1 &543624471006523967
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,6 +1046,7 @@ GameObject:
   - component: {fileID: 4996764400695078947}
   - component: {fileID: 978111075623219761}
   - component: {fileID: 5237014325229634454}
+  - component: {fileID: 1061871867112171861}
   m_Layer: 5
   m_Name: Cancelar
   m_TagString: Untagged
@@ -1139,6 +1155,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1061871867112171861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4700190502517240310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d39e1f8370227f4e9619b97daa832b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonHover
+  hoverScale: 1.1
+  animationSpeed: 10
 --- !u!1 &5308059680438745713
 GameObject:
   m_ObjectHideFlags: 0
