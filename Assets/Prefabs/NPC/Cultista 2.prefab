@@ -26,15 +26,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1955566823423358860}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 62.47, y: -27.474998, z: 0}
-  m_LocalScale: {x: -1.875, y: 1.875, z: 1.875}
+  m_LocalScale: {x: 1.875, y: 1.875, z: 1.875}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7977423624031260207}
   - {fileID: 2839776152690388399}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &4951375928657678689
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -156,10 +156,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3496791369687783572}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.02, y: 1.363, z: 0}
-  m_LocalScale: {x: -0.49999997, y: 0.49999997, z: 0.49999997}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 0.5, y: 0.49999997, z: 0.49999997}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 466439114542003508}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -319,4 +319,4 @@ MonoBehaviour:
   dialogoUnico: {fileID: 0}
   questVinculada: {fileID: 0}
   isMerchant: 0
-  indicador: {fileID: 0}
+  indicador: {fileID: 2159426963883038899}

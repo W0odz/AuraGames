@@ -86,7 +86,7 @@ MonoBehaviour:
   dialogoUnico: {fileID: 0}
   questVinculada: {fileID: 0}
   isMerchant: 0
-  indicador: {fileID: 0}
+  indicador: {fileID: 8040932246784013294}
 --- !u!1 &6927440882809047901
 GameObject:
   m_ObjectHideFlags: 0

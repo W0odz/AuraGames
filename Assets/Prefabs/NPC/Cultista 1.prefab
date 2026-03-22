@@ -26,15 +26,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7121248496030349273}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 62.350006, y: -30.925001, z: 0}
-  m_LocalScale: {x: -1.875, y: 1.875, z: 1.875}
+  m_LocalScale: {x: 1.875, y: 1.875, z: 1.875}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6545163093319463633}
   - {fileID: 8693792368740195974}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &8501059733103044368
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -156,9 +156,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7243987608134391057}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.081, y: 1.344, z: 0}
-  m_LocalScale: {x: -0.5, y: -0.5, z: -0.5}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1315060357740947925}
@@ -319,4 +319,4 @@ MonoBehaviour:
   dialogoUnico: {fileID: 0}
   questVinculada: {fileID: 0}
   isMerchant: 0
-  indicador: {fileID: 0}
+  indicador: {fileID: 869957074384863191}
