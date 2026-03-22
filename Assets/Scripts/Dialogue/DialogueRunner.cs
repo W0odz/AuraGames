@@ -23,7 +23,7 @@ public class DialogueRunner : MonoBehaviour
     public float alphaEscurecido = 0.4f;
 
     [Header("Indicador de botão (canto inferior direito do painel de diálogo)")]
-    [Tooltip("GameObject com o ícone do Mouse2 — ativado ao abrir o diálogo, desativado ao fechar.")]
+    [Tooltip("GameObject com o ícone do Mouse1 — ativado ao abrir o diálogo, desativado ao fechar.")]
     public GameObject indicadorAvancar;
 
     public DialogueAsset currentAsset;
