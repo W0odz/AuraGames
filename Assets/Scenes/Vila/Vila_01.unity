@@ -3061,6 +3061,11 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.8339386, y: 1.7625122}
   m_EdgeRadius: 0
+--- !u!1 &140057811 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1039385845470413857, guid: 7ee4226cde7a6ab4aaab81a38daa4d9a, type: 3}
+  m_PrefabInstance: {fileID: 727803495}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &143871279
 GameObject:
   m_ObjectHideFlags: 0
@@ -6934,7 +6939,7 @@ Transform:
   m_GameObject: {fileID: 241402054}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 157.7, y: -35.5, z: -10}
+  m_LocalPosition: {x: 149.09, y: -25.76, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19432,6 +19437,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 6413749963795544922, guid: 7ee4226cde7a6ab4aaab81a38daa4d9a, type: 3}
+      propertyPath: mapPanel
+      value: 
+      objectReference: {fileID: 140057811}
     - target: {fileID: 7151297171610165846, guid: 7ee4226cde7a6ab4aaab81a38daa4d9a, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -177120,11 +177129,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6533698976016816849, guid: 64c8f1e97c85169438488846248d355a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 63.31
+      value: 149.09
       objectReference: {fileID: 0}
     - target: {fileID: 6533698976016816849, guid: 64c8f1e97c85169438488846248d355a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -28.33
+      value: -25.75
       objectReference: {fileID: 0}
     - target: {fileID: 6533698976016816849, guid: 64c8f1e97c85169438488846248d355a, type: 3}
       propertyPath: m_LocalPosition.z

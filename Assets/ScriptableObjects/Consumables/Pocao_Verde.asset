@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pocao_Verde
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
   nomeItem: "Po\xE7\xE3o Verde"
-  descricao: 
+  descricao: Cura 10 de vida
   iconeItem: {fileID: -8594505581712603399, guid: f220ae0cc4f845543968ebfab524cbba, type: 3}
   tipoItem: 0
   slotOndeEquipa: 5
@@ -25,3 +25,4 @@ MonoBehaviour:
   bonusMaxHP: 0
   bonusMaxMP: 0
   apenasForaDeBatalha: 0
+  naoVendivel: 0
