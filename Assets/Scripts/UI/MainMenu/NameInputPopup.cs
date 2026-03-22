@@ -2,16 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-/// <summary>
-/// Popup de entrada de nome para novo jogo.
-/// O botão de confirmar fica bloqueado (interactable = false)
-/// enquanto o campo de nome estiver vazio ou só com espaços.
-///
-/// Como usar:
-///   1. Crie um painel no Canvas da TitleScreen com este script.
-///   2. Arraste o TMP_InputField e o Button de confirmar para os campos do Inspector.
-///   3. No SaveSlotUI, arraste este GameObject para o campo "namePopup".
-/// </summary>
 public class NameInputPopup : MonoBehaviour
 {
     [Header("Referências")]
