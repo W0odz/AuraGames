@@ -41,7 +41,7 @@ public class SaveSlotUI : MonoBehaviour
         if (data != null)
         {
             // --- SE EXISTE UM SAVE ---
-            levelText.text = "N�vel: " + data.playerLevel;
+            levelText.text = "Nível: " + data.playerLevel;
             loadButtonText.text = "Carregar";
 
             SetButtonInteractable(loadButton, true);
@@ -51,7 +51,7 @@ public class SaveSlotUI : MonoBehaviour
         else
         {
             // --- SE O SLOT EST� VAZIO ---
-            levelText.text = "N�vel: --";
+            levelText.text = "Nível: --";
 
             // Verifica se h� algo na "�rea de transfer�ncia"
             if (GameManager.dataToCopy != null)
