@@ -22,6 +22,10 @@ public class DialogueRunner : MonoBehaviour
     [Header("Cor de destaque / escurecimento")]
     public float alphaEscurecido = 0.4f;
 
+    [Header("Indicador de botão (canto inferior direito do painel de diálogo)")]
+    [Tooltip("GameObject com o ícone do Mouse2 — ativado ao abrir o diálogo, desativado ao fechar.")]
+    public GameObject indicadorAvancar;
+
     public DialogueAsset currentAsset;
     private int currentIndex = 0;
     private bool recentlyOpened = false;
@@ -59,14 +63,10 @@ public class DialogueRunner : MonoBehaviour
             return;
         }
 
-        if (Input.GetKey(KeyCode.E) && !_eSeguroAnterior)
+        // Botão de avanço trocado de KeyCode.E para Mouse1 (botão direito do mouse)
+        if (Input.GetMouseButtonDown(1))
         {
-            _eSeguroAnterior = true;
             AdvanceDialogue();
-        }
-        else if (!Input.GetKey(KeyCode.E))
-        {
-            _eSeguroAnterior = false;
         }
     }
 
@@ -144,6 +144,7 @@ public class DialogueRunner : MonoBehaviour
         AplicarPortraitFixo(rightPortrait, asset.portraitDireita);
 
         Time.timeScale = 0f;
+        if (indicadorAvancar != null) indicadorAvancar.SetActive(true);
         AvancarParaProximoNoVisivel();
     }
 
@@ -281,6 +282,7 @@ public class DialogueRunner : MonoBehaviour
             GameManager.Instance.FadeComAcao(() =>
             {
                 dialoguePanel.SetActive(false);
+                if (indicadorAvancar != null) indicadorAvancar.SetActive(false);
                 if (fundoImage != null)
                     fundoImage.gameObject.SetActive(false);
 
@@ -294,6 +296,7 @@ public class DialogueRunner : MonoBehaviour
         else
         {
             dialoguePanel.SetActive(false);
+            if (indicadorAvancar != null) indicadorAvancar.SetActive(false);
             if (fundoImage != null)
                 fundoImage.gameObject.SetActive(false);
 

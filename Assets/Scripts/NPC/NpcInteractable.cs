@@ -14,6 +14,11 @@ public class NpcInteractable : MonoBehaviour
     public QuestDefinition questVinculada;
 
     public bool isMerchant = false;
+
+    [Header("Indicador de interação (opcional)")]
+    [Tooltip("Arraste aqui o GameObject filho com o ícone [E]. Aparece quando o jogador está perto.")]
+    public InteractIndicator indicador;
+
     private bool playerNearby = false;
 
     // Tempo unscaled da última interação — evita reabrir o diálogo no mesmo frame que fechou
@@ -43,12 +48,20 @@ public class NpcInteractable : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) playerNearby = true;
+        if (other.CompareTag("Player"))
+        {
+            playerNearby = true;
+            if (indicador != null) indicador.Mostrar();
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) playerNearby = false;
+        if (other.CompareTag("Player"))
+        {
+            playerNearby = false;
+            if (indicador != null) indicador.Esconder();
+        }
     }
 
     void Update()
