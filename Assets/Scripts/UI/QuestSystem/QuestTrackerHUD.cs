@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -26,7 +24,7 @@ public class QuestTrackerHUD : MonoBehaviour
     [System.NonSerialized] private Coroutine coroutineNome;
     [System.NonSerialized] private Coroutine coroutineAutoOcultar;
     [System.NonSerialized] private QuestObjective objetivoExibido;
-    private bool painelOcultoManualmente = false; // true quando o player fechou com T
+    private bool painelOcultoManualmente = false;
 
     private void Awake()
     {
@@ -50,7 +48,6 @@ public class QuestTrackerHUD : MonoBehaviour
             QuestManager.Instance.onQuestCompleta += OnQuestCompleta;
             QuestManager.Instance.onQuestEntregue += OnQuestEntregue;
 
-            // Restaura o HUD se já há quest ativa ao carregar/voltar de cena
             var ativas = QuestManager.Instance.GetAllActive();
             if (ativas != null && ativas.Count > 0)
                 MostrarQuest(ativas[0]);
@@ -63,19 +60,17 @@ public class QuestTrackerHUD : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.T))
         {
             if (GameManager.Instance != null && GameManager.Instance.inputBloqueado) return;
 
             if (painel != null && painel.activeSelf)
             {
-                // Ocultar manualmente
                 IniciarAutoOcultar(imediato: true);
                 painelOcultoManualmente = true;
             }
             else if (questAtual != null)
             {
-                // Reexibir
                 painelOcultoManualmente = false;
                 ReexibirPainel();
             }
@@ -134,7 +129,6 @@ public class QuestTrackerHUD : MonoBehaviour
             return;
         }
 
-        // Nova quest iniciada: reset do estado de ocultação manual
         if (questAtual == null || questAtual.questId != def.questId)
             painelOcultoManualmente = false;
 
@@ -163,7 +157,6 @@ public class QuestTrackerHUD : MonoBehaviour
 
         IniciarPolling();
 
-        // Reinicia textos com alpha 1 e inicia timer de auto-ocultar
         if (!painelOcultoManualmente)
             IniciarAutoOcultar(imediato: false);
     }
@@ -210,7 +203,6 @@ public class QuestTrackerHUD : MonoBehaviour
         if (painel != null)
             painel.SetActive(true);
 
-        // Restaurar alpha dos textos
         if (textoNomeQuest != null)
         {
             Color c = textoNomeQuest.color;
@@ -224,7 +216,6 @@ public class QuestTrackerHUD : MonoBehaviour
             textoObjetivo.color = c;
         }
 
-        // Reinicia o timer de auto-ocultar
         IniciarAutoOcultar(imediato: false);
         IniciarPolling();
     }
@@ -239,7 +230,6 @@ public class QuestTrackerHUD : MonoBehaviour
         coroutineAutoOcultar = StartCoroutine(AutoOcultarCoroutine(imediato));
     }
 
->>>>>>> Stashed changes
     private IEnumerator AutoOcultarCoroutine(bool imediato)
     {
         if (!imediato)
@@ -247,12 +237,11 @@ public class QuestTrackerHUD : MonoBehaviour
 
         // Fade out nome e objetivo ao mesmo tempo
         float elapsed = 0f;
-        float alphaInicio = 1f;
 
         while (elapsed < duracaoFade)
         {
             elapsed += Time.unscaledDeltaTime;
-            float alpha = Mathf.Lerp(alphaInicio, 0f, elapsed / duracaoFade);
+            float alpha = Mathf.Lerp(1f, 0f, elapsed / duracaoFade);
 
             if (textoNomeQuest != null)
             {
@@ -269,10 +258,150 @@ public class QuestTrackerHUD : MonoBehaviour
             yield return null;
         }
 
-        // Garantir alpha 0
         if (textoNomeQuest != null) { Color c = textoNomeQuest.color; c.a = 0f; textoNomeQuest.color = c; }
         if (textoObjetivo != null)  { Color c = textoObjetivo.color;  c.a = 0f; textoObjetivo.color = c; }
 
         if (painel != null)
             painel.SetActive(false);
+    }
+
+    private void IniciarPolling()
+    {
+        if (coroutinePolling != null)
+        {
+            StopCoroutine(coroutinePolling);
+            coroutinePolling = null;
+        }
+        coroutinePolling = StartCoroutine(PollingCoroutine());
+    }
+
+    private IEnumerator PollingCoroutine()
+    {
+        while (painel != null && painel.activeSelf)
+        {
+            if (questAtual == null) yield break;
+
+            if (objetivoExibido == null)
+            {
+                yield break;
+            }
+
+            if (objetivoExibido.EstaCompleto())
+            {
+                QuestObjective proximo = ObterProximoObjetivo(questAtual, objetivoExibido);
+                if (proximo != null)
+                {
+                    IniciarAnimacaoTransicao(objetivoExibido, proximo);
+                    objetivoExibido = proximo;
+                }
+                else
+                {
+                    if (textoObjetivo != null)
+                        textoObjetivo.text = $"<voffset=0.15em><s>{{objetivoExibido.descricao}}</s></voffset>";
+                }
+                yield break;
+            }
+
+            if (textoObjetivo != null)
+                textoObjetivo.text = FormatarObjetivo(objetivoExibido);
+
+            yield return new WaitForSecondsRealtime(intervaloPolling);
+        }
+    }
+
+    private QuestObjective ObterProximoObjetivo(QuestDefinition def, QuestObjective atual)
+    {
+        if (def == null || def.objetivos == null) return null;
+
+        bool encontrouAtual = false;
+        foreach (var obj in def.objetivos)
+        {
+            if (obj == null) continue;
+            if (encontrouAtual && !obj.EstaCompleto())
+                return obj;
+            if (obj == atual)
+                encontrouAtual = true;
+        }
+        return null;
+    }
+
+    private void IniciarAnimacaoTransicao(QuestObjective objetivoConcluido, QuestObjective proximo)
+    {
+        if (coroutineAnimacao != null)
+        {
+            StopCoroutine(coroutineAnimacao);
+            coroutineAnimacao = null;
+        }
+        coroutineAnimacao = StartCoroutine(AnimacaoTransicao(objetivoConcluido, proximo));
+    }
+
+    private IEnumerator AnimacaoTransicao(QuestObjective objetivoConcluido, QuestObjective proximo)
+    {
+        if (textoObjetivo == null) yield break;
+
+        textoObjetivo.text = $"<voffset=0.15em><s>{{objetivoConcluido.descricao}}</s></voffset>";
+
+        yield return new WaitForSecondsRealtime(pausaRiscado);
+
+        yield return StartCoroutine(FadeTextoObjetivo(1f, 0f));
+
+        textoObjetivo.text = FormatarObjetivo(proximo);
+
+        yield return StartCoroutine(FadeTextoObjetivo(0f, 1f));
+
+        IniciarPolling();
+    }
+
+    private IEnumerator FadeTextoObjetivo(float de, float para)
+    {
+        if (textoObjetivo == null) yield break;
+
+        float elapsed = 0f;
+        Color c = textoObjetivo.color;
+        c.a = de;
+        textoObjetivo.color = c;
+
+        while (elapsed < duracaoFade)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            c.a = Mathf.Lerp(de, para, elapsed / duracaoFade);
+            textoObjetivo.color = c;
+            yield return null;
+        }
+
+        c.a = para;
+        textoObjetivo.color = c;
+    }
+
+    private IEnumerator FadeTextoNome(float de, float para)
+    {
+        if (textoNomeQuest == null) yield break;
+
+        float elapsed = 0f;
+        Color c = textoNomeQuest.color;
+        c.a = de;
+        textoNomeQuest.color = c;
+
+        while (elapsed < duracaoFade)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            c.a = Mathf.Lerp(de, para, elapsed / duracaoFade);
+            textoNomeQuest.color = c;
+            yield return null;
+        }
+
+        c.a = para;
+        textoNomeQuest.color = c;
+    }
+
+    private IEnumerator AnimacaoQuestCompleta(QuestDefinition def)
+    {
+        if (def == null) yield break;
+
+        if (textoNomeQuest != null)
+            textoNomeQuest.text = $"<voffset=0.15em><s>{{def.questName}}</s></voffset>";
+
+        yield return new WaitForSecondsRealtime(pausaRiscado);
+
+        yield return StartCoroutine(FadeTextoNome(1f, 0f));
     }
