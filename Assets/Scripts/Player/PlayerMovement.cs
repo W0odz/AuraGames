@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
     [SerializeField] private float enemySafeRadiusOnReturn = 2.5f;
 
@@ -15,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>(); // Pega a referência do Rigidbody
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Start()
@@ -39,11 +43,13 @@ public class PlayerMovement : MonoBehaviour
         // Se nenhuma das anteriores for verdade, o jogador nasce no local padrão da cena
     }
 
-    void Update()
+    // FixedUpdate é chamado em um intervalo fixo (ideal para f�sica)
+    void FixedUpdate()
     {
         if (GameManager.Instance.inputBloqueado)
         {
             rb.linearVelocity = Vector2.zero; // para o jogador
+            if (animator != null) animator.SetFloat("Speed", 0f);
             return;
         }
         // Pega o input do teclado (Setas ou WASD)
@@ -53,14 +59,18 @@ public class PlayerMovement : MonoBehaviour
         // .normalized garante que o movimento na diagonal
         // nao seja mais rápido que o normal.
         moveInput = new Vector2(moveX, moveY).normalized;
-    }
-
-    // FixedUpdate é chamado em um intervalo fixo (ideal para f�sica)
-    void FixedUpdate()
-    {
-        // ANTES: rb.MovePosition(rb.position + moveInput * moveSpeed * Time.fixedDeltaTime);
-        // DEPOIS: Definimos a velocidade, e deixamos a f�sica cuidar do resto
         rb.linearVelocity = moveInput * moveSpeed;
+
+        // Animação
+        if (animator != null)
+            animator.SetFloat("Speed", moveInput.magnitude);
+
+        // Flip horizontal
+        if (spriteRenderer != null)
+        {
+            if (moveInput.x < 0f) spriteRenderer.flipX = true;
+            else if (moveInput.x > 0f) spriteRenderer.flipX = false;
+        }
     }
 
 

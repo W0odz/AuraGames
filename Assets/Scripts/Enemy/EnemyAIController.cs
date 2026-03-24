@@ -13,6 +13,10 @@ public class EnemyAIController : MonoBehaviour
     public float wanderSpeed = 2f;
     public float chaseSpeed = 4f;
 
+    [Header("Wandering")]
+    [Tooltip("Raio máximo em unidades para escolher o próximo ponto de wander. Mantenha pequeno em corredores estreitos.")]
+    public float wanderRadius = 3f;
+
     [Header("Identidade de Batalha")]
     public GameObject battlePrefab;
     public bool isBoss = false;
@@ -44,9 +48,10 @@ public class EnemyAIController : MonoBehaviour
     public string enemyID;
 
     // --- VARIÁVEIS INTERNAS ---
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Animator animator;
     private Rigidbody2D rb;
     private Transform playerToChase;
-    private SpriteRenderer spriteRenderer;
     private Vector2 moveDirection;
     private Vector2 wanderTarget;
     private Bounds bounds;
@@ -62,6 +67,7 @@ public class EnemyAIController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     void Start()
@@ -115,10 +121,22 @@ public class EnemyAIController : MonoBehaviour
         if (isEstatico)
         {
             rb.linearVelocity = Vector2.zero;
+            if (animator != null) animator.SetFloat("Speed", 0f);
             return;
         }
 
         rb.linearVelocity = moveDirection * currentMoveSpeed;
+
+        // Animação
+        if (animator != null)
+            animator.SetFloat("Speed", moveDirection.magnitude);
+
+        // Flip horizontal
+        if (spriteRenderer != null)
+        {
+            if (moveDirection.x > 0f) spriteRenderer.flipX = true;
+            else if (moveDirection.x < 0f) spriteRenderer.flipX = false;
+        }
     }
     #endregion
 
@@ -179,13 +197,14 @@ public class EnemyAIController : MonoBehaviour
         int attempts = 0;
         do
         {
-            float randomX = Random.Range(bounds.min.x, bounds.max.x);
-            float randomY = Random.Range(bounds.min.y, bounds.max.y);
-            wanderTarget = new Vector2(randomX, randomY);
+            // Escolhe um ponto próximo ao inimigo dentro do raio definido
+            Vector2 randomOffset = Random.insideUnitCircle * wanderRadius;
+            wanderTarget = (Vector2)transform.position + randomOffset;
 
             attempts++;
             if (attempts > 50)
             {
+                // Não encontrou ponto válido — fica parado e tenta novamente depois
                 wanderTarget = transform.position;
                 break;
             }

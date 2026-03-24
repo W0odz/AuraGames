@@ -709,7 +709,7 @@ PrefabInstance:
     - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: controlsPanel
       value: 
-      objectReference: {fileID: 376564385}
+      objectReference: {fileID: 0}
     - target: {fileID: 2207976064434011169, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.28455
@@ -2413,7 +2413,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!1 &376564385 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1222084398560309630, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1231538210993400972, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
   m_PrefabInstance: {fileID: 376564381}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &376564386 stripped
@@ -51451,6 +51451,10 @@ PrefabInstance:
       propertyPath: rightPortrait
       value: 
       objectReference: {fileID: 1760074020}
+    - target: {fileID: 6788394771900257917, guid: 11918436010044747b5d4eb3232f84b8, type: 3}
+      propertyPath: indicadorAvancar
+      value: 
+      objectReference: {fileID: 376564385}
     - target: {fileID: 7830755680491969307, guid: 11918436010044747b5d4eb3232f84b8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.19884
@@ -52149,6 +52153,7 @@ MonoBehaviour:
   dialogoUnico: {fileID: 11400000, guid: 3eb1606af5f90c3498d346b1d6977b3b, type: 2}
   questVinculada: {fileID: 0}
   isMerchant: 0
+  indicador: {fileID: 0}
 --- !u!114 &1921068165
 MonoBehaviour:
   m_ObjectHideFlags: 0

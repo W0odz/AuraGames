@@ -16,12 +16,15 @@ public class QuestTrackerHUD : MonoBehaviour
     public float intervaloPolling = 0.25f;
     public float duracaoFade = 0.3f;
     public float pausaRiscado = 1.0f;
+    public float tempoAutoOcultar = 5f; // segundos até o painel sumir sozinho após ser exibido
 
     [System.NonSerialized] private QuestDefinition questAtual;
     [System.NonSerialized] private Coroutine coroutinePolling;
     [System.NonSerialized] private Coroutine coroutineAnimacao;
     [System.NonSerialized] private Coroutine coroutineNome;
+    [System.NonSerialized] private Coroutine coroutineAutoOcultar;
     [System.NonSerialized] private QuestObjective objetivoExibido;
+    private bool painelOcultoManualmente = false;
 
     private void Awake()
     {
@@ -45,7 +48,6 @@ public class QuestTrackerHUD : MonoBehaviour
             QuestManager.Instance.onQuestCompleta += OnQuestCompleta;
             QuestManager.Instance.onQuestEntregue += OnQuestEntregue;
 
-            // Restaura o HUD se já há quest ativa ao carregar/voltar de cena
             var ativas = QuestManager.Instance.GetAllActive();
             if (ativas != null && ativas.Count > 0)
                 MostrarQuest(ativas[0]);
@@ -56,12 +58,32 @@ public class QuestTrackerHUD : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (GameManager.Instance != null && GameManager.Instance.inputBloqueado) return;
+
+            if (painel != null && painel.activeSelf)
+            {
+                IniciarAutoOcultar(imediato: true);
+                painelOcultoManualmente = true;
+            }
+            else if (questAtual != null)
+            {
+                painelOcultoManualmente = false;
+                ReexibirPainel();
+            }
+        }
+    }
+
     private void OnDisable()
     {
         StopAllCoroutines();
         coroutinePolling = null;
         coroutineAnimacao = null;
         coroutineNome = null;
+        coroutineAutoOcultar = null;
         objetivoExibido = null;
 
         if (QuestManager.Instance != null)
@@ -107,6 +129,9 @@ public class QuestTrackerHUD : MonoBehaviour
             return;
         }
 
+        if (questAtual == null || questAtual.questId != def.questId)
+            painelOcultoManualmente = false;
+
         questAtual = def;
         objetivoExibido = ObterPrimeiroObjetivoIncompleto(def);
 
@@ -131,6 +156,9 @@ public class QuestTrackerHUD : MonoBehaviour
             painel.SetActive(true);
 
         IniciarPolling();
+
+        if (!painelOcultoManualmente)
+            IniciarAutoOcultar(imediato: false);
     }
 
     private QuestObjective ObterObjetivoAtual(QuestDefinition def)
@@ -168,6 +196,75 @@ public class QuestTrackerHUD : MonoBehaviour
         return obj.descricao;
     }
 
+    private void ReexibirPainel()
+    {
+        if (questAtual == null) return;
+
+        if (painel != null)
+            painel.SetActive(true);
+
+        if (textoNomeQuest != null)
+        {
+            Color c = textoNomeQuest.color;
+            c.a = 1f;
+            textoNomeQuest.color = c;
+        }
+        if (textoObjetivo != null)
+        {
+            Color c = textoObjetivo.color;
+            c.a = 1f;
+            textoObjetivo.color = c;
+        }
+
+        IniciarAutoOcultar(imediato: false);
+        IniciarPolling();
+    }
+
+    private void IniciarAutoOcultar(bool imediato)
+    {
+        if (coroutineAutoOcultar != null)
+        {
+            StopCoroutine(coroutineAutoOcultar);
+            coroutineAutoOcultar = null;
+        }
+        coroutineAutoOcultar = StartCoroutine(AutoOcultarCoroutine(imediato));
+    }
+
+    private IEnumerator AutoOcultarCoroutine(bool imediato)
+    {
+        if (!imediato)
+            yield return new WaitForSecondsRealtime(tempoAutoOcultar);
+
+        // Fade out nome e objetivo ao mesmo tempo
+        float elapsed = 0f;
+
+        while (elapsed < duracaoFade)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, elapsed / duracaoFade);
+
+            if (textoNomeQuest != null)
+            {
+                Color c = textoNomeQuest.color;
+                c.a = alpha;
+                textoNomeQuest.color = c;
+            }
+            if (textoObjetivo != null)
+            {
+                Color c = textoObjetivo.color;
+                c.a = alpha;
+                textoObjetivo.color = c;
+            }
+            yield return null;
+        }
+
+        if (textoNomeQuest != null) { Color c = textoNomeQuest.color; c.a = 0f; textoNomeQuest.color = c; }
+        if (textoObjetivo != null)  { Color c = textoObjetivo.color;  c.a = 0f; textoObjetivo.color = c; }
+
+        if (painel != null)
+            painel.SetActive(false);
+    }
+
     private void IniciarPolling()
     {
         if (coroutinePolling != null)
@@ -186,7 +283,6 @@ public class QuestTrackerHUD : MonoBehaviour
 
             if (objetivoExibido == null)
             {
-                // Todos os objetivos concluídos — mantém o último riscado até onQuestEntregue
                 yield break;
             }
 
@@ -200,14 +296,12 @@ public class QuestTrackerHUD : MonoBehaviour
                 }
                 else
                 {
-                    // Último objetivo — mostrar riscado e aguardar entrega
                     if (textoObjetivo != null)
-                        textoObjetivo.text = $"<voffset=0.15em><s>{objetivoExibido.descricao}</s></voffset>";
+                        textoObjetivo.text = $"<voffset=0.15em><s>{{objetivoExibido.descricao}}</s></voffset>";
                 }
                 yield break;
             }
 
-            // Atualiza contagem em tempo real
             if (textoObjetivo != null)
                 textoObjetivo.text = FormatarObjetivo(objetivoExibido);
 
@@ -245,22 +339,16 @@ public class QuestTrackerHUD : MonoBehaviour
     {
         if (textoObjetivo == null) yield break;
 
-        // 1. Mostrar riscado
-        textoObjetivo.text = $"<voffset=0.15em><s>{objetivoConcluido.descricao}</s></voffset>";
+        textoObjetivo.text = $"<voffset=0.15em><s>{{objetivoConcluido.descricao}}</s></voffset>";
 
-        // 2. Aguardar pausa (unscaled — não para com timeScale = 0)
-        yield return new WaitForSecondsRealtime(pausaRiscado); // ← corrigido
+        yield return new WaitForSecondsRealtime(pausaRiscado);
 
-        // 3. Fade out
         yield return StartCoroutine(FadeTextoObjetivo(1f, 0f));
 
-        // 4. Trocar para o próximo objetivo (com alpha 0)
         textoObjetivo.text = FormatarObjetivo(proximo);
 
-        // 5. Fade in
         yield return StartCoroutine(FadeTextoObjetivo(0f, 1f));
 
-        // Reiniciar polling para o novo objetivo
         IniciarPolling();
     }
 
@@ -275,7 +363,7 @@ public class QuestTrackerHUD : MonoBehaviour
 
         while (elapsed < duracaoFade)
         {
-            elapsed += Time.unscaledDeltaTime; // ← corrigido
+            elapsed += Time.unscaledDeltaTime;
             c.a = Mathf.Lerp(de, para, elapsed / duracaoFade);
             textoObjetivo.color = c;
             yield return null;
@@ -310,14 +398,10 @@ public class QuestTrackerHUD : MonoBehaviour
     {
         if (def == null) yield break;
 
-        // 1. Aplicar strikethrough no nome
         if (textoNomeQuest != null)
-            textoNomeQuest.text = $"<voffset=0.15em><s>{def.questName}</s></voffset>";
+            textoNomeQuest.text = $"<voffset=0.15em><s>{{def.questName}}</s></voffset>";
 
-        // 2. Aguardar a mesma pausa do riscado
         yield return new WaitForSecondsRealtime(pausaRiscado);
 
-        // 3. Fade out do nome
         yield return StartCoroutine(FadeTextoNome(1f, 0f));
     }
-}
