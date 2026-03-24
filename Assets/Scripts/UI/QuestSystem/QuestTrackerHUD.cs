@@ -259,7 +259,7 @@ public class QuestTrackerHUD : MonoBehaviour
         }
 
         if (textoNomeQuest != null) { Color c = textoNomeQuest.color; c.a = 0f; textoNomeQuest.color = c; }
-        if (textoObjetivo != null)  { Color c = textoObjetivo.color;  c.a = 0f; textoObjetivo.color = c; }
+        if (textoObjetivo != null) { Color c = textoObjetivo.color; c.a = 0f; textoObjetivo.color = c; }
 
         if (painel != null)
             painel.SetActive(false);
@@ -405,3 +405,4 @@ public class QuestTrackerHUD : MonoBehaviour
 
         yield return StartCoroutine(FadeTextoNome(1f, 0f));
     }
+}
