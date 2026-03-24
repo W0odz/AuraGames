@@ -62,7 +62,7 @@ public class QuestTrackerHUD : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             if (GameManager.Instance != null && GameManager.Instance.inputBloqueado) return;
 
