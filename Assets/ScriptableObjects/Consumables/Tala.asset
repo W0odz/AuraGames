@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
   nomeItem: Tala
   descricao: Ajuda as partes machucadas do seu corpo a se regenerar
-  iconeItem: {fileID: 0}
-  valorOuro: 0
+  iconeItem: {fileID: -2984038399970193385, guid: 12b620661b1e33d498dfc9a1406880a3, type: 3}
   tipoItem: 0
   slotOndeEquipa: 5
   efeitosDoItem: []
+  valorEscambo: 1
   bonusStrength: 0
   bonusResistance: 0
   bonusMaxHP: 0
   bonusMaxMP: 0
+  apenasForaDeBatalha: 0
+  naoVendivel: 0
