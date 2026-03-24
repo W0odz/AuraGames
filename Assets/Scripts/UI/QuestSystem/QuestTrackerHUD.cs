@@ -16,12 +16,15 @@ public class QuestTrackerHUD : MonoBehaviour
     public float intervaloPolling = 0.25f;
     public float duracaoFade = 0.3f;
     public float pausaRiscado = 1.0f;
+    public float tempoAutoOcultar = 5f; // segundos até o painel sumir sozinho após ser exibido
 
     [System.NonSerialized] private QuestDefinition questAtual;
     [System.NonSerialized] private Coroutine coroutinePolling;
     [System.NonSerialized] private Coroutine coroutineAnimacao;
     [System.NonSerialized] private Coroutine coroutineNome;
+    [System.NonSerialized] private Coroutine coroutineAutoOcultar;
     [System.NonSerialized] private QuestObjective objetivoExibido;
+    private bool painelOcultoManualmente = false; // true quando o player fechou com T
 
     private void Awake()
     {
@@ -56,12 +59,34 @@ public class QuestTrackerHUD : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (GameManager.Instance != null && GameManager.Instance.inputBloqueado) return;
+
+            if (painel != null && painel.activeSelf)
+            {
+                // Ocultar manualmente
+                IniciarAutoOcultar(imediato: true);
+                painelOcultoManualmente = true;
+            }
+            else if (questAtual != null)
+            {
+                // Reexibir
+                painelOcultoManualmente = false;
+                ReexibirPainel();
+            }
+        }
+    }
+
     private void OnDisable()
     {
         StopAllCoroutines();
         coroutinePolling = null;
         coroutineAnimacao = null;
         coroutineNome = null;
+        coroutineAutoOcultar = null;
         objetivoExibido = null;
 
         if (QuestManager.Instance != null)
@@ -107,6 +132,10 @@ public class QuestTrackerHUD : MonoBehaviour
             return;
         }
 
+        // Nova quest iniciada: reset do estado de ocultação manual
+        if (questAtual == null || questAtual.questId != def.questId)
+            painelOcultoManualmente = false;
+
         questAtual = def;
         objetivoExibido = ObterPrimeiroObjetivoIncompleto(def);
 
@@ -131,6 +160,10 @@ public class QuestTrackerHUD : MonoBehaviour
             painel.SetActive(true);
 
         IniciarPolling();
+
+        // Reinicia textos com alpha 1 e inicia timer de auto-ocultar
+        if (!painelOcultoManualmente)
+            IniciarAutoOcultar(imediato: false);
     }
 
     private QuestObjective ObterObjetivoAtual(QuestDefinition def)
@@ -166,6 +199,57 @@ public class QuestTrackerHUD : MonoBehaviour
             return $"{obj.descricao} ({obj.progressoAtual}/{obj.quantidadeNecessaria})";
 
         return obj.descricao;
+    }
+
+    private void ReexibirPainel()
+    {
+        if (questAtual == null) return;
+
+        if (painel != null)
+            painel.SetActive(true);
+
+        // Restaurar alpha dos textos
+        if (textoNomeQuest != null)
+        {
+            Color c = textoNomeQuest.color;
+            c.a = 1f;
+            textoNomeQuest.color = c;
+        }
+        if (textoObjetivo != null)
+        {
+            Color c = textoObjetivo.color;
+            c.a = 1f;
+            textoObjetivo.color = c;
+        }
+
+        // Reinicia o timer de auto-ocultar
+        IniciarAutoOcultar(imediato: false);
+        IniciarPolling();
+    }
+
+    private void IniciarAutoOcultar(bool imediato)
+    {
+        if (coroutineAutoOcultar != null)
+        {
+            StopCoroutine(coroutineAutoOcultar);
+            coroutineAutoOcultar = null;
+        }
+        coroutineAutoOcultar = StartCoroutine(AutoOcultarCoroutine(imediato));
+    }
+
+    private IEnumerator AutoOcultarCoroutine(bool imediato)
+    {
+        if (!imediato)
+            yield return new WaitForSecondsRealtime(tempoAutoOcultar);
+
+        // Fade out nome
+        yield return StartCoroutine(FadeTextoNome(textoNomeQuest != null ? textoNomeQuest.color.a : 1f, 0f));
+
+        // Fade out objetivo
+        yield return StartCoroutine(FadeTextoObjetivo(textoObjetivo != null ? textoObjetivo.color.a : 1f, 0f));
+
+        if (painel != null)
+            painel.SetActive(false);
     }
 
     private void IniciarPolling()
