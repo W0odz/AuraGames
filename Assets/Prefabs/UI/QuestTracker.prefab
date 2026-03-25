@@ -130,7 +130,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 3.6150513}
+  m_margin: {x: 0, y: 0, z: 31.559265, w: 3.6150513}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 29.034546, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -327,6 +327,7 @@ MonoBehaviour:
   intervaloPolling: 0.25
   duracaoFade: 0.3
   pausaRiscado: 1
+  tempoAutoOcultar: 5
 --- !u!1 &5339387322139037844
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,7 +396,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1355933938123083476, guid: 63be1e902be4b654aaa1990a850895ce, type: 3}
+  m_Sprite: {fileID: 9049257880029704727, guid: 47767fb8a96a3fc4a8f92b6ba14d6cc4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -418,10 +419,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.VerticalLayoutGroup
   m_Padding:
-    m_Left: 80
+    m_Left: 100
     m_Right: 10
     m_Top: 50
-    m_Bottom: 8
+    m_Bottom: 50
   m_ChildAlignment: 0
   m_Spacing: -25
   m_ChildForceExpandWidth: 1

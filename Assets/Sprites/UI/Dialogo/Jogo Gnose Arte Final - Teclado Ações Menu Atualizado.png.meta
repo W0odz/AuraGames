@@ -1,0 +1,533 @@
+fileFormatVersion: 2
+guid: a98c86b9059d62941952837fed0f2204
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5327409634123184342
+    second: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_0"
+  - first:
+      213: -4252756262455759350
+    second: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_1"
+  - first:
+      213: 2911185508620669335
+    second: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_2"
+  - first:
+      213: 8672512849326299878
+    second: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_3"
+  - first:
+      213: -3079313341414809822
+    second: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_4"
+  - first:
+      213: -8066898417975028556
+    second: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_5"
+  - first:
+      213: -3179718118122473538
+    second: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_6"
+  - first:
+      213: -6258028077628504199
+    second: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_7"
+  - first:
+      213: -2935358474168538774
+    second: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_8"
+  - first:
+      213: -1704556106856870359
+    second: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_9"
+  - first:
+      213: -4285393599574936113
+    second: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_10"
+  - first:
+      213: 6672607758284868374
+    second: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_11"
+  - first:
+      213: -8302461361737265557
+    second: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_12"
+  - first:
+      213: -8968486563607778842
+    second: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_13"
+  - first:
+      213: 5938238641361359924
+    second: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_14"
+  - first:
+      213: 8962610407332087354
+    second: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_15"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_0"
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 269
+        width: 20
+        height: 226
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d8f7ee16d2cee940800000000000000
+      internalID: 5327409634123184342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_1"
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 476
+        width: 82
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0ea10c16bc2bf4c0800000000000000
+      internalID: -4252756262455759350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_2"
+      rect:
+        serializedVersion: 2
+        x: 1015
+        y: 96
+        width: 183
+        height: 395
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7919994cbcb966820800000000000000
+      internalID: 2911185508620669335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_3"
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 253
+        width: 128
+        height: 172
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6eada1ecc74fa5870800000000000000
+      internalID: 8672512849326299878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_4"
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 413
+        width: 52
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22f59d4b4d41445d0800000000000000
+      internalID: -3079313341414809822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_5"
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 261
+        width: 41
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b4107d01ae9c0090800000000000000
+      internalID: -8066898417975028556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_6"
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 353
+        width: 73
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb7bf6be73f5fd3d0800000000000000
+      internalID: -3179718118122473538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_7"
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 314
+        width: 120
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 977488eae940729a0800000000000000
+      internalID: -6258028077628504199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_8"
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 139
+        width: 736
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6960ca15038347d0800000000000000
+      internalID: -2935358474168538774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_9"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 228
+        width: 124
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92ec21f70433858e0800000000000000
+      internalID: -1704556106856870359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_10"
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 75
+        width: 159
+        height: 161
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc57a96e9393784c0800000000000000
+      internalID: -4285393599574936113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_11"
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 231
+        width: 83
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61bc516376dd99c50800000000000000
+      internalID: 6672607758284868374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_12"
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 232
+        width: 47
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6e8e3c316bb7cc80800000000000000
+      internalID: -8302461361737265557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_13"
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 232
+        width: 47
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e96b4bccf8898380800000000000000
+      internalID: -8968486563607778842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_14"
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 0
+        width: 190
+        height: 230
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43497d9059cd86250800000000000000
+      internalID: 5938238641361359924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_15"
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 68
+        width: 812
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a368f35fda6916c70800000000000000
+      internalID: 8962610407332087354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_0": 5327409634123184342
+      "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_1": -4252756262455759350
+      "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_10": -4285393599574936113
+      "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_11": 6672607758284868374
+      "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_12": -8302461361737265557
+      "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_13": -8968486563607778842
+      "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_14": 5938238641361359924
+      "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_15": 8962610407332087354
+      "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_2": 2911185508620669335
+      "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_3": 8672512849326299878
+      "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_4": -3079313341414809822
+      "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_5": -8066898417975028556
+      "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_6": -3179718118122473538
+      "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_7": -6258028077628504199
+      "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_8": -2935358474168538774
+      "Jogo Gnose Arte Final - Teclado A\xE7\xF5es Menu Atualizado_9": -1704556106856870359
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
