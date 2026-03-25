@@ -11,7 +11,7 @@ public class SlotEstoque
 public class NpcMerchant : MonoBehaviour
 {
     [Header("Visual do Menu")]
-    public Sprite fundoMenu; // ← null = usa o fundo padrão
+    public Sprite fundoMenu;
 
     [Header("Escambo — Tolerância")]
     [Range(0f, 1f)]
@@ -21,29 +21,28 @@ public class NpcMerchant : MonoBehaviour
     public SlotEstoque[] estoque;
 
     [Header("Falas")]
-    public string falaSaudacao = "O que você tem pra trocar?";
-    public string falaMuitoAcima = "Opa... isso é um ótimo negócio pra mim!";
-    public string falaAcima = "Hmm... isso me parece justo.";
-    public string falaIdeal = "...";
-    public string falaAbaixo = "Ainda está pouco... talvez se melhorar a oferta.";
+    public string falaSaudacao    = "O que você tem pra trocar?";
+    public string falaMuitoAcima  = "Espera... você está me oferecendo demais. Isso não me parece certo.";
+    public string falaAcima       = "Opa... isso é um ótimo negócio pra mim!";
+    public string falaIdeal       = "Hmm... isso me parece justo.";
+    public string falaAbaixo      = "Ainda está pouco... talvez se melhorar a oferta.";
     public string falaMuitoAbaixo = "Não, não, isso não vale nem perto do que você quer.";
-    public string falaSucesso = "Negócio feito!";
+    public string falaSucesso     = "Negócio feito!";
 
     public string AvaliarComFala(int valorOferecido, int valorDesejado)
     {
-
         var av = EscamboSystem.Avaliar(valorOferecido, valorDesejado, tolerancia);
         return av switch
         {
-            EscamboSystem.AvaliacaoTroca.MuitoAcima => falaMuitoAcima,
-            EscamboSystem.AvaliacaoTroca.Acima => falaAcima,
-            EscamboSystem.AvaliacaoTroca.Ideal => falaIdeal,
-            EscamboSystem.AvaliacaoTroca.Abaixo => falaAbaixo,
-            _ => falaMuitoAbaixo
+            EscamboSystem.AvaliacaoTroca.MuitoAcima  => falaMuitoAcima,
+            EscamboSystem.AvaliacaoTroca.Acima       => falaAcima,
+            EscamboSystem.AvaliacaoTroca.Ideal       => falaIdeal,
+            EscamboSystem.AvaliacaoTroca.Abaixo      => falaAbaixo,
+            _                                        => falaMuitoAbaixo
         };
     }
 
-    // Decrementa a quantidade após a troca — remove o slot se chegar a 0
+    // Decrementa a quantidade após a troca — zera o slot se chegar a 0
     public void ConsumirDoEstoque(DadosItem item, int qty)
     {
         for (int i = 0; i < estoque.Length; i++)
@@ -53,7 +52,6 @@ public class NpcMerchant : MonoBehaviour
                 estoque[i].quantidade -= qty;
                 if (estoque[i].quantidade <= 0)
                 {
-                    // Remove o slot zerando o item
                     estoque[i].item = null;
                     estoque[i].quantidade = 0;
                 }
