@@ -4969,9 +4969,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 11500000, guid: 2ee464a8f7cde9245883a243f805fb4e, type: 3}
         m_TargetAssemblyTypeName: CraftingUIManager, Assembly-CSharp
-        m_MethodName: CraftItem
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

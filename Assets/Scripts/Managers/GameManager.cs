@@ -263,7 +263,7 @@ Quem fez isso? Veja a linha abaixo no stack trace.");
         // Garante que PlayerPrefs (volumes de áudio, configurações) sejam gravados em disco
         PlayerPrefs.Save();
 
-        Debug.Log("[GameManager] Graceful shutdown concluído. Progresso não salvo desde a última Fogueira foi descartado (comportamento esperado).);
+        Debug.Log("[GameManager] Graceful shutdown concluído. Progresso não salvo desde a última Fogueira foi descartado (comportamento esperado).");
     }
 
     void Awake()

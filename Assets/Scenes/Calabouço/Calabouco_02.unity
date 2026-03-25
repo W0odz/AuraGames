@@ -685,27 +685,27 @@ PrefabInstance:
     - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: sliderSFX
       value: 
-      objectReference: {fileID: 376564383}
+      objectReference: {fileID: 0}
     - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: pausePanel
       value: 
-      objectReference: {fileID: 376564388}
+      objectReference: {fileID: 0}
     - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: soundPanel
       value: 
-      objectReference: {fileID: 376564386}
+      objectReference: {fileID: 0}
     - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: configPanel
       value: 
-      objectReference: {fileID: 376564387}
+      objectReference: {fileID: 0}
     - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: sliderGeral
       value: 
-      objectReference: {fileID: 376564384}
+      objectReference: {fileID: 0}
     - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: sliderMusica
       value: 
-      objectReference: {fileID: 376564382}
+      objectReference: {fileID: 0}
     - target: {fileID: 1054379341772211347, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: controlsPanel
       value: 
@@ -779,6 +779,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+--- !u!114 &126175857 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7193595712712339372, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+  m_PrefabInstance: {fileID: 126175856}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ee464a8f7cde9245883a243f805fb4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CraftingUIManager
 --- !u!1 &134265178
 GameObject:
   m_ObjectHideFlags: 0
@@ -2387,39 +2398,6 @@ PrefabInstance:
       addedObject: {fileID: 1599379688}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
---- !u!114 &376564382 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8360972529820939431, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
-  m_PrefabInstance: {fileID: 376564381}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
---- !u!114 &376564383 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7099497563556980437, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
-  m_PrefabInstance: {fileID: 376564381}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
---- !u!114 &376564384 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1472124021055820594, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
-  m_PrefabInstance: {fileID: 376564381}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!114 &376564385 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 609877782719823978, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
@@ -2431,21 +2409,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
---- !u!1 &376564386 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9054536668875623488, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
-  m_PrefabInstance: {fileID: 376564381}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &376564387 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1987092161471842755, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
-  m_PrefabInstance: {fileID: 376564381}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &376564388 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7344400387926534969, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
-  m_PrefabInstance: {fileID: 376564381}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &376564389 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3854879974417488849, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
@@ -46242,6 +46205,14 @@ PrefabInstance:
     - target: {fileID: 8053389192747966537, guid: 7ee4226cde7a6ab4aaab81a38daa4d9a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8622584582974410894, guid: 7ee4226cde7a6ab4aaab81a38daa4d9a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 126175857}
+    - target: {fileID: 8622584582974410894, guid: 7ee4226cde7a6ab4aaab81a38daa4d9a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CraftItem
       objectReference: {fileID: 0}
     - target: {fileID: 9120179177690861982, guid: 7ee4226cde7a6ab4aaab81a38daa4d9a, type: 3}
       propertyPath: m_AnchorMax.y
