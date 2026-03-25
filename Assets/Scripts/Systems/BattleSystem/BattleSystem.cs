@@ -173,7 +173,7 @@ public class BattleSystem : MonoBehaviour
         }
 
         // Aguarda o BattleTutorialPanel inicializar (máx. 2 segundos)
-        float tutorialTimeout = 2f;
+        float tutorialTimeout = 0.5f;
         while (BattleTutorialPanel.Instance == null && tutorialTimeout > 0f)
         {
             tutorialTimeout -= Time.deltaTime;

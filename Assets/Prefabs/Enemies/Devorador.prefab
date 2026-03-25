@@ -640,11 +640,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUnit
   unitName: Devorador
   unitPortrait: {fileID: 0}
-  maxHP: 24
+  maxHP: 40
   currentHP: 0
   maxMP: 0
   currentMP: 0
-  strength: 3
+  strength: 4
   resistance: 0
   speed: 0
   luck: 0
