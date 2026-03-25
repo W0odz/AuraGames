@@ -1040,11 +1040,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
---- !u!1 &20205648 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1231538210993400972, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+--- !u!114 &20205648 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 609877782719823978, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
   m_PrefabInstance: {fileID: 20205644}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &20205649 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9054536668875623488, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
@@ -1058,6 +1064,11 @@ GameObject:
 --- !u!1 &20205651 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7344400387926534969, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_PrefabInstance: {fileID: 20205644}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &20205652 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3854879974417488849, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
   m_PrefabInstance: {fileID: 20205644}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &27741303
@@ -137019,22 +137030,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7107978913935185888, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
   m_PrefabInstance: {fileID: 20205644}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1178649541 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4832630563244371153, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
-  m_PrefabInstance: {fileID: 20205644}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
---- !u!1 &1178649542 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2430970222737000593, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
-  m_PrefabInstance: {fileID: 20205644}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1178649543 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7355525870218446649, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
@@ -145856,7 +145851,7 @@ PrefabInstance:
     - target: {fileID: 6788394771900257917, guid: 11918436010044747b5d4eb3232f84b8, type: 3}
       propertyPath: leftNameBox
       value: 
-      objectReference: {fileID: 1178649542}
+      objectReference: {fileID: 20205652}
     - target: {fileID: 6788394771900257917, guid: 11918436010044747b5d4eb3232f84b8, type: 3}
       propertyPath: dialogueText
       value: 
@@ -145864,7 +145859,7 @@ PrefabInstance:
     - target: {fileID: 6788394771900257917, guid: 11918436010044747b5d4eb3232f84b8, type: 3}
       propertyPath: leftNameText
       value: 
-      objectReference: {fileID: 1178649541}
+      objectReference: {fileID: 20205648}
     - target: {fileID: 6788394771900257917, guid: 11918436010044747b5d4eb3232f84b8, type: 3}
       propertyPath: leftPortrait
       value: 
@@ -145888,7 +145883,7 @@ PrefabInstance:
     - target: {fileID: 6788394771900257917, guid: 11918436010044747b5d4eb3232f84b8, type: 3}
       propertyPath: indicadorAvancar
       value: 
-      objectReference: {fileID: 20205648}
+      objectReference: {fileID: 0}
     - target: {fileID: 7830755680491969307, guid: 11918436010044747b5d4eb3232f84b8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 77.38046
