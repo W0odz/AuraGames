@@ -184,13 +184,15 @@ public class BattleSystem : MonoBehaviour
         TutorialDeBatalha tutorialParaExibir = null;
         GameObject prefabUsado = GameManager.Instance?.currentExplorationEnemyBattlePrefab;
 
-        if (prefabUsado != null && tutoriaisDeBatalha != null && GameManager.Instance != null)
+        string prefabUsadoName = prefabUsado != null ? prefabUsado.name.Replace(" (Clone)", "").Trim() : null;
+
+        if (prefabUsadoName != null && tutoriaisDeBatalha != null && GameManager.Instance != null)
         {
             foreach (var t in tutoriaisDeBatalha)
             {
                 if (t.enemyPrefab != null
-                    && t.enemyPrefab == prefabUsado
-                    && !GameManager.Instance.seenTutorialIDs.Contains(prefabUsado.name))
+                    && t.enemyPrefab.name == prefabUsadoName
+                    && !GameManager.Instance.seenTutorialIDs.Contains(prefabUsadoName))
                 {
                     tutorialParaExibir = t;
                     break;
@@ -200,7 +202,7 @@ public class BattleSystem : MonoBehaviour
 
         if (tutorialParaExibir != null && BattleTutorialPanel.Instance != null)
         {
-            GameManager.Instance.seenTutorialIDs.Add(prefabUsado.name);
+            GameManager.Instance.seenTutorialIDs.Add(prefabUsadoName);
             BattleTutorialPanel.Instance.Mostrar(tutorialParaExibir.textoTutorial, () =>
             {
                 state = BattleState.PLAYERTURN;
