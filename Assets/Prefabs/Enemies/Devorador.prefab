@@ -530,21 +530,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUnit
   unitName: Devorador
   unitPortrait: {fileID: 0}
-  maxHP: 150
-  currentHP: 50
+  maxHP: 24
+  currentHP: 0
   maxMP: 0
   currentMP: 0
-  strength: 10
-  resistance: 10
-  speed: 10
-  luck: 2
+  strength: 3
+  resistance: 0
+  speed: 0
+  luck: 0
   isDefending: 0
   spriteRenderer: {fileID: 4107760388593785779}
   tabelaDeLoot:
   - item: {fileID: 11400000, guid: c369d20cfa970134a9cd672b6d4924a0, type: 2}
     quantidade: 1
     chanceDeDrop: 40
-  expReward: 50
+  expReward: 40
   accuracy: 10
 --- !u!114 &5063425681963335978
 MonoBehaviour:

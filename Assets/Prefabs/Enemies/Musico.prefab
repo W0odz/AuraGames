@@ -2540,14 +2540,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUnit
   unitName: "M\xFAsico"
   unitPortrait: {fileID: 0}
-  maxHP: 200
-  currentHP: 50
+  maxHP: 30
+  currentHP: 30
   maxMP: 0
   currentMP: 0
-  strength: 10
-  resistance: 10
-  speed: 10
-  luck: 2
+  strength: 7
+  resistance: 0
+  speed: 0
+  luck: 0
   isDefending: 0
   spriteRenderer: {fileID: 4107760388593785779}
   tabelaDeLoot:
