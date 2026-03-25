@@ -2259,8 +2259,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Clique em alguma parte do inimigo pra atacar e atire no momento certo.
-    Clicar na hora errada pode fazer com que voc\xEA erre o ataque."
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5ad284833faefc347922631c7e9ff7b4, type: 2}
   m_sharedMaterial: {fileID: 8681040189227480116, guid: 5ad284833faefc347922631c7e9ff7b4, type: 2}
@@ -3010,7 +3009,10 @@ MonoBehaviour:
     cenaDialogo: Calabouco_02
     cenaAposDialogo: 
     spawnIdDestino: 
-  tutorialEnemyID: Javali
+  tutoriaisDeBatalha:
+  - enemyPrefab: {fileID: 6089210800779420423, guid: 6c8b7a2aec851e04ba2bceb5f874c51a, type: 3}
+    textoTutorial: "Clique em alguma parte do inimigo pra atacar e atire no momento
+      certo. Clicar na hora errada pode fazer com que voc\xEA erre o ataque."
   halfHpVictoryEnemyID: "M\xFAsico"
   noFleeEnemyID: "M\xFAsico"
   state: 0
@@ -4733,6 +4735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85b448ccb8559fa4da3e603474db138f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleTutorialPanel
+  textoTutorial: {fileID: 778787289}
 --- !u!1 &1684894526
 GameObject:
   m_ObjectHideFlags: 0
