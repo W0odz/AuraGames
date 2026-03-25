@@ -55,7 +55,7 @@ public class AttackManager : MonoBehaviour
 
     public void IniciarSequenciaDeAtaque(float bonus, Vector2 coordenadaClique)
     {
-        Debug.Log($"[AttackManager] armaAtual={{(armaAtual != null ? armaAtual.name : "NULL")}} tipo={{(armaAtual != null ? armaAtual.tipoDeDano.ToString() : "NULL")}};
+        Debug.Log($"[AttackManager] armaAtual={(armaAtual != null ? armaAtual.name : "NULL")} tipo={(armaAtual != null ? armaAtual.tipoDeDano.ToString() : "NULL")}");
 
         if (BattleSystem.Instance == null) return;
 
@@ -194,7 +194,7 @@ public class AttackManager : MonoBehaviour
             int forcaBase = BattleSystem.Instance.playerUnit.GetEffectiveStrength();
             danoFinal = Mathf.RoundToInt(forcaBase * multiplicadorFinal);
 
-            Debug.Log($"[AttackManager] AplicarDano — acertouCorpo=true | forcaBase={{forcaBase}} | multiplicadorFinal={{multiplicadorFinal}} | danoFinal={{danoFinal}});
+            Debug.Log($"[AttackManager] AplicarDano — acertouCorpo=true | forcaBase={forcaBase} | multiplicadorFinal={multiplicadorFinal} | danoFinal={danoFinal}");
 
             if (BattleSystem.Instance.dialogueText != null)
                 BattleSystem.Instance.dialogueText.text = "Voce causou " + danoFinal + " de dano!";
