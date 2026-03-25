@@ -437,7 +437,7 @@ MonoBehaviour:
   inputBloqueado: 0
   currentHP: 0
   currentMP: 0
-  maxHP: 100
-  maxMP: 50
-  strength: 20
+  maxHP: 11
+  maxMP: 0
+  strength: 7
   armaEquipada: {fileID: 0}
