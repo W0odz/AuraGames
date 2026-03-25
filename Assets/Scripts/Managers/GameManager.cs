@@ -199,8 +199,7 @@ public class GameManager : MonoBehaviour
         set
         {
             // O Debug vai nos dizer QUEM mudou o valor e QUANDO
-            Debug.Log($"[GM DEBUG] 'triggerEndingOnLoad' mudou de {_triggerEndingOnLoad} para {value}.
-Quem fez isso? Veja a linha abaixo no stack trace.");
+            Debug.Log($"[GM DEBUG] 'triggerEndingOnLoad' mudou de {_triggerEndingOnLoad} para {value}.\nQuem fez isso? Veja a linha abaixo no stack trace.");
 
             _triggerEndingOnLoad = value;
         }
