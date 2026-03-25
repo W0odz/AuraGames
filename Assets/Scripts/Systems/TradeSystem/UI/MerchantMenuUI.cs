@@ -108,6 +108,7 @@ public class MerchantMenuUI : MonoBehaviour
         }
     }
 
+    // Exibe o inventário completo na abertura do menu (sem desconto ainda)
     private void PopularInventario()
     {
         foreach (Transform t in inventarioContent) Destroy(t.gameObject);
@@ -117,12 +118,25 @@ public class MerchantMenuUI : MonoBehaviour
         {
             if (slot.item == null) continue;
             if (slot.item.naoVendivel) continue;
+            if (slot.quantidade <= 0) continue;
 
             DadosItem itemCapturado = slot.item;
-            int qtyCapturada = slot.quantidade;
+            int qtyNoInventario = slot.quantidade;
+
+            // Desconta o que já está na barra do jogador
+            int naOferta = 0;
+            foreach (var (barItem, barQty) in _barraJogador)
+                if (barItem == itemCapturado) naOferta = barQty;
+
+            int qtdDisponivel = qtyNoInventario - naOferta;
+            if (qtdDisponivel <= 0) continue; // todos os exemplares já estão na oferta
 
             var go = Instantiate(itemSlotPrefab, inventarioContent);
-            go.GetComponent<MerchantItemSlotUI>().Setup(itemCapturado, () => AdicionarBarraJogador(itemCapturado, 1), qtyCapturada);
+            go.GetComponent<MerchantItemSlotUI>().Setup(
+                itemCapturado,
+                () => AdicionarBarraJogador(itemCapturado, 1),
+                qtdDisponivel
+            );
         }
     }
 
@@ -169,20 +183,28 @@ public class MerchantMenuUI : MonoBehaviour
 
     public void AdicionarBarraJogador(DadosItem item, int qty)
     {
+        // Garante que o jogador não ofereça mais do que possui
+        int noInventario = InventoryManager.Instance.GetItemCount(item);
+        int jaOfertado = 0;
+        foreach (var (barItem, barQty) in _barraJogador)
+            if (barItem == item) { jaOfertado = barQty; break; }
+
+        if (jaOfertado + qty > noInventario) return; // sem estoque suficiente
+
         for (int i = 0; i < _barraJogador.Count; i++)
         {
             if (_barraJogador[i].item == item)
             {
                 _barraJogador[i] = (item, _barraJogador[i].qty + qty);
                 RefreshBarraUI();
-                RefreshInventarioTemporario();
+                PopularInventario(); // recria o grid com a contagem correta
                 AtualizarFalaEBotao();
                 return;
             }
         }
         _barraJogador.Add((item, qty));
         RefreshBarraUI();
-        RefreshInventarioTemporario();
+        PopularInventario(); // recria o grid com a contagem correta
         AtualizarFalaEBotao();
     }
 
@@ -197,14 +219,14 @@ public class MerchantMenuUI : MonoBehaviour
                 else _barraJogador[i] = (item, novaQty);
 
                 RefreshBarraUI();
-                RefreshInventarioTemporario();
+                PopularInventario(); // recria o grid com a contagem correta
                 AtualizarFalaEBotao();
                 return;
             }
         }
     }
 
-    // ── Refresh Temporário (descontando o que está na barra) ────────
+    // ── Refresh Temporário do Estoque (descontando o que está na barra) ────
 
     private void RefreshEstoqueTemporario()
     {
@@ -215,11 +237,11 @@ public class MerchantMenuUI : MonoBehaviour
         {
             if (slot.item == null || slot.quantidade <= 0) continue;
 
-            int naFarra = 0;
+            int naOferta = 0;
             foreach (var (barItem, barQty) in _barraMercador)
-                if (barItem == slot.item) naFarra = barQty;
+                if (barItem == slot.item) naOferta = barQty;
 
-            int qtdDisponivel = slot.quantidade - naFarra;
+            int qtdDisponivel = slot.quantidade - naOferta;
             if (qtdDisponivel <= 0) continue;
 
             DadosItem itemCapturado = slot.item;
@@ -227,35 +249,6 @@ public class MerchantMenuUI : MonoBehaviour
             go.GetComponent<MerchantItemSlotUI>().Setup(
                 itemCapturado,
                 () => AdicionarBarraMercador(itemCapturado, 1),
-                qtdDisponivel
-            );
-        }
-    }
-
-    private void RefreshInventarioTemporario()
-    {
-        foreach (Transform t in inventarioContent) Destroy(t.gameObject);
-        if (InventoryManager.Instance.listaItens == null) return;
-
-        foreach (var slot in InventoryManager.Instance.listaItens)
-        {
-            if (slot.item == null) continue;
-
-            if (slot.item.naoVendivel) continue;
-
-
-            int naFarra = 0;
-            foreach (var (barItem, barQty) in _barraJogador)
-                if (barItem == slot.item) naFarra = barQty;
-
-            int qtdDisponivel = slot.quantidade - naFarra;
-            if (qtdDisponivel <= 0) continue;
-
-            DadosItem itemCapturado = slot.item;
-            var go = Instantiate(itemSlotPrefab, inventarioContent);
-            go.GetComponent<MerchantItemSlotUI>().Setup(
-                itemCapturado,
-                () => AdicionarBarraJogador(itemCapturado, 1),
                 qtdDisponivel
             );
         }
