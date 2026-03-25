@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 6699482827347619913}
   - component: {fileID: -6274137052180153990}
   - component: {fileID: 3349280894099777274}
+  - component: {fileID: 6509822237631905968}
   m_Layer: 7
   m_Name: Exploration_Devorador
   m_TagString: Enemy
@@ -296,7 +297,33 @@ MonoBehaviour:
   battlePrefab: {fileID: 6089210800779420423, guid: bb646ff2c343ebb4e8a7b620b4c7e4a5, type: 3}
   isBoss: 0
   dialogoPreBatalha: {fileID: 0}
+  imagemTransicaoBatalha: {fileID: 0}
+  duracaoImagemTransicao: 3
   chaseDuration: 10
   mapBoundsCollider: {fileID: 0}
   aggroDetectors: []
   enemyID: 
+  spriteRenderer: {fileID: 2750746522571746138}
+  animator: {fileID: 6509822237631905968}
+--- !u!95 &6509822237631905968
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6385819010840743586}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9b15c79ace3c5a241a330b0818e9fad5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

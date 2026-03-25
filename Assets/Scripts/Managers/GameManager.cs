@@ -269,6 +269,7 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
+  
 
     #region Funções de Save
     public void SetCurrentSlot(int slot)

@@ -1,152 +1,116 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Linq; // Usado para encontrar os outros slots
 
 public class SaveSlotUI : MonoBehaviour
 {
-    [Header("Configuração do Slot")]
+    [Header("ConfiguraÃ§Ã£o do Slot")]
     public int slotID;
 
-    [Header("Referências da UI")]
+    [Header("ReferÃªncias da UI")]
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI loadButtonText;
     public Button loadButton;
     public Button copyButton;
     public Button eraseButton;
 
-    [Header("Referências Externas")]
-    public NameInputPopup namePopup;
-
     private void Start()
     {
         RefreshUI();
 
-        // Adiciona os "listeners" aos botões
+        loadButton.onClick.RemoveAllListeners();
+        eraseButton.onClick.RemoveAllListeners();
+        copyButton.onClick.RemoveAllListeners();
+
         loadButton.onClick.AddListener(OnLoadClicked);
         eraseButton.onClick.AddListener(OnEraseClicked);
         copyButton.onClick.AddListener(OnCopyClicked);
     }
 
-    // Esta função será chamada por outros slots quando
-    // o estado de "copiar" mudar
     public void RefreshUI()
     {
         GameData data = SaveSystem.LoadGame(slotID);
 
         if (data != null)
         {
-            // --- SE EXISTE UM SAVE ---
-            levelText.text = "Nível: " + data.playerLevel;
+            levelText.text = "NÃ­vel: " + data.playerLevel;
             loadButtonText.text = "Carregar";
 
-            loadButton.interactable = true;
-            eraseButton.interactable = true;
-            copyButton.interactable = true; // Pode copiar um save que existe
+            SetButtonInteractable(loadButton, true);
+            SetButtonInteractable(eraseButton, true);
+            SetButtonInteractable(copyButton, true);
         }
         else
         {
-            // --- SE O SLOT ESTÁ VAZIO ---
-            levelText.text = "Nível: --";
+            levelText.text = "NÃ­vel: --";
 
-            // Verifica se há algo na "área de transferência"
             if (GameManager.dataToCopy != null)
-            {
-                loadButtonText.text = "Colar"; // "Paste"
-            }
+                loadButtonText.text = "Colar";
             else
-            {
                 loadButtonText.text = "Jogo Novo";
-            }
 
-            loadButton.interactable = true;
-            eraseButton.interactable = false;
-            copyButton.interactable = false; // Não pode copiar um slot vazio
+            SetButtonInteractable(loadButton, true);
+            SetButtonInteractable(eraseButton, false);
+            SetButtonInteractable(copyButton, false);
         }
     }
 
-    // Chamado quando o botão "Load / Jogo Novo / Colar" é clicado
+    private void SetButtonInteractable(Button btn, bool interactable)
+    {
+        if (btn == null) return;
+        btn.interactable = interactable;
+    }
+
     public void OnLoadClicked()
     {
-        // 1. Define o slot atual no GameManager
         GameManager.Instance.SetCurrentSlot(slotID);
 
-        // 2. Decide a ação
         if (SaveSystem.SaveFileExists(slotID))
         {
-           // 1. Carrega os dados (isso preenche 'sceneToLoad' no GameManager)
             GameManager.Instance.LoadGame(slotID);
-            
-            // 2. Carrega a cena correta que estava no save
+
             string cenaParaCarregar = GameManager.Instance.sceneToLoad;
-            
-            // Segurança: Se por algum motivo estiver vazio, vai pra Exploration
             if (string.IsNullOrEmpty(cenaParaCarregar)) cenaParaCarregar = "Vila_01";
 
             GameManager.Instance.LoadSceneWithFade(cenaParaCarregar);
         }
         else if (GameManager.dataToCopy != null)
         {
-            // --- Colar Jogo (Este slot está vazio, mas o clipboard não) ---
             SaveSystem.SaveGame(GameManager.dataToCopy, slotID);
-
-            // Limpa o clipboard
             GameManager.dataToCopy = null;
-
-            // Atualiza todos os slots
             UpdateAllSlotUIs();
         }
         else
         {
-            if (namePopup != null)
-            {
-                namePopup.OpenPopup(slotID);
-            }
-            else
-            {
-                Debug.LogError("ERRO: Arraste o NameInputPanel para o campo 'Name Popup' no Inspector do SaveSlotUI!");
-            }
+            // Inicia novo jogo direto com nome padrÃ£o "HerÃ³i"
+            GameManager.Instance.CreateNewGame("HerÃ³i");
         }
     }
 
-    // Chamado quando o botão "Erase" é clicado
     public void OnEraseClicked()
     {
         SaveSystem.EraseGame(slotID);
 
-        // Se estávamos copiando este slot, limpa o clipboard
         if (GameManager.dataToCopy != null && SaveSystem.LoadGame(slotID) == null)
-        {
             GameManager.dataToCopy = null;
-        }
 
-        // Atualiza todos os slots
         UpdateAllSlotUIs();
     }
 
-    // Chamado quando o botão "Copy" é clicado
     public void OnCopyClicked()
     {
-        // Pega os dados deste slot e os coloca no clipboard
         GameData dataToCopy = SaveSystem.LoadGame(slotID);
         if (dataToCopy != null)
         {
             GameManager.dataToCopy = dataToCopy;
-            Debug.Log("Slot " + slotID + " copiado!");
-
-            // Atualiza todos os outros slots para mostrar a opção "Colar"
             UpdateAllSlotUIs();
         }
     }
 
-    // Uma função "helper" que avisa todos os outros slots para se atualizarem
     private void UpdateAllSlotUIs()
     {
-        // Encontra todos os scripts SaveSlotUI na cena
         SaveSlotUI[] allSlots = FindObjectsByType<SaveSlotUI>(FindObjectsSortMode.None);
         foreach (SaveSlotUI slot in allSlots)
-        {
             slot.RefreshUI();
-        }
     }
 }

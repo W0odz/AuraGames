@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Pocao_Vermelha
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
   nomeItem: "Po\xE7\xE3o Vermelha"
-  descricao: 
+  descricao: 'Cura 5 de vida
+
+'
   iconeItem: {fileID: -8808393632694952509, guid: 9ab3c19b00331ba41b14b82069191a85, type: 3}
   tipoItem: 0
   slotOndeEquipa: 5
@@ -25,3 +27,4 @@ MonoBehaviour:
   bonusMaxHP: 0
   bonusMaxMP: 0
   apenasForaDeBatalha: 0
+  naoVendivel: 0

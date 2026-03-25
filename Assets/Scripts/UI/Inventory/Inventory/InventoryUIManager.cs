@@ -13,6 +13,7 @@ public class InventoryUIManager : MonoBehaviour
     [Header("Paineis de Abas")]
     public GameObject backpackPanel;
     public GameObject craftingPanel;
+    public GameObject mapPanel;
 
     [Header("Grid da Mochila")]
     public Transform gridContent;
@@ -123,6 +124,7 @@ public class InventoryUIManager : MonoBehaviour
     {
         if (backpackPanel != null) backpackPanel.SetActive(true);
         if (craftingPanel != null) craftingPanel.SetActive(false);
+        if (mapPanel != null) mapPanel.SetActive(false);
         UpdateAll();
     }
 
@@ -130,7 +132,15 @@ public class InventoryUIManager : MonoBehaviour
     {
         if (backpackPanel != null) backpackPanel.SetActive(false);
         if (craftingPanel != null) craftingPanel.SetActive(true);
+        if (mapPanel != null) mapPanel.SetActive(false);
 
         if (CraftingUIManager.Instance != null) CraftingUIManager.Instance.PopulateRecipeList();
+    }
+
+    public void OpenMap()
+    {
+        if (backpackPanel != null) backpackPanel.SetActive(false);
+        if (craftingPanel != null) craftingPanel.SetActive(false);
+        if (mapPanel != null) mapPanel.SetActive(true);
     }
 }

@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 6699482827347619913}
   - component: {fileID: -6274137052180153990}
   - component: {fileID: 3349280894099777274}
+  - component: {fileID: 1003828468602657661}
   m_Layer: 7
   m_Name: Exploration_Javali
   m_TagString: Enemy
@@ -296,7 +297,33 @@ MonoBehaviour:
   battlePrefab: {fileID: 6089210800779420423, guid: 6c8b7a2aec851e04ba2bceb5f874c51a, type: 3}
   isBoss: 0
   dialogoPreBatalha: {fileID: 0}
+  imagemTransicaoBatalha: {fileID: 0}
+  duracaoImagemTransicao: 3
   chaseDuration: 10
   mapBoundsCollider: {fileID: 0}
   aggroDetectors: []
   enemyID: Javali
+  spriteRenderer: {fileID: 2750746522571746138}
+  animator: {fileID: 1003828468602657661}
+--- !u!95 &1003828468602657661
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6385819010840743586}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d67a41576b05fb644bf84bff32c4490f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

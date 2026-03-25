@@ -28,8 +28,10 @@ MonoBehaviour:
     npcAlvoNome: acougueiro_vila_01
     battleEnemyPrefab: {fileID: 0}
     triggerDialogueId: 
+    sceneTransitionID: 
+    dialogoAlvo: {fileID: 0}
     timerNecessario: 0
-    progressoAtual: 1
+    progressoAtual: 0
     timerAtual: 0
     apenasInformativo: 0
   - descricao: Fale com o Sacerdote.
@@ -40,8 +42,10 @@ MonoBehaviour:
     npcAlvoNome: sacerdote_vila_01
     battleEnemyPrefab: {fileID: 0}
     triggerDialogueId: 
+    sceneTransitionID: 
+    dialogoAlvo: {fileID: 0}
     timerNecessario: 0
-    progressoAtual: 1
+    progressoAtual: 0
     timerAtual: 0
     apenasInformativo: 0
   - descricao: "Volte mais tarde para o serm\xE3o."
@@ -52,9 +56,11 @@ MonoBehaviour:
     npcAlvoNome: 
     battleEnemyPrefab: {fileID: 0}
     triggerDialogueId: 
-    timerNecessario: 10
+    sceneTransitionID: 
+    dialogoAlvo: {fileID: 0}
+    timerNecessario: 60
     progressoAtual: 0
-    timerAtual: 10.004088
+    timerAtual: 0
     apenasInformativo: 0
   - descricao: "Atenda ao serm\xE3o no templo"
     tipo: 6
@@ -64,8 +70,10 @@ MonoBehaviour:
     npcAlvoNome: 
     battleEnemyPrefab: {fileID: 0}
     triggerDialogueId: entrada_igreja
+    sceneTransitionID: 
+    dialogoAlvo: {fileID: 0}
     timerNecessario: 0
-    progressoAtual: 1
+    progressoAtual: 0
     timerAtual: 0
     apenasInformativo: 0
   - descricao: Procure pistas pela floresta
@@ -76,6 +84,8 @@ MonoBehaviour:
     npcAlvoNome: 
     battleEnemyPrefab: {fileID: 6089210800779420423, guid: d5f08d0b8493c034a836f5f6a6d754a3, type: 3}
     triggerDialogueId: 
+    sceneTransitionID: 
+    dialogoAlvo: {fileID: 0}
     timerNecessario: 0
     progressoAtual: 0
     timerAtual: 0

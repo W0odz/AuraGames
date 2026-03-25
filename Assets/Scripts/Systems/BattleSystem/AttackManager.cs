@@ -194,31 +194,23 @@ public class AttackManager : MonoBehaviour
             int forcaBase = BattleSystem.Instance.playerUnit.GetEffectiveStrength();
             danoFinal = Mathf.RoundToInt(forcaBase * multiplicadorFinal);
 
+            Debug.Log($"[AttackManager] AplicarDano — acertouCorpo=true | forcaBase={forcaBase} | multiplicadorFinal={multiplicadorFinal} | danoFinal={danoFinal}");
+
             if (BattleSystem.Instance.dialogueText != null)
                 BattleSystem.Instance.dialogueText.text = "Voce causou " + danoFinal + " de dano!";
         }
         else
         {
+            Debug.Log("[AttackManager] AplicarDano — acertouCorpo=false, dano=0");
+
             if (BattleSystem.Instance.dialogueText != null)
-                BattleSystem.Instance.dialogueText.text = "O ataque errou o alvo!";
+                BattleSystem.Instance.dialogueText.text = "O ataque errou!";
         }
 
         if (danoFinal > 0)
         {
             bool isDead = BattleSystem.Instance.enemyUnit.TakeDamage(danoFinal);
             BattleSystem.Instance.enemyHUD.UpdateHP(BattleSystem.Instance.enemyUnit.currentHP);
-
-            string idAtualBatalha = GameManager.Instance?.currentEnemyID ?? "";
-            BattleSystem bs = BattleSystem.Instance;
-            if (!isDead
-                && !string.IsNullOrEmpty(bs.halfHpVictoryEnemyID)
-                && idAtualBatalha == bs.halfHpVictoryEnemyID
-                && bs.enemyUnit.currentHP <= bs.enemyUnit.maxHP / 2.0f)
-            {
-                bs.state = BattleState.WON;
-                bs.StartCoroutine("EndBattle");
-                return;
-            }
 
             if (isDead) BattleSystem.Instance.StartCoroutine("EndBattle");
             else BattleSystem.Instance.StartCoroutine("EnemyTurn");

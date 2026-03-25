@@ -676,7 +676,7 @@ MonoBehaviour:
   - item: {fileID: 11400000, guid: c369d20cfa970134a9cd672b6d4924a0, type: 2}
     quantidade: 1
     chanceDeDrop: 40
-  expReward: 50
+  expReward: 20
   accuracy: 10
 --- !u!114 &5063425681963335978
 MonoBehaviour:

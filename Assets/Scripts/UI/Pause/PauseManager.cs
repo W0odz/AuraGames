@@ -1,7 +1,8 @@
-// PauseManager.cs — controla tanto o menu de pause do jogo quanto a tela inicial
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using System.Collections;
+using UnityEngine.EventSystems;
 
 public class PauseManager : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class PauseManager : MonoBehaviour
     [Header("Painéis — Tela Inicial")]
     [Tooltip("O painel com os 3 slots de save (só usado na tela inicial)")]
     public GameObject saveSlotsPanel;
+
+    [Tooltip("Botões principais da tela inicial (Jogar, Configurações, Sair) — ocultados quando saveSlotsPanel está aberto")]
+    public GameObject mainMenuButtons;
 
     [Header("Painéis — Pause (jogo)")]
     public GameObject pausePanel;
@@ -42,6 +46,11 @@ public class PauseManager : MonoBehaviour
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
     }
 
     private void Start()
@@ -91,6 +100,14 @@ public class PauseManager : MonoBehaviour
     {
         FecharTodosPaineis();
         if (saveSlotsPanel != null) saveSlotsPanel.SetActive(true);
+        if (mainMenuButtons != null) mainMenuButtons.SetActive(false);
+        StartCoroutine(LimparFocoProximoFrame());
+    }
+
+    private IEnumerator LimparFocoProximoFrame()
+    {
+        yield return null; // espera 1 frame para o EventSystem registrar o painel
+        EventSystem.current?.SetSelectedGameObject(null);
     }
 
     /// <summary>Chamado pelo botão "Voltar" dentro do painel de saves.</summary>
@@ -127,14 +144,19 @@ public class PauseManager : MonoBehaviour
         if (saveSlotsPanel != null) saveSlotsPanel.SetActive(false);
         if (pausePanel     != null) pausePanel.SetActive(false);
         if (configPanel    != null) configPanel.SetActive(true);
+        if (modoTituloAtivo && mainMenuButtons != null) mainMenuButtons.SetActive(false);
     }
 
     public void OnVoltarDeConfiguracoesButton()
     {
         if (configPanel != null) configPanel.SetActive(false);
 
-        // No modo título: só fecha tudo, não reabre o painel de saves
-        if (!modoTituloAtivo)
+        // No modo título: só fecha tudo e reexibe os botões principais
+        if (modoTituloAtivo)
+        {
+            if (mainMenuButtons != null) mainMenuButtons.SetActive(true);
+        }
+        else
         {
             if (pausePanel != null) pausePanel.SetActive(true);
         }
@@ -183,7 +205,11 @@ public class PauseManager : MonoBehaviour
     public void OnSairDoJogoButton()
     {
         PlayerPrefs.Save();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
         Application.Quit();
+#endif
     }
 
     // Compatibilidade com referência antiga
@@ -207,6 +233,10 @@ public class PauseManager : MonoBehaviour
         if (soundPanel     != null) soundPanel.SetActive(false);
         if (controlsPanel  != null) controlsPanel.SetActive(false);
         if (saveSlotsPanel != null) saveSlotsPanel.SetActive(false);
+
+        // No modo título, reexibe os botões principais ao fechar tudo
+        if (modoTituloAtivo && mainMenuButtons != null)
+            mainMenuButtons.SetActive(true);
     }
 
     // ── Áudio ─────────────────────────────────────────────────────

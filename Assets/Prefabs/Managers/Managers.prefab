@@ -232,7 +232,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5290823697697638896}
-  - component: {fileID: 1054379341772211347}
   - component: {fileID: 7193595712712339372}
   m_Layer: 0
   m_Name: UIManager
@@ -256,31 +255,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2207976064434011169}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1054379341772211347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9093281672215730466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fbbc8c657371ee4da66cbdbe803701a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PauseManager
-  modoTituloAtivo: 0
-  saveSlotsPanel: {fileID: 0}
-  pausePanel: {fileID: 0}
-  configPanel: {fileID: 0}
-  soundPanel: {fileID: 0}
-  controlsPanel: {fileID: 0}
-  sliderGeral: {fileID: 0}
-  sliderSFX: {fileID: 0}
-  sliderMusica: {fileID: 0}
-  audioMixer: {fileID: 24100000, guid: 5fd8bb447ba2cd443b2387bf8decffbe, type: 2}
-  parametroGeral: VolumeGeral
-  parametroSFX: VolumeSFX
-  parametroMusica: VolumeMusica
 --- !u!114 &7193595712712339372
 MonoBehaviour:
   m_ObjectHideFlags: 0
