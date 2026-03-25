@@ -3,41 +3,28 @@ using UnityEngine;
 
 public static class EscamboSystem
 {
-    public enum AvaliacaoTroca { MuitoAcima, Acima, Ideal, Abaixo, MuitoAbaixo }
+    public enum AvaliacaoTroca { MuitoBoa, Boa, Quase, Ruim }
 
     public static AvaliacaoTroca Avaliar(int valorOferecido, int valorDesejado, float tolerancia)
     {
-        if (valorDesejado <= 0 || valorOferecido <= 0) return AvaliacaoTroca.MuitoAbaixo;
+        if (valorDesejado <= 0 || valorOferecido <= 0) return AvaliacaoTroca.Ruim;
 
         float ratio = (float)valorOferecido / valorDesejado;
 
-        if (Mathf.Abs(ratio - 1f) < Mathf.Epsilon) // Ideal absoluto
-            return AvaliacaoTroca.Ideal;
-
-        if (ratio > 1f)
-        {
-            if (ratio - 1f <= tolerancia)
-                return AvaliacaoTroca.Acima;
-            else
-                return AvaliacaoTroca.MuitoAcima;
-        }
-        else
-        {
-            if (1f - ratio <= tolerancia)
-                return AvaliacaoTroca.Abaixo;
-            else
-                return AvaliacaoTroca.MuitoAbaixo;
-        }
+        if (ratio >= 1.0f) return AvaliacaoTroca.MuitoBoa;
+        if (ratio >= 1f - tolerancia) return AvaliacaoTroca.Boa;
+        if (ratio >= 1f - tolerancia * 2f) return AvaliacaoTroca.Quase;
+        return AvaliacaoTroca.Ruim;
     }
 
     public static bool TrocaEhAceitavel(int valorOferecido, int valorDesejado, float tolerancia)
     {
         var av = Avaliar(valorOferecido, valorDesejado, tolerancia);
-        return av == AvaliacaoTroca.Ideal || av == AvaliacaoTroca.Acima || av == AvaliacaoTroca.Abaixo;
+        return av == AvaliacaoTroca.Boa || av == AvaliacaoTroca.MuitoBoa;
     }
 
     public static bool ExecutarTroca(
-        List<(DadosItem item, int qty)> itensMercador,
+        DadosItem itemDesejado, int qtdDesejada,
         List<(DadosItem item, int qty)> ofertaJogador,
         int valorOferecido, int valorDesejado, float tolerancia)
     {
@@ -46,14 +33,10 @@ public static class EscamboSystem
         foreach (var (item, qty) in ofertaJogador)
             if (InventoryManager.Instance.GetItemCount(item) < qty) return false;
 
-        // Remove os itens da oferta do jogador
         foreach (var (item, qty) in ofertaJogador)
             InventoryManager.Instance.RemoverItem(item, qty);
 
-        // Entrega TODOS os itens do mercador ao jogador
-        foreach (var (item, qty) in itensMercador)
-            InventoryManager.Instance.AdicionarItem(item, qty);
-
+        InventoryManager.Instance.AdicionarItem(itemDesejado, qtdDesejada);
         return true;
     }
 }
