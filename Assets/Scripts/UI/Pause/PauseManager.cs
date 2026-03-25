@@ -205,7 +205,11 @@ public class PauseManager : MonoBehaviour
     public void OnSairDoJogoButton()
     {
         PlayerPrefs.Save();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
         Application.Quit();
+#endif
     }
 
     // Compatibilidade com referência antiga
