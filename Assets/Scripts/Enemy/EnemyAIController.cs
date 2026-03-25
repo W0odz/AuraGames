@@ -17,6 +17,12 @@ public class EnemyAIController : MonoBehaviour
     [Tooltip("Raio máximo em unidades para escolher o próximo ponto de wander. Mantenha pequeno em corredores estreitos.")]
     public float wanderRadius = 3f;
 
+    [Tooltip("Tempo mínimo (segundos) que o inimigo fica parado antes de escolher o próximo ponto de wander.")]
+    public float wanderIdleMin = 0.5f;
+
+    [Tooltip("Tempo máximo (segundos) que o inimigo fica parado antes de escolher o próximo ponto de wander.")]
+    public float wanderIdleMax = 2f;
+
     [Header("Identidade de Batalha")]
     public GameObject battlePrefab;
     public bool isBoss = false;
@@ -59,6 +65,9 @@ public class EnemyAIController : MonoBehaviour
 
     private bool isAggroSuppressed;
 
+    // Controle de idle entre pontos de wander
+    private bool isWanderIdle = false;
+
     private enum State { Wandering, Chasing }
     private State currentState;
 
@@ -99,9 +108,14 @@ public class EnemyAIController : MonoBehaviour
         switch (currentState)
         {
             case State.Wandering:
-                if (Vector2.Distance(transform.position, wanderTarget) < 0.5f)
-                    PickNewWanderTarget();
-                moveDirection = (wanderTarget - (Vector2)transform.position).normalized;
+                if (!isWanderIdle && Vector2.Distance(transform.position, wanderTarget) < 0.5f)
+                    StartCoroutine(WanderIdleCoroutine());
+
+                // Durante o idle, para o inimigo no lugar
+                if (isWanderIdle)
+                    moveDirection = Vector2.zero;
+                else
+                    moveDirection = (wanderTarget - (Vector2)transform.position).normalized;
                 break;
 
             case State.Chasing:
@@ -162,6 +176,9 @@ public class EnemyAIController : MonoBehaviour
         if (isAggroSuppressed) return;
         if (isPassive) return;
 
+        // Cancela o idle de wander se estiver em andamento
+        isWanderIdle = false;
+
         if (chaseCoroutine != null)
             StopCoroutine(chaseCoroutine);
 
@@ -188,6 +205,17 @@ public class EnemyAIController : MonoBehaviour
     {
         yield return new WaitForSeconds(chaseDuration);
         StopChasing();
+    }
+    #endregion
+
+    #region Wander
+    private IEnumerator WanderIdleCoroutine()
+    {
+        isWanderIdle = true;
+        float idleTime = Random.Range(wanderIdleMin, wanderIdleMax);
+        yield return new WaitForSeconds(idleTime);
+        PickNewWanderTarget();
+        isWanderIdle = false;
     }
 
     void PickNewWanderTarget()
@@ -223,16 +251,13 @@ public class EnemyAIController : MonoBehaviour
     #region Congelamento dos inimigos
     public static void FreezeAllEnemies()
     {
-        EnemyAIController[] allEnemies = FindObjectsByType<EnemyAIController>(FindObjectsSortMode.None);
-
-        foreach (var enemy in allEnemies)
+        EnemyAIController[] enemies = FindObjectsByType<EnemyAIController>(FindObjectsSortMode.None);
+        foreach (var e in enemies)
         {
-            enemy.enabled = false;
-
-            if (enemy.rb != null)
+            if (e != null && e.gameObject.activeInHierarchy)
             {
-                enemy.rb.linearVelocity = Vector2.zero;
-                enemy.rb.bodyType = RigidbodyType2D.Kinematic;
+                e.moveDirection = Vector2.zero;
+                if (e.rb != null) e.rb.linearVelocity = Vector2.zero;
             }
         }
     }
