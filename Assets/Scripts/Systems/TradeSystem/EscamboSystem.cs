@@ -24,7 +24,7 @@ public static class EscamboSystem
     }
 
     public static bool ExecutarTroca(
-        DadosItem itemDesejado, int qtdDesejada,
+        List<(DadosItem item, int qty)> ofertaMercador,
         List<(DadosItem item, int qty)> ofertaJogador,
         int valorOferecido, int valorDesejado, float tolerancia)
     {
@@ -36,7 +36,9 @@ public static class EscamboSystem
         foreach (var (item, qty) in ofertaJogador)
             InventoryManager.Instance.RemoverItem(item, qty);
 
-        InventoryManager.Instance.AdicionarItem(itemDesejado, qtdDesejada);
+        foreach (var (item, qty) in ofertaMercador)
+            InventoryManager.Instance.AdicionarItem(item, qty);
+
         return true;
     }
 }
