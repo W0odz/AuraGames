@@ -101,7 +101,7 @@ public class InventoryUIManager : MonoBehaviour
 
     private void UpdateFooterStats()
     {
-        int totalAtk = 0;
+        int totalAtk = GameManager.Instance != null ? GameManager.Instance.strength : 0;
         int totalDef = 0;
 
         if (EquipmentManager.Instance != null)
