@@ -3633,25 +3633,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonHover
   hoverScale: 1.1
   animationSpeed: 10
---- !u!1 &1345355215 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5369264544862218893, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
-  m_PrefabInstance: {fileID: 7016524578383796416}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1345355217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1345355215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d39e1f8370227f4e9619b97daa832b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ButtonHover
-  hoverScale: 1.1
-  animationSpeed: 10
 --- !u!1 &1506943594
 GameObject:
   m_ObjectHideFlags: 0
@@ -5320,6 +5301,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1750713860470913997, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 360838347}
+    - target: {fileID: 1750713860470913997, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnControlesButton
+      objectReference: {fileID: 0}
     - target: {fileID: 2032787482522827742, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
       propertyPath: m_Type
       value: 0
@@ -5371,6 +5360,14 @@ PrefabInstance:
     - target: {fileID: 2232442382027369091, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2347694198190905990, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 360838347}
+    - target: {fileID: 2347694198190905990, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnVoltarDeSomButton
       objectReference: {fileID: 0}
     - target: {fileID: 2619823672001820428, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
       propertyPath: m_fontAsset
@@ -5548,6 +5545,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 45
       objectReference: {fileID: 0}
+    - target: {fileID: 5481131221556450776, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 360838347}
+    - target: {fileID: 5481131221556450776, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnVoltarDeControlesButton
+      objectReference: {fileID: 0}
     - target: {fileID: 5750095815791046275, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -5603,6 +5608,14 @@ PrefabInstance:
     - target: {fileID: 7184830401866047974, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
       propertyPath: m_Name
       value: ConfigRoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210204691566085785, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 360838347}
+    - target: {fileID: 7210204691566085785, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnVoltarDeConfiguracoesButton
       objectReference: {fileID: 0}
     - target: {fileID: 7648357885995967660, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
       propertyPath: m_SizeDelta.y
@@ -5748,82 +5761,21 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8970763709274220572, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 360838347}
+    - target: {fileID: 8970763709274220572, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnSomMusicaButton
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 7201436645874060885, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
     - {fileID: 5750095815791046275, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 609797295797710981, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7016524578383796422}
-    - targetCorrespondingSourceObject: {fileID: 3188689345208037372, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7016524578383796421}
-    - targetCorrespondingSourceObject: {fileID: 1131706636581111457, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7016524578383796420}
-    - targetCorrespondingSourceObject: {fileID: 5369264544862218893, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1345355217}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
---- !u!1 &7016524578383796417 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1131706636581111457, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
-  m_PrefabInstance: {fileID: 7016524578383796416}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7016524578383796418 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3188689345208037372, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
-  m_PrefabInstance: {fileID: 7016524578383796416}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7016524578383796419 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 609797295797710981, guid: ce399c86d1cad1549b838f8a5e302900, type: 3}
-  m_PrefabInstance: {fileID: 7016524578383796416}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7016524578383796420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7016524578383796417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d39e1f8370227f4e9619b97daa832b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ButtonHover
-  hoverScale: 1.1
-  animationSpeed: 10
---- !u!114 &7016524578383796421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7016524578383796418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d39e1f8370227f4e9619b97daa832b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ButtonHover
-  hoverScale: 1.1
-  animationSpeed: 10
---- !u!114 &7016524578383796422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7016524578383796419}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d39e1f8370227f4e9619b97daa832b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ButtonHover
-  hoverScale: 1.1
-  animationSpeed: 10
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
