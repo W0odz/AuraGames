@@ -697,9 +697,8 @@ public class GameManager : MonoBehaviour
         xpToNextLevel = Mathf.FloorToInt(xpToNextLevel * 1.5f);
 
         // Aumenta os Status!
-        maxHP += 6;
-        maxMP += 5;
-        strength += 2;
+        if (PlayerUnit.Instance != null) PlayerUnit.Instance.maxHP += 6;
+        if (PlayerUnit.Instance != null) PlayerUnit.Instance.strength += 2;
         if (PlayerUnit.Instance != null) PlayerUnit.Instance.agility += 2;
         //resistance += 1;
         //will += 2;
@@ -708,8 +707,7 @@ public class GameManager : MonoBehaviour
         //luck += 1;
 
         // Cura o jogador totalmente ao subir de nível
-        currentHP = maxHP;
-        currentMP = maxMP;
+        if (PlayerUnit.Instance != null) PlayerUnit.Instance.currentHP = maxHP;
 
         Debug.Log("LEVEL UP! Nível " + playerLevel);
 

@@ -439,5 +439,6 @@ MonoBehaviour:
   currentMP: 0
   maxHP: 11
   maxMP: 0
-  strength: 7
+  strength: 9
+  resistance: 0
   armaEquipada: {fileID: 0}
