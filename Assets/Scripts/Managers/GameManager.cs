@@ -208,9 +208,9 @@ public class GameManager : MonoBehaviour
     // Stats Base
     public int currentHP; // HP atual (para persistir entre batalhas)
     public int currentMP; // MP atual
-    public int maxHP = 100;
+    public int maxHP = 11;
     public int maxMP = 50;
-    public int strength = 10;   // Força (Ataque Físico)
+    public int strength = 7;   // Força (Ataque Físico)
     //public int speed = 5;       // Velocidade (ordem de turno, etc - não implementado ainda)
     //public int resistance = 5;  // Resistência (Defesa Física)
     //public int will = 10;       // Vontade (Ataque Mágico)

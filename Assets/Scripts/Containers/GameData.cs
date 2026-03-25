@@ -56,14 +56,14 @@ public class GameData
         this.currentXP = 0;
         this.xpToNextLevel = 100;
 
-        this.maxHP = 100;
+        this.maxHP = 11;
         this.maxMP = 50;
-        this.currentHP = 100;
+        this.currentHP = 11;
         this.currentMP = 50;
 
-        this.strength = 20;
+        this.strength = 7;
         this.speed = 0;
-        this.resistance = 5;
+        this.resistance = 0;
         this.will = 20;
         this.knowledge = 5;
         this.luck = 10;

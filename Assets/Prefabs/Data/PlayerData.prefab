@@ -51,10 +51,10 @@ MonoBehaviour:
   currentHP: 100
   maxMP: 0
   currentMP: 0
-  strength: 10
-  resistance: 10
-  speed: 5
-  luck: 5
+  strength: 7
+  resistance: 0
+  speed: 0
+  luck: 0
   isDefending: 0
   spriteRenderer: {fileID: 0}
   playerLevel: 1
