@@ -46,20 +46,7 @@ public class PlayerUnit : Unit
         // Salva o HP atual antes de inicializar (persiste entre batalhas)
         int hpAnterior = currentHP;
 
-        base.InicializarUnidade(); // Isso faz currentHP = maxHP, então salvamos antes
-
-        if (EquipmentManager.Instance != null)
-        {
-            foreach (var item in EquipmentManager.Instance.currentEquipment)
-            {
-                if (item != null)
-                {
-                    maxHP += item.bonusMaxHP;
-                    strength += item.bonusStrength;
-                    resistance = item.bonusResistance;
-                }
-            }
-        }
+        base.InicializarUnidade(); // Copia os stats do GameManager (já incluem bônus de equipamento)
 
         // Se tinha HP salvo de uma batalha anterior, restaura ele (sem ultrapassar o maxHP)
         if (hpAnterior > 0 && hpAnterior < maxHP)
@@ -198,7 +185,18 @@ public class PlayerUnit : Unit
             currentXP -= xpToNextLevel;
             playerLevel++;
             xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * 1.5f);
-            Debug.Log($"[PlayerUnit] Level Up! Novo nível: {playerLevel}");
+
+            // Cura completa ao subir de nível
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.currentHP = GameManager.Instance.maxHP;
+                GameManager.Instance.currentMP = GameManager.Instance.maxMP;
+                Debug.Log($"[PlayerUnit] Level Up! Nível {playerLevel} — HP/MP restaurados.");
+            }
+            else
+            {
+                Debug.Log($"[PlayerUnit] Level Up! Novo nível: {playerLevel}");
+            }
         }
         Debug.Log($"[PlayerUnit] +{quantidade} XP ganho pela quest. XP atual: {currentXP}/{xpToNextLevel}");
     }
