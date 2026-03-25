@@ -212,8 +212,26 @@ public class AttackManager : MonoBehaviour
             bool isDead = BattleSystem.Instance.enemyUnit.TakeDamage(danoFinal);
             BattleSystem.Instance.enemyHUD.UpdateHP(BattleSystem.Instance.enemyUnit.currentHP);
 
-            if (isDead) BattleSystem.Instance.StartCoroutine("EndBattle");
-            else BattleSystem.Instance.StartCoroutine("EnemyTurn");
+            if (isDead)
+            {
+                BattleSystem.Instance.StartCoroutine("EndBattle");
+                return;
+            }
+
+            // ── Verificação de vitória por metade do HP (ex: batalha do Músico) ──
+            var bs = BattleSystem.Instance;
+            string idAtual = GameManager.Instance?.currentEnemyID ?? "";
+            if (!string.IsNullOrEmpty(bs.halfHpVictoryEnemyID)
+                && idAtual == bs.halfHpVictoryEnemyID
+                && bs.enemyUnit.currentHP <= bs.enemyUnit.maxHP / 2.0f)
+            {
+                bs.state = BattleState.WON;
+                bs.StartCoroutine("EndBattle");
+                return;
+            }
+            // ─────────────────────────────────────────────────────────────────────
+
+            BattleSystem.Instance.StartCoroutine("EnemyTurn");
         }
         else
         {
