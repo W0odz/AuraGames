@@ -19,6 +19,16 @@ public class DialogoPosBatalha
     public string spawnIdDestino;
 }
 
+[System.Serializable]
+public class TutorialDeBatalha
+{
+    [Tooltip("Prefab do inimigo que dispara este tutorial.")]
+    public GameObject enemyPrefab;
+    [Tooltip("Texto exibido no painel de tutorial ao enfrentar este inimigo pela primeira vez.")]
+    [TextArea(3, 8)]
+    public string textoTutorial;
+}
+
 public class BattleSystem : MonoBehaviour
 {
     public static BattleSystem Instance;
@@ -63,8 +73,8 @@ public class BattleSystem : MonoBehaviour
     public DialogoPosBatalha[] dialogosPosVitoria;
 
     [Header("Tutorial de Batalha")]
-    [Tooltip("ID do inimigo que dispara o tutorial na primeira batalha.")]
-    public string tutorialEnemyID;
+    [Tooltip("Associa prefabs de inimigo a textos de tutorial. Cada entrada é exibida apenas uma vez.")]
+    public TutorialDeBatalha[] tutoriaisDeBatalha;
 
     [Header("Batalha Especial")]
     [Tooltip("ID do inimigo que termina a batalha quando chega na metade do HP.")]
@@ -170,15 +180,28 @@ public class BattleSystem : MonoBehaviour
             yield return null;
         }
 
-        string idAtual = GameManager.Instance?.currentEnemyID ?? "";
-        if (!string.IsNullOrEmpty(tutorialEnemyID)
-            && idAtual == tutorialEnemyID
-            && GameManager.Instance != null
-            && !GameManager.Instance.seenTutorialIDs.Contains(tutorialEnemyID)
-            && BattleTutorialPanel.Instance != null)
+        // Tutorial baseado em prefab
+        TutorialDeBatalha tutorialParaExibir = null;
+        GameObject prefabUsado = GameManager.Instance?.currentExplorationEnemyBattlePrefab;
+
+        if (prefabUsado != null && tutoriaisDeBatalha != null && GameManager.Instance != null)
         {
-            GameManager.Instance.seenTutorialIDs.Add(tutorialEnemyID);
-            BattleTutorialPanel.Instance.Mostrar(() =>
+            foreach (var t in tutoriaisDeBatalha)
+            {
+                if (t.enemyPrefab != null
+                    && t.enemyPrefab == prefabUsado
+                    && !GameManager.Instance.seenTutorialIDs.Contains(prefabUsado.name))
+                {
+                    tutorialParaExibir = t;
+                    break;
+                }
+            }
+        }
+
+        if (tutorialParaExibir != null && BattleTutorialPanel.Instance != null)
+        {
+            GameManager.Instance.seenTutorialIDs.Add(prefabUsado.name);
+            BattleTutorialPanel.Instance.Mostrar(tutorialParaExibir.textoTutorial, () =>
             {
                 state = BattleState.PLAYERTURN;
                 PlayerTurn();

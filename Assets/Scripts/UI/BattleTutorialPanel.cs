@@ -1,8 +1,12 @@
 using UnityEngine;
+using TMPro;
 
 public class BattleTutorialPanel : MonoBehaviour
 {
     public static BattleTutorialPanel Instance;
+
+    [Header("UI")]
+    public TextMeshProUGUI textoTutorial;
 
     private System.Action _onClose;
 
@@ -18,13 +22,15 @@ public class BattleTutorialPanel : MonoBehaviour
     {
         if (!gameObject.activeSelf) return;
 
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(0))
             Fechar();
     }
 
-    public void Mostrar(System.Action onClose)
+    public void Mostrar(string texto, System.Action onClose)
     {
         _onClose = onClose;
+        if (textoTutorial != null)
+            textoTutorial.text = texto;
         gameObject.SetActive(true);
         Time.timeScale = 0f;
     }
