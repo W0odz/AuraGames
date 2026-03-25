@@ -14,8 +14,11 @@ public class BattleTutorialPanel : MonoBehaviour
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+    }
 
-        gameObject.SetActive(false);
+    void Start()
+    {
+        gameObject.SetActive(false); // esconde visualmente, mas Instance já foi setado no Awake
     }
 
     void Update()
