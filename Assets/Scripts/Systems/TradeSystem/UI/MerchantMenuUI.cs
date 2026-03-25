@@ -115,13 +115,14 @@ public class MerchantMenuUI : MonoBehaviour
 
         foreach (var slot in InventoryManager.Instance.listaItens)
         {
-            if (slot.item == null) continue;
+            if (slot.item == null || slot.quantidade <= 0) continue;
             DadosItem itemCapturado = slot.item;
+            int qtyCapturada = slot.quantidade;
 
             if (slot.item.naoVendivel) continue;
 
             var go = Instantiate(itemSlotPrefab, inventarioContent);
-            go.GetComponent<MerchantItemSlotUI>().Setup(itemCapturado, () => AdicionarBarraJogador(itemCapturado, 1));
+            go.GetComponent<MerchantItemSlotUI>().Setup(itemCapturado, () => AdicionarBarraJogador(itemCapturado, 1), qtyCapturada);
         }
     }
 
@@ -269,8 +270,9 @@ public class MerchantMenuUI : MonoBehaviour
         foreach (var (item, qty) in _barraMercador)
         {
             DadosItem itemCapturado = item;
+            int qtyCapturada = qty;
             var go = Instantiate(itemSlotPrefab, barraMercadorContent);
-            go.GetComponent<MerchantItemSlotUI>().Setup(itemCapturado, () => RemoverBarraMercador(itemCapturado));
+            go.GetComponent<MerchantItemSlotUI>().Setup(itemCapturado, () => RemoverBarraMercador(itemCapturado), qtyCapturada);
         }
 
         // lado jogador
@@ -278,8 +280,9 @@ public class MerchantMenuUI : MonoBehaviour
         foreach (var (item, qty) in _barraJogador)
         {
             DadosItem itemCapturado = item;
+            int qtyCapturada = qty;
             var go = Instantiate(itemSlotPrefab, barraJogadorContent);
-            go.GetComponent<MerchantItemSlotUI>().Setup(itemCapturado, () => RemoverBarraJogador(itemCapturado));
+            go.GetComponent<MerchantItemSlotUI>().Setup(itemCapturado, () => RemoverBarraJogador(itemCapturado), qtyCapturada);
         }
     }
 
@@ -298,7 +301,7 @@ public class MerchantMenuUI : MonoBehaviour
         int valorJogador = CalcValorLado(_barraJogador);
         int valorMercador = CalcValorLado(_barraMercador);
 
-        if (valorMercador == 0 && valorJogador == 0)
+        if (valorMercador == 0 || valorJogador == 0)
         {
             textoFala.text = _merchant.falaSaudacao;
             botaoConfirmar.interactable = false;
