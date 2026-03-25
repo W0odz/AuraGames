@@ -292,7 +292,6 @@ Quem fez isso? Veja a linha abaixo no stack trace.");
         }
     }
     #endregion
-  
 
     #region Funções de Save
     public void SetCurrentSlot(int slot)
