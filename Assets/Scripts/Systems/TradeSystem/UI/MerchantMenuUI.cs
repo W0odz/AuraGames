@@ -115,11 +115,11 @@ public class MerchantMenuUI : MonoBehaviour
 
         foreach (var slot in InventoryManager.Instance.listaItens)
         {
-            if (slot.item == null || slot.quantidade <= 0) continue;
+            if (slot.item == null) continue;
+            if (slot.item.naoVendivel) continue;
+
             DadosItem itemCapturado = slot.item;
             int qtyCapturada = slot.quantidade;
-
-            if (slot.item.naoVendivel) continue;
 
             var go = Instantiate(itemSlotPrefab, inventarioContent);
             go.GetComponent<MerchantItemSlotUI>().Setup(itemCapturado, () => AdicionarBarraJogador(itemCapturado, 1), qtyCapturada);
