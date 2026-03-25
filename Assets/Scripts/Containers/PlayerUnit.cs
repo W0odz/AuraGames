@@ -46,7 +46,16 @@ public class PlayerUnit : Unit
         // Salva o HP atual antes de inicializar (persiste entre batalhas)
         int hpAnterior = currentHP;
 
-        base.InicializarUnidade(); // Copia os stats do GameManager (já incluem bônus de equipamento)
+        // Copia os stats do GameManager (já incluem bônus de equipamento)
+        if (GameManager.Instance != null)
+        {
+            maxHP = GameManager.Instance.maxHP;
+            maxMP = GameManager.Instance.maxMP;
+            strength = GameManager.Instance.strength;
+            resistance = GameManager.Instance.resistance;
+        }
+
+        base.InicializarUnidade(); // Define currentHP = maxHP
 
         // Se tinha HP salvo de uma batalha anterior, restaura ele (sem ultrapassar o maxHP)
         if (hpAnterior > 0 && hpAnterior < maxHP)
@@ -179,25 +188,15 @@ public class PlayerUnit : Unit
     /// <summary>Adiciona XP ao jogador e processa level up automaticamente.</summary>
     public void AdicionarXP(int quantidade)
     {
-        currentXP += quantidade;
-        while (currentXP >= xpToNextLevel)
-        {
-            currentXP -= xpToNextLevel;
-            playerLevel++;
-            xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * 1.5f);
+        if (GameManager.Instance == null) return;
 
-            // Cura completa ao subir de nível
-            if (GameManager.Instance != null)
-            {
-                GameManager.Instance.currentHP = GameManager.Instance.maxHP;
-                GameManager.Instance.currentMP = GameManager.Instance.maxMP;
-                Debug.Log($"[PlayerUnit] Level Up! Nível {playerLevel} — HP/MP restaurados.");
-            }
-            else
-            {
-                Debug.Log($"[PlayerUnit] Level Up! Novo nível: {playerLevel}");
-            }
-        }
+        GameManager.Instance.GainXP(quantidade);
+
+        // Sincroniza os campos do PlayerUnit com o GameManager (usado pela barra de XP da batalha)
+        currentXP = GameManager.Instance.currentXP;
+        xpToNextLevel = GameManager.Instance.xpToNextLevel;
+        playerLevel = GameManager.Instance.playerLevel;
+
         Debug.Log($"[PlayerUnit] +{quantidade} XP ganho pela quest. XP atual: {currentXP}/{xpToNextLevel}");
     }
 }
