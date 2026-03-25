@@ -593,14 +593,18 @@ public class BattleSystem : MonoBehaviour
 
             if (xpSlider.value >= xpSlider.maxValue)
             {
-                playerUnit.playerLevel++;
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.LevelUp();
+                    playerUnit.playerLevel = GameManager.Instance.playerLevel;
+                }
+
                 levelText.text = "Subiu de nível!";
 
                 xpAlvo -= xpSlider.maxValue;
                 xpVisual = 0;
                 xpSlider.value = 0;
 
-                playerUnit.xpToNextLevel = Mathf.RoundToInt(playerUnit.xpToNextLevel * 1.5f);
                 xpSlider.maxValue = playerUnit.xpToNextLevel;
 
                 yield return new WaitForSeconds(1f);
@@ -610,6 +614,8 @@ public class BattleSystem : MonoBehaviour
         }
 
         playerUnit.currentXP = Mathf.RoundToInt(xpVisual);
+        if (GameManager.Instance != null)
+            GameManager.Instance.currentXP = playerUnit.currentXP;
     }
 
     public void OnFugirButton()
