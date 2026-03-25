@@ -689,35 +689,40 @@ public class GameManager : MonoBehaviour
 
     public void LevelUp()
     {
-        // Remove o XP necessário
+        // 1. Atualiza XP e nível no GameManager
         currentXP -= xpToNextLevel;
         playerLevel++;
-
-        // Calcula o próximo XP necessário (ex: 10% a mais que o anterior)
         xpToNextLevel = Mathf.FloorToInt(xpToNextLevel * 1.5f);
 
-        // Aumenta os Status!
-        if (PlayerUnit.Instance != null) PlayerUnit.Instance.maxHP += 6;
-        if (PlayerUnit.Instance != null) PlayerUnit.Instance.strength += 2;
-        if (PlayerUnit.Instance != null) PlayerUnit.Instance.agility += 2;
+        // 2. Aumenta os stats no GameManager (fonte da verdade)
+        maxHP += 6;
+        maxMP += 5;
+        strength += 2;
         //resistance += 1;
         //will += 2;
         //knowledge += 1;
         //speed += 1;
         //luck += 1;
 
-        // Cura o jogador totalmente ao subir de nível
-        if (PlayerUnit.Instance != null) PlayerUnit.Instance.currentHP = maxHP;
+        // 3. Cura completa usando o NOVO maxHP (já atualizado acima)
+        currentHP = maxHP;
+        currentMP = maxMP;
 
-        Debug.Log("LEVEL UP! Nível " + playerLevel);
-
-        // Sincroniza PlayerUnit com o nível atualizado do GameManager
+        // 4. Sincroniza PlayerUnit com todos os stats atualizados
         if (PlayerUnit.Instance != null)
         {
-            PlayerUnit.Instance.playerLevel = playerLevel;
-            PlayerUnit.Instance.currentXP = currentXP;
+            PlayerUnit.Instance.maxHP         = maxHP;
+            PlayerUnit.Instance.currentHP     = currentHP;
+            PlayerUnit.Instance.maxMP         = maxMP;
+            PlayerUnit.Instance.currentMP     = currentMP;
+            PlayerUnit.Instance.strength      = strength;
+            PlayerUnit.Instance.agility      += 2;
+            PlayerUnit.Instance.playerLevel   = playerLevel;
+            PlayerUnit.Instance.currentXP     = currentXP;
             PlayerUnit.Instance.xpToNextLevel = xpToNextLevel;
         }
+
+        Debug.Log($"LEVEL UP! Nível {playerLevel} — HP: {maxHP}, Força: {strength}");
         // (Aqui chamaremos a UI de "Level Up!")
     }
     #endregion
