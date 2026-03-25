@@ -212,7 +212,7 @@ public class GameManager : MonoBehaviour
     public int maxMP = 50;
     public int strength = 7;   // Força (Ataque Físico)
     //public int speed = 5;       // Velocidade (ordem de turno, etc - não implementado ainda)
-    //public int resistance = 5;  // Resistência (Defesa Física)
+    public int resistance = 0;  // Resistência (Defesa Física)
     //public int will = 10;       // Vontade (Ataque Mágico)
     //public int knowledge = 5;   // Conhecimento (Defesa Mágica)
     //public int luck = 5;        // Sorte (Taxa de Crítico)
@@ -320,8 +320,7 @@ public class GameManager : MonoBehaviour
         maxHP = data.maxHP;
         maxMP = data.maxMP;
         strength = data.strength;
-        //speed = data.speed;
-        //resistance = data.resistance;
+        resistance = data.resistance;
         //will = data.will;
         //knowledge = data.knowledge;
         //luck = data.luck;
@@ -365,6 +364,7 @@ public class GameManager : MonoBehaviour
         currentHP = maxHP;
         currentMP = maxMP;
         strength = data.strength;
+        resistance = data.resistance;
         defeatedEnemyIDs = data.defeatedEnemyIDs;
         collectedItemIDs = data.collectedItemIDs;
         sceneCollectedItems = new Dictionary<string, List<string>>();
@@ -403,8 +403,7 @@ public class GameManager : MonoBehaviour
         data.maxHP = maxHP;
         data.maxMP = maxMP;
         data.strength = strength;
-        //data.speed = speed;
-        //data.resistance = resistance;
+        data.resistance = resistance;
         //data.will = will;
         //data.knowledge = knowledge;
         //data.luck = luck;
@@ -688,7 +687,7 @@ public class GameManager : MonoBehaviour
         // (Aqui é onde futuramente chamaremos a UI da barra de XP)
     }
 
-    private void LevelUp()
+    public void LevelUp()
     {
         // Remove o XP necessário
         currentXP -= xpToNextLevel;
@@ -701,7 +700,7 @@ public class GameManager : MonoBehaviour
         maxHP += 6;
         maxMP += 5;
         strength += 2;
-        PlayerUnit.Instance.agility += 2;
+        if (PlayerUnit.Instance != null) PlayerUnit.Instance.agility += 2;
         //resistance += 1;
         //will += 2;
         //knowledge += 1;
@@ -713,6 +712,14 @@ public class GameManager : MonoBehaviour
         currentMP = maxMP;
 
         Debug.Log("LEVEL UP! Nível " + playerLevel);
+
+        // Sincroniza PlayerUnit com o nível atualizado do GameManager
+        if (PlayerUnit.Instance != null)
+        {
+            PlayerUnit.Instance.playerLevel = playerLevel;
+            PlayerUnit.Instance.currentXP = currentXP;
+            PlayerUnit.Instance.xpToNextLevel = xpToNextLevel;
+        }
         // (Aqui chamaremos a UI de "Level Up!")
     }
     #endregion

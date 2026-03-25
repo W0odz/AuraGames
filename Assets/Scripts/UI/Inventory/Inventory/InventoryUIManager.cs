@@ -102,19 +102,7 @@ public class InventoryUIManager : MonoBehaviour
     private void UpdateFooterStats()
     {
         int totalAtk = GameManager.Instance != null ? GameManager.Instance.strength : 0;
-        int totalDef = 0;
-
-        if (EquipmentManager.Instance != null)
-        {
-            foreach (var item in EquipmentManager.Instance.currentEquipment)
-            {
-                if (item != null)
-                {
-                    totalAtk += item.bonusStrength;
-                    totalDef += item.bonusResistance;
-                }
-            }
-        }
+        int totalDef = GameManager.Instance != null ? GameManager.Instance.resistance : 0;
 
         if (txtTotalAttack != null) txtTotalAttack.text = totalAtk.ToString();
         if (txtTotalDefense != null) txtTotalDefense.text = totalDef.ToString();
