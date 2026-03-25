@@ -6,21 +6,21 @@ using System.Collections.Generic; // Para usar Listas
 
 public class GameManager : MonoBehaviour
 {
-    // --- Singleton (O Padr�o "Imortal") ---
+    // --- Singleton (O Padrão "Imortal") ---
     private static GameManager _instance;
 
-    // 2. A "propriedade" p�blica inteligente
+    // 2. A "propriedade" pública inteligente
     public static GameManager Instance
     {
         get
         {
-            // Se o _instance ainda n�o foi definido...
+            // Se o _instance ainda não foi definido...
             if (_instance == null)
             {
-                // 1. Tenta encontrar um na cena (caso j� exista)
+                // 1. Tenta encontrar um na cena (caso já exista)
                 _instance = FindFirstObjectByType<GameManager>();
 
-                // 2. Se n�o encontrar NENHUM na cena...
+                // 2. Se não encontrar NENHUM na cena...
                 if (_instance == null)
                 {
                     // 3. ...Carrega o prefab da pasta "Resources"
@@ -36,30 +36,30 @@ public class GameManager : MonoBehaviour
                     else
                     {
                         // Se falhar (ex: nome errado ou pasta errada)
-                        Debug.LogError("ERRO FATAL: Prefab 'GameManager' n�o encontrado na pasta Resources!");
+                        Debug.LogError("ERRO FATAL: Prefab 'GameManager' não encontrado na pasta Resources!");
                     }
                 }
             }
 
-            // 4. Retorna a inst�ncia (que agora � garantido que existe)
+            // 4. Retorna a instância (que agora é garantido que existe)
             return _instance;
         }
     }
 
     [Header("Dados de Save")]
-    // Esta � a nossa "�rea de transfer�ncia" (clipboard)
+    // Esta é a nossa "área de transferência" (clipboard)
     public static GameData dataToCopy = null;
 
-    [Header("Refer�ncias de Fade")]
+    [Header("Referências de Fade")]
     public Image fadeImage; // Arraste o FadeImage aqui
     public float fadeSpeed = 1.5f;
 
     [Tooltip("Image UI usada para exibir splash screens de transição de batalha. Deve ficar ABAIXO do fadeImage no Canvas (ordem de renderização menor).")]
     public UnityEngine.UI.Image battleTransitionImage;
 
-    [Header("Transi��o de Batalha")]
-    public GameObject nextBattleEnemyPrefab; // O prefab que ser� spawnado na batalha
-    public GameObject currentExplorationEnemyBattlePrefab; // battlePrefab do inimigo de explora��o que iniciou a batalha atual
+    [Header("Transição de Batalha")]
+    public GameObject nextBattleEnemyPrefab; // O prefab que será spawnado na batalha
+    public GameObject currentExplorationEnemyBattlePrefab; // battlePrefab do inimigo de exploração que iniciou a batalha atual
 
     // Adicionar junto dos outros campos de estado (região "Estados do Jogo")
 
@@ -68,14 +68,14 @@ public class GameManager : MonoBehaviour
     public bool triggerIntroOnLoad = false;
 
     [Header("Dados Persistentes do Jogo")]
-    public int currentSaveSlot = 1; // O slot que est� em uso
+    public int currentSaveSlot = 1; // O slot que está em uso
     public List<string> collectedItemIDs = new List<string>();
     public List<string> defeatedEnemyIDs = new List<string>();
     public List<string> removedCharacterIDs = new List<string>();
     public string currentEnemyID;
     public string lastExplorationScene;
     public Vector3 playerReturnPosition; // Onde o jogador estava
-    public bool isReturningFromBattle;   // Uma "bandeira" para saber se deve usar essa posi��o
+    public bool isReturningFromBattle;   // Uma "bandeira" para saber se deve usar essa posição
     public string pendingSpawnID = ""; // ID do SpawnPoint de destino na próxima cena
 
     [Header("Diálogo Pós-Vitória Pendente")]
@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
     public string cenaDestinoPendente;
 
     [Header("Player Stats & Level")]
-    public string playerName = "Her�i"; // O campo para o nome
+    public string playerName = "Herói"; // O campo para o nome
     public int playerLevel = 1;
     public int currentXP = 0;
     public int xpToNextLevel = 100;
@@ -96,8 +96,8 @@ public class GameManager : MonoBehaviour
     public string sceneToLoad;         // "Qual cena carregar?"
 
     [Header("Estados do Jogo")]
-    public bool isBossBattle = false; // J� t�nhamos essa
-    [SerializeField] private bool _triggerEndingOnLoad = false; // Vari�vel privada (aparece no inspector por causa do SerializeField)
+    public bool isBossBattle = false; // Já tínhamos essa
+    [SerializeField] private bool _triggerEndingOnLoad = false; // Variável privada (aparece no inspector por causa do SerializeField)
 
     [Header("Combat Protection")]
     public float combatGraceDuration = 3f;
@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
     [Header("Enemy Persistence (Prototype)")]
     public Dictionary<string, Vector3> enemyPositions = new Dictionary<string, Vector3>();
 
-    [Header("Diálogos Únicos Vistros")]
+    [Header("Diálogos Únicos Vistos")]
     public List<string> seenUniqueDialogues = new List<string>();
 
     [Header("Tutoriais Vistos")]
@@ -123,7 +123,12 @@ public class GameManager : MonoBehaviour
     [Header("Transições Únicas Usadas")]
     public List<string> usedTransitionIDs = new List<string>();
 
-    // Adiciona junto com as outras flags p�blicas
+    [Header("Itens de Cena Coletados")]
+    // Chave: nome da cena | Valor: lista de paths hierárquicos dos itens já coletados
+    // Não é serializado pelo Unity Inspector (Dictionary), mas é persistido via SaveCurrentGame/LoadGame.
+    public Dictionary<string, List<string>> sceneCollectedItems = new Dictionary<string, List<string>>();
+
+    // Adiciona junto com as outras flags públicas
     public bool inputBloqueado = false;
 
     private bool _isShuttingDown = false;
@@ -171,13 +176,31 @@ public class GameManager : MonoBehaviour
         combatGraceUntil = Time.unscaledTime + combatGraceDuration;
     }
 
+    // --- Helpers para itens de cena ---
+    public bool ItemDeCenaFoiColetado(string sceneName, string itemPath)
+    {
+        return sceneCollectedItems.TryGetValue(sceneName, out var lista) && lista.Contains(itemPath);
+    }
+
+    public void MarcarItemDeCenaColetado(string sceneName, string itemPath)
+    {
+        if (!sceneCollectedItems.TryGetValue(sceneName, out var lista))
+        {
+            lista = new List<string>();
+            sceneCollectedItems[sceneName] = lista;
+        }
+        if (!lista.Contains(itemPath))
+            lista.Add(itemPath);
+    }
+
     public bool triggerEndingOnLoad
     {
         get { return _triggerEndingOnLoad; }
         set
         {
             // O Debug vai nos dizer QUEM mudou o valor e QUANDO
-            Debug.Log($"[GM DEBUG] 'triggerEndingOnLoad' mudou de {_triggerEndingOnLoad} para {value}.\nQuem fez isso? Veja a linha abaixo no stack trace.");
+            Debug.Log($"[GM DEBUG] 'triggerEndingOnLoad' mudou de {_triggerEndingOnLoad} para {value}.
+Quem fez isso? Veja a linha abaixo no stack trace.");
 
             _triggerEndingOnLoad = value;
         }
@@ -188,12 +211,12 @@ public class GameManager : MonoBehaviour
     public int currentMP; // MP atual
     public int maxHP = 100;
     public int maxMP = 50;
-    public int strength = 10;   // For�a (Ataque F�sico)
-    //public int speed = 5;       // Velocidade (ordem de turno, etc - n�o implementado ainda)
-    //public int resistance = 5;  // Resist�ncia (Defesa F�sica)
-    //public int will = 10;       // Vontade (Ataque M�gico)
-    //public int knowledge = 5;   // Conhecimento (Defesa M�gica)
-    //public int luck = 5;        // Sorte (Taxa de Cr�tico)
+    public int strength = 10;   // Força (Ataque Físico)
+    //public int speed = 5;       // Velocidade (ordem de turno, etc - não implementado ainda)
+    //public int resistance = 5;  // Resistência (Defesa Física)
+    //public int will = 10;       // Vontade (Ataque Mágico)
+    //public int knowledge = 5;   // Conhecimento (Defesa Mágica)
+    //public int luck = 5;        // Sorte (Taxa de Crítico)
     public DadosArma armaEquipada;
 
     public void FadeComAcao(System.Action aoEscurecer)
@@ -240,7 +263,7 @@ public class GameManager : MonoBehaviour
         // Garante que PlayerPrefs (volumes de áudio, configurações) sejam gravados em disco
         PlayerPrefs.Save();
 
-        Debug.Log("[GameManager] Graceful shutdown concluído. Progresso não salvo desde a última Fogueira foi descartado (comportamento esperado).");
+        Debug.Log("[GameManager] Graceful shutdown concluído. Progresso não salvo desde a última Fogueira foi descartado (comportamento esperado).);
     }
 
     void Awake()
@@ -264,7 +287,7 @@ public class GameManager : MonoBehaviour
         // Garante que a tela de fade esteja pronta
         if (fadeImage != null)
         {
-            fadeImage.color = new Color(0, 0, 0, 0); // Come�a transparente
+            fadeImage.color = new Color(0, 0, 0, 0); // Começa transparente
             fadeImage.gameObject.SetActive(true);
         }
     }
@@ -284,8 +307,8 @@ public class GameManager : MonoBehaviour
 
         if (data == null)
         {
-            Debug.LogWarning("Arquivo de save n�o encontrado! Carregando novo jogo...");
-            CreateNewGame("Her�i"); // Se n�o houver save, cria um novo
+            Debug.LogWarning("Arquivo de save não encontrado! Carregando novo jogo...");
+            CreateNewGame("Herói"); // Se não houver save, cria um novo
             return;
         }
 
@@ -311,12 +334,20 @@ public class GameManager : MonoBehaviour
         positionToLoad = new Vector3(data.posX, data.posY, data.posZ);
         isLoadingSave = true; // Avisa o sistema que estamos carregando um save
 
+        // Carrega itens de cena
+        sceneCollectedItems = new Dictionary<string, List<string>>();
+        if (data.sceneCollectedItems != null)
+        {
+            foreach (var entry in data.sceneCollectedItems)
+                sceneCollectedItems[entry.sceneName] = entry.itemPaths ?? new List<string>();
+        }
+
         LoadSceneWithFade(data.sceneName);
 
         Debug.Log("Jogo carregado do Slot " + slot);
     }
 
-    // Cria um novo jogo (usa valores padr�o)
+    // Cria um novo jogo (usa valores padrão)
     public void CreateNewGame(string playerNameInput, string cenaInicial = "Vila_01")
     {
         GameData data = new GameData();
@@ -338,6 +369,7 @@ public class GameManager : MonoBehaviour
         strength = data.strength;
         defeatedEnemyIDs = data.defeatedEnemyIDs;
         collectedItemIDs = data.collectedItemIDs;
+        sceneCollectedItems = new Dictionary<string, List<string>>();
 
         // Sinaliza que deve rodar a intro ao carregar a cena
         triggerIntroOnLoad = true;
@@ -351,10 +383,10 @@ public class GameManager : MonoBehaviour
     // Salva os dados atuais do GameManager em um arquivo
     public void SaveCurrentGame()
     {
-        // Cria um novo cont�iner
+        // Cria um novo contêiner
         GameData data = new GameData();
 
-        // Copia os dados atuais do GameManager para o cont�iner
+        // Copia os dados atuais do GameManager para o contêiner
         data.playerName = playerName;
         data.playerLevel = playerLevel;
         data.currentXP = currentXP;
@@ -373,12 +405,23 @@ public class GameManager : MonoBehaviour
         data.collectedItemIDs = collectedItemIDs;
         data.usedTransitionIDs = usedTransitionIDs;
 
+        // Serializa o dicionário sceneCollectedItems
+        data.sceneCollectedItems = new List<GameData.SceneItemEntry>();
+        foreach (var kvp in sceneCollectedItems)
+        {
+            data.sceneCollectedItems.Add(new GameData.SceneItemEntry
+            {
+                sceneName = kvp.Key,
+                itemPaths = new List<string>(kvp.Value)
+            });
+        }
+
         // 1. Encontra o jogador na cena atual
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
         if (player != null)
         {
-            // Salva a posi��o exata
+            // Salva a posição exata
             data.posX = player.transform.position.x;
             data.posY = player.transform.position.y;
             data.posZ = player.transform.position.z;
@@ -560,8 +603,8 @@ public class GameManager : MonoBehaviour
         float alpha = 0;
         fadeImage.gameObject.SetActive(true);
 
-        // Vari�veis para o Zoom
-        float startSize = 5f; // Valor padr�o caso n�o ache a c�mera
+        // Variáveis para o Zoom
+        float startSize = 5f; // Valor padrão caso não ache a câmera
         float targetSize = 2.5f; // Zoom de 50%
 
         if (useZoom && Camera.main != null)
@@ -577,13 +620,13 @@ public class GameManager : MonoBehaviour
             // Aplica a cor preta
             fadeImage.color = new Color(0, 0, 0, alpha);
 
-            // --- L�GICA DO ZOOM ---
+            // --- LÓGICA DO ZOOM ---
             if (useZoom && Camera.main != null)
             {
-                // Mathf.Lerp calcula o valor intermedi�rio entre A e B baseado no tempo (alpha)
+                // Mathf.Lerp calcula o valor intermediário entre A e B baseado no tempo (alpha)
                 Camera.main.orthographicSize = Mathf.Lerp(startSize, targetSize, alpha);
 
-                // Opcional: Se voc� quisesse girar ou mover a c�mera, faria aqui tamb�m
+                // Opcional: Se você quisesse girar ou mover a câmera, faria aqui também
             }
             // ---------------------
 
@@ -629,22 +672,22 @@ public class GameManager : MonoBehaviour
         currentXP += xpGained;
 
         // Loop 'while' caso o jogador ganhe XP suficiente para
-        // subir de n�vel m�ltiplas vezes de uma vez
+        // subir de nível múltiplas vezes de uma vez
         while (currentXP >= xpToNextLevel)
         {
             LevelUp();
         }
 
-        // (Aqui � onde futuramente chamaremos a UI da barra de XP)
+        // (Aqui é onde futuramente chamaremos a UI da barra de XP)
     }
 
     private void LevelUp()
     {
-        // Remove o XP necess�rio
+        // Remove o XP necessário
         currentXP -= xpToNextLevel;
         playerLevel++;
 
-        // Calcula o pr�ximo XP necess�rio (ex: 10% a mais que o anterior)
+        // Calcula o próximo XP necessário (ex: 10% a mais que o anterior)
         xpToNextLevel = Mathf.FloorToInt(xpToNextLevel * 1.5f);
 
         // Aumenta os Status!
@@ -658,11 +701,11 @@ public class GameManager : MonoBehaviour
         //speed += 1;
         //luck += 1;
 
-        // Cura o jogador totalmente ao subir de n�vel
+        // Cura o jogador totalmente ao subir de nível
         currentHP = maxHP;
         currentMP = maxMP;
 
-        Debug.Log("LEVEL UP! N�vel " + playerLevel);
+        Debug.Log("LEVEL UP! Nível " + playerLevel);
         // (Aqui chamaremos a UI de "Level Up!")
     }
     #endregion
