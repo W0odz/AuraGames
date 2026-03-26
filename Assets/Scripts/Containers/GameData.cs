@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class GameData
 {
-    // Informa��es do Jogador
+    // Informações do Jogador
     public string playerName;
     public int playerLevel;
     public int currentXP;
@@ -26,42 +26,51 @@ public class GameData
 
     // Progresso do Jogo
     public List<string> defeatedEnemyIDs;
-
     public List<string> collectedItemIDs;
 
     // Transições únicas já usadas
     public List<string> usedTransitionIDs;
 
-    // Dados de posi��o
-    public string sceneName; // O nome da cena (Ex: "ExplorationScene")
+    // Dados de posição
+    public string sceneName;
     public float posX;
     public float posY;
     public float posZ;
 
-    // O Construtor (valores padr�o para um Jogo Novo)
+    // ── Itens de cena persistidos ──────────────────────────────────
+    public List<SceneItemEntry> sceneCollectedItems;
+
+    [System.Serializable]
+    public class SceneItemEntry
+    {
+        public string sceneName;
+        public List<string> itemPaths;
+    }
+    // ──────────────────────────────────────────────────────────────
+
+    // O Construtor (valores padrão para um Jogo Novo)
     public GameData()
     {
-        this.playerName = "Her�i";
+        this.playerName = "Herói";
         this.playerLevel = 1;
         this.currentXP = 0;
         this.xpToNextLevel = 100;
 
-        this.maxHP = 100;
+        this.maxHP = 11;
         this.maxMP = 50;
-        this.currentHP = 100; // Garanta que nasce cheio
+        this.currentHP = 11;
         this.currentMP = 50;
 
-        this.strength = 20;   // Aumente conforme necess�rio
+        this.strength = 7;
         this.speed = 0;
-        this.resistance = 5;
+        this.resistance = 0;
         this.will = 20;
         this.knowledge = 5;
         this.luck = 10;
 
         this.defeatedEnemyIDs = new List<string>();
-
         this.collectedItemIDs = new List<string>();
-
         this.usedTransitionIDs = new List<string>();
+        this.sceneCollectedItems = new List<SceneItemEntry>();
     }
 }

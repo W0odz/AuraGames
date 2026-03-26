@@ -91,8 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7159320044293941838}
   - component: {fileID: 2750746522571746138}
-  - component: {fileID: 6555784131934157028}
-  - component: {fileID: 6699482827347619913}
+  - component: {fileID: 8852349016748381693}
   - component: {fileID: -6274137052180153990}
   - component: {fileID: 3349280894099777274}
   m_Layer: 7
@@ -176,8 +175,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &6555784131934157028
-CapsuleCollider2D:
+--- !u!61 &8852349016748381693
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -210,46 +209,18 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
---- !u!70 &6699482827347619913
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6385819010840743586}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
+  m_Offset: {x: -0.2638321, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 12.482986, y: 2}
+  m_EdgeRadius: 0
 --- !u!50 &-6274137052180153990
 Rigidbody2D:
   serializedVersion: 5
@@ -293,10 +264,17 @@ MonoBehaviour:
   isEstatico: 0
   wanderSpeed: 2
   chaseSpeed: 4
+  wanderRadius: 3
+  wanderIdleMin: 0.5
+  wanderIdleMax: 2
   battlePrefab: {fileID: 6089210800779420423, guid: d5f08d0b8493c034a836f5f6a6d754a3, type: 3}
   isBoss: 0
   dialogoPreBatalha: {fileID: 0}
+  imagemTransicaoBatalha: {fileID: 0}
+  duracaoImagemTransicao: 3
   chaseDuration: 10
   mapBoundsCollider: {fileID: 0}
   aggroDetectors: []
   enemyID: "M\xFAsico"
+  spriteRenderer: {fileID: 0}
+  animator: {fileID: 0}

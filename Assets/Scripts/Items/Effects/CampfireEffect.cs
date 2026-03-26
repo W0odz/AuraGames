@@ -3,8 +3,8 @@ using UnityEngine;
 /// <summary>
 /// Efeito do item Fogueira.
 /// Quando executado (uso do item):
-///   1. Salva o jogo em disco (via GameManager.SaveCurrentGame)
-///   2. Restaura a Força de Vontade do jogador
+///   - Restaura a Força de Vontade do jogador
+/// O jogo é salvo ao retornar ao menu principal pelo painel de pause.
 /// </summary>
 [CreateAssetMenu(fileName = "Efeito_Fogueira", menuName = "Items/Efeitos/Usar Fogueira")]
 public class UsarFogueiraEffect : ItemEffect
@@ -19,13 +19,9 @@ public class UsarFogueiraEffect : ItemEffect
             return;
         }
 
-        // 1. Salvar o jogo usando o sistema existente
-        if (GameManager.Instance != null)
-            GameManager.Instance.SaveCurrentGame();
-
-        // 2. Restaurar a Força de Vontade
+        // Restaurar a Força de Vontade
         player.RestaurarForcaDeVontade();
 
-        Debug.Log("[Fogueira] Jogo salvo e Força de Vontade restaurada!");
+        Debug.Log("[Fogueira] Força de Vontade restaurada!");
     }
 }

@@ -18,12 +18,13 @@ MonoBehaviour:
   tipoItem: 1
   slotOndeEquipa: 0
   efeitosDoItem: []
-  valorEscambo: 10
-  bonusStrength: 10
+  valorEscambo: 1
+  bonusStrength: 2
   bonusResistance: 0
   bonusMaxHP: 0
   bonusMaxMP: 0
   apenasForaDeBatalha: 0
+  naoVendivel: 0
   tipoDeDano: 0
   velocidadeDoAro: 1.75
   limiteDeTinta: 100

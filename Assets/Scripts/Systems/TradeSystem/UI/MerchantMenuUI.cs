@@ -11,6 +11,10 @@ public class MerchantMenuUI : MonoBehaviour
     public Image imagemFundo;
     public Sprite fundoPadrao;
 
+    [Header("Retrato do Mercador")]
+    [Tooltip("Arraste aqui o componente Image que exibirá o retrato do mercador.")]
+    public Image imagemRetrato;
+
     [Header("Painel raiz")]
     public GameObject painel;
 
@@ -66,6 +70,12 @@ public class MerchantMenuUI : MonoBehaviour
 
         if (imagemFundo != null)
             imagemFundo.sprite = merchant.fundoMenu != null ? merchant.fundoMenu : fundoPadrao;
+
+        if (imagemRetrato != null)
+        {
+            imagemRetrato.sprite = merchant.retrato;
+            imagemRetrato.gameObject.SetActive(merchant.retrato != null);
+        }
 
         PopularEstoque();
         PopularInventario();

@@ -201,7 +201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sair sem Salvar
+  m_text: Sair e Salvar
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5ad284833faefc347922631c7e9ff7b4, type: 2}
   m_sharedMaterial: {fileID: 8681040189227480116, guid: 5ad284833faefc347922631c7e9ff7b4, type: 2}
@@ -3781,7 +3781,7 @@ MonoBehaviour:
   pausePanel: {fileID: 2130631276826403510}
   configPanel: {fileID: 7200861272571052108}
   soundPanel: {fileID: 420283675148387791}
-  controlsPanel: {fileID: 0}
+  controlsPanel: {fileID: 2954072243237605705}
   sliderGeral: {fileID: 7787568289576852157}
   sliderSFX: {fileID: 1944274715037773658}
   sliderMusica: {fileID: 897672979856473384}

@@ -48,6 +48,9 @@ MonoBehaviour:
   goToScene: Floresta
   spawnID: 
   precisaInteragir: 0
+  itemNecessario: 
+  apenasUmaVez: 0
+  transitionID: 
 --- !u!61 &3625821216007796294
 BoxCollider2D:
   m_ObjectHideFlags: 0

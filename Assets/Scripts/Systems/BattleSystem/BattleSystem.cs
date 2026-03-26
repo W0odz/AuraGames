@@ -19,6 +19,16 @@ public class DialogoPosBatalha
     public string spawnIdDestino;
 }
 
+[System.Serializable]
+public class TutorialDeBatalha
+{
+    [Tooltip("Prefab do inimigo que dispara este tutorial.")]
+    public GameObject enemyPrefab;
+    [Tooltip("Texto exibido no painel de tutorial ao enfrentar este inimigo pela primeira vez.")]
+    [TextArea(3, 8)]
+    public string textoTutorial;
+}
+
 public class BattleSystem : MonoBehaviour
 {
     public static BattleSystem Instance;
@@ -63,8 +73,8 @@ public class BattleSystem : MonoBehaviour
     public DialogoPosBatalha[] dialogosPosVitoria;
 
     [Header("Tutorial de Batalha")]
-    [Tooltip("ID do inimigo que dispara o tutorial na primeira batalha.")]
-    public string tutorialEnemyID;
+    [Tooltip("Associa prefabs de inimigo a textos de tutorial. Cada entrada é exibida apenas uma vez.")]
+    public TutorialDeBatalha[] tutoriaisDeBatalha;
 
     [Header("Batalha Especial")]
     [Tooltip("ID do inimigo que termina a batalha quando chega na metade do HP.")]
@@ -163,22 +173,37 @@ public class BattleSystem : MonoBehaviour
         }
 
         // Aguarda o BattleTutorialPanel inicializar (máx. 2 segundos)
-        float tutorialTimeout = 2f;
+        float tutorialTimeout = 0.5f;
         while (BattleTutorialPanel.Instance == null && tutorialTimeout > 0f)
         {
             tutorialTimeout -= Time.deltaTime;
             yield return null;
         }
 
-        string idAtual = GameManager.Instance?.currentEnemyID ?? "";
-        if (!string.IsNullOrEmpty(tutorialEnemyID)
-            && idAtual == tutorialEnemyID
-            && GameManager.Instance != null
-            && !GameManager.Instance.seenTutorialIDs.Contains(tutorialEnemyID)
-            && BattleTutorialPanel.Instance != null)
+        // Tutorial baseado em prefab
+        TutorialDeBatalha tutorialParaExibir = null;
+        GameObject prefabUsado = GameManager.Instance?.currentExplorationEnemyBattlePrefab;
+
+        string prefabUsadoName = prefabUsado != null ? prefabUsado.name.Replace(" (Clone)", "").Trim() : null;
+
+        if (prefabUsadoName != null && tutoriaisDeBatalha != null && GameManager.Instance != null)
         {
-            GameManager.Instance.seenTutorialIDs.Add(tutorialEnemyID);
-            BattleTutorialPanel.Instance.Mostrar(() =>
+            foreach (var t in tutoriaisDeBatalha)
+            {
+                if (t.enemyPrefab != null
+                    && t.enemyPrefab.name == prefabUsadoName
+                    && !GameManager.Instance.seenTutorialIDs.Contains(prefabUsadoName))
+                {
+                    tutorialParaExibir = t;
+                    break;
+                }
+            }
+        }
+
+        if (tutorialParaExibir != null && BattleTutorialPanel.Instance != null)
+        {
+            GameManager.Instance.seenTutorialIDs.Add(prefabUsadoName);
+            BattleTutorialPanel.Instance.Mostrar(tutorialParaExibir.textoTutorial, () =>
             {
                 state = BattleState.PLAYERTURN;
                 PlayerTurn();
@@ -212,6 +237,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator SkipPlayerTurn()
     {
+        if (playerHUD != null) playerHUD.BloquearBotoes();
         yield return new WaitForSeconds(1.5f);
         state = BattleState.ENEMYTURN;
         StartCoroutine(EnemyTurn());
@@ -223,6 +249,7 @@ public class BattleSystem : MonoBehaviour
         if (state != BattleState.PLAYERTURN) return;
 
         state = BattleState.TARGETING;
+        if (playerHUD != null) playerHUD.BloquearBotoes();
 
         // Desativa os painéis ao clicar em atacar
         if (dialoguePanel != null) dialoguePanel.SetActive(false);
@@ -442,6 +469,8 @@ public class BattleSystem : MonoBehaviour
         int xpGanho = enemyUnit.expReward;
         yield return StartCoroutine(AnimarXP(xpGanho));
 
+        ProcessarLoot();
+
         yield return new WaitForSeconds(pausaAposXP);
 
         // ← CORRIGIDO: removido o LoadSceneWithFade duplicado
@@ -568,14 +597,18 @@ public class BattleSystem : MonoBehaviour
 
             if (xpSlider.value >= xpSlider.maxValue)
             {
-                playerUnit.playerLevel++;
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.LevelUp();
+                    playerUnit.playerLevel = GameManager.Instance.playerLevel;
+                }
+
                 levelText.text = "Subiu de nível!";
 
                 xpAlvo -= xpSlider.maxValue;
                 xpVisual = 0;
                 xpSlider.value = 0;
 
-                playerUnit.xpToNextLevel = Mathf.RoundToInt(playerUnit.xpToNextLevel * 1.5f);
                 xpSlider.maxValue = playerUnit.xpToNextLevel;
 
                 yield return new WaitForSeconds(1f);
@@ -585,6 +618,30 @@ public class BattleSystem : MonoBehaviour
         }
 
         playerUnit.currentXP = Mathf.RoundToInt(xpVisual);
+        if (GameManager.Instance != null)
+            GameManager.Instance.currentXP = playerUnit.currentXP;
+    }
+
+    private void ProcessarLoot()
+    {
+        if (enemyUnit == null || enemyUnit.tabelaDeLoot == null) return;
+        if (InventoryManager.Instance == null) return;
+
+        foreach (var loot in enemyUnit.tabelaDeLoot)
+        {
+            if (loot.item == null) continue;
+
+            float roll = Random.Range(0f, 100f);
+            if (roll <= loot.chanceDeDrop)
+            {
+                InventoryManager.Instance.AdicionarItem(loot.item, loot.quantidade);
+                Debug.Log($"[BattleSystem] Loot dropado: {loot.quantidade}x {loot.item.nomeItem} (roll {roll:F1} <= {loot.chanceDeDrop})");
+            }
+            else
+            {
+                Debug.Log($"[BattleSystem] Loot NÃO dropado: {loot.item.nomeItem} (roll {roll:F1} > {loot.chanceDeDrop})");
+            }
+        }
     }
 
     public void OnFugirButton()
@@ -605,6 +662,7 @@ public class BattleSystem : MonoBehaviour
     private IEnumerator TentarFugir()
     {
         state = BattleState.BUSY;
+        if (playerHUD != null) playerHUD.BloquearBotoes();
 
         bool falhou = Random.value < 0.2f;
 
@@ -641,6 +699,7 @@ public class BattleSystem : MonoBehaviour
     public void PassarTurnoAposItem()
     {
         if (state != BattleState.PLAYERTURN) return;
+        if (playerHUD != null) playerHUD.BloquearBotoes();
 
         if (dialogueText != null)
             dialogueText.text = playerUnit.unitName + " usou um item!";

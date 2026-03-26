@@ -268,8 +268,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 410.00006, y: 79.957886}
-  m_SizeDelta: {x: 712.8142, y: 673.49}
+  m_AnchoredPosition: {x: 425, y: 101}
+  m_SizeDelta: {x: 493.2778, y: 481.4122}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4534751476182078324
 MonoBehaviour:
@@ -538,7 +538,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 133.97519, y: 27.299995}
+  m_AnchoredPosition: {x: 122.67514, y: 27.299995}
   m_SizeDelta: {x: 90.4722, y: 135.5858}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4647939091305490112
@@ -2299,10 +2299,10 @@ RectTransform:
   - {fileID: 5810721837857629641}
   m_Father: {fileID: 2616915023095170897}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 21.2929, y: 18.8593}
-  m_SizeDelta: {x: 526.8061, y: 476.3236}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5711323050494316775
 CanvasRenderer:
@@ -3325,7 +3325,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 600, y: 0}
+  m_SizeDelta: {x: 493.28, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2438585004310512541
 MonoBehaviour:
@@ -3350,7 +3350,7 @@ MonoBehaviour:
   m_CellSize: {x: 100, y: 100}
   m_Spacing: {x: 25, y: 25}
   m_Constraint: 1
-  m_ConstraintCount: 5
+  m_ConstraintCount: 4
 --- !u!114 &7407819027050743957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4969,9 +4969,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 11500000, guid: 2ee464a8f7cde9245883a243f805fb4e, type: 3}
         m_TargetAssemblyTypeName: CraftingUIManager, Assembly-CSharp
-        m_MethodName: CraftItem
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5738,7 +5738,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -110.3, y: 27.3}
+  m_AnchoredPosition: {x: -84, y: 27.3}
   m_SizeDelta: {x: 90.4722, y: 135.5858}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3541908634466109723

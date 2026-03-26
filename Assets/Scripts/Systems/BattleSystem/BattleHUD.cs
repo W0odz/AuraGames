@@ -7,7 +7,7 @@ public class BattleHUD : MonoBehaviour
 {
     public static BattleHUD Instance;
 
-    [Header("Configurações de Tipo")]
+    [Header("Configuraï¿½ï¿½es de Tipo")]
     public bool ehInimigo; // Marque True no Inspector do HUD do inimigo
     public float tempoVisivel = 2.5f; // Quanto tempo a barra fica na tela
     private float cronometroVisibilidade;
@@ -31,7 +31,7 @@ public class BattleHUD : MonoBehaviour
     public Slider mpSlider;
     private float valorAlvoMP;
 
-    [Header("Configurações Visuais")]
+    [Header("Configuraï¿½ï¿½es Visuais")]
     public float velocidadeSuavizacao = 5f;
 
     private bool bloquearAutoHide = false;
@@ -43,7 +43,7 @@ public class BattleHUD : MonoBehaviour
     {
         if (Instance == null && !ehInimigo) Instance = this;
 
-        // Se for inimigo, começa invisível
+        // Se for inimigo, comeï¿½a invisï¿½vel
         if (ehInimigo && canvasGroup != null) canvasGroup.alpha = 0;
     }
 
@@ -73,7 +73,7 @@ public class BattleHUD : MonoBehaviour
     {
         if (hpFillImage == null || hpSlider == null) return;
 
-        // enabled=false evita aquele "restinho" visual do Sliced quando value é 0
+        // enabled=false evita aquele "restinho" visual do Sliced quando value ï¿½ 0
         hpFillImage.enabled = hpSlider.value > HP_EPSILON;
     }
 
@@ -92,7 +92,7 @@ public class BattleHUD : MonoBehaviour
             AtualizarTextoHP(unit.currentHP, unit.maxHP);
         }
 
-        // NOVO: garante o estado correto já na inicialização
+        // NOVO: garante o estado correto jï¿½ na inicializaï¿½ï¿½o
         AtualizarVisibilidadeFillHP();
 
         if (mpSlider != null)
@@ -158,8 +158,25 @@ public class BattleHUD : MonoBehaviour
         yield return StartCoroutine(FadeHUD(0f));
     }
 
+    /// <summary>Desabilita todos os botÃµes filhos do commandsPanel (fora do turno do jogador).</summary>
+    public void BloquearBotoes()
+    {
+        if (commandsPanel == null) return;
+        foreach (var btn in commandsPanel.GetComponentsInChildren<Button>(true))
+            btn.interactable = false;
+    }
+
+    /// <summary>Habilita todos os botÃµes filhos do commandsPanel (inÃ­cio do turno do jogador).</summary>
+    public void DesbloquearBotoes()
+    {
+        if (commandsPanel == null) return;
+        foreach (var btn in commandsPanel.GetComponentsInChildren<Button>(true))
+            btn.interactable = true;
+    }
+
     public void MostrarMenuPrincipal()
     {
         if (commandsPanel != null) commandsPanel.SetActive(true);
+        DesbloquearBotoes();
     }
 }

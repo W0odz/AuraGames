@@ -43,13 +43,18 @@ public class EquipmentSlotUI : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        // Ao clicar no slot da esquerda, ele desequipa o item daquele tipo
-        if (EquipmentManager.Instance != null)
-        {
-            EquipmentManager.Instance.Unequip((int)slotType);
+        if (EquipmentManager.Instance == null) return;
 
-            // Esconde o tooltip ao desequipar para não bugar
-            if (TooltipManager.Instance != null) TooltipManager.Instance.Hide();
+        // Slot de arma não pode ser desequipado clicando — só trocando por outra arma
+        if (slotType == SlotEquipamento.Weapon)
+        {
+            Debug.LogWarning("[EquipmentSlotUI] A arma não pode ser removida. Equipe outra arma para substituir.");
+            return;
         }
+
+        EquipmentManager.Instance.Unequip((int)slotType);
+
+        // Esconde o tooltip ao desequipar para não bugar
+        if (TooltipManager.Instance != null) TooltipManager.Instance.Hide();
     }
 }

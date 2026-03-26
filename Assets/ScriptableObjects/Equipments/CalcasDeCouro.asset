@@ -22,7 +22,8 @@ MonoBehaviour:
   efeitosDoItem: []
   valorEscambo: 10
   bonusStrength: 0
-  bonusResistance: 2
-  bonusMaxHP: 5
+  bonusResistance: 1
+  bonusMaxHP: 0
   bonusMaxMP: 0
   apenasForaDeBatalha: 0
+  naoVendivel: 0
