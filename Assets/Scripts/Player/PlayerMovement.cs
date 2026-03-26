@@ -12,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float enemySafeRadiusOnReturn = 2.5f;
 
+    private bool _batalhaIniciada = false;
+
 
     #region Métodos Unity
     void Awake()
@@ -78,6 +80,8 @@ public class PlayerMovement : MonoBehaviour
     // quando nosso colisor SÓLIDO (do jogador) entra em um colisor "Is Trigger"
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (_batalhaIniciada) return;
+
         if (GameManager.Instance != null && GameManager.Instance.IsInCombatGracePeriod())
             return;
 
@@ -101,6 +105,8 @@ public class PlayerMovement : MonoBehaviour
 
                 // Congela tudo imediatamente
                 EnemyAIController.FreezeAllEnemies();
+
+                _batalhaIniciada = true;
 
                 // Para o jogador
                 this.enabled = false;
