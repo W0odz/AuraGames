@@ -62,6 +62,12 @@ public class CinematicSequence : MonoBehaviour
         [Tooltip("Se diferente de null, troca o sprite do SpriteRenderer do alvo.")]
         public Sprite novoSprite;
 
+        [Tooltip("Se true, restaura o sprite original do personagem ao fim da sequência.")]
+        public bool restaurarSpriteAoFim = true;
+
+        // Cache interno — preenchido automaticamente antes da troca
+        [System.NonSerialized] public Sprite spriteOriginal;
+
         [Header("Ativar/Desativar (opcional)")]
         [Tooltip("Se true, chama SetActive(ativarOuDesativar) no alvo.")]
         public bool alterarAtivacao = false;
@@ -148,6 +154,8 @@ public class CinematicSequence : MonoBehaviour
         if (GameManager.Instance != null)
             GameManager.Instance.inputBloqueado = false;
 
+        RestaurarSprites();
+
         Debug.Log("[CinematicSequence] Sequência cinemática concluída.");
     }
 
@@ -170,13 +178,34 @@ public class CinematicSequence : MonoBehaviour
             {
                 var sr = t.alvo.GetComponent<SpriteRenderer>();
                 if (sr != null)
+                {
+                    if (t.spriteOriginal == null)
+                        t.spriteOriginal = sr.sprite;
                     sr.sprite = t.novoSprite;
+                }
                 else
                     Debug.LogWarning($"[CinematicSequence] {t.alvo.name} não tem SpriteRenderer — sprite ignorado.");
             }
 
             if (t.alterarAtivacao)
                 t.alvo.SetActive(t.ativarOuDesativar);
+        }
+    }
+
+    // ── Restaurar sprites ─────────────────────────────────────────────
+    private void RestaurarSprites()
+    {
+        if (transformacoes == null) return;
+
+        foreach (var t in transformacoes)
+        {
+            if (t.alvo == null) continue;
+            if (t.novoSprite == null) continue;
+            if (!t.restaurarSpriteAoFim) continue;
+
+            var sr = t.alvo.GetComponent<SpriteRenderer>();
+            if (sr != null && t.spriteOriginal != null)
+                sr.sprite = t.spriteOriginal;
         }
     }
 

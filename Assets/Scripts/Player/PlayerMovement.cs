@@ -25,6 +25,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        if (spriteRenderer != null)
+            spriteRenderer.flipX = false;
+
         // Prioridade 1: Voltando de Batalha (Curto Prazo)
         if (GameManager.Instance.isReturningFromBattle)
         {
