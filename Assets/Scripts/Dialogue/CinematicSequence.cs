@@ -59,22 +59,30 @@ public class CinematicSequence : MonoBehaviour
         public Vector3 novaRotacao;
 
         [Header("Sprite (opcional — exige SpriteRenderer)")]
-        [Tooltip("Se diferente de null, troca o sprite do SpriteRenderer do alvo.")]
+        [Tooltip("Se diferente de null, troca o sprite do SpriteRenderer do alvo durante a cinemática.")]
         public Sprite novoSprite;
 
-        [Tooltip("Sprite original do alvo para restaurar ao fim da sequência. Se deixado em branco, é capturado automaticamente no momento da troca.")]
+        [Tooltip("Sprite para restaurar ao fim da sequência. Se vazio, usa o sprite capturado automaticamente antes da troca.")]
         public Sprite spriteInicial; // fallback serializado
 
         [Tooltip("Se true, restaura o sprite original do personagem ao fim da sequência.")]
         public bool restaurarSpriteAoFim = true;
 
-        // Cache em runtime — preenchido automaticamente antes da troca
-        [System.NonSerialized] public Sprite spriteOriginal;
+        [Header("Flip (opcional — exige SpriteRenderer)")]
+        [Tooltip("Se true, altera o flipX do SpriteRenderer do alvo no pico do preto.")]
+        public bool alterarFlipX = false;
+        public bool novoFlipX = false;
+
+        [Tooltip("Se true, inverte o flipX atual ao fim da sequência (corrige orientação ao voltar para cena normal).")]
+        public bool inverterFlipXAoFim = false;
 
         [Header("Ativar/Desativar (opcional)")]
         [Tooltip("Se true, chama SetActive(ativarOuDesativar) no alvo.")]
         public bool alterarAtivacao = false;
         public bool ativarOuDesativar = true;
+
+        // Cache em runtime — preenchido automaticamente antes da troca
+        [System.NonSerialized] public Sprite spriteOriginal;
     }
 
     // ── Internals ─────────────────────────────────────────────────────
@@ -190,6 +198,13 @@ public class CinematicSequence : MonoBehaviour
                     Debug.LogWarning($"[CinematicSequence] {t.alvo.name} não tem SpriteRenderer — sprite ignorado.");
             }
 
+            if (t.alterarFlipX)
+            {
+                var sr = t.alvo.GetComponent<SpriteRenderer>();
+                if (sr != null)
+                    sr.flipX = t.novoFlipX;
+            }
+
             if (t.alterarAtivacao)
                 t.alvo.SetActive(t.ativarOuDesativar);
         }
@@ -203,13 +218,20 @@ public class CinematicSequence : MonoBehaviour
         foreach (var t in transformacoes)
         {
             if (t.alvo == null) continue;
-            if (t.novoSprite == null) continue;
-            if (!t.restaurarSpriteAoFim) continue;
 
             var sr = t.alvo.GetComponent<SpriteRenderer>();
-            Sprite spriteParaRestaurar = t.spriteOriginal ?? t.spriteInicial;
-            if (sr != null && spriteParaRestaurar != null)
-                sr.sprite = spriteParaRestaurar;
+
+            // Restaurar sprite
+            if (t.novoSprite != null && t.restaurarSpriteAoFim)
+            {
+                Sprite spriteParaRestaurar = t.spriteOriginal ?? t.spriteInicial;
+                if (sr != null && spriteParaRestaurar != null)
+                    sr.sprite = spriteParaRestaurar;
+            }
+
+            // Inverter flipX ao fim (para corrigir orientação)
+            if (t.inverterFlipXAoFim && sr != null)
+                sr.flipX = !sr.flipX;
         }
     }
 
