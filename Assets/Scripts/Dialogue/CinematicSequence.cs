@@ -79,6 +79,10 @@ public class CinematicSequence : MonoBehaviour
         [Tooltip("Se true, inverte o flip horizontal do objeto inteiro (via localScale.x) ao fim da sequência.")]
         public bool inverterFlipAoFim = false;
 
+        [Header("Animator (opcional)")]
+        [Tooltip("Se true, desativa o Animator do alvo ANTES da sequência começar (evita que o Animator sobrescreva o sprite definido aqui). O Animator é reativado ao fim da sequência.")]
+        public bool desativarAnimator = false;
+
         [Header("Ativar/Desativar (opcional)")]
         [Tooltip("Se true, chama SetActive(ativarOuDesativar) no alvo.")]
         public bool alterarAtivacao = false;
@@ -110,6 +114,18 @@ public class CinematicSequence : MonoBehaviour
     // ── Coroutine principal ───────────────────────────────────────────
     private IEnumerator SequenciaCoroutine()
     {
+        // Desativa Animators imediatamente (antes do primeiro yield) para evitar
+        // que sobrescrevam os sprites definidos nas transformações
+        if (transformacoes != null)
+        {
+            foreach (var t in transformacoes)
+            {
+                if (t.alvo == null || !t.desativarAnimator) continue;
+                var anim = t.alvo.GetComponent<Animator>();
+                if (anim != null) anim.enabled = false;
+            }
+        }
+
         // Espera um frame para garantir que todos os Starts já rodaram
         yield return null;
         yield return new WaitForSecondsRealtime(0.05f);
@@ -224,6 +240,13 @@ public class CinematicSequence : MonoBehaviour
                     sr.sprite = t.spriteAoFim;
                 else
                     Debug.LogWarning($"[CinematicSequence] {t.alvo.name} não tem SpriteRenderer — spriteAoFim ignorado.");
+            }
+
+            // Reativa o Animator se foi desativado para esta transformação
+            if (t.desativarAnimator)
+            {
+                var anim = t.alvo.GetComponent<Animator>();
+                if (anim != null) anim.enabled = true;
             }
 
             // Inverter flip do objeto ao fim
