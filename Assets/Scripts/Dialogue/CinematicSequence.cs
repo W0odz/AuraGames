@@ -32,7 +32,7 @@ public class CinematicSequence : MonoBehaviour
     [Header("3 · Diálogo final (após o fade)")]
     public DialogueAsset dialogoFinal;
 
-    // ── Transformações finais (aplicadas após o diálogo final e RestaurarEstado) ──
+    // ── Transformações finais (aplicadas após o diálogo final) ──────────
     [Header("4 · Transformações finais (após o diálogo final)")]
     [Tooltip("Lista de objetos modificados APÓS o diálogo final terminar e os sprites serem restaurados.")]
     public System.Collections.Generic.List<TransformacaoPersonagem> transformacoesFinais;
@@ -63,15 +63,12 @@ public class CinematicSequence : MonoBehaviour
         public bool alterarRotacao = false;
         public Vector3 novaRotacao;
 
-        [Header("Sprite (opcional — exige SpriteRenderer)")]
-        [Tooltip("Se diferente de null, troca o sprite do SpriteRenderer do alvo durante a cinemática.")]
+        [Header("Sprite no pico do fade (opcional — exige SpriteRenderer)")]
+        [Tooltip("Se diferente de null, troca o sprite do SpriteRenderer do alvo no pico do preto.")]
         public Sprite novoSprite;
 
-        [Tooltip("Sprite para restaurar ao fim da sequência. Se vazio, usa o sprite capturado automaticamente antes da troca.")]
-        public Sprite spriteInicial; // fallback serializado
-
-        [Tooltip("Se true, restaura o sprite original do personagem ao fim da sequência.")]
-        public bool restaurarSpriteAoFim = true;
+        [Tooltip("Sprite a aplicar no alvo ao FIM da sequência (após o dialogoFinal). Se nulo, o sprite não é alterado ao fim.")]
+        public Sprite spriteAoFim;
 
         [Header("Flip do objeto (opcional)")]
         [Tooltip("Se true, altera o flip horizontal do objeto inteiro (via localScale.x) no pico do preto.")]
@@ -86,9 +83,6 @@ public class CinematicSequence : MonoBehaviour
         [Tooltip("Se true, chama SetActive(ativarOuDesativar) no alvo.")]
         public bool alterarAtivacao = false;
         public bool ativarOuDesativar = true;
-
-        // Cache em runtime — preenchido automaticamente antes da troca
-        [System.NonSerialized] public Sprite spriteOriginal;
     }
 
     // ── Internals ─────────────────────────────────────────────────────
@@ -171,7 +165,7 @@ public class CinematicSequence : MonoBehaviour
         if (GameManager.Instance != null)
             GameManager.Instance.inputBloqueado = false;
 
-        RestaurarEstado();
+        AplicarSpritesFinais();
         AplicarTransformacoesFinais();
 
         Debug.Log("[CinematicSequence] Sequência cinemática concluída.");
@@ -196,11 +190,7 @@ public class CinematicSequence : MonoBehaviour
             {
                 var sr = t.alvo.GetComponent<SpriteRenderer>();
                 if (sr != null)
-                {
-                    if (t.spriteOriginal == null)
-                        t.spriteOriginal = sr.sprite;
                     sr.sprite = t.novoSprite;
-                }
                 else
                     Debug.LogWarning($"[CinematicSequence] {t.alvo.name} não tem SpriteRenderer — sprite ignorado.");
             }
@@ -218,8 +208,8 @@ public class CinematicSequence : MonoBehaviour
         }
     }
 
-    // ── Restaurar estado ──────────────────────────────────────────────
-    private void RestaurarEstado()
+    // ── Aplicar sprites finais ────────────────────────────────────────
+    private void AplicarSpritesFinais()
     {
         if (transformacoes == null) return;
 
@@ -227,14 +217,13 @@ public class CinematicSequence : MonoBehaviour
         {
             if (t.alvo == null) continue;
 
-            var sr = t.alvo.GetComponent<SpriteRenderer>();
-
-            // Restaurar sprite
-            if (t.novoSprite != null && t.restaurarSpriteAoFim)
+            if (t.spriteAoFim != null)
             {
-                Sprite spriteParaRestaurar = t.spriteOriginal ?? t.spriteInicial;
-                if (sr != null && spriteParaRestaurar != null)
-                    sr.sprite = spriteParaRestaurar;
+                var sr = t.alvo.GetComponent<SpriteRenderer>();
+                if (sr != null)
+                    sr.sprite = t.spriteAoFim;
+                else
+                    Debug.LogWarning($"[CinematicSequence] {t.alvo.name} não tem SpriteRenderer — spriteAoFim ignorado.");
             }
 
             // Inverter flip do objeto ao fim
