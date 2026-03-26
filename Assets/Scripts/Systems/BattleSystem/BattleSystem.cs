@@ -467,6 +467,8 @@ public class BattleSystem : MonoBehaviour
         int xpGanho = enemyUnit.expReward;
         yield return StartCoroutine(AnimarXP(xpGanho));
 
+        ProcessarLoot();
+
         yield return new WaitForSeconds(pausaAposXP);
 
         // ← CORRIGIDO: removido o LoadSceneWithFade duplicado
@@ -616,6 +618,28 @@ public class BattleSystem : MonoBehaviour
         playerUnit.currentXP = Mathf.RoundToInt(xpVisual);
         if (GameManager.Instance != null)
             GameManager.Instance.currentXP = playerUnit.currentXP;
+    }
+
+    private void ProcessarLoot()
+    {
+        if (enemyUnit == null || enemyUnit.tabelaDeLoot == null) return;
+        if (InventoryManager.Instance == null) return;
+
+        foreach (var loot in enemyUnit.tabelaDeLoot)
+        {
+            if (loot.item == null) continue;
+
+            float roll = Random.Range(0f, 100f);
+            if (roll <= loot.chanceDeDrop)
+            {
+                InventoryManager.Instance.AdicionarItem(loot.item, loot.quantidade);
+                Debug.Log($"[BattleSystem] Loot dropado: {loot.quantidade}x {loot.item.nomeItem} (roll {roll:F1} <= {loot.chanceDeDrop})");
+            }
+            else
+            {
+                Debug.Log($"[BattleSystem] Loot NÃO dropado: {loot.item.nomeItem} (roll {roll:F1} > {loot.chanceDeDrop})");
+            }
+        }
     }
 
     public void OnFugirButton()
