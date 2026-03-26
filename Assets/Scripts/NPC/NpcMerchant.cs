@@ -12,6 +12,8 @@ public class NpcMerchant : MonoBehaviour
 {
     [Header("Visual do Menu")]
     public Sprite fundoMenu;
+    [Tooltip("Retrato do mercador exibido no menu de troca.")]
+    public Sprite retrato;
 
     [Header("Escambo — Tolerância")]
     [Range(0f, 1f)]
