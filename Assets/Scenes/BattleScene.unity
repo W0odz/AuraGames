@@ -3700,6 +3700,7 @@ GameObject:
   - component: {fileID: 1510880307}
   - component: {fileID: 1510880306}
   - component: {fileID: 1510880305}
+  - component: {fileID: 1510880308}
   m_Layer: 5
   m_Name: RunButton
   m_TagString: Untagged
@@ -3821,6 +3822,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1510880303}
   m_CullTransparentMesh: 1
+--- !u!114 &1510880308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1510880303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d39e1f8370227f4e9619b97daa832b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonHover
+  hoverScale: 1.1
+  animationSpeed: 10
 --- !u!1 &1535691159
 GameObject:
   m_ObjectHideFlags: 0
@@ -5030,6 +5045,7 @@ GameObject:
   - component: {fileID: 1795438929}
   - component: {fileID: 1795438928}
   - component: {fileID: 1795438927}
+  - component: {fileID: 1795438930}
   m_Layer: 5
   m_Name: ItemsButton
   m_TagString: Untagged
@@ -5151,6 +5167,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1795438925}
   m_CullTransparentMesh: 1
+--- !u!114 &1795438930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795438925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d39e1f8370227f4e9619b97daa832b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonHover
+  hoverScale: 1.1
+  animationSpeed: 10
 --- !u!1 &1865808713
 GameObject:
   m_ObjectHideFlags: 0
@@ -6133,6 +6163,7 @@ GameObject:
   - component: {fileID: 2051902581}
   - component: {fileID: 2051902580}
   - component: {fileID: 2051902579}
+  - component: {fileID: 2051902582}
   m_Layer: 5
   m_Name: AttackButton
   m_TagString: Untagged
@@ -6254,6 +6285,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2051902577}
   m_CullTransparentMesh: 1
+--- !u!114 &2051902582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051902577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d39e1f8370227f4e9619b97daa832b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonHover
+  hoverScale: 1.1
+  animationSpeed: 10
 --- !u!1 &2074342628
 GameObject:
   m_ObjectHideFlags: 0

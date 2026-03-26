@@ -334,7 +334,7 @@ MonoBehaviour:
   currentHP: 50
   maxMP: 0
   currentMP: 0
-  strength: 0
+  strength: 1
   resistance: 0
   speed: 0
   luck: 0
