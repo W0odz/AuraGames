@@ -4769,8 +4769,7 @@ MonoBehaviour:
     alterarRotacao: 0
     novaRotacao: {x: 0, y: 0, z: 0}
     novoSprite: {fileID: 0}
-    spriteInicial: {fileID: 0}
-    restaurarSpriteAoFim: 0
+    spriteAoFim: {fileID: 0}
     alterarFlip: 0
     flipParaEsquerda: 0
     inverterFlipAoFim: 1
@@ -4782,8 +4781,7 @@ MonoBehaviour:
     alterarRotacao: 1
     novaRotacao: {x: 0, y: 0, z: 0}
     novoSprite: {fileID: 0}
-    spriteInicial: {fileID: 0}
-    restaurarSpriteAoFim: 1
+    spriteAoFim: {fileID: 0}
     alterarFlip: 0
     flipParaEsquerda: 0
     inverterFlipAoFim: 0
@@ -4795,8 +4793,7 @@ MonoBehaviour:
     alterarRotacao: 1
     novaRotacao: {x: 0, y: 0, z: 0}
     novoSprite: {fileID: 0}
-    spriteInicial: {fileID: 0}
-    restaurarSpriteAoFim: 0
+    spriteAoFim: {fileID: 0}
     alterarFlip: 0
     flipParaEsquerda: 0
     inverterFlipAoFim: 0
@@ -4808,8 +4805,7 @@ MonoBehaviour:
     alterarRotacao: 0
     novaRotacao: {x: 0, y: 0, z: 0}
     novoSprite: {fileID: 0}
-    spriteInicial: {fileID: 0}
-    restaurarSpriteAoFim: 0
+    spriteAoFim: {fileID: 0}
     alterarFlip: 0
     flipParaEsquerda: 0
     inverterFlipAoFim: 0
@@ -4821,14 +4817,26 @@ MonoBehaviour:
     alterarRotacao: 0
     novaRotacao: {x: 0, y: 0, z: 0}
     novoSprite: {fileID: 0}
-    spriteInicial: {fileID: 0}
-    restaurarSpriteAoFim: 0
+    spriteAoFim: {fileID: 0}
     alterarFlip: 0
     flipParaEsquerda: 0
     inverterFlipAoFim: 0
     alterarAtivacao: 0
     ativarOuDesativar: 0
   dialogoFinal: {fileID: 11400000, guid: 03b02c98aa0f3c145ac62b3fc561975a, type: 2}
+  transformacoesFinais:
+  - alvo: {fileID: 1810657110}
+    alterarPosicao: 0
+    novaPosicaoLocal: {x: 0, y: 0, z: 0}
+    alterarRotacao: 0
+    novaRotacao: {x: 0, y: 0, z: 0}
+    novoSprite: {fileID: 0}
+    spriteAoFim: {fileID: 4864374997012256764, guid: 325db2e0d86360248aead14a91112d00, type: 3}
+    alterarFlip: 0
+    flipParaEsquerda: 0
+    inverterFlipAoFim: 0
+    alterarAtivacao: 0
+    ativarOuDesativar: 0
   velocidadeFade: 0
   delayAntesDialogoFinal: 0.1
 --- !u!1001 &1810657108
