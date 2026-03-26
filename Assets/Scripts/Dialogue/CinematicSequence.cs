@@ -28,14 +28,14 @@ public class CinematicSequence : MonoBehaviour
     [Tooltip("Lista de objetos que serão reposicionados e/ou terão o sprite trocado durante o fade.")]
     public System.Collections.Generic.List<TransformacaoPersonagem> transformacoes;
 
+    // ── Diálogo 2 ────────────────────────────────────────────────────
+    [Header("3 · Diálogo final (após o fade)")]
+    public DialogueAsset dialogoFinal;
+
     // ── Transformações finais (aplicadas após o diálogo final e RestaurarEstado) ──
     [Header("4 · Transformações finais (após o diálogo final)")]
     [Tooltip("Lista de objetos modificados APÓS o diálogo final terminar e os sprites serem restaurados.")]
     public System.Collections.Generic.List<TransformacaoPersonagem> transformacoesFinais;
-
-    // ── Diálogo 2 ────────────────────────────────────────────────────
-    [Header("3 · Diálogo final (após o fade)")]
-    public DialogueAsset dialogoFinal;
 
     [Header("Configuração de Fade")]
     [Tooltip("Velocidade do fade intermediário. Se 0, usa GameManager.fadeSpeed.")]
@@ -266,11 +266,7 @@ public class CinematicSequence : MonoBehaviour
             {
                 var sr = t.alvo.GetComponent<SpriteRenderer>();
                 if (sr != null)
-                {
-                    if (t.spriteOriginal == null)
-                        t.spriteOriginal = sr.sprite;
                     sr.sprite = t.novoSprite;
-                }
                 else
                     Debug.LogWarning($"[CinematicSequence] {t.alvo.name} não tem SpriteRenderer — sprite ignorado.");
             }
