@@ -25,7 +25,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        if (spriteRenderer != null)
+        // Só reseta o flipX se não há CinematicSequence configurada para disparar nesta cena
+        // (evita race condition com CinematicSequence.AplicarTransformacoes)
+        var cinematic = FindFirstObjectByType<CinematicSequence>();
+        bool temCinematicaAtiva = cinematic != null && cinematic.dispararAoCarregar;
+
+        if (spriteRenderer != null && !temCinematicaAtiva)
             spriteRenderer.flipX = false;
 
         // Prioridade 1: Voltando de Batalha (Curto Prazo)

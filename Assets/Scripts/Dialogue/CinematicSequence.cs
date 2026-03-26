@@ -62,10 +62,13 @@ public class CinematicSequence : MonoBehaviour
         [Tooltip("Se diferente de null, troca o sprite do SpriteRenderer do alvo.")]
         public Sprite novoSprite;
 
+        [Tooltip("Sprite original do alvo para restaurar ao fim da sequência. Se deixado em branco, é capturado automaticamente no momento da troca.")]
+        public Sprite spriteInicial; // fallback serializado
+
         [Tooltip("Se true, restaura o sprite original do personagem ao fim da sequência.")]
         public bool restaurarSpriteAoFim = true;
 
-        // Cache interno — preenchido automaticamente antes da troca
+        // Cache em runtime — preenchido automaticamente antes da troca
         [System.NonSerialized] public Sprite spriteOriginal;
 
         [Header("Ativar/Desativar (opcional)")]
@@ -204,8 +207,9 @@ public class CinematicSequence : MonoBehaviour
             if (!t.restaurarSpriteAoFim) continue;
 
             var sr = t.alvo.GetComponent<SpriteRenderer>();
-            if (sr != null && t.spriteOriginal != null)
-                sr.sprite = t.spriteOriginal;
+            Sprite spriteParaRestaurar = t.spriteOriginal ?? t.spriteInicial;
+            if (sr != null && spriteParaRestaurar != null)
+                sr.sprite = spriteParaRestaurar;
         }
     }
 
