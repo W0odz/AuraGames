@@ -67,6 +67,11 @@ public class SaveSlotUI : MonoBehaviour
 
         if (SaveSystem.SaveFileExists(slotID))
         {
+            // Trava os botões para evitar cliques duplicados durante a transição
+            SetButtonInteractable(loadButton, false);
+            SetButtonInteractable(eraseButton, false);
+            SetButtonInteractable(copyButton, false);
+
             GameManager.Instance.LoadGame(slotID);
 
             string cenaParaCarregar = GameManager.Instance.sceneToLoad;
@@ -76,13 +81,18 @@ public class SaveSlotUI : MonoBehaviour
         }
         else if (GameManager.dataToCopy != null)
         {
+            // Operação de cópia — não muda de cena, apenas atualiza a UI
             SaveSystem.SaveGame(GameManager.dataToCopy, slotID);
             GameManager.dataToCopy = null;
             UpdateAllSlotUIs();
         }
         else
         {
-            // Inicia novo jogo direto com nome padrão "Herói"
+            // Inicia novo jogo — trava os botões antes de mudar de cena
+            SetButtonInteractable(loadButton, false);
+            SetButtonInteractable(eraseButton, false);
+            SetButtonInteractable(copyButton, false);
+
             GameManager.Instance.CreateNewGame("Herói");
         }
     }
