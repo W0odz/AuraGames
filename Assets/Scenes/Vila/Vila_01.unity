@@ -177555,6 +177555,14 @@ PrefabInstance:
       propertyPath: 'desativarTemporariamente.Array.data[13]'
       value: 
       objectReference: {fileID: 1324820201}
+    - target: {fileID: 3336844648006248672, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3336844648006248672, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.42
+      objectReference: {fileID: 0}
     - target: {fileID: 4467694312145797072, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
       propertyPath: m_Name
       value: DialogueTrigger
@@ -177580,7 +177588,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -8148876011986367135, guid: 56d14a545f6c75643bd2f7d582544d6b, type: 3}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3962938144179763279, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}

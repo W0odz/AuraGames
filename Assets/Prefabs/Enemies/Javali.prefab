@@ -784,8 +784,11 @@ MonoBehaviour:
   tabelaDeLoot:
   - item: {fileID: 11400000, guid: c369d20cfa970134a9cd672b6d4924a0, type: 2}
     quantidade: 1
-    chanceDeDrop: 40
-  expReward: 20
+    chanceDeDrop: 100
+  - item: {fileID: 11400000, guid: 7bb09b1af1083df48ab263119f65be24, type: 2}
+    quantidade: 1
+    chanceDeDrop: 100
+  expReward: 50
   accuracy: 10
 --- !u!114 &5063425681963335978
 MonoBehaviour:
