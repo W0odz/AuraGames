@@ -3655,7 +3655,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -11.1836195, y: 21.496006}
+  m_Offset: {x: -10.18234, y: 21.987862}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -3665,7 +3665,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.91914177, y: 3.8967514}
+  m_Size: {x: 0.95427513, y: 2.9130402}
   m_EdgeRadius: 0
 --- !u!1 &165285712
 GameObject:
@@ -7593,7 +7593,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -11.1836195, y: 22.9072}
+  m_Offset: {x: -10.033027, y: 22.9072}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -7603,7 +7603,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.91914177, y: 1.4041061}
+  m_Size: {x: 0.6556492, y: 1.4041061}
   m_EdgeRadius: 0
 --- !u!1 &269442696
 GameObject:
@@ -12543,7 +12543,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -5753290678482030758, guid: 769dc8272be86df43845b823a60284f5, type: 3}
+  m_Sprite: {fileID: -8819192090409035308, guid: 2271b1719973bd042b7408f81a349e5f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -12607,7 +12607,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 11.8, y: 6.04}
+    oldSize: {x: 11.78, y: 6.02}
     newSize: {x: 11.8, y: 6.04}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -22702,7 +22702,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -11.166456, y: 21.249395}
+  m_Offset: {x: -10.548416, y: 21.002903}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -22712,7 +22712,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 5.050891, y: 0.9042473}
+  m_Size: {x: 3.8148117, y: 0.7817364}
   m_EdgeRadius: 0
 --- !u!1 &873271833
 GameObject:
@@ -129223,7 +129223,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -12.09602, y: 22.185751}
+  m_Offset: {x: -10.886112, y: 22.185751}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -129233,7 +129233,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.94137955, y: 5.2539635}
+  m_Size: {x: 0.6067629, y: 5.2539635}
   m_EdgeRadius: 0
 --- !u!1 &1301061174
 GameObject:
@@ -168405,7 +168405,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -11.160021, y: 21.13845}
+  m_Offset: {x: -10.173708, y: 20.69738}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -168415,7 +168415,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.3218002, y: 0.6823578}
+  m_Size: {x: 2.5115004, y: 0.67515564}
   m_EdgeRadius: 0
 --- !u!1 &1812082575
 GameObject:
@@ -177285,6 +177285,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneChangeTrigger
       objectReference: {fileID: 0}
+    - target: {fileID: 1585137746379554311, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3625821216007796294, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: m_Size.x
       value: 5
@@ -177338,7 +177342,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6781801984226353272, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+    - {fileID: 690404543847584285, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
@@ -177561,7 +177567,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3336844648006248672, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.42
+      value: 3.56
       objectReference: {fileID: 0}
     - target: {fileID: 4467694312145797072, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
       propertyPath: m_Name
@@ -177591,13 +177597,40 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 3962938144179763279, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4467694312145797072, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8346847556875808920}
   m_SourcePrefab: {fileID: 100100000, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
 --- !u!1 &8346847556875808918 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4467694312145797072, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
   m_PrefabInstance: {fileID: 8346847556875808917}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8346847556875808919 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 120841610244389782, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+  m_PrefabInstance: {fileID: 8346847556875808917}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76d4e7c546582c54296d6e1019c02cc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractIndicator
+--- !u!114 &8346847556875808920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8346847556875808918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5edaf70d947fc4e4d93d70af64a0ad2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectInteractIndicatorController
+  indicador: {fileID: 8346847556875808919}
 --- !u!1001 &8400535924822079942
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Pocao_Verde
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
   nomeItem: "Po\xE7\xE3o Verde"
-  descricao: Cura 10 de vida
+  descricao: Cura 5 de vida
   iconeItem: {fileID: -8594505581712603399, guid: f220ae0cc4f845543968ebfab524cbba, type: 3}
   tipoItem: 0
   slotOndeEquipa: 5
   efeitosDoItem:
-  - {fileID: 11400000, guid: 7b7a6956be16ce8499a582e89ae245c4, type: 2}
+  - {fileID: 11400000, guid: 7c10af9622f6ae94f9cdbb22fc2687d3, type: 2}
   valorEscambo: 10
   bonusStrength: 0
   bonusResistance: 0

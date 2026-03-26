@@ -2059,6 +2059,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcMerchant
   fundoMenu: {fileID: 0}
+  retrato: {fileID: 0}
   tolerancia: 0.15
   estoque: []
   falaSaudacao: "Ol\xE1! J\xE1 precisa de rem\xE9dios de novo?"
@@ -3781,6 +3782,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcMerchant
   fundoMenu: {fileID: 0}
+  retrato: {fileID: 0}
   tolerancia: 0.15
   estoque: []
   falaSaudacao: Opa! Hora do troca-troca! Huhaha!
@@ -4030,6 +4032,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneChangeTrigger
       objectReference: {fileID: 0}
+    - target: {fileID: 1585137746379554311, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 1585137746379554311, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.61
+      objectReference: {fileID: 0}
     - target: {fileID: 3625821216007796294, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: m_Size.x
       value: 2
@@ -4050,6 +4060,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7931164163139709906, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+      propertyPath: indicador
+      value: 
+      objectReference: {fileID: 1485765786}
     - target: {fileID: 8073931538270021683, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: spawnID
       value: Resistencia_Para_Vila
@@ -4103,10 +4117,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6781801984226353272, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+--- !u!114 &1485765786 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7657587347547081073, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+  m_PrefabInstance: {fileID: 1485765785}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76d4e7c546582c54296d6e1019c02cc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractIndicator
 --- !u!1 &1544252671
 GameObject:
   m_ObjectHideFlags: 0
@@ -4637,6 +4663,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcMerchant
   fundoMenu: {fileID: 0}
+  retrato: {fileID: 0}
   tolerancia: 0.15
   estoque: []
   falaSaudacao: "Vamos fazer neg\xF3cio\u2026"

@@ -1628,6 +1628,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcMerchant
   fundoMenu: {fileID: 987864915734744882, guid: 399f5b8f0e448b746910d590c2407051, type: 3}
+  retrato: {fileID: -2056641894727074072, guid: 806988b8130f0fa4ea33e20a99414952, type: 3}
   tolerancia: 0.15
   estoque:
   - item: {fileID: 11400000, guid: 8dd1903bc085cb04db0355faa06d1043, type: 2}
@@ -2011,6 +2012,11 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.5884166, y: 1.285657}
   m_EdgeRadius: 0
+--- !u!224 &655237443 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4467095018819187280, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+  m_PrefabInstance: {fileID: 1008429975}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &712318438 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2387801668554121698, guid: 487135add6597ab4fb71890636bcbd1e, type: 3}
@@ -2577,6 +2583,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8752516968113914208, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+      propertyPath: m_Content
+      value: 
+      objectReference: {fileID: 655237443}
     - target: {fileID: 8793969481897377516, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -3505,7 +3515,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1811729982111679785, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: listaItens.Array.size
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1811729982111679785, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: listaItens.Array.data[0].item
@@ -3515,6 +3525,38 @@ PrefabInstance:
       propertyPath: listaItens.Array.data[1].item
       value: 
       objectReference: {fileID: 11400000, guid: c369d20cfa970134a9cd672b6d4924a0, type: 2}
+    - target: {fileID: 1811729982111679785, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: listaItens.Array.data[2].item
+      value: 
+      objectReference: {fileID: 11400000, guid: e49a43ba42faace41b47e271a91fe42f, type: 2}
+    - target: {fileID: 1811729982111679785, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: listaItens.Array.data[3].item
+      value: 
+      objectReference: {fileID: 11400000, guid: 305adf03410c4c849aca551209678751, type: 2}
+    - target: {fileID: 1811729982111679785, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: listaItens.Array.data[4].item
+      value: 
+      objectReference: {fileID: 11400000, guid: 7bb09b1af1083df48ab263119f65be24, type: 2}
+    - target: {fileID: 1811729982111679785, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: listaItens.Array.data[0].quantidade
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1811729982111679785, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: listaItens.Array.data[1].quantidade
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1811729982111679785, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: listaItens.Array.data[2].quantidade
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1811729982111679785, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: listaItens.Array.data[3].quantidade
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1811729982111679785, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: listaItens.Array.data[4].quantidade
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2207976064434011169, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.91937
@@ -4085,6 +4127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcMerchant
   fundoMenu: {fileID: 0}
+  retrato: {fileID: -4728954398870667680, guid: 335c2db0e7c61304cb4519cc38f80f19, type: 3}
   tolerancia: 0.15
   estoque:
   - item: {fileID: 11400000, guid: 8559380f3468f434f83b63be9b45a379, type: 2}
@@ -4440,6 +4483,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneChangeTrigger
       objectReference: {fileID: 0}
+    - target: {fileID: 1585137746379554311, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 1585137746379554311, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.67
+      objectReference: {fileID: 0}
     - target: {fileID: 3625821216007796294, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: m_Size.x
       value: 2
@@ -4460,6 +4511,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7931164163139709906, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+      propertyPath: indicador
+      value: 
+      objectReference: {fileID: 1485765786}
     - target: {fileID: 8073931538270021683, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: spawnID
       value: Resistencia_Para_Vila
@@ -4513,10 +4568,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6781801984226353272, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+--- !u!114 &1485765786 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7657587347547081073, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+  m_PrefabInstance: {fileID: 1485765785}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76d4e7c546582c54296d6e1019c02cc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractIndicator
 --- !u!1001 &1582376959
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4921,6 +4988,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcMerchant
   fundoMenu: {fileID: 0}
+  retrato: {fileID: -7406008489756895684, guid: 865ed9c84b829d04a91be083ff30981a, type: 3}
   tolerancia: 0.15
   estoque:
   - item: {fileID: 11400000, guid: 123a249ba7b89c04493cf7dfea58d7da, type: 2}
@@ -5259,7 +5327,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 496924424957221024, guid: 64c8f1e97c85169438488846248d355a, type: 3}
       propertyPath: m_SortingOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 989254865412476731, guid: 64c8f1e97c85169438488846248d355a, type: 3}
       propertyPath: m_Size.x
