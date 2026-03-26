@@ -7,7 +7,7 @@ public class BattleHUD : MonoBehaviour
 {
     public static BattleHUD Instance;
 
-    [Header("Configurações de Tipo")]
+    [Header("Configuraï¿½ï¿½es de Tipo")]
     public bool ehInimigo; // Marque True no Inspector do HUD do inimigo
     public float tempoVisivel = 2.5f; // Quanto tempo a barra fica na tela
     private float cronometroVisibilidade;
@@ -16,6 +16,14 @@ public class BattleHUD : MonoBehaviour
     public CanvasGroup canvasGroup; // Para fazer o Fade In/Out
     public Image portraitImage;
     public GameObject commandsPanel;
+
+    [Header("BotÃµes de AÃ§Ã£o do Jogador")]
+    [Tooltip("Arraste aqui o botÃ£o de Atacar do commandsPanel.")]
+    public Button botaoAtacar;
+    [Tooltip("Arraste aqui o botÃ£o de Item do commandsPanel.")]
+    public Button botaoItem;
+    [Tooltip("Arraste aqui o botÃ£o de Fugir do commandsPanel.")]
+    public Button botaoFugir;
 
     [Header("HP - Suave")]
     public TextMeshProUGUI hpText;
@@ -31,7 +39,7 @@ public class BattleHUD : MonoBehaviour
     public Slider mpSlider;
     private float valorAlvoMP;
 
-    [Header("Configurações Visuais")]
+    [Header("Configuraï¿½ï¿½es Visuais")]
     public float velocidadeSuavizacao = 5f;
 
     private bool bloquearAutoHide = false;
@@ -43,7 +51,7 @@ public class BattleHUD : MonoBehaviour
     {
         if (Instance == null && !ehInimigo) Instance = this;
 
-        // Se for inimigo, começa invisível
+        // Se for inimigo, comeï¿½a invisï¿½vel
         if (ehInimigo && canvasGroup != null) canvasGroup.alpha = 0;
     }
 
@@ -73,7 +81,7 @@ public class BattleHUD : MonoBehaviour
     {
         if (hpFillImage == null || hpSlider == null) return;
 
-        // enabled=false evita aquele "restinho" visual do Sliced quando value é 0
+        // enabled=false evita aquele "restinho" visual do Sliced quando value ï¿½ 0
         hpFillImage.enabled = hpSlider.value > HP_EPSILON;
     }
 
@@ -92,7 +100,7 @@ public class BattleHUD : MonoBehaviour
             AtualizarTextoHP(unit.currentHP, unit.maxHP);
         }
 
-        // NOVO: garante o estado correto já na inicialização
+        // NOVO: garante o estado correto jï¿½ na inicializaï¿½ï¿½o
         AtualizarVisibilidadeFillHP();
 
         if (mpSlider != null)
@@ -158,8 +166,25 @@ public class BattleHUD : MonoBehaviour
         yield return StartCoroutine(FadeHUD(0f));
     }
 
+    /// <summary>Desabilita os botÃµes de aÃ§Ã£o do jogador (fora do turno do jogador).</summary>
+    public void BloquearBotoes()
+    {
+        if (botaoAtacar != null) botaoAtacar.interactable = false;
+        if (botaoItem   != null) botaoItem.interactable   = false;
+        if (botaoFugir  != null) botaoFugir.interactable  = false;
+    }
+
+    /// <summary>Habilita os botÃµes de aÃ§Ã£o do jogador (inÃ­cio do turno do jogador).</summary>
+    public void DesbloquearBotoes()
+    {
+        if (botaoAtacar != null) botaoAtacar.interactable = true;
+        if (botaoItem   != null) botaoItem.interactable   = true;
+        if (botaoFugir  != null) botaoFugir.interactable  = true;
+    }
+
     public void MostrarMenuPrincipal()
     {
         if (commandsPanel != null) commandsPanel.SetActive(true);
+        DesbloquearBotoes();
     }
 }
