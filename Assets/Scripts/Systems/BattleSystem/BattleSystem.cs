@@ -237,6 +237,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator SkipPlayerTurn()
     {
+        if (playerHUD != null) playerHUD.BloquearBotoes();
         yield return new WaitForSeconds(1.5f);
         state = BattleState.ENEMYTURN;
         StartCoroutine(EnemyTurn());
@@ -248,6 +249,7 @@ public class BattleSystem : MonoBehaviour
         if (state != BattleState.PLAYERTURN) return;
 
         state = BattleState.TARGETING;
+        if (playerHUD != null) playerHUD.BloquearBotoes();
 
         // Desativa os painéis ao clicar em atacar
         if (dialoguePanel != null) dialoguePanel.SetActive(false);
@@ -660,6 +662,7 @@ public class BattleSystem : MonoBehaviour
     private IEnumerator TentarFugir()
     {
         state = BattleState.BUSY;
+        if (playerHUD != null) playerHUD.BloquearBotoes();
 
         bool falhou = Random.value < 0.2f;
 
@@ -696,6 +699,7 @@ public class BattleSystem : MonoBehaviour
     public void PassarTurnoAposItem()
     {
         if (state != BattleState.PLAYERTURN) return;
+        if (playerHUD != null) playerHUD.BloquearBotoes();
 
         if (dialogueText != null)
             dialogueText.text = playerUnit.unitName + " usou um item!";
