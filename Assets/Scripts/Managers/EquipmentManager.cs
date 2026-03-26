@@ -53,19 +53,20 @@ public class EquipmentManager : MonoBehaviour
 
     public void Unequip(int slotIndex)
     {
+        // Slot de arma (0) nunca pode ser desequipado diretamente.
+        // Para trocar de arma, equipe uma nova — ela substitui automaticamente.
+        if (slotIndex == (int)SlotEquipamento.Weapon)
+        {
+            Debug.LogWarning("[EquipmentManager] A arma não pode ser desequipada. Equipe outra arma para substituí-la.");
+            return;
+        }
+
         if (currentEquipment[slotIndex] != null)
         {
-            // 1. Pega o item que está saindo e subtrai seus bônus
             DadosItem itemSaindo = currentEquipment[slotIndex];
             AplicarBonusItem(itemSaindo, -1);
-
-            // 2. Adiciona ele de volta à mochila
             InventoryManager.Instance.AdicionarItem(itemSaindo, 1);
-
-            // 3. Limpa o slot de equipamento
             currentEquipment[slotIndex] = null;
-
-            // 4. Atualiza as interfaces
             onEquipmentChanged?.Invoke();
             InventoryUIManager.Instance.UpdateAll();
         }
