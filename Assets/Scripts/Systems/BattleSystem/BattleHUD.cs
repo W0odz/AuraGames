@@ -17,14 +17,6 @@ public class BattleHUD : MonoBehaviour
     public Image portraitImage;
     public GameObject commandsPanel;
 
-    [Header("Botões de Ação do Jogador")]
-    [Tooltip("Arraste aqui o botão de Atacar do commandsPanel.")]
-    public Button botaoAtacar;
-    [Tooltip("Arraste aqui o botão de Item do commandsPanel.")]
-    public Button botaoItem;
-    [Tooltip("Arraste aqui o botão de Fugir do commandsPanel.")]
-    public Button botaoFugir;
-
     [Header("HP - Suave")]
     public TextMeshProUGUI hpText;
     public Slider hpSlider;
@@ -166,35 +158,20 @@ public class BattleHUD : MonoBehaviour
         yield return StartCoroutine(FadeHUD(0f));
     }
 
-    /// <summary>Desabilita os botões de ação do jogador (fora do turno do jogador).</summary>
+    /// <summary>Desabilita todos os botões filhos do commandsPanel (fora do turno do jogador).</summary>
     public void BloquearBotoes()
     {
-        SetBotoesInteractable(false);
+        if (commandsPanel == null) return;
+        foreach (var btn in commandsPanel.GetComponentsInChildren<Button>(true))
+            btn.interactable = false;
     }
 
-    /// <summary>Habilita os botões de ação do jogador (início do turno do jogador).</summary>
+    /// <summary>Habilita todos os botões filhos do commandsPanel (início do turno do jogador).</summary>
     public void DesbloquearBotoes()
     {
-        SetBotoesInteractable(true);
-    }
-
-    private void SetBotoesInteractable(bool valor)
-    {
-        if (botaoAtacar != null)
-        {
-            botaoAtacar.interactable = valor;
-            botaoAtacar.transition = valor ? Selectable.Transition.ColorTint : Selectable.Transition.None;
-        }
-        if (botaoItem != null)
-        {
-            botaoItem.interactable = valor;
-            botaoItem.transition = valor ? Selectable.Transition.ColorTint : Selectable.Transition.None;
-        }
-        if (botaoFugir != null)
-        {
-            botaoFugir.interactable = valor;
-            botaoFugir.transition = valor ? Selectable.Transition.ColorTint : Selectable.Transition.None;
-        }
+        if (commandsPanel == null) return;
+        foreach (var btn in commandsPanel.GetComponentsInChildren<Button>(true))
+            btn.interactable = true;
     }
 
     public void MostrarMenuPrincipal()
