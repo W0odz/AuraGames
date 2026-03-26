@@ -298,7 +298,7 @@ public class QuestTrackerHUD : MonoBehaviour
 
     private IEnumerator PollingCoroutine()
     {
-        while (painel != null && painel.activeSelf)
+        while (painel != null)
         {
             if (questAtual == null) yield break;
 
@@ -310,6 +310,12 @@ public class QuestTrackerHUD : MonoBehaviour
                 QuestObjective proximo = ObterProximoObjetivo(questAtual, objetivoExibido);
                 if (proximo != null)
                 {
+                    if (!painel.activeSelf)
+                        painel.SetActive(true);
+
+                    painelOcultoManualmente = false;
+                    IniciarFadeIn();
+                    IniciarAutoOcultar(imediato: false);
                     IniciarAnimacaoTransicao(objetivoExibido, proximo);
                     objetivoExibido = proximo;
                 }
