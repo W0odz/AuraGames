@@ -18,7 +18,7 @@ MonoBehaviour:
   tipoItem: 2
   slotOndeEquipa: 5
   efeitosDoItem: []
-  valorEscambo: 1
+  valorEscambo: 3
   bonusStrength: 0
   bonusResistance: 0
   bonusMaxHP: 0

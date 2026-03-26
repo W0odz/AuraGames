@@ -15,10 +15,10 @@ MonoBehaviour:
   nomeItem: DevSword
   descricao: Espada secreta
   iconeItem: {fileID: 1169618335941041066, guid: 2954046556e01f7408e5c763bbf52612, type: 3}
-  valorOuro: 0
   tipoItem: 1
   slotOndeEquipa: 0
   efeitosDoItem: []
+  valorEscambo: 999
   bonusStrength: 999
   bonusResistance: 999
   bonusMaxHP: 0
