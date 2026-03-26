@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnsopadoPotente
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
   nomeItem: Ensopado Potente
-  descricao: Recupera 50 de vida
+  descricao: "Recupera 5 de vida e fortalece para o pr\xF3ximo combate"
   iconeItem: {fileID: 1230096004649827179, guid: 573b9a33694ab644982427347c7c54f9, type: 3}
   tipoItem: 0
   slotOndeEquipa: 5

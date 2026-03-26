@@ -165,7 +165,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 4
   m_Sprite: {fileID: 3551049346647679017, guid: 53725dad0daa6c142b7140f0a3be08b8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -294,6 +294,9 @@ MonoBehaviour:
   isEstatico: 0
   wanderSpeed: 2
   chaseSpeed: 4
+  wanderRadius: 3
+  wanderIdleMin: 0.5
+  wanderIdleMax: 2
   battlePrefab: {fileID: 6089210800779420423, guid: bb646ff2c343ebb4e8a7b620b4c7e4a5, type: 3}
   isBoss: 0
   dialogoPreBatalha: {fileID: 0}

@@ -1628,6 +1628,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcMerchant
   fundoMenu: {fileID: 987864915734744882, guid: 399f5b8f0e448b746910d590c2407051, type: 3}
+  retrato: {fileID: -2056641894727074072, guid: 806988b8130f0fa4ea33e20a99414952, type: 3}
   tolerancia: 0.15
   estoque:
   - item: {fileID: 11400000, guid: 8dd1903bc085cb04db0355faa06d1043, type: 2}
@@ -4085,6 +4086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcMerchant
   fundoMenu: {fileID: 0}
+  retrato: {fileID: -4728954398870667680, guid: 335c2db0e7c61304cb4519cc38f80f19, type: 3}
   tolerancia: 0.15
   estoque:
   - item: {fileID: 11400000, guid: 8559380f3468f434f83b63be9b45a379, type: 2}
@@ -4921,6 +4923,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcMerchant
   fundoMenu: {fileID: 0}
+  retrato: {fileID: -7406008489756895684, guid: 865ed9c84b829d04a91be083ff30981a, type: 3}
   tolerancia: 0.15
   estoque:
   - item: {fileID: 11400000, guid: 123a249ba7b89c04493cf7dfea58d7da, type: 2}
@@ -5259,7 +5262,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 496924424957221024, guid: 64c8f1e97c85169438488846248d355a, type: 3}
       propertyPath: m_SortingOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 989254865412476731, guid: 64c8f1e97c85169438488846248d355a, type: 3}
       propertyPath: m_Size.x

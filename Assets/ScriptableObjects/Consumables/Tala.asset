@@ -17,7 +17,8 @@ MonoBehaviour:
   iconeItem: {fileID: -2984038399970193385, guid: 12b620661b1e33d498dfc9a1406880a3, type: 3}
   tipoItem: 0
   slotOndeEquipa: 5
-  efeitosDoItem: []
+  efeitosDoItem:
+  - {fileID: 11400000, guid: 6861ceb1096e8214aa884d9780384424, type: 2}
   valorEscambo: 1
   bonusStrength: 0
   bonusResistance: 0

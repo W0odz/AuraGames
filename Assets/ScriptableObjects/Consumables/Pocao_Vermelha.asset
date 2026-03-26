@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Pocao_Vermelha
   m_EditorClassIdentifier: Assembly-CSharp::DadosItem
   nomeItem: "Po\xE7\xE3o Vermelha"
-  descricao: 'Cura 5 de vida
+  descricao: 'Cura 10 de vida
 
 '
   iconeItem: {fileID: -8808393632694952509, guid: 9ab3c19b00331ba41b14b82069191a85, type: 3}
   tipoItem: 0
   slotOndeEquipa: 5
   efeitosDoItem:
-  - {fileID: 11400000, guid: 7c10af9622f6ae94f9cdbb22fc2687d3, type: 2}
+  - {fileID: 11400000, guid: 7b7a6956be16ce8499a582e89ae245c4, type: 2}
   valorEscambo: 10
   bonusStrength: 0
   bonusResistance: 0
