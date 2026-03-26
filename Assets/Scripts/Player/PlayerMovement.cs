@@ -136,7 +136,8 @@ public class PlayerMovement : MonoBehaviour
                     GameManager.Instance.inputBloqueado = true;
                     GameManager.Instance.IniciarTransicaoBatalha(
                         ai.imagemTransicaoBatalha,
-                        ai.duracaoImagemTransicao
+                        ai.duracaoImagemTransicao,
+                        ai.dialogoNaTransicao
                     );
                 }
                 // Prioridade 2: Diálogo pré-batalha

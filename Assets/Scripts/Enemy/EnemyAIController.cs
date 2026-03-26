@@ -34,6 +34,8 @@ public class EnemyAIController : MonoBehaviour
     [Header("Transição com Imagem (opcional)")]
     [Tooltip("Se preenchido, exibe esta imagem estática em tela cheia antes de entrar na batalha.")]
     public Sprite imagemTransicaoBatalha;
+    [Tooltip("Se preenchido, este diálogo toca POR CIMA da imagem de transição. A batalha só começa após o diálogo terminar.")]
+    public DialogueAsset dialogoNaTransicao;
 
     [Tooltip("Segundos mínimos que a imagem fica visível antes do fade para a batalha. Mínimo garantido: 3s.")]
     [Min(3f)]
