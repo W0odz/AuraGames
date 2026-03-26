@@ -8,6 +8,7 @@ using UnityEngine;
 ///   1. Diálogo imediato ao entrar na cena (disparado automaticamente no Start).
 ///   2. Fade Out → reposiciona / troca sprites de personagens no pico do preto → Fade In.
 ///   3. Diálogo final logo em seguida.
+///   4. Fade Out → aplica transformações finais no pico do preto → Fade In.
 /// 
 /// Coloque em um GameObject vazio da cena de destino.
 /// A sequência só roda uma vez por sessão (flag consumida no Start).
@@ -32,9 +33,9 @@ public class CinematicSequence : MonoBehaviour
     [Header("3 · Diálogo final (após o fade)")]
     public DialogueAsset dialogoFinal;
 
-    // ── Transformações finais (aplicadas após o diálogo final) ──────────
-    [Header("4 · Transformações finais (após o diálogo final)")]
-    [Tooltip("Lista de objetos modificados APÓS o diálogo final terminar e os sprites serem restaurados.")]
+    // ── Transformações finais (aplicadas no pico de um segundo fade, após o diálogo final) ──
+    [Header("4 · Transformações finais (fade out → aplica → fade in, após o diálogo final)"))]
+    [Tooltip("Lista de objetos modificados no pico de um segundo fade APÓS o diálogo final terminar.")]
     public System.Collections.Generic.List<TransformacaoPersonagem> transformacoesFinais;
 
     [Header("Configuração de Fade")]
@@ -67,9 +68,6 @@ public class CinematicSequence : MonoBehaviour
         [Tooltip("Se diferente de null, troca o sprite do SpriteRenderer do alvo no pico do preto.")]
         public Sprite novoSprite;
 
-        [Tooltip("Sprite a aplicar no alvo ao FIM da sequência (após o dialogoFinal). Se nulo, o sprite não é alterado ao fim.")]
-        public Sprite spriteAoFim;
-
         [Header("Flip do objeto (opcional)")]
         [Tooltip("Se true, altera o flip horizontal do objeto inteiro (via localScale.x) no pico do preto.")]
         public bool alterarFlip = false;
@@ -78,10 +76,6 @@ public class CinematicSequence : MonoBehaviour
 
         [Tooltip("Se true, inverte o flip horizontal do objeto inteiro (via localScale.x) ao fim da sequência.")]
         public bool inverterFlipAoFim = false;
-
-        [Header("Animator (opcional)")]
-        [Tooltip("Se true, desativa o Animator do alvo ANTES da sequência começar (evita que o Animator sobrescreva o sprite definido aqui). O Animator é reativado ao fim da sequência.")]
-        public bool desativarAnimator = false;
 
         [Header("Ativar/Desativar (opcional)")]
         [Tooltip("Se true, chama SetActive(ativarOuDesativar) no alvo.")]
@@ -114,18 +108,6 @@ public class CinematicSequence : MonoBehaviour
     // ── Coroutine principal ───────────────────────────────────────────
     private IEnumerator SequenciaCoroutine()
     {
-        // Desativa Animators imediatamente (antes do primeiro yield) para evitar
-        // que sobrescrevam os sprites definidos nas transformações
-        if (transformacoes != null)
-        {
-            foreach (var t in transformacoes)
-            {
-                if (t.alvo == null || !t.desativarAnimator) continue;
-                var anim = t.alvo.GetComponent<Animator>();
-                if (anim != null) anim.enabled = false;
-            }
-        }
-
         // Espera um frame para garantir que todos os Starts já rodaram
         yield return null;
         yield return new WaitForSecondsRealtime(0.05f);
@@ -154,7 +136,7 @@ public class CinematicSequence : MonoBehaviour
         yield return StartCoroutine(FadeOutLocal());
 
         // ── Etapa 2b: Transformações no pico do preto ─────────────
-        AplicarTransformacoes();
+        AplicarTransformacoes(transformacoes);
         yield return new WaitForSecondsRealtime(0.05f);
 
         // ── Etapa 2c: Fade In ─────────────────────────────────────
@@ -179,20 +161,31 @@ public class CinematicSequence : MonoBehaviour
         }
 
         if (GameManager.Instance != null)
-            GameManager.Instance.inputBloqueado = false;
+            GameManager.Instance.inputBloqueado = true;
 
-        AplicarSpritesFinais();
-        AplicarTransformacoesFinais();
+        // ── Etapa 4: Fade Out → Transformações finais → Fade In ───
+        if (transformacoesFinais != null && transformacoesFinais.Count > 0)
+        {
+            yield return StartCoroutine(FadeOutLocal());
+
+            AplicarTransformacoes(transformacoesFinais);
+            yield return new WaitForSecondsRealtime(0.05f);
+
+            yield return StartCoroutine(FadeInLocal());
+        }
+
+        if (GameManager.Instance != null)
+            GameManager.Instance.inputBloqueado = false;
 
         Debug.Log("[CinematicSequence] Sequência cinemática concluída.");
     }
 
     // ── Aplicar transformações ────────────────────────────────────────
-    private void AplicarTransformacoes()
+    private void AplicarTransformacoes(System.Collections.Generic.List<TransformacaoPersonagem> lista)
     {
-        if (transformacoes == null) return;
+        if (lista == null) return;
 
-        foreach (var t in transformacoes)
+        foreach (var t in lista)
         {
             if (t.alvo == null) continue;
 
@@ -217,70 +210,6 @@ public class CinematicSequence : MonoBehaviour
                 float absX = Mathf.Abs(scale.x);
                 scale.x = t.flipParaEsquerda ? -absX : absX;
                 t.alvo.transform.localScale = scale;
-            }
-
-            if (t.alterarAtivacao)
-                t.alvo.SetActive(t.ativarOuDesativar);
-        }
-    }
-
-    // ── Aplicar sprites finais ────────────────────────────────────────
-    private void AplicarSpritesFinais()
-    {
-        if (transformacoes == null) return;
-
-        foreach (var t in transformacoes)
-        {
-            if (t.alvo == null) continue;
-
-            if (t.spriteAoFim != null)
-            {
-                var sr = t.alvo.GetComponent<SpriteRenderer>();
-                if (sr != null)
-                    sr.sprite = t.spriteAoFim;
-                else
-                    Debug.LogWarning($"[CinematicSequence] {t.alvo.name} não tem SpriteRenderer — spriteAoFim ignorado.");
-            }
-
-            // Reativa o Animator se foi desativado para esta transformação
-            if (t.desativarAnimator)
-            {
-                var anim = t.alvo.GetComponent<Animator>();
-                if (anim != null) anim.enabled = true;
-            }
-
-            // Inverter flip do objeto ao fim
-            if (t.inverterFlipAoFim)
-            {
-                Vector3 scale = t.alvo.transform.localScale;
-                scale.x = -scale.x;
-                t.alvo.transform.localScale = scale;
-            }
-        }
-    }
-
-    // ── Aplicar transformações finais ─────────────────────────────────
-    private void AplicarTransformacoesFinais()
-    {
-        if (transformacoesFinais == null) return;
-
-        foreach (var t in transformacoesFinais)
-        {
-            if (t.alvo == null) continue;
-
-            if (t.alterarPosicao)
-                t.alvo.transform.localPosition = t.novaPosicaoLocal;
-
-            if (t.alterarRotacao)
-                t.alvo.transform.eulerAngles = t.novaRotacao;
-
-            if (t.novoSprite != null)
-            {
-                var sr = t.alvo.GetComponent<SpriteRenderer>();
-                if (sr != null)
-                    sr.sprite = t.novoSprite;
-                else
-                    Debug.LogWarning($"[CinematicSequence] {t.alvo.name} não tem SpriteRenderer — sprite ignorado.");
             }
 
             if (t.alterarAtivacao)
