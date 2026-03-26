@@ -28,6 +28,11 @@ public class CinematicSequence : MonoBehaviour
     [Tooltip("Lista de objetos que serão reposicionados e/ou terão o sprite trocado durante o fade.")]
     public System.Collections.Generic.List<TransformacaoPersonagem> transformacoes;
 
+    // ── Transformações finais (aplicadas após o diálogo final e RestaurarEstado) ──
+    [Header("4 · Transformações finais (após o diálogo final)")]
+    [Tooltip("Lista de objetos modificados APÓS o diálogo final terminar e os sprites serem restaurados.")]
+    public System.Collections.Generic.List<TransformacaoPersonagem> transformacoesFinais;
+
     // ── Diálogo 2 ────────────────────────────────────────────────────
     [Header("3 · Diálogo final (após o fade)")]
     public DialogueAsset dialogoFinal;
@@ -167,6 +172,7 @@ public class CinematicSequence : MonoBehaviour
             GameManager.Instance.inputBloqueado = false;
 
         RestaurarEstado();
+        AplicarTransformacoesFinais();
 
         Debug.Log("[CinematicSequence] Sequência cinemática concluída.");
     }
@@ -238,6 +244,39 @@ public class CinematicSequence : MonoBehaviour
                 scale.x = -scale.x;
                 t.alvo.transform.localScale = scale;
             }
+        }
+    }
+
+    // ── Aplicar transformações finais ─────────────────────────────────
+    private void AplicarTransformacoesFinais()
+    {
+        if (transformacoesFinais == null) return;
+
+        foreach (var t in transformacoesFinais)
+        {
+            if (t.alvo == null) continue;
+
+            if (t.alterarPosicao)
+                t.alvo.transform.localPosition = t.novaPosicaoLocal;
+
+            if (t.alterarRotacao)
+                t.alvo.transform.eulerAngles = t.novaRotacao;
+
+            if (t.novoSprite != null)
+            {
+                var sr = t.alvo.GetComponent<SpriteRenderer>();
+                if (sr != null)
+                {
+                    if (t.spriteOriginal == null)
+                        t.spriteOriginal = sr.sprite;
+                    sr.sprite = t.novoSprite;
+                }
+                else
+                    Debug.LogWarning($"[CinematicSequence] {t.alvo.name} não tem SpriteRenderer — sprite ignorado.");
+            }
+
+            if (t.alterarAtivacao)
+                t.alvo.SetActive(t.ativarOuDesativar);
         }
     }
 
