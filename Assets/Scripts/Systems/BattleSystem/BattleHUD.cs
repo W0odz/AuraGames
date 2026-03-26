@@ -17,14 +17,6 @@ public class BattleHUD : MonoBehaviour
     public Image portraitImage;
     public GameObject commandsPanel;
 
-    [Header("Botões de Ação do Jogador")]
-    [Tooltip("Arraste aqui o botão de Atacar do commandsPanel.")]
-    public Button botaoAtacar;
-    [Tooltip("Arraste aqui o botão de Item do commandsPanel.")]
-    public Button botaoItem;
-    [Tooltip("Arraste aqui o botão de Fugir do commandsPanel.")]
-    public Button botaoFugir;
-
     [Header("HP - Suave")]
     public TextMeshProUGUI hpText;
     public Slider hpSlider;
@@ -166,20 +158,20 @@ public class BattleHUD : MonoBehaviour
         yield return StartCoroutine(FadeHUD(0f));
     }
 
-    /// <summary>Desabilita os botões de ação do jogador (fora do turno do jogador).</summary>
+    /// <summary>Desabilita todos os botões filhos do commandsPanel (fora do turno do jogador).</summary>
     public void BloquearBotoes()
     {
-        if (botaoAtacar != null) botaoAtacar.interactable = false;
-        if (botaoItem   != null) botaoItem.interactable   = false;
-        if (botaoFugir  != null) botaoFugir.interactable  = false;
+        if (commandsPanel == null) return;
+        foreach (var btn in commandsPanel.GetComponentsInChildren<Button>(true))
+            btn.interactable = false;
     }
 
-    /// <summary>Habilita os botões de ação do jogador (início do turno do jogador).</summary>
+    /// <summary>Habilita todos os botões filhos do commandsPanel (início do turno do jogador).</summary>
     public void DesbloquearBotoes()
     {
-        if (botaoAtacar != null) botaoAtacar.interactable = true;
-        if (botaoItem   != null) botaoItem.interactable   = true;
-        if (botaoFugir  != null) botaoFugir.interactable  = true;
+        if (commandsPanel == null) return;
+        foreach (var btn in commandsPanel.GetComponentsInChildren<Button>(true))
+            btn.interactable = true;
     }
 
     public void MostrarMenuPrincipal()
