@@ -35,9 +35,10 @@ public class ObjectInteractIndicatorController : MonoBehaviour
     {
         if (indicador == null) return;
 
-        bool shouldShow = playerNearby
-            && !GameManager.Instance.inputBloqueado
-            && !DialogueRunner.Instance.IsDialogueActive;
+        bool inputBloqueado = GameManager.Instance != null && GameManager.Instance.inputBloqueado;
+        bool dialogoAtivo = DialogueRunner.Instance != null && DialogueRunner.Instance.IsDialogueActive;
+
+        bool shouldShow = playerNearby && !inputBloqueado && !dialogoAtivo;
 
         if (shouldShow && !indicador.gameObject.activeSelf)
             indicador.Mostrar();

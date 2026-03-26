@@ -1476,7 +1476,6 @@ GameObject:
   - component: {fileID: 254628906}
   - component: {fileID: 254628908}
   - component: {fileID: 254628907}
-  - component: {fileID: 254628909}
   m_Layer: 0
   m_Name: Indicador
   m_TagString: Untagged
@@ -1558,18 +1557,6 @@ SpriteRenderer:
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &254628908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 254628905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76d4e7c546582c54296d6e1019c02cc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractIndicator
---- !u!114 &254628909
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

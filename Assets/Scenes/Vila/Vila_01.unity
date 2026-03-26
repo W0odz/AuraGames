@@ -177285,6 +177285,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneChangeTrigger
       objectReference: {fileID: 0}
+    - target: {fileID: 1585137746379554311, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3625821216007796294, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: m_Size.x
       value: 5
@@ -177338,7 +177342,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6781801984226353272, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+    - {fileID: 690404543847584285, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
@@ -177591,13 +177597,40 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 3962938144179763279, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4467694312145797072, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8346847556875808920}
   m_SourcePrefab: {fileID: 100100000, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
 --- !u!1 &8346847556875808918 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4467694312145797072, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
   m_PrefabInstance: {fileID: 8346847556875808917}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8346847556875808919 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 120841610244389782, guid: 6de1fff18fe707846ad3cb083ad4f009, type: 3}
+  m_PrefabInstance: {fileID: 8346847556875808917}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76d4e7c546582c54296d6e1019c02cc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractIndicator
+--- !u!114 &8346847556875808920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8346847556875808918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5edaf70d947fc4e4d93d70af64a0ad2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectInteractIndicatorController
+  indicador: {fileID: 8346847556875808919}
 --- !u!1001 &8400535924822079942
 PrefabInstance:
   m_ObjectHideFlags: 0

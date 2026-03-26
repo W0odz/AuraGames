@@ -943,12 +943,16 @@ PrefabInstance:
       value: Spawnzones
       objectReference: {fileID: 0}
     - target: {fileID: 9156133694886097331, guid: 44d95482f1450884398bbaaf969c9ac2, type: 3}
+      propertyPath: respawnTime
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 9156133694886097331, guid: 44d95482f1450884398bbaaf969c9ac2, type: 3}
       propertyPath: battlePrefab
       value: 
       objectReference: {fileID: 6089210800779420423, guid: bb646ff2c343ebb4e8a7b620b4c7e4a5, type: 3}
     - target: {fileID: 9156133694886097331, guid: 44d95482f1450884398bbaaf969c9ac2, type: 3}
       propertyPath: numberOfEnemies
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9156133694886097331, guid: 44d95482f1450884398bbaaf969c9ac2, type: 3}
       propertyPath: explorationPrefab
@@ -222307,7 +222311,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8073931538270021683, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: spawnID
-      value: Casebre_01.1_Para_Floresta_02
+      value: Casebre_02.1_Para_Floresta_02
       objectReference: {fileID: 0}
     - target: {fileID: 8073931538270021683, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: goToScene
@@ -222354,7 +222358,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6781801984226353272, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+    - {fileID: 690404543847584285, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
@@ -222564,7 +222570,7 @@ Transform:
   m_GameObject: {fileID: 709019564}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.9478, y: 4.1654, z: 0}
+  m_LocalPosition: {x: -24.88, y: 4.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -230859,6 +230865,7 @@ GameObject:
   - component: {fileID: 1393592603}
   - component: {fileID: 1393592602}
   - component: {fileID: 1393592601}
+  - component: {fileID: 1393592606}
   m_Layer: 0
   m_Name: Cultista Morto_0
   m_TagString: Untagged
@@ -231029,6 +231036,19 @@ Transform:
   - {fileID: 1027624877}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1393592606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393592600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5edaf70d947fc4e4d93d70af64a0ad2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectInteractIndicatorController
+  indicador: {fileID: 1027624880}
 --- !u!1 &1402863859
 GameObject:
   m_ObjectHideFlags: 0
