@@ -12,6 +12,9 @@ public class DialogueAsset : ScriptableObject
     [Tooltip("Sprite exibido como fundo do painel de diálogo. Deixe vazio para fundo invisível.")]
     public Sprite fundoPainel;
 
+    [Tooltip("Se true, abre e fecha o painel SEM o FadeComAcao, mesmo quando fundoPainel estiver preenchido.")]
+    public bool suprimirFade = false;
+
     public DialogueNode[] nodes;
 
     [Header("Recompensas ao fim do diálogo (opcional)")]

@@ -102,7 +102,7 @@ public class DialogueRunner : MonoBehaviour
 
     void IniciarDialogoInterno(DialogueAsset asset, Action onEnd)
     {
-        if (asset.fundoPainel)
+        if (asset.fundoPainel && !asset.suprimirFade)
         {
             // Bloqueia input imediatamente e faz fade antes de abrir
             GameManager.Instance.inputBloqueado = true;
@@ -275,7 +275,7 @@ public class DialogueRunner : MonoBehaviour
         // o FadeToSceneCoroutine já controla o fade de saída antes de trocar de cena
         bool temCenaDestino = !string.IsNullOrEmpty(GameManager.Instance?.cenaDestinoPendente);
 
-        if (assetFinal != null && assetFinal.fundoPainel != null && !temCenaDestino)
+        if (assetFinal != null && assetFinal.fundoPainel != null && !temCenaDestino && !assetFinal.suprimirFade)
         {
             Time.timeScale = 1f;
             GameManager.Instance.FadeComAcao(() =>
