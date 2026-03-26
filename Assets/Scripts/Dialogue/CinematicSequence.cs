@@ -68,13 +68,14 @@ public class CinematicSequence : MonoBehaviour
         [Tooltip("Se true, restaura o sprite original do personagem ao fim da sequência.")]
         public bool restaurarSpriteAoFim = true;
 
-        [Header("Flip (opcional — exige SpriteRenderer)")]
-        [Tooltip("Se true, altera o flipX do SpriteRenderer do alvo no pico do preto.")]
-        public bool alterarFlipX = false;
-        public bool novoFlipX = false;
+        [Header("Flip do objeto (opcional)")]
+        [Tooltip("Se true, altera o flip horizontal do objeto inteiro (via localScale.x) no pico do preto.")]
+        public bool alterarFlip = false;
+        [Tooltip("Se true, inverte o sinal de localScale.x do objeto (flip para a esquerda). Se false, garante localScale.x positivo (flip para a direita).")]
+        public bool flipParaEsquerda = false;
 
-        [Tooltip("Se true, inverte o flipX atual ao fim da sequência (corrige orientação ao voltar para cena normal).")]
-        public bool inverterFlipXAoFim = false;
+        [Tooltip("Se true, inverte o flip horizontal do objeto inteiro (via localScale.x) ao fim da sequência.")]
+        public bool inverterFlipAoFim = false;
 
         [Header("Ativar/Desativar (opcional)")]
         [Tooltip("Se true, chama SetActive(ativarOuDesativar) no alvo.")]
@@ -165,7 +166,7 @@ public class CinematicSequence : MonoBehaviour
         if (GameManager.Instance != null)
             GameManager.Instance.inputBloqueado = false;
 
-        RestaurarSprites();
+        RestaurarEstado();
 
         Debug.Log("[CinematicSequence] Sequência cinemática concluída.");
     }
@@ -198,11 +199,12 @@ public class CinematicSequence : MonoBehaviour
                     Debug.LogWarning($"[CinematicSequence] {t.alvo.name} não tem SpriteRenderer — sprite ignorado.");
             }
 
-            if (t.alterarFlipX)
+            if (t.alterarFlip)
             {
-                var sr = t.alvo.GetComponent<SpriteRenderer>();
-                if (sr != null)
-                    sr.flipX = t.novoFlipX;
+                Vector3 scale = t.alvo.transform.localScale;
+                float absX = Mathf.Abs(scale.x);
+                scale.x = t.flipParaEsquerda ? -absX : absX;
+                t.alvo.transform.localScale = scale;
             }
 
             if (t.alterarAtivacao)
@@ -210,8 +212,8 @@ public class CinematicSequence : MonoBehaviour
         }
     }
 
-    // ── Restaurar sprites ─────────────────────────────────────────────
-    private void RestaurarSprites()
+    // ── Restaurar estado ──────────────────────────────────────────────
+    private void RestaurarEstado()
     {
         if (transformacoes == null) return;
 
@@ -229,9 +231,13 @@ public class CinematicSequence : MonoBehaviour
                     sr.sprite = spriteParaRestaurar;
             }
 
-            // Inverter flipX ao fim (para corrigir orientação)
-            if (t.inverterFlipXAoFim && sr != null)
-                sr.flipX = !sr.flipX;
+            // Inverter flip do objeto ao fim
+            if (t.inverterFlipAoFim)
+            {
+                Vector3 scale = t.alvo.transform.localScale;
+                scale.x = -scale.x;
+                t.alvo.transform.localScale = scale;
+            }
         }
     }
 
