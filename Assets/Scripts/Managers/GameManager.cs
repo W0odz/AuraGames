@@ -227,9 +227,9 @@ public class GameManager : MonoBehaviour
     /// Exibe uma imagem de transição em tela cheia por pelo menos <paramref name="duracaoMinima"/> segundos,
     /// depois vai para a BattleScene com fade. Chamado por PlayerMovement quando o inimigo tem imagemTransicaoBatalha.
     /// </summary>
-    public void IniciarTransicaoBatalha(Sprite imagemSplash, float duracaoMinima, DialogueAsset dialogoNaTransicao = null)
+    public void IniciarTransicaoBatalha(Sprite imagemSplash, float duracaoMinima, TMPro.TextMeshProUGUI textoTransicao = null)
     {
-        StartCoroutine(TransicaoBatalhaCoroutine(imagemSplash, duracaoMinima, dialogoNaTransicao));
+        StartCoroutine(TransicaoBatalhaCoroutine(imagemSplash, duracaoMinima, textoTransicao));
     }
 
     private IEnumerator FadeComAcaoCoroutine(System.Action aoEscurecer)
@@ -535,10 +535,12 @@ public class GameManager : MonoBehaviour
         yield return StartCoroutine(FadeInCoroutine());
     }
 
-    private IEnumerator TransicaoBatalhaCoroutine(Sprite imagemSplash, float duracaoMinima, DialogueAsset dialogoNaTransicao = null)
+    private IEnumerator TransicaoBatalhaCoroutine(Sprite imagemSplash, float duracaoMinima, TMPro.TextMeshProUGUI textoTransicao = null)
     {
+        // ── Etapa 1: Fade out da cena de exploração ───────────────────────
         yield return StartCoroutine(FadeOutCoroutine(false));
 
+        // ── Etapa 2: No pico do preto — prepara e ativa a imagem splash ───
         if (battleTransitionImage != null)
         {
             battleTransitionImage.sprite = imagemSplash;
@@ -546,42 +548,56 @@ public class GameManager : MonoBehaviour
             battleTransitionImage.gameObject.SetActive(true);
         }
 
+        // Prepara o texto: começa invisível
+        if (textoTransicao != null)
+        {
+            var c = textoTransicao.color;
+            c.a = 0f;
+            textoTransicao.color = c;
+            textoTransicao.gameObject.SetActive(true);
+        }
+
+        // ── Etapa 3: Fade in — revela a splash ────────────────────────────
         yield return StartCoroutine(FadeInCoroutine());
 
-        if (dialogoNaTransicao != null && DialogueRunner.Instance != null)
+        // ── Etapa 4: Fade in do texto (em paralelo com a splash já visível) ──
+        if (textoTransicao != null)
         {
-            // ── Etapa 4: Aguarda o tempo mínimo garantido com a splash visível ──
-            float espera = Mathf.Max(duracaoMinima, 3f);
-            yield return new WaitForSecondsRealtime(espera);
-
-            // ── Etapa 5: Fade out — escurece antes de mostrar o diálogo ─────
-            yield return StartCoroutine(FadeOutCoroutine(false));
-
-            // ── Etapa 6: Clareia parcialmente para o diálogo aparecer ───────
-            yield return StartCoroutine(FadeInParcialCoroutine(0.15f));
-
-            // ── Etapa 7: Dispara o diálogo e aguarda terminar ────────────────
-            bool dialogoTerminou = false;
-            DialogueRunner.Instance.StartDialogueImediato(dialogoNaTransicao, () => dialogoTerminou = true);
-            yield return new WaitUntil(() => dialogoTerminou);
-
-            // ── Etapa 8: Fade out após o diálogo ────────────────────────────
-            yield return StartCoroutine(FadeOutCoroutine(false));
-        }
-        else
-        {
-            float espera = Mathf.Max(duracaoMinima, 3f);
-            yield return new WaitForSecondsRealtime(espera);
-            yield return StartCoroutine(FadeOutCoroutine(false));
+            float t = 0f;
+            float fadeDuration = 1f;
+            while (t < fadeDuration)
+            {
+                t += Time.unscaledDeltaTime;
+                var c = textoTransicao.color;
+                c.a = Mathf.Clamp01(t / fadeDuration);
+                textoTransicao.color = c;
+                yield return null;
+            }
+            // Garante alpha final = 1
+            var cf = textoTransicao.color;
+            cf.a = 1f;
+            textoTransicao.color = cf;
         }
 
+        // ── Etapa 5: Aguarda o tempo mínimo garantido (mínimo 3s) ────────
+        float espera = Mathf.Max(duracaoMinima, 3f);
+        yield return new WaitForSecondsRealtime(espera);
+
+        // ── Etapa 6: Fade out da splash (e do texto junto) ────────────────
+        yield return StartCoroutine(FadeOutCoroutine(false));
+
+        // ── Etapa 7: No pico do preto — desativa splash e texto ──────────
         if (battleTransitionImage != null)
             battleTransitionImage.gameObject.SetActive(false);
+
+        if (textoTransicao != null)
+            textoTransicao.gameObject.SetActive(false);
 
         SceneManager.LoadScene("BattleScene");
         Time.timeScale = 1f;
         yield return new WaitForSecondsRealtime(0.1f);
 
+        // ── Etapa 8: Fade in da BattleScene ──────────────────────────────
         yield return StartCoroutine(FadeInCoroutine());
     }
 

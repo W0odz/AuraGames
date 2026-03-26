@@ -137,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
                     GameManager.Instance.IniciarTransicaoBatalha(
                         ai.imagemTransicaoBatalha,
                         ai.duracaoImagemTransicao,
-                        ai.dialogoNaTransicao
+                        ai.textoTransicao
                     );
                 }
                 // Prioridade 2: Diálogo pré-batalha
