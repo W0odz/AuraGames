@@ -192,6 +192,10 @@ public class PauseManager : MonoBehaviour
     {
         if (GameManager.Instance != null && GameManager.Instance.IsShuttingDown) return;
 
+        // Salva o progresso atual antes de voltar ao menu
+        if (GameManager.Instance != null)
+            GameManager.Instance.SaveCurrentGame();
+
         Time.timeScale = 1f;
         isPaused = false;
         PlayerPrefs.Save();
