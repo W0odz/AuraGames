@@ -33,8 +33,8 @@ public class CinematicSequence : MonoBehaviour
     [Header("3 · Diálogo final (após o fade)")]
     public DialogueAsset dialogoFinal;
 
-    // ── Transformações finais (aplicadas no pico de um segundo fade, após o diálogo final) ──
-    [Header("4 · Transformações finais (fade out → aplica → fade in, após o diálogo final)"))]
+    // ── Transformações finais ─────────────────────────────────────────
+    [Header("4 · Transformações finais (fade out → aplica → fade in, após o diálogo final)")]
     [Tooltip("Lista de objetos modificados no pico de um segundo fade APÓS o diálogo final terminar.")]
     public System.Collections.Generic.List<TransformacaoPersonagem> transformacoesFinais;
 
@@ -187,33 +187,41 @@ public class CinematicSequence : MonoBehaviour
 
         foreach (var t in lista)
         {
-            if (t.alvo == null) continue;
+            // Usa ReferenceEquals para detectar objetos Unity destruídos
+            if (t == null || ReferenceEquals(t.alvo, null) || !t.alvo) continue;
 
-            if (t.alterarPosicao)
-                t.alvo.transform.localPosition = t.novaPosicaoLocal;
-
-            if (t.alterarRotacao)
-                t.alvo.transform.eulerAngles = t.novaRotacao;
-
-            if (t.novoSprite != null)
+            try
             {
-                var sr = t.alvo.GetComponent<SpriteRenderer>();
-                if (sr != null)
-                    sr.sprite = t.novoSprite;
-                else
-                    Debug.LogWarning($"[CinematicSequence] {t.alvo.name} não tem SpriteRenderer — sprite ignorado.");
-            }
+                if (t.alterarPosicao)
+                    t.alvo.transform.localPosition = t.novaPosicaoLocal;
 
-            if (t.alterarFlip)
+                if (t.alterarRotacao)
+                    t.alvo.transform.eulerAngles = t.novaRotacao;
+
+                if (t.novoSprite != null)
+                {
+                    var sr = t.alvo.GetComponent<SpriteRenderer>();
+                    if (sr != null)
+                        sr.sprite = t.novoSprite;
+                    else
+                        Debug.LogWarning($"[CinematicSequence] {t.alvo.name} não tem SpriteRenderer — sprite ignorado.");
+                }
+
+                if (t.alterarFlip)
+                {
+                    Vector3 scale = t.alvo.transform.localScale;
+                    float absX = Mathf.Abs(scale.x);
+                    scale.x = t.flipParaEsquerda ? -absX : absX;
+                    t.alvo.transform.localScale = scale;
+                }
+
+                if (t.alterarAtivacao)
+                    t.alvo.SetActive(t.ativarOuDesativar);
+            }
+            catch (System.Exception e)
             {
-                Vector3 scale = t.alvo.transform.localScale;
-                float absX = Mathf.Abs(scale.x);
-                scale.x = t.flipParaEsquerda ? -absX : absX;
-                t.alvo.transform.localScale = scale;
+                Debug.LogError($"[CinematicSequence] Erro ao aplicar transformação: {e.Message}");
             }
-
-            if (t.alterarAtivacao)
-                t.alvo.SetActive(t.ativarOuDesativar);
         }
     }
 
