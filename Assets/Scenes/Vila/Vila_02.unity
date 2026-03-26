@@ -147962,6 +147962,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneChangeTrigger (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1585137746379554311, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1585137746379554311, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.16
+      objectReference: {fileID: 0}
     - target: {fileID: 3625821216007796294, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: m_Size.x
       value: 2.8288002
