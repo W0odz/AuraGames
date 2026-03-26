@@ -550,12 +550,22 @@ public class GameManager : MonoBehaviour
 
         if (dialogoNaTransicao != null && DialogueRunner.Instance != null)
         {
+            // ── Etapa 4: Aguarda o tempo mínimo garantido com a splash visível ──
+            float espera = Mathf.Max(duracaoMinima, 3f);
+            yield return new WaitForSecondsRealtime(espera);
+
+            // ── Etapa 5: Fade out — escurece antes de mostrar o diálogo ─────
+            yield return StartCoroutine(FadeOutCoroutine(false));
+
+            // ── Etapa 6: Clareia parcialmente para o diálogo aparecer ───────
             yield return StartCoroutine(FadeInParcialCoroutine(0.15f));
 
+            // ── Etapa 7: Dispara o diálogo e aguarda terminar ────────────────
             bool dialogoTerminou = false;
             DialogueRunner.Instance.StartDialogueImediato(dialogoNaTransicao, () => dialogoTerminou = true);
             yield return new WaitUntil(() => dialogoTerminou);
 
+            // ── Etapa 8: Fade out após o diálogo ────────────────────────────
             yield return StartCoroutine(FadeOutCoroutine(false));
         }
         else
