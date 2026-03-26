@@ -51,8 +51,11 @@ public class CinematicSequence : MonoBehaviour
     [System.Serializable]
     public class TransformacaoPersonagem
     {
-        [Tooltip("O GameObject do personagem / objeto a ser modificado.")]
+        [Tooltip("O GameObject do personagem / objeto a ser modificado. Se vazio, usa tagDoAlvo para buscar em runtime.")]
         public GameObject alvo;
+
+        [Tooltip("Tag do GameObject a buscar em runtime. Usado quando 'alvo' está vazio ou foi destruído.")]
+        public string tagDoAlvo;
 
         [Header("Posição (opcional)")]
         [Tooltip("Se true, teleporta o alvo para novaPosicaoLocal (posição local) no pico do preto.")]
@@ -180,6 +183,26 @@ public class CinematicSequence : MonoBehaviour
         Debug.Log("[CinematicSequence] Sequência cinemática concluída.");
     }
 
+    // ── Resolver alvo em runtime ──────────────────────────────────────
+    private GameObject ResolverAlvo(TransformacaoPersonagem t)
+    {
+        // Tenta usar a referência direta primeiro
+        if (t.alvo != null)
+            return t.alvo;
+
+        // Fallback: busca por tag em runtime
+        if (!string.IsNullOrEmpty(t.tagDoAlvo))
+        {
+            var encontrado = GameObject.FindWithTag(t.tagDoAlvo);
+            if (encontrado != null)
+                return encontrado;
+
+            Debug.LogWarning($"[CinematicSequence] Nenhum objeto encontrado com tag '{t.tagDoAlvo}'.");
+        }
+
+        return null;
+    }
+
     // ── Aplicar transformações ────────────────────────────────────────
     private void AplicarTransformacoes(System.Collections.Generic.List<TransformacaoPersonagem> lista)
     {
@@ -187,40 +210,46 @@ public class CinematicSequence : MonoBehaviour
 
         foreach (var t in lista)
         {
-            // Usa ReferenceEquals para detectar objetos Unity destruídos
-            if (t == null || ReferenceEquals(t.alvo, null) || !t.alvo) continue;
+            if (t == null) continue;
+
+            var alvo = ResolverAlvo(t);
+            if (alvo == null)
+            {
+                Debug.LogWarning("[CinematicSequence] Alvo não encontrado — transformação ignorada.");
+                continue;
+            }
 
             try
             {
                 if (t.alterarPosicao)
-                    t.alvo.transform.localPosition = t.novaPosicaoLocal;
+                    alvo.transform.localPosition = t.novaPosicaoLocal;
 
                 if (t.alterarRotacao)
-                    t.alvo.transform.eulerAngles = t.novaRotacao;
+                    alvo.transform.eulerAngles = t.novaRotacao;
 
                 if (t.novoSprite != null)
                 {
-                    var sr = t.alvo.GetComponent<SpriteRenderer>();
+                    var sr = alvo.GetComponent<SpriteRenderer>();
                     if (sr != null)
                         sr.sprite = t.novoSprite;
                     else
-                        Debug.LogWarning($"[CinematicSequence] {t.alvo.name} não tem SpriteRenderer — sprite ignorado.");
+                        Debug.LogWarning($"[CinematicSequence] {alvo.name} não tem SpriteRenderer — sprite ignorado.");
                 }
 
                 if (t.alterarFlip)
                 {
-                    Vector3 scale = t.alvo.transform.localScale;
+                    Vector3 scale = alvo.transform.localScale;
                     float absX = Mathf.Abs(scale.x);
                     scale.x = t.flipParaEsquerda ? -absX : absX;
-                    t.alvo.transform.localScale = scale;
+                    alvo.transform.localScale = scale;
                 }
 
                 if (t.alterarAtivacao)
-                    t.alvo.SetActive(t.ativarOuDesativar);
+                    alvo.SetActive(t.ativarOuDesativar);
             }
             catch (System.Exception e)
             {
-                Debug.LogError($"[CinematicSequence] Erro ao aplicar transformação: {e.Message}");
+                Debug.LogError($"[CinematicSequence] Erro ao aplicar transformação em '{alvo.name}': {e.Message}");
             }
         }
     }
