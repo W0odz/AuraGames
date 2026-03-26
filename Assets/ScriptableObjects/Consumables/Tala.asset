@@ -19,7 +19,7 @@ MonoBehaviour:
   slotOndeEquipa: 5
   efeitosDoItem:
   - {fileID: 11400000, guid: 6861ceb1096e8214aa884d9780384424, type: 2}
-  valorEscambo: 1
+  valorEscambo: 3
   bonusStrength: 0
   bonusResistance: 0
   bonusMaxHP: 0
