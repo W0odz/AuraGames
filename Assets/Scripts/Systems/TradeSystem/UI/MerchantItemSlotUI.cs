@@ -19,7 +19,7 @@ public class MerchantItemSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerE
 
         // Mostra quantidade se o campo existir e for > 0
         if (textoQtd != null)
-            textoQtd.text = quantidade > 0 ? $"x{quantidade}" : "";
+            textoQtd.text = quantidade > 0 ? $"{quantidade}" : "";
 
         botao.onClick.RemoveAllListeners();
         botao.onClick.AddListener(() => onClick());

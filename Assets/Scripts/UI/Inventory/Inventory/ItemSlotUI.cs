@@ -27,9 +27,9 @@ public class ItemSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
                     amountText.enabled = true;
 
                     // --- LÓGICA DE AJUSTE DE TAMANHO ---
-                    amountText.enableAutoSizing = true; // Ativa o redimensionamento automático
-                    amountText.fontSizeMin = 12;        // Tamanho mínimo (para não ficar ilegível)
+                    amountText.enableAutoSizing = false; // Ativa o redimensionamento automático
                     amountText.fontSizeMax = 24;        // Tamanho máximo (o padrão do seu slot)
+                    amountText.fontSize = qty <= 9 ? amountText.fontSizeMax : amountText.fontSizeMax * 0.63f;
                 }
                 else
                 {
