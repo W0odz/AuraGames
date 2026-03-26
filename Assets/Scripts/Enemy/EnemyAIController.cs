@@ -42,6 +42,10 @@ public class EnemyAIController : MonoBehaviour
     [Tooltip("Texto TMP que aparece com fade in por cima da imagem de transição. Deixe vazio para não exibir texto.")]
     public TMPro.TextMeshProUGUI textoTransicao;
 
+    [Tooltip("Segundos de espera antes de o texto começar a aparecer (após o fade in da imagem).")]
+    [Min(0f)]
+    public float delayTextoTransicao = 1f;
+
     [Header("Configuracao de Perseguicao")]
     public float chaseDuration = 10f;
     private Coroutine chaseCoroutine;
