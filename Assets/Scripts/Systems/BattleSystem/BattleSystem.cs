@@ -82,6 +82,21 @@ public class BattleSystem : MonoBehaviour
     [Tooltip("ID do inimigo que não permite fuga.")]
     public string noFleeEnemyID;
 
+    [Header("Música de Batalha Específica")]
+    [Tooltip("ID do inimigo (currentEnemyID) que dispara a música especial.")]
+    public string musicaBatalhaEspecialEnemyID;
+    [Tooltip("AudioClip a tocar em loop durante esta batalha específica.")]
+    public AudioClip musicaBatalhaEspecial;
+    [Tooltip("Volume inicial da música especial (0 a 1).")]
+    [Range(0f, 1f)]
+    public float volumeMusicaEspecial = 1f;
+    [Tooltip("Duração do fade out da música ao fim da batalha (segundos).")]
+    [Min(0f)]
+    public float duracaoFadeOutMusica = 1f;
+
+    // ── AudioSource interno criado em runtime ─────────────────────────
+    private AudioSource _musicaSource;
+
     public BattleState state;
 
     private void Awake()
@@ -141,6 +156,19 @@ public class BattleSystem : MonoBehaviour
         {
             string enemyId = GameManager.Instance?.currentEnemyID ?? enemyUnit.unitName;
             QuestManager.Instance.NotificarInicioCombate(enemyId);
+        }
+
+        // ── Inicia música especial se o inimigo bater com o ID configurado ──
+        string idAtual = GameManager.Instance?.currentEnemyID ?? enemyUnit.unitName;
+        if (!string.IsNullOrEmpty(musicaBatalhaEspecialEnemyID)
+            && idAtual == musicaBatalhaEspecialEnemyID
+            && musicaBatalhaEspecial != null)
+        {
+            _musicaSource = gameObject.AddComponent<AudioSource>();
+            _musicaSource.clip = musicaBatalhaEspecial;
+            _musicaSource.loop = true;
+            _musicaSource.volume = volumeMusicaEspecial;
+            _musicaSource.Play();
         }
 
         if (dialogueText != null)
@@ -437,9 +465,31 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
+    // ── Fade out da música especial ───────────────────────────────────
+    private IEnumerator FadeOutMusicaEspecial()
+    {
+        if (_musicaSource == null || !_musicaSource.isPlaying) yield break;
+
+        float volumeInicial = _musicaSource.volume;
+        float t = 0f;
+
+        while (t < duracaoFadeOutMusica)
+        {
+            t += Time.deltaTime;
+            _musicaSource.volume = Mathf.Lerp(volumeInicial, 0f, t / duracaoFadeOutMusica);
+            yield return null;
+        }
+
+        _musicaSource.Stop();
+        _musicaSource.volume = volumeInicial;
+    }
+
     public IEnumerator EndBattle()
     {
         state = BattleState.WON;
+
+        // Fade out da música especial
+        yield return StartCoroutine(FadeOutMusicaEspecial());
 
         // Notifica o QuestManager sobre a morte do inimigo
         if (QuestManager.Instance != null && enemyUnit != null)
@@ -681,6 +731,9 @@ public class BattleSystem : MonoBehaviour
             if (dialogueText != null)
                 dialogueText.text = "Você fugiu da batalha!";
 
+            // Fade out da música especial ao fugir
+            yield return StartCoroutine(FadeOutMusicaEspecial());
+
             yield return new WaitForSeconds(1.5f);
 
             if (GameManager.Instance != null)
@@ -711,6 +764,9 @@ public class BattleSystem : MonoBehaviour
     private IEnumerator GameOver()
     {
         state = BattleState.LOST;
+
+        // Fade out da música especial no game over
+        yield return StartCoroutine(FadeOutMusicaEspecial());
 
         if (playerHUD != null && playerHUD.commandsPanel != null)
             playerHUD.commandsPanel.SetActive(false);
