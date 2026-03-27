@@ -28894,6 +28894,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3488857973617487640, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
+      propertyPath: audioMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 5fd8bb447ba2cd443b2387bf8decffbe, type: 2}
     - target: {fileID: 3973174108740180508, guid: bf5eee6f62bebc34ba8ac9226cd29896, type: 3}
       propertyPath: m_Name
       value: DialogueBackground

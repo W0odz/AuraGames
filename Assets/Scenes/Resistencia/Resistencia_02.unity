@@ -4764,60 +4764,60 @@ MonoBehaviour:
   dialogoInicial: {fileID: 11400000, guid: 9a35770aea2645744badf25064a42568, type: 2}
   transformacoes:
   - alvo: {fileID: 1810657110}
+    tagDoAlvo: 
     alterarPosicao: 0
     novaPosicaoLocal: {x: 0, y: 0, z: 0}
     alterarRotacao: 0
     novaRotacao: {x: 0, y: 0, z: 0}
     novoSprite: {fileID: 0}
-    spriteAoFim: {fileID: 0}
     alterarFlip: 0
     flipParaEsquerda: 0
-    inverterFlipAoFim: 1
+    inverterFlipAoFim: 0
     alterarAtivacao: 0
     ativarOuDesativar: 0
   - alvo: {fileID: 919382262}
+    tagDoAlvo: 
     alterarPosicao: 1
     novaPosicaoLocal: {x: 11.18, y: 0.9, z: 0}
     alterarRotacao: 1
     novaRotacao: {x: 0, y: 0, z: 0}
     novoSprite: {fileID: 0}
-    spriteAoFim: {fileID: 0}
     alterarFlip: 0
     flipParaEsquerda: 0
     inverterFlipAoFim: 0
     alterarAtivacao: 0
     ativarOuDesativar: 0
   - alvo: {fileID: 2103280101}
+    tagDoAlvo: 
     alterarPosicao: 1
     novaPosicaoLocal: {x: 5.89, y: 5.12, z: 0}
     alterarRotacao: 1
     novaRotacao: {x: 0, y: 0, z: 0}
     novoSprite: {fileID: 0}
-    spriteAoFim: {fileID: 0}
     alterarFlip: 0
     flipParaEsquerda: 0
     inverterFlipAoFim: 0
     alterarAtivacao: 0
     ativarOuDesativar: 0
   - alvo: {fileID: 1582376961}
+    tagDoAlvo: 
     alterarPosicao: 1
     novaPosicaoLocal: {x: -2.92, y: 4.95, z: 0}
     alterarRotacao: 0
     novaRotacao: {x: 0, y: 0, z: 0}
     novoSprite: {fileID: 0}
-    spriteAoFim: {fileID: 0}
     alterarFlip: 0
     flipParaEsquerda: 0
     inverterFlipAoFim: 0
     alterarAtivacao: 0
     ativarOuDesativar: 0
   - alvo: {fileID: 1947203144}
+    tagDoAlvo: 
     alterarPosicao: 1
     novaPosicaoLocal: {x: 2.37, y: -0.41, z: 0}
     alterarRotacao: 0
     novaRotacao: {x: 0, y: 0, z: 0}
     novoSprite: {fileID: 0}
-    spriteAoFim: {fileID: 0}
     alterarFlip: 0
     flipParaEsquerda: 0
     inverterFlipAoFim: 0
@@ -4826,15 +4826,15 @@ MonoBehaviour:
   dialogoFinal: {fileID: 11400000, guid: 03b02c98aa0f3c145ac62b3fc561975a, type: 2}
   transformacoesFinais:
   - alvo: {fileID: 1810657110}
+    tagDoAlvo: Player
     alterarPosicao: 0
     novaPosicaoLocal: {x: 0, y: 0, z: 0}
     alterarRotacao: 0
     novaRotacao: {x: 0, y: 0, z: 0}
-    novoSprite: {fileID: 0}
-    spriteAoFim: {fileID: 4864374997012256764, guid: 325db2e0d86360248aead14a91112d00, type: 3}
+    novoSprite: {fileID: 4864374997012256764, guid: 325db2e0d86360248aead14a91112d00, type: 3}
     alterarFlip: 0
     flipParaEsquerda: 0
-    inverterFlipAoFim: 0
+    inverterFlipAoFim: 1
     alterarAtivacao: 0
     ativarOuDesativar: 0
   velocidadeFade: 0
