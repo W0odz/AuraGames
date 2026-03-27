@@ -148140,6 +148140,10 @@ PrefabInstance:
       value: Resistencia
       objectReference: {fileID: 0}
     - target: {fileID: 8073931538270021683, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+      propertyPath: playerObject
+      value: 
+      objectReference: {fileID: 5871582622266504628}
+    - target: {fileID: 8073931538270021683, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: precisaInteragir
       value: 1
       objectReference: {fileID: 0}
@@ -188278,6 +188282,10 @@ PrefabInstance:
       propertyPath: goToScene
       value: Floresta_02
       objectReference: {fileID: 0}
+    - target: {fileID: 8073931538270021683, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+      propertyPath: playerObject
+      value: 
+      objectReference: {fileID: 5871582622266504628}
     - target: {fileID: 8728713674120308150, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 193.5
@@ -188418,6 +188426,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64c8f1e97c85169438488846248d355a, type: 3}
+--- !u!1 &5871582622266504628 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5114076709285204727, guid: 64c8f1e97c85169438488846248d355a, type: 3}
+  m_PrefabInstance: {fileID: 5871582622266504627}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8400535924822079942
 PrefabInstance:
   m_ObjectHideFlags: 0

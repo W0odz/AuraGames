@@ -4653,6 +4653,10 @@ PrefabInstance:
       value: Vila_02
       objectReference: {fileID: 0}
     - target: {fileID: 8073931538270021683, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+      propertyPath: playerObject
+      value: 
+      objectReference: {fileID: 1810657110}
+    - target: {fileID: 8073931538270021683, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: precisaInteragir
       value: 1
       objectReference: {fileID: 0}
@@ -5542,6 +5546,11 @@ PrefabInstance:
 --- !u!4 &1810657109 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6533698976016816849, guid: 64c8f1e97c85169438488846248d355a, type: 3}
+  m_PrefabInstance: {fileID: 1810657108}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1810657110 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5114076709285204727, guid: 64c8f1e97c85169438488846248d355a, type: 3}
   m_PrefabInstance: {fileID: 1810657108}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1857527843 stripped
