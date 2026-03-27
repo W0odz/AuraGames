@@ -275,6 +275,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4571048091219829467, guid: 6939700f8b7516742aac741d0e7999c5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -282.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5813181905211318564, guid: 6939700f8b7516742aac741d0e7999c5, type: 3}
       propertyPath: m_Name
       value: PauseRoot
@@ -282,6 +286,10 @@ PrefabInstance:
     - target: {fileID: 7200861272571052108, guid: 6939700f8b7516742aac741d0e7999c5, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194595099223372071, guid: 6939700f8b7516742aac741d0e7999c5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -17.6
       objectReference: {fileID: 0}
     - target: {fileID: 8282169833702197606, guid: 6939700f8b7516742aac741d0e7999c5, type: 3}
       propertyPath: m_Pivot.x

@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.Audio;
 using System.Collections;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class PauseManager : MonoBehaviour
 {
@@ -26,6 +27,9 @@ public class PauseManager : MonoBehaviour
     public GameObject configPanel;
     public GameObject soundPanel;
     public GameObject controlsPanel;
+
+    [Header("Botões")]
+    public GameObject botaoDeSave;
 
     [Header("Sliders de Áudio")]
     public Slider sliderGeral;
@@ -184,6 +188,26 @@ public class PauseManager : MonoBehaviour
     {
         if (controlsPanel != null) controlsPanel.SetActive(false);
         if (configPanel   != null) configPanel.SetActive(true);
+    }
+
+    // -- Salvar ----------------------------------------------------
+
+    public void OnSalvarButton()
+    {
+        if (GameManager.Instance != null)
+            GameManager.Instance.SaveCurrentGame();
+        StartCoroutine(SaveButtonAnim());
+    }
+
+    IEnumerator SaveButtonAnim()
+    {
+        Debug.Log("Inicio da Corrotina");
+        botaoDeSave.GetComponentInChildren<TextMeshProUGUI>().text = "Salvo!";
+
+        yield return new WaitForSecondsRealtime(1f);
+
+        Debug.Log("Espera passou");
+        botaoDeSave.GetComponentInChildren<TextMeshProUGUI>().text = "Salvar";
     }
 
     // ── Sair ──────────────────────────────────────────────────────

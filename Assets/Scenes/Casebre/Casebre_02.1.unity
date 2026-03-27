@@ -222446,6 +222446,10 @@ PrefabInstance:
       propertyPath: goToScene
       value: Floresta_02
       objectReference: {fileID: 0}
+    - target: {fileID: 8073931538270021683, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+      propertyPath: playerObject
+      value: 
+      objectReference: {fileID: 971223260}
     - target: {fileID: 8728713674120308150, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -22.375
@@ -229742,6 +229746,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneChangeTrigger_Calabouco
       objectReference: {fileID: 0}
+    - target: {fileID: 1062666765458882614, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3625821216007796294, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: m_Size.x
       value: 1.9022202
@@ -229766,6 +229774,10 @@ PrefabInstance:
       propertyPath: goToScene
       value: Calabouco
       objectReference: {fileID: 0}
+    - target: {fileID: 8073931538270021683, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
+      propertyPath: playerObject
+      value: 
+      objectReference: {fileID: 971223260}
     - target: {fileID: 8073931538270021683, guid: 900ba58508b524943bda2e2c1026c1b6, type: 3}
       propertyPath: itemNecessario
       value: "Chave do Calabou\xE7o"
@@ -230006,6 +230018,11 @@ PrefabInstance:
 --- !u!4 &971223259 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6533698976016816849, guid: 64c8f1e97c85169438488846248d355a, type: 3}
+  m_PrefabInstance: {fileID: 971223258}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &971223260 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5114076709285204727, guid: 64c8f1e97c85169438488846248d355a, type: 3}
   m_PrefabInstance: {fileID: 971223258}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &985647527
@@ -232592,6 +232609,14 @@ PrefabInstance:
       propertyPath: controlsPanel
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1811729982111679785, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: listaItens.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1811729982111679785, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
+      propertyPath: listaItens.Array.data[0].item
+      value: 
+      objectReference: {fileID: 11400000, guid: c6b62ea77d60ff449ba41b66096831bb, type: 2}
     - target: {fileID: 2207976064434011169, guid: 0e1c08fcc3c037e40abb16e4a1c8b4c8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.28455

@@ -3454,6 +3454,7 @@ MonoBehaviour:
   itemSlotPrefab: {fileID: 2997039392933908848, guid: 4d1b33e8ada402b4faf0bf25d4485c69, type: 3}
   txtTotalAttack: {fileID: 1523899869874060985}
   txtTotalDefense: {fileID: 971476032794443139}
+  txtMaxHp: {fileID: 248853198122555361}
 --- !u!1 &5866546300008688539
 GameObject:
   m_ObjectHideFlags: 0

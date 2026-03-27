@@ -14,6 +14,9 @@ public class SceneTransition : MonoBehaviour
     [Tooltip("Nome do item necessário para passar. Deixe vazio para não exigir nenhum item.")]
     [SerializeField] private string itemNecessario = "";
 
+    [Header("Objeto do Player")]
+    public GameObject playerObject;
+
     [Header("Transição Única (opcional)")]
     [Tooltip("Se true, essa transição só ocorre uma vez. Usa o transitionID para persistir.")]
     [SerializeField] private bool apenasUmaVez = false;
@@ -89,6 +92,7 @@ public class SceneTransition : MonoBehaviour
                 QuestManager.Instance?.NotificarSceneTransition(transitionID);
 
             GameManager.Instance.pendingSpawnID = spawnID;
+            playerObject.GetComponent<CapsuleCollider2D>().enabled = false;
             GameManager.Instance.LoadSceneWithFade(goToScene);
         }
     }
