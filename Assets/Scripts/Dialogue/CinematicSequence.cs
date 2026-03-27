@@ -17,7 +17,7 @@ public class CinematicSequence : MonoBehaviour
 {
     // ── Flag de ativação ─────────────────────────────────────────────
     [Header("Ativação")]
-    [Tooltip("Se true, a sequência dispara automaticamente ao carregar a cena.")]
+    [Tooltip("Se true, a sequência dispara automaticamente ao carregar a cena.")]  
     public bool dispararAoCarregar = false;
 
     // ── Diálogo 1 ────────────────────────────────────────────────────
@@ -206,50 +206,85 @@ public class CinematicSequence : MonoBehaviour
     // ── Aplicar transformações ────────────────────────────────────────
     private void AplicarTransformacoes(System.Collections.Generic.List<TransformacaoPersonagem> lista)
     {
-        if (lista == null) return;
-
-        foreach (var t in lista)
+        if (lista == null)
         {
-            if (t == null) continue;
+            Debug.Log("[CinematicSequence] AplicarTransformacoes: lista é null.");
+            return;
+        }
+
+        Debug.Log($"[CinematicSequence] AplicarTransformacoes: {lista.Count} entradas.");
+
+        for (int i = 0; i < lista.Count; i++)
+        {
+            var t = lista[i];
+            if (t == null)
+            {
+                Debug.Log($"[CinematicSequence] Entrada [{i}] é null — ignorada.");
+                continue;
+            }
 
             var alvo = ResolverAlvo(t);
             if (alvo == null)
             {
-                Debug.LogWarning("[CinematicSequence] Alvo não encontrado — transformação ignorada.");
+                Debug.LogWarning($"[CinematicSequence] Entrada [{i}]: alvo não encontrado (alvo={{t.alvo}}, tag='{{t.tagDoAlvo}}') — ignorada.");
                 continue;
             }
+
+            Debug.Log($"[CinematicSequence] Entrada [{i}]: alvo='{{alvo.name}}' | novoSprite={{( t.novoSprite != null ? t.novoSprite.name : "null")}} | alterarFlip={{t.alterarFlip}} | flipParaEsquerda={{t.flipParaEsquerda}} | localScale={{alvo.transform.localScale}}");
 
             try
             {
                 if (t.alterarPosicao)
+                {
                     alvo.transform.localPosition = t.novaPosicaoLocal;
+                    Debug.Log($"[CinematicSequence] Entrada [{i}]: posição aplicada → {{t.novaPosicaoLocal}}:");
+                }
 
                 if (t.alterarRotacao)
+                {
                     alvo.transform.eulerAngles = t.novaRotacao;
+                    Debug.Log($"[CinematicSequence] Entrada [{i}]: rotação aplicada → {{t.novaRotacao}}:");
+                }
 
                 if (t.novoSprite != null)
                 {
                     var sr = alvo.GetComponent<SpriteRenderer>();
                     if (sr != null)
+                    {
+                        Sprite spriteAnterior = sr.sprite;
                         sr.sprite = t.novoSprite;
+                        Debug.Log($"[CinematicSequence] Entrada [{i}]: sprite trocado '{{(spriteAnterior != null ? spriteAnterior.name : "null")}}' → '{{t.novoSprite.name}}'");
+                    }
                     else
-                        Debug.LogWarning($"[CinematicSequence] {alvo.name} não tem SpriteRenderer — sprite ignorado.");
+                    {
+                        Debug.LogWarning($"[CinematicSequence] Entrada [{i}]: '{{alvo.name}}' não tem SpriteRenderer na raiz — tentando em filhos...");
+                        var srFilho = alvo.GetComponentInChildren<SpriteRenderer>();
+                        if (srFilho != null)
+                            Debug.LogWarning($"[CinematicSequence] Entrada [{i}]: SpriteRenderer encontrado no filho '{{srFilho.gameObject.name}}' — aponte o alvo diretamente para esse filho.");
+                        else
+                            Debug.LogWarning($"[CinematicSequence] Entrada [{i}]: nenhum SpriteRenderer encontrado em '{{alvo.name}}' nem nos filhos.");
+                    }
                 }
 
                 if (t.alterarFlip)
                 {
                     Vector3 scale = alvo.transform.localScale;
                     float absX = Mathf.Abs(scale.x);
+                    Debug.Log($"[CinematicSequence] Entrada [{i}]: localScale antes do flip={{alvo.transform.localScale}}:");
                     scale.x = t.flipParaEsquerda ? -absX : absX;
                     alvo.transform.localScale = scale;
+                    Debug.Log($"[CinematicSequence] Entrada [{i}]: flip aplicado → localScale={{alvo.transform.localScale}}:");
                 }
 
                 if (t.alterarAtivacao)
+                {
                     alvo.SetActive(t.ativarOuDesativar);
+                    Debug.Log($"[CinematicSequence] Entrada [{i}]: SetActive({t.ativarOuDesativar}) aplicado.");
+                }
             }
             catch (System.Exception e)
             {
-                Debug.LogError($"[CinematicSequence] Erro ao aplicar transformação em '{alvo.name}': {e.Message}");
+                Debug.LogError($"[CinematicSequence] Erro ao aplicar transformação em '{{alvo.name}}': {{e.Message}}");
             }
         }
     }
