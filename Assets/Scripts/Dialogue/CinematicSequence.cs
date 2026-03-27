@@ -25,7 +25,7 @@ public class CinematicSequence : MonoBehaviour
     public DialogueAsset dialogoInicial;
 
     // ── Transformações durante o fade ────────────────────────────────
-    [Header("2 · Transformações no pico do fade (tela preta)")]
+    [Header("2 · Transformações no pico do fade (tela preta)"]
     [Tooltip("Lista de objetos que serão reposicionados e/ou terão o sprite trocado durante o fade.")]
     public System.Collections.Generic.List<TransformacaoPersonagem> transformacoes;
 
@@ -206,65 +206,52 @@ public class CinematicSequence : MonoBehaviour
     // ── Aplicar transformações ────────────────────────────────────────
     private void AplicarTransformacoes(System.Collections.Generic.List<TransformacaoPersonagem> lista)
     {
-        if (lista == null)
-        {
-            Debug.Log("[CinematicSequence] AplicarTransformacoes: lista é null.");
-            return;
-        }
-
-        Debug.Log($"[CinematicSequence] AplicarTransformacoes: {lista.Count} entradas.");
+        if (lista == null) return;
 
         for (int i = 0; i < lista.Count; i++)
         {
             var t = lista[i];
-            if (t == null)
-            {
-                Debug.Log($"[CinematicSequence] Entrada [{i}] é null — ignorada.");
-                continue;
-            }
+            if (t == null) continue;
 
             var alvo = ResolverAlvo(t);
             if (alvo == null)
             {
-                string alvoRef = t.alvo != null ? t.alvo.name : "(null)";
-                Debug.LogWarning($"[CinematicSequence] Entrada [{i}]: alvo nao encontrado (alvo={alvoRef}, tag='{t.tagDoAlvo}') — ignorada.");
+                Debug.LogWarning("[CinematicSequence] Alvo não encontrado — transformação ignorada.");
                 continue;
             }
-
-            string nomeSprite = t.novoSprite != null ? t.novoSprite.name : "(null)";
-            Debug.Log($"[CinematicSequence] Entrada [{i}]: alvo='{alvo.name}' | novoSprite={nomeSprite} | alterarFlip={t.alterarFlip} | flipParaEsquerda={t.flipParaEsquerda} | localScale={alvo.transform.localScale}");
 
             try
             {
                 if (t.alterarPosicao)
-                {
                     alvo.transform.localPosition = t.novaPosicaoLocal;
-                    Debug.Log($"[CinematicSequence] Entrada [{i}]: posicao aplicada -> {t.novaPosicaoLocal}");
-                }
 
                 if (t.alterarRotacao)
-                {
                     alvo.transform.eulerAngles = t.novaRotacao;
-                    Debug.Log($"[CinematicSequence] Entrada [{i}]: rotacao aplicada -> {t.novaRotacao}");
-                }
 
                 if (t.novoSprite != null)
                 {
                     var sr = alvo.GetComponent<SpriteRenderer>();
                     if (sr != null)
                     {
-                        string nomeAnterior = sr.sprite != null ? sr.sprite.name : "(null)";
                         sr.sprite = t.novoSprite;
-                        Debug.Log($"[CinematicSequence] Entrada [{i}]: sprite trocado '{nomeAnterior}' -> '{t.novoSprite.name}'");
+
+                        // Força o Animator a re-entrar no estado atual para que ele
+                        // respeite o novo sprite (sem Write Defaults, o re-enter não
+                        // sobrescreve o sprite; com ele desligado isso é seguro).
+                        var anim = alvo.GetComponent<Animator>();
+                        if (anim != null && anim.isActiveAndEnabled)
+                        {
+                            AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+                            anim.Play(stateInfo.fullPathHash, 0, 0f);
+                        }
                     }
                     else
                     {
-                        Debug.LogWarning($"[CinematicSequence] Entrada [{i}]: '{alvo.name}' nao tem SpriteRenderer na raiz — tentando em filhos...");
                         var srFilho = alvo.GetComponentInChildren<SpriteRenderer>();
                         if (srFilho != null)
-                            Debug.LogWarning($"[CinematicSequence] Entrada [{i}]: SpriteRenderer encontrado no filho '{srFilho.gameObject.name}' — aponte o alvo diretamente para esse filho.");
+                            Debug.LogWarning($"[CinematicSequence] '{alvo.name}' não tem SpriteRenderer na raiz — aponte o alvo diretamente para o filho '{srFilho.gameObject.name}'.");
                         else
-                            Debug.LogWarning($"[CinematicSequence] Entrada [{i}]: nenhum SpriteRenderer encontrado em '{alvo.name}' nem nos filhos.");
+                            Debug.LogWarning($"[CinematicSequence] Nenhum SpriteRenderer encontrado em '{alvo.name}' nem nos filhos.");
                     }
                 }
 
@@ -272,21 +259,16 @@ public class CinematicSequence : MonoBehaviour
                 {
                     Vector3 scale = alvo.transform.localScale;
                     float absX = Mathf.Abs(scale.x);
-                    Debug.Log($"[CinematicSequence] Entrada [{i}]: localScale antes do flip={alvo.transform.localScale}");
                     scale.x = t.flipParaEsquerda ? -absX : absX;
                     alvo.transform.localScale = scale;
-                    Debug.Log($"[CinematicSequence] Entrada [{i}]: flip aplicado -> localScale={alvo.transform.localScale}");
                 }
 
                 if (t.alterarAtivacao)
-                {
                     alvo.SetActive(t.ativarOuDesativar);
-                    Debug.Log($"[CinematicSequence] Entrada [{i}]: SetActive({t.ativarOuDesativar}) aplicado.");
-                }
             }
             catch (System.Exception e)
             {
-                Debug.LogError($"[CinematicSequence] Erro ao aplicar transformacao em '{alvo.name}': {e.Message}");
+                Debug.LogError($"[CinematicSequence] Erro ao aplicar transformação em '{alvo.name}': {e.Message}");
             }
         }
     }
