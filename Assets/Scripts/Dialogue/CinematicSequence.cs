@@ -20,12 +20,12 @@ public class CinematicSequence : MonoBehaviour
     [Tooltip("Se true, a sequência dispara automaticamente ao carregar a cena.")]
     public bool dispararAoCarregar = false;
 
-    // ── Diálogo 1 ────────────────────────────────────────────────────
+    // ── Diálogo 1 ────��───────────────────────────────────────────────
     [Header("1 · Diálogo inicial (imediato ao entrar na cena)")]
     public DialogueAsset dialogoInicial;
 
     // ── Transformações durante o fade ────────────────────────────────
-    [Header("2 · Transformações no pico do fade (tela preta)"]
+    [Header("2 · Transformações no pico do fade (tela preta)")]
     [Tooltip("Lista de objetos que serão reposicionados e/ou terão o sprite trocado durante o fade.")]
     public System.Collections.Generic.List<TransformacaoPersonagem> transformacoes;
 
@@ -236,8 +236,7 @@ public class CinematicSequence : MonoBehaviour
                         sr.sprite = t.novoSprite;
 
                         // Força o Animator a re-entrar no estado atual para que ele
-                        // respeite o novo sprite (sem Write Defaults, o re-enter não
-                        // sobrescreve o sprite; com ele desligado isso é seguro).
+                        // respeite o novo sprite (Write Defaults desligado é necessário).
                         var anim = alvo.GetComponent<Animator>();
                         if (anim != null && anim.isActiveAndEnabled)
                         {
@@ -249,9 +248,9 @@ public class CinematicSequence : MonoBehaviour
                     {
                         var srFilho = alvo.GetComponentInChildren<SpriteRenderer>();
                         if (srFilho != null)
-                            Debug.LogWarning($"[CinematicSequence] '{alvo.name}' não tem SpriteRenderer na raiz — aponte o alvo diretamente para o filho '{srFilho.gameObject.name}'.");
+                            Debug.LogWarning("[CinematicSequence] '" + alvo.name + "' nao tem SpriteRenderer na raiz — aponte o alvo para o filho '" + srFilho.gameObject.name + "'.");
                         else
-                            Debug.LogWarning($"[CinematicSequence] Nenhum SpriteRenderer encontrado em '{alvo.name}' nem nos filhos.");
+                            Debug.LogWarning("[CinematicSequence] Nenhum SpriteRenderer encontrado em '" + alvo.name + "' nem nos filhos.");
                     }
                 }
 
@@ -268,7 +267,7 @@ public class CinematicSequence : MonoBehaviour
             }
             catch (System.Exception e)
             {
-                Debug.LogError($"[CinematicSequence] Erro ao aplicar transformação em '{alvo.name}': {e.Message}");
+                Debug.LogError("[CinematicSequence] Erro ao aplicar transformacao em '" + alvo.name + "': " + e.Message);
             }
         }
     }
