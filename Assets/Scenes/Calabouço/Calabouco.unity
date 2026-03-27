@@ -50531,6 +50531,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 496924424957221024, guid: 64c8f1e97c85169438488846248d355a, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5114076709285204727, guid: 64c8f1e97c85169438488846248d355a, type: 3}
       propertyPath: m_Name
       value: Player
@@ -54533,7 +54537,7 @@ MonoBehaviour:
   dialogoUnico: {fileID: 11400000, guid: 3eb1606af5f90c3498d346b1d6977b3b, type: 2}
   questVinculada: {fileID: 0}
   isMerchant: 0
-  indicador: {fileID: 0}
+  indicador: {fileID: 254628908}
 --- !u!114 &1921068165
 MonoBehaviour:
   m_ObjectHideFlags: 0

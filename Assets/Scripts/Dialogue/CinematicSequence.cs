@@ -237,12 +237,6 @@ public class CinematicSequence : MonoBehaviour
 
                         // Força o Animator a re-entrar no estado atual para que ele
                         // respeite o novo sprite (Write Defaults desligado é necessário).
-                        var anim = alvo.GetComponent<Animator>();
-                        if (anim != null && anim.isActiveAndEnabled)
-                        {
-                            AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-                            anim.Play(stateInfo.fullPathHash, 0, 0f);
-                        }
                     }
                     else
                     {
