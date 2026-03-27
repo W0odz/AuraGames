@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class InventoryUIManager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class InventoryUIManager : MonoBehaviour
     [Header("Status do Rodape (Icones)")]
     public TextMeshProUGUI txtTotalAttack;
     public TextMeshProUGUI txtTotalDefense;
+    public TextMeshProUGUI txtMaxHp;
 
     private void Awake()
     {
@@ -103,9 +105,11 @@ public class InventoryUIManager : MonoBehaviour
     {
         int totalAtk = GameManager.Instance != null ? GameManager.Instance.strength : 0;
         int totalDef = GameManager.Instance != null ? GameManager.Instance.resistance : 0;
+        int maxHp = GameManager.Instance != null ? GameManager.Instance.maxHP : 0;
 
         if (txtTotalAttack != null) txtTotalAttack.text = totalAtk.ToString();
         if (txtTotalDefense != null) txtTotalDefense.text = totalDef.ToString();
+        if (txtMaxHp != null) txtMaxHp.text = "Saúde: " + GameManager.Instance.currentHP + "/" + maxHp.ToString();
     }
 
     public void OpenBackpack()

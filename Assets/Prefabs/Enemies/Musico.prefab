@@ -2540,11 +2540,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUnit
   unitName: "M\xFAsico"
   unitPortrait: {fileID: 0}
-  maxHP: 80
-  currentHP: 80
+  maxHP: 100
+  currentHP: 100
   maxMP: 0
   currentMP: 0
-  strength: 10
+  strength: 12
   resistance: 0
   speed: 0
   luck: 0

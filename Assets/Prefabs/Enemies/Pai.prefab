@@ -1551,11 +1551,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyUnit
   unitName: "Ca\xE7ador"
   unitPortrait: {fileID: 0}
-  maxHP: 90
-  currentHP: 90
+  maxHP: 150
+  currentHP: 150
   maxMP: 0
   currentMP: 0
-  strength: 12
+  strength: 15
   resistance: 0
   speed: 0
   luck: 0
