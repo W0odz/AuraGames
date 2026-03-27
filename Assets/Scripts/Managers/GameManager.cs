@@ -331,6 +331,11 @@ public class GameManager : MonoBehaviour
         positionToLoad = new Vector3(data.posX, data.posY, data.posZ);
         isLoadingSave = true; // Avisa o sistema que estamos carregando um save
 
+        // Reseta flags de batalha para que isLoadingSave tenha prioridade
+        isReturningFromBattle = false;
+        playerReturnPosition = Vector3.zero;
+        pendingSpawnID = "";
+
         // Carrega itens de cena
         sceneCollectedItems = new Dictionary<string, List<string>>();
         if (data.sceneCollectedItems != null)
